@@ -1,0 +1,47 @@
+* {
+  margin: 0 auto;
+}
+
+.timetable__container {
+  border-radius: 10px;
+  background-color: #fafafa;
+  border: 2px solid #bbbbbb;
+  padding: 10px;
+}
+
+.timetable__table {
+  border: 1px solid #cccccc;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.timetable__row {
+  border: 1px solid #cccccc;
+  height: 6vh;
+}
+
+.timetable__item {
+  border: 1px solid #cccccc;
+}
+
+.timetable__timeslot {
+  border: 1px solid #cccccc;
+  background-color: #eeeeee;
+  width: 10%;
+}
+
+.timetable__subject {
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18%;
+  overflow: hidden;
+  position: absolute;
+  padding: 5px;
+  /* border: 1px solid #aaaaaa; */
+  box-sizing: border-box;
+}
