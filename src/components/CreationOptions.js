@@ -4,10 +4,10 @@ import "../App.css"
 function CreationOptions(props) {
 
   return (
-    <div className='app__creationoptions'>
-      <h2 style={{ marginBottom: "10px" }}>강좌 검색하기</h2>
+    <div>
+      <h2 className="mid_title">강좌 검색하기</h2>
       <input type="text" value={props.subjName} onChange={props.handleInputChange} className="input-1"></input>
-      {"\t"}
+      {"\t\t"}
       <input 
         className='checkbox-1'
         type="checkbox"

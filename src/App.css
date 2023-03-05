@@ -12,6 +12,12 @@
   text-align: center;
 }
 
+.mid_title {
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
 .app {
   position: relative;
 }
@@ -21,14 +27,10 @@
   margin-top: 2vh;
 }
 
-.app__timetable {
-  border: 2px solid #aaaaaa;
-  background-color: #d8ebf2;
-  padding: 15px;
-  /* width: 50%; */
-  border-radius: 10px;
-  margin-bottom: 30px;
+.app__parentbox {
+  max-height: 78vh;
 }
+
 
 .app__header {
   /* position: fixed; */
@@ -50,8 +52,16 @@
 }
 
 .app__creationoptions {
+  border: 2px solid #aaaaaa;
+  background-color: #d8ebf2;
+  padding: 10px;
+  /* width: 50%; */
+  border-radius: 10px;
+  margin-bottom: 3vh;
   white-space: pre-wrap;
+  height: 15vh;
 }
+
 
 .input-1 {
   text-align: left;

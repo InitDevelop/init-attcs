@@ -1,6 +1,7 @@
 import subjects from "../db/data.json";
-import React, { useState } from 'react'
+import React from 'react'
 import '../css/Table.css';
+import '../App.css';
 import LectureBoxSearch from "./LectureBoxSearch";
 
 
@@ -23,12 +24,8 @@ function SubjectSearchList(props) {
   }
 
   return (
-    <div>
-    {
-      (
       <div className="table__container">
-        
-        <h2 style={{marginTop: "5px", marginBottom: "10px"}}>찾은 강좌</h2>
+        <span className="mid_title">찾은 강좌</span>
         <div className="table__scroll_container">
         <table className="table_borderless">
           <tbody>
@@ -37,7 +34,6 @@ function SubjectSearchList(props) {
               let isRelated = isRelatedName(props.subj_name, subject.subj_name);
               let isRelatedKeyWord = (props.keyWord === "") || isRelatedName(props.keyWord, subject.extra_info);
               return (props.subj_name !== "") && isRelated && isRelatedKeyWord ? (
-                
                 <LectureBoxSearch
                 setHoveredSubj = {props.setHoveredSubj}
                 setSubjHover = {props.setSubjHover}
@@ -56,8 +52,6 @@ function SubjectSearchList(props) {
         </div>
       </div>
       )
-    }
-  </div>)
 }
 
 export default SubjectSearchList;

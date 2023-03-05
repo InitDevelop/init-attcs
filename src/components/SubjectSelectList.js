@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import '../css/Table.css';
+import '../App.css';
 import LectureBoxSelected from "./LectureBoxSelected";
-
 
 function SubjectSelectList(props) {
   return (
     <div>
     {props.selSubj.length > 0 && (
       <div className="table__sel_subjects">
-      <h2 style={{marginTop: "5px", marginBottom: "15px"}}>담은 강좌</h2>
+      <span className='mid_title'>담은 강좌</span>
         <div className="table__sel_scroll_container">
           <table className="table">
             <tbody>

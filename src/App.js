@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import SubjectSearchList from './components/SubjectSearchList';
 import SubjectSelectList from './components/SubjectSelectList';
 import CreationOptions from './components/CreationOptions';
@@ -133,8 +133,8 @@ function App() {
         <tbody>
           <tr>
             <td style={{ verticalAlign: "top", width: "32%" }}>
-            
-            <div className="app__timetable">
+            <div className='app__parentbox'>
+            <div className="app__creationoptions">
                 <CreationOptions
                   handleInputChange={handleInputChange}
                   subjName={subjName}
@@ -144,7 +144,8 @@ function App() {
                   keyWord={keyWord}
                   handleKeywordChange={handleKeywordChange}
                   />
-              </div>
+            </div>
+            <div className='app__subject_search_list'>
               <SubjectSearchList 
                 list_show={listShow}
                 subj_name={subjName}
@@ -159,9 +160,12 @@ function App() {
                 setSubjHover={setSubjHover}
                 setHoveredSubj={setHoveredSubj}
                 />
+            </div>
+            </div>
             </td>
             <td style={{ verticalAlign: "top", width: "2vh" }} />
             <td style={{ verticalAlign: "top", width: "32%" }}>
+            <div className='app__parentbox'>
               <SubjectSelectList 
                 list_show={listShow}
                 subj_name={subjName}
@@ -176,9 +180,11 @@ function App() {
                 setSubjHover={setSubjHover}
                 setHoveredSubj={setHoveredSubj}
                 />
+              </div>
             </td>
             <td style={{ verticalAlign: "top", width: "2vh" }} />
             <td style={{ verticalAlign: "top", width: "32%" }}>
+            <div className='app__parentbox'>
               <TimeTable
                 selSubj={selSubj}
                 setShowTooltip={setShowTooltip}
@@ -186,6 +192,7 @@ function App() {
                 hoveredSubj={hoveredSubj}
                 subjHover={subjHover}
               />
+            </div>
             </td>
           </tr>
         </tbody>
