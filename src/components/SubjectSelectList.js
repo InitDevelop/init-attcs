@@ -4,6 +4,15 @@ import '../App.css';
 import LectureBoxSelected from "./LectureBoxSelected";
 
 function SubjectSelectList(props) {
+
+  function getCreditSum() {
+    let sum = 0;
+    for (let i = 0; i < props.selSubj.length; i++) {
+      sum += parseInt(props.selSubj[i].credit);
+    }
+    return sum;
+  }
+
   return (
     <div>
     {props.selSubj.length > 0 && (

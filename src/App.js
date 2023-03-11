@@ -1,5 +1,6 @@
 import './App.css';
 import React, {useState, useEffect, useRef} from "react";
+import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import SubjectSearchList from './components/SubjectSearchList';
 import SubjectSelectList from './components/SubjectSelectList';
 import CreationOptions from './components/CreationOptions';
@@ -27,6 +28,9 @@ function App() {
 
   const [subjHover, setSubjHover] = useState(false);
   const [hoveredSubj, setHoveredSubj] = useState([]);
+
+  const [subjPopupSubj, setSubjPopupSubj] = useState([]);
+  const [showSubjPopup, setShowSubjPopup] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -113,28 +117,32 @@ function App() {
     setShowPopup(true);
   }
 
-  return (
-    <div className="app" onMouseMove={handleMouseMove}>
-      {/* APP HEADER */}
+  const displaySubjPopup = (subject) => {
+    setSubjPopupSubj(subject);
+    setShowSubjPopup(true);
+  }
 
-      <div className="app__header">
-        <img src={logo} 
-          style={{width: "auto", height:"7vh", marginLeft:"50px", marginRight:"10px"}}
-        />
-        <h1 className="app__headerText">
-          Automatic TimeTable Creator for SNU Students
-        </h1>
-        <h3 className="app__headerText">
-          서울대학교 학생을 위한 자동 시간표 생성 프로그램
-        </h3>
+  return (
+    <BrowserRouter>
+      <div className="app" onMouseMove={handleMouseMove}>
+      <div className='app__header_container'>
+        <div className="app__header">
+          <img src={logo} 
+            style={{width: "auto", height: "7vh", marginRight: "30px"}}
+          />
+          <div className='app__header_links'>
+            <Link to="/" className='links'>시간표</Link>
+            <Link to="/add" className='links'>과목 담기</Link>
+            <Link to="/create" className='links'>자동 생성</Link>
+          </div>
+        </div>
       </div>
 
-      <table className='app__table'>
-        <tbody>
-          <tr>
-            <td style={{ verticalAlign: "top", width: "32%" }}>
+      <Routes>
+        <Route exact path="/" element={ 
+          <div className='app__maincontainer'>
             <div className='app__parentbox'>
-            <div className="app__creationoptions">
+              <div className="app__creationoptions">
                 <CreationOptions
                   handleInputChange={handleInputChange}
                   subjName={subjName}
@@ -144,27 +152,24 @@ function App() {
                   keyWord={keyWord}
                   handleKeywordChange={handleKeywordChange}
                   />
+              </div>
+              <div className='app__subject_search_list'>
+                <SubjectSearchList 
+                  list_show={listShow}
+                  subj_name={subjName}
+                  addSelSubj={addSelSubj}
+                  selSubj={selSubj}
+                  handlePopSubject={handlePopSubject}
+                  isExistingSubj={isExistingSubj}
+                  allowMult={allowMult}
+                  handleKeywordChange={handleKeywordChange}
+                  keyWord={keyWord}
+                  displayPopup={displayPopup}
+                  setSubjHover={setSubjHover}
+                  setHoveredSubj={setHoveredSubj}
+                  />
+              </div>
             </div>
-            <div className='app__subject_search_list'>
-              <SubjectSearchList 
-                list_show={listShow}
-                subj_name={subjName}
-                addSelSubj={addSelSubj}
-                selSubj={selSubj}
-                handlePopSubject={handlePopSubject}
-                isExistingSubj={isExistingSubj}
-                allowMult={allowMult}
-                handleKeywordChange={handleKeywordChange}
-                keyWord={keyWord}
-                displayPopup={displayPopup}
-                setSubjHover={setSubjHover}
-                setHoveredSubj={setHoveredSubj}
-                />
-            </div>
-            </div>
-            </td>
-            <td style={{ verticalAlign: "top", width: "2vh" }} />
-            <td style={{ verticalAlign: "top", width: "32%" }}>
             <div className='app__parentbox'>
               <SubjectSelectList 
                 list_show={listShow}
@@ -180,10 +185,7 @@ function App() {
                 setSubjHover={setSubjHover}
                 setHoveredSubj={setHoveredSubj}
                 />
-              </div>
-            </td>
-            <td style={{ verticalAlign: "top", width: "2vh" }} />
-            <td style={{ verticalAlign: "top", width: "32%" }}>
+            </div>
             <div className='app__parentbox'>
               <TimeTable
                 selSubj={selSubj}
@@ -193,35 +195,26 @@ function App() {
                 subjHover={subjHover}
               />
             </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br></br>
+          </div>
+          }/>
+        </Routes>
+        {showTooltip && (
+          <Tooltip
+            tooltipContent={tooltipContent}
+            tooltipPosition={tooltipPosition}
+            scrollPosition={scrollPosition}
+          />
+        )}
 
-      {/* TOOLTIP */}
-
-      {showTooltip && (
-        <Tooltip
-          tooltipContent={tooltipContent}
-          tooltipPosition={tooltipPosition}
-          scrollPosition={scrollPosition}
-        />
-      )}
-
-
-
-      {/* POPUP */}
-
-      {showPopup && (
-        <Popup
-          title={popupTitle}
-          content={popupContent}
-          onClose={closePopup}
-        />
-      )}
-
-    </div>
+        {showPopup && (
+          <Popup
+            title={popupTitle}
+            content={popupContent}
+            onClose={closePopup}
+          />
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 

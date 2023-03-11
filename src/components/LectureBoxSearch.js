@@ -13,6 +13,10 @@ function LectureBoxSearch(props) {
           props.setSubjHover(false);
         }
       }
+      onClick={ (event) => {
+          
+        }
+      }
     >
       <table className='lecturebox__table' style={{width: "100%"}}>
         <tbody>

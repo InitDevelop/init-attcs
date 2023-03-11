@@ -32,7 +32,8 @@ function SubjectSearchList(props) {
             {subjects.subjects
             .map(subject => {
               let isRelated = isRelatedName(props.subj_name, subject.subj_name);
-              let isRelatedKeyWord = (props.keyWord === "") || isRelatedName(props.keyWord, subject.extra_info);
+              let isRelatedKeyWord = (props.keyWord === "") || subject.extra_info.replace(' ', '').includes(props.keyWord);
+              // let isRelatedKeyWord = (props.keyWord === "") || isRelatedName(props.keyWord, subject.extra_info);
               return (props.subj_name !== "") && isRelated && isRelatedKeyWord ? (
                 <LectureBoxSearch
                 setHoveredSubj = {props.setHoveredSubj}

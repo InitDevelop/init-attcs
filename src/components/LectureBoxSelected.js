@@ -21,7 +21,7 @@ function LectureBoxSelected(props) {
               <table className='lecturebox__table_in_table'>
                 <tbody>
                   <tr>
-                  <td colspan="2">
+                  <td colSpan="2">
                     <span style={{fontWeight: "600"}}>{props.subject.subj_name + "  "}</span>
                     { (props.subject.extra_info.includes("®")) && (
                       <button className='button-tiny' onClick={
