@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import SubjectSearchList from './components/SubjectSearchList';
 import SubjectSelectList from './components/SubjectSelectList';
 import CreationOptions from './components/CreationOptions';
+import Add from './routes/Add'
 import TimeTable from './components/TimeTable';
 import Popup from './components/Popup';
 import Tooltip from './components/Tooltip';
@@ -28,6 +29,8 @@ function App() {
 
   const [subjHover, setSubjHover] = useState(false);
   const [hoveredSubj, setHoveredSubj] = useState([]);
+
+  const [addedSubj, setAddedSubj] = useState([]);
 
   const [subjPopupSubj, setSubjPopupSubj] = useState([]);
   const [showSubjPopup, setShowSubjPopup] = useState(false);
@@ -167,6 +170,8 @@ function App() {
                   displayPopup={displayPopup}
                   setSubjHover={setSubjHover}
                   setHoveredSubj={setHoveredSubj}
+                  addedSubj={addedSubj}
+                  setAddedSubj={setAddedSubj}
                   />
               </div>
             </div>
@@ -184,6 +189,8 @@ function App() {
                 displayPopup={displayPopup}
                 setSubjHover={setSubjHover}
                 setHoveredSubj={setHoveredSubj}
+                addedSubj={addedSubj}
+                setAddedSubj={setAddedSubj}
                 />
             </div>
             <div className='app__parentbox'>
@@ -197,6 +204,22 @@ function App() {
             </div>
           </div>
           }/>
+          <Route path="/add" element={<Add
+            list_show={listShow}
+            subj_name={subjName}
+            addSelSubj={addSelSubj}
+            selSubj={selSubj}
+            handlePopSubject={handlePopSubject}
+            isExistingSubj={isExistingSubj}
+            allowMult={allowMult}
+            handleKeywordChange={handleKeywordChange}
+            keyWord={keyWord}
+            displayPopup={displayPopup}
+            setSubjHover={setSubjHover}
+            setHoveredSubj={setHoveredSubj}
+            addedSubj={addedSubj}
+            setAddedSubj={setAddedSubj}
+            />}/>
         </Routes>
         {showTooltip && (
           <Tooltip

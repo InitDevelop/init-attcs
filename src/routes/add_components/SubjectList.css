@@ -1,0 +1,30 @@
+.list__subjectlist {
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 12px #999;
+}
+
+.list__subjectgroupbox {
+  white-space: pre-wrap;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 1px 5px #555;
+}
+
+.list__subjectgroupbox h2 {
+  font-size: larger;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.list__addedsubject {
+  padding: 10px;
+  border: 2px solid lightgray;
+}
+
+.list__addedsubject h3 {
+  font-weight: 500;
+  font-size: larger;
+  text-align: left;
+}

@@ -5,25 +5,26 @@
 
 .timetable__container {
   border-radius: 10px;
-  background-color: #fafafa;
-  border: 2px solid #bbbbbb;
-  padding: 10px;
+  /* background-color: #fafafa;
+  border: 2px solid #bbbbbb; */
+  padding: 20px;
   height: 100%;
+  box-shadow: 0px 0px 12px #999;
 }
 
 .timetable__table {
-  border: 1px solid #cccccc;
+  border: 2px solid #cccccc;
   border-collapse: collapse;
   width: 100%;
 }
 
 .timetable__row {
-  border: 1px solid #cccccc;
+  border: 2px solid #cccccc;
   height: 6vh;
 }
 
 .timetable__item {
-  border: 1px solid #cccccc;
+  border: 2px solid #cccccc;
 }
 
 .timetable__timeslot {

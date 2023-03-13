@@ -2,13 +2,7 @@
   margin: 0 auto;
 }
 
-.table {
-  margin: 0 auto;
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table_borderless {
+.table__table {
   margin: 0 auto;
   width: 100%;
   border-collapse: collapse;
@@ -19,20 +13,24 @@
 }
 
 .table__container {
-  border-radius: 10px;
+  /* 
   border: 2px solid #bbbbbb;
-  background-color: #d8ebf2;
-  padding: 10px;
+  background-color: #d8ebf2; */
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px #999;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   max-height: 100%;
 }
 
 .table__sel_subjects {
-  border-radius: 10px;
+  /* 
   border: 2px solid #bbbbbb;
-  background-color: #d8def2;
-  padding: 10px;
+  background-color: #d8def2; */
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px #999;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   max-height: 100%;
