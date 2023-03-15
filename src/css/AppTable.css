@@ -1,40 +1,48 @@
 /* SEARCH CONTAINER */
 
 .appTable__container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  flex-grow: 1;
+  flex-shrink: 1;
+
   padding: 20px;
-  height: 100%;
+  width: calc(100% - 40px);
 
   border-radius: 10px;
   box-shadow: 0px 0px 12px #999;
 }
 
-.appTable__scrollContainer {
+.appTable__scrollContainer, .appTable__selectScrollContainer {
+  position: absolute;
+
   overflow: auto;
+
   
-  flex-grow: 1;
-  width: 100%;
+  top: 60px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
 
   border: 2px solid #bbbbbb;
 }
+
+
+/* SELECT CONTAINER */
 
 .appTable__containerFull {
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  flex-grow: 1;
+  flex-shrink: 1;
 
   padding: 20px;
-  height: 100%;
+  width: calc(100% - 40px);
 
   border-radius: 10px;
   box-shadow: 0px 0px 12px #999;
-}
-
-/* SELECT CONTAINER */
-
-.appTable__selectScrollContainer {
-  overflow: auto;
-  
-  flex-grow: 1;
-  width: 100%;
-
-  border: 2px solid #bbbbbb;
 }

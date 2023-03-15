@@ -14,7 +14,16 @@ function SubjectSelectList(props) {
 
   return (
     <div className="appTable__containerFull">
-      <span className='mid_title'>담은 강좌</span>
+      <h2 className='mid_title' style={{ width: "100%" }}>
+        <span style={{ marginRight: "5%" }}>담은 강좌</span>
+        <label className='label-1' style={{ fontWeight: "normal" }}>
+          <input 
+            className='checkbox-1'
+            type="checkbox"
+            checked={props.allowMult}
+            onChange={props.handleAllowMultChange}
+        /> 중복 허용</label>
+      </h2>
       <div className="appTable__selectScrollContainer">
         {props.selSubj.map(
           subject => {

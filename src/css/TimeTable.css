@@ -8,6 +8,10 @@
 
   padding: 20px;
   height: 100%;
+  width: calc(100% - 40px);
+
+  flex-grow: 1;
+  flex-shrink: 1;
 
   box-shadow: 0px 0px 12px #999;
 }
@@ -26,10 +30,11 @@
 
 .timetable__item {
   border: 2px solid #cccccc;
+  width: 18%;
 }
 
 .timetable__timeslot {
-  border: 1px solid #cccccc;
+  border: 2px solid #cccccc;
   background-color: #eeeeee;
   width: 10%;
 }
@@ -38,7 +43,7 @@
   color: #fff;
   border-radius: 5px;
   font-weight: 400;
-  font-size: 15px;
+  font-size: large;
   display: flex;
   align-items: center;
   justify-content: center;

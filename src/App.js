@@ -148,11 +148,6 @@ function App() {
               <CreationOptions
                 handleInputChange={handleInputChange}
                 subjName={subjName}
-                allowMult={allowMult}
-                setAllowMul={setAllowMult}
-                handleAllowMultChange={handleAllowMultChange}
-                keyWord={keyWord}
-                handleKeywordChange={handleKeywordChange}
                 />
               <SubjectSearchList 
                 list_show={listShow}
@@ -187,6 +182,8 @@ function App() {
                 setHoveredSubj={setHoveredSubj}
                 addedSubj={addedSubj}
                 setAddedSubj={setAddedSubj}
+                setAllowMul={setAllowMult}
+                handleAllowMultChange={handleAllowMultChange}
                 />
             </div>
             <div className='app__parentContainer'>
