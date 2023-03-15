@@ -1,5 +1,4 @@
 import React from 'react'
-import "../css/Table.css"
 import "../css/TimeTable.css"
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
@@ -101,7 +100,6 @@ function TimeTable(props) {
 
   return (
     <div className='timetable__container'>
-      {/* <h2 style={{marginBottom: "10px"}}>시간표</h2> */}
       <div style={{position: 'relative'}}>
         <table className='timetable__table'>
           <tbody>

@@ -1,6 +1,6 @@
 import subjects from "../db/data.json";
 import React from 'react'
-import '../css/Table.css';
+import '../css/AppTable.css';
 import '../App.css';
 import LectureBox from "./LectureBox";
 
@@ -24,27 +24,27 @@ function SubjectSearchList(props) {
   }
 
   return (
-    <div className="table__container">
-      <span className="mid_title">찾은 강좌</span>
-      <div className="table__scroll_container">
+    <div className="appTable__container">
+      <h2 className="mid_title">찾은 강좌</h2>
+      <div className="appTable__scrollContainer">
         {subjects.subjects
         .map(subject => {
           let isRelated = isRelatedName(props.subj_name, subject.subj_name);
           let isRelatedKeyWord = (props.keyWord === "") || subject.extra_info.replace(' ', '').includes(props.keyWord);
           return (props.subj_name !== "") && isRelated && isRelatedKeyWord ? (
-                <LectureBox
-                boxType = "search"
-                setHoveredSubj = {props.setHoveredSubj}
-                setSubjHover = {props.setSubjHover}
-                subject = {subject}
-                displayPopup = {props.displayPopup}
-                addSelSubj = {props.addSelSubj}
-                selSubj = {props.selSubj}
-                isExistingSubj = {props.isExistingSubj}
-                handlePopSubject = {props.handlePopSubject}
-                addedSubj={props.addedSubj}
-                setAddedSubj={props.setAddedSubj}
-              />
+            <LectureBox
+            boxType = "search"
+            setHoveredSubj = {props.setHoveredSubj}
+            setSubjHover = {props.setSubjHover}
+            subject = {subject}
+            displayPopup = {props.displayPopup}
+            addSelSubj = {props.addSelSubj}
+            selSubj = {props.selSubj}
+            isExistingSubj = {props.isExistingSubj}
+            handlePopSubject = {props.handlePopSubject}
+            addedSubj={props.addedSubj}
+            setAddedSubj={props.setAddedSubj}
+          />
           ) : ""
         }
         )}

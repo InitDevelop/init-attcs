@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import SubjectSearchList from './components/SubjectSearchList';
 import SubjectSelectList from './components/SubjectSelectList';
@@ -130,7 +130,7 @@ function App() {
       <div className="app" onMouseMove={handleMouseMove}>
       <div className='app__header_container'>
         <div className="app__header">
-          <img src={logo} 
+          <img className="app_header_logo" src={logo}
             style={{width: "auto", height: "7vh", marginRight: "30px"}}
           />
           <div className='app__header_links'>
@@ -143,39 +143,35 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={ 
-          <div className='app__maincontainer'>
-            <div className='app__parentbox'>
-              <div className="app__creationoptions">
-                <CreationOptions
-                  handleInputChange={handleInputChange}
-                  subjName={subjName}
-                  allowMult={allowMult}
-                  setAllowMul={setAllowMult}
-                  handleAllowMultChange={handleAllowMultChange}
-                  keyWord={keyWord}
-                  handleKeywordChange={handleKeywordChange}
-                  />
-              </div>
-              <div className='app__subject_search_list'>
-                <SubjectSearchList 
-                  list_show={listShow}
-                  subj_name={subjName}
-                  addSelSubj={addSelSubj}
-                  selSubj={selSubj}
-                  handlePopSubject={handlePopSubject}
-                  isExistingSubj={isExistingSubj}
-                  allowMult={allowMult}
-                  handleKeywordChange={handleKeywordChange}
-                  keyWord={keyWord}
-                  displayPopup={displayPopup}
-                  setSubjHover={setSubjHover}
-                  setHoveredSubj={setHoveredSubj}
-                  addedSubj={addedSubj}
-                  setAddedSubj={setAddedSubj}
-                  />
-              </div>
+          <div className='app__mainContainer'>
+            <div className='app__parentContainer'>
+              <CreationOptions
+                handleInputChange={handleInputChange}
+                subjName={subjName}
+                allowMult={allowMult}
+                setAllowMul={setAllowMult}
+                handleAllowMultChange={handleAllowMultChange}
+                keyWord={keyWord}
+                handleKeywordChange={handleKeywordChange}
+                />
+              <SubjectSearchList 
+                list_show={listShow}
+                subj_name={subjName}
+                addSelSubj={addSelSubj}
+                selSubj={selSubj}
+                handlePopSubject={handlePopSubject}
+                isExistingSubj={isExistingSubj}
+                allowMult={allowMult}
+                handleKeywordChange={handleKeywordChange}
+                keyWord={keyWord}
+                displayPopup={displayPopup}
+                setSubjHover={setSubjHover}
+                setHoveredSubj={setHoveredSubj}
+                addedSubj={addedSubj}
+                setAddedSubj={setAddedSubj}
+                />
             </div>
-            <div className='app__parentbox'>
+            <div className='app__parentContainer'>
               <SubjectSelectList 
                 list_show={listShow}
                 subj_name={subjName}
@@ -193,7 +189,7 @@ function App() {
                 setAddedSubj={setAddedSubj}
                 />
             </div>
-            <div className='app__parentbox'>
+            <div className='app__parentContainer'>
               <TimeTable
                 selSubj={selSubj}
                 setShowTooltip={setShowTooltip}

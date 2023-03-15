@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../css/Table.css';
 import '../App.css';
 import LectureBox from './LectureBox';
 
@@ -14,9 +13,9 @@ function SubjectSelectList(props) {
   }
 
   return (
-    <div className="table__container">
+    <div className="appTable__containerFull">
       <span className='mid_title'>담은 강좌</span>
-      <div className="table__sel_scroll_container">
+      <div className="appTable__selectScrollContainer">
         {props.selSubj.map(
           subject => {
             return (
