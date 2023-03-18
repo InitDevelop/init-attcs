@@ -36,8 +36,10 @@ function AddSubjectSearchList(props) {
             subjectsAdded.push(subject.subj_id);
             return (
               <SubjectBox
-                subj_name = {subject.subj_name}
-                subj_id = {subject.subj_id}
+                subj_name           = {subject.subj_name}
+                subj_id             = {subject.subj_id}
+                clickedSubject      = {props.clickedSubject}
+                setClickedSubject   = {props.setClickedSubject}
               />
             )
           } else {

@@ -13,7 +13,7 @@ function SubjectSelectList(props) {
   }
 
   return (
-    <div className="appTable__containerFull">
+    <div className="appTable__container">
       <h2 className='mid_title' style={{ width: "100%" }}>
         <span style={{ marginRight: "5%" }}>담은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", cursor: "pointer" }}>
@@ -29,18 +29,18 @@ function SubjectSelectList(props) {
           subject => {
             return (
               <LectureBox
-                boxType = "list"
-                setHoveredSubj = {props.setHoveredSubj}
-                setSubjHover = {props.setSubjHover}
-                subject = {subject}
-                displayPopup = {props.displayPopup}
-                addSelSubj = {props.addSelSubj}
-                selSubj = {props.selSubj}
-                isExistingSubj = {props.isExistingSubj}
-                handlePopSubject = {props.handlePopSubject}
-                addedSubj={props.addedSubj}
-                addSubj={props.addSubj}
-                displaySubjPopup={props.displaySubjPopup}
+                boxType         = "list"
+                
+                addSubject      = {props.addSubject}
+                popSubject      = {props.popSubject}
+                
+                setHoveredSubj  = {props.setHoveredSubj}
+                setSubjHover    = {props.setSubjHover}
+                
+                subject         = {subject}
+                isExistingSubj  = {props.isExistingSubj}
+                
+                displayPopup    = {props.displayPopup}
               />
             )
           }

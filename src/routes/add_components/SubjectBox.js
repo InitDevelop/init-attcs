@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../../css/LectureBox.css'
+import '../../css/AppTable.css'
 
 function LectureBox(props) {
 
@@ -11,17 +12,21 @@ function LectureBox(props) {
         cursor: "pointer",
         padding: "10px",
         paddingLeft: "15px",
-        paddingRight: "15px"
+        paddingRight: "15px",
+        background: (props.subj_id === props.clickedSubject) ? "#76d1e8" : "#fff"
       }}
       onMouseEnter={() => setShowText(true)}
       onMouseLeave={() => setShowText(false)}
+      onClick={() => {
+        props.setClickedSubject(props.subj_id);
+      }}
       >
-      <p style={{textAlign: "left"}}>
+      <p style={{textAlign: "start"}}>
         <strong>
           {props.subj_name + "  "}
         </strong>
           ({props.subj_id}){"  "}
-        <span style={{ color: "#176BFF" }}>{showText && "눌러서 담기"}</span>
+        <span style={{ color: "#176BFF" }}><strong>{showText && "눌러서 선택"}</strong></span>
       </p>
     </div>
   )

@@ -6,7 +6,7 @@ function AddSubjectSearch(props) {
       <div style={{ marginBottom: "10px" }}>
         <h2 className="mid_title">과목 검색하기</h2>
         <input type="text" 
-          style={{ width: "100%", marginBottom: "10px" }}
+          style={{ width: "90%", marginBottom: "10px" }}
           value={props.subjName} onChange={props.handleInputChange} className="input-1"></input>
       </div>
     </div>

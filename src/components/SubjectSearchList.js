@@ -36,18 +36,18 @@ function SubjectSearchList(props) {
           let isRelatedKeyWord = (props.keyWord === "") || subject.extra_info.replace(' ', '').includes(props.keyWord);
           return (props.subj_name.length > 1) && isRelated && isRelatedKeyWord ? (
             <LectureBox
-            boxType = "search"
-            setHoveredSubj = {props.setHoveredSubj}
-            setSubjHover = {props.setSubjHover}
-            subject = {subject}
-            displayPopup = {props.displayPopup}
-            addSelSubj = {props.addSelSubj}
-            selSubj = {props.selSubj}
-            isExistingSubj = {props.isExistingSubj}
-            handlePopSubject = {props.handlePopSubject}
-            addedSubj={props.addedSubj}
-            setAddedSubj={props.setAddedSubj}
-            displaySubjPopup={props.displaySubjPopup}
+            boxType         = "search"
+
+            addSubject      = {props.addSubject}
+            popSubject      = {props.popSubject}
+
+            setSubjHover    = {props.setSubjHover}
+            setHoveredSubj  = {props.setHoveredSubj}
+            
+            subject         = {subject}
+            isExistingSubj  = {props.isExistingSubj}
+
+            displayPopup    = {props.displayPopup}
           />
           ) : ""
         }

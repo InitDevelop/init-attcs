@@ -7,7 +7,6 @@ import CreationOptions from './components/CreationOptions';
 import Add from './routes/Add'
 import TimeTable from './components/TimeTable';
 import Popup from './components/Popup';
-import SubjectPopup from './components/SubjectPopup';
 import Tooltip from './components/Tooltip';
 import logo from './img/logo.png';
 
@@ -15,7 +14,7 @@ function App() {
 
   // Variables, Functions for Main App
   const [allowMult, setAllowMult] = useState(false);
-  const [selSubj, addSelSubj] = useState([]);
+  const [selSubj, setSelSubj] = useState([]);
   const [popSubj, popSelSubj] = useState(null);
   const [keyWord, setKeyWord] = useState("");
   const [subjName, setSubjName] = useState(""); 
@@ -49,10 +48,6 @@ function App() {
     };
   }, []);
 
-  const handleMouseMove = (e) => {
-    setTooltipPosition({ x: e.clientX, y: e.clientY });
-  };
-
   const isExistingSubj = (subject) => {
     let ret = false;
     for (let i = 0; i < selSubj.length; i++) {
@@ -68,17 +63,8 @@ function App() {
         }
       }
     }
-    console.log(ret);
     return ret;
   }
-
-  const openPopup = () => {
-    setShowPopup(true);
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
-  };
 
   const handleAllowMultChange = (event) => {
     setAllowMult(event.target.checked);
@@ -91,29 +77,16 @@ function App() {
         }
       }
 
-      addSelSubj(selSubj.filter(item => !subj_id_list.includes(item.subj_id)));
+      setSelSubj(selSubj.filter(item => !subj_id_list.includes(item.subj_id)));
       displayPopup("교과목명 중복 허용 해제", "교과목명이 중복된 과목들은 제거되었습니다.");
     }
   };
 
   const handlePopSubject = (subject) => {
     popSelSubj(subject);
-    addSelSubj(selSubj.filter(
+    setSelSubj(selSubj.filter(
       item => (item.subj_id !== subject.subj_id) 
         || (item.lect_no !== subject.lect_no)));
-  }
-
-  const handleKeywordChange = (event) => {
-    setKeyWord(event.target.value);
-  }
-
-  const handleInputChange = (event) => {
-    setListShow(false);
-    setSubjName(event.target.value);
-  }
-
-  const handleSearchClick = () => {
-    setListShow(true);
   }
 
   const displayPopup = (title, content) => {
@@ -122,23 +95,37 @@ function App() {
     setShowPopup(true);
   }
 
-  const displaySubjPopup = (subject) => {
-    setSubjPopupSubj(subject);
-    setShowSubjPopup(true);
-  }
-
-  
-
-
+ 
 
   //Variables, Functions for Add Page
-  const [addingSubjName, setAddingSubjName] = useState(""); 
+  const [addingSubjName, setAddingSubjName] = useState("");
+  const [clickedSubject, setClickedSubject] = useState([]);
+  const [addedLectureList, setAddedLectureList] = useState([]);
+  const [popAddedSubj, setPopAddedSubj] = useState(null);
+  const [addedSubjHover, setAddedSubjHover] = useState(false);
+  const [hoveredAddedSubj, setHoveredAddedSubj] = useState([]);
+  const [addedSubjKeyWord, setAddedSubjKeyWord] = useState("");
 
-  const handleAddInputChange = (event) => {
-    setAddingSubjName(event.target.value);
+
+  const popAddedLecture = (subject) => {
+    setPopAddedSubj(subject);
+    setAddedLectureList(addedLectureList.filter(
+      item => (item.subj_id !== subject.subj_id) 
+        || (item.lect_no !== subject.lect_no)));
   }
 
-
+  const isExistingAddedLect = (subject) => {
+    let ret = false;
+    for (let i = 0; i < addedSubj.length; i++) {
+      if (addedSubj[i].subj_id === subject.subj_id) {
+        if (addedSubj[i].lect_no === subject.lect_no) {
+          ret = true;
+          break;
+        }
+      }
+    }
+    return ret;
+  }
 
 
 
@@ -147,7 +134,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="app" onMouseMove={handleMouseMove}>
+      <div className="app" onMouseMove={
+        (event) => {
+          setTooltipPosition({ x: event.clientX, y: event.clientY });
+        }
+      }>
       <div className='app__header_container'>
         <div className="app__header">
           <img className="app_header_logo" src={logo}
@@ -166,46 +157,48 @@ function App() {
           <div className='app__mainContainer'>
             <div className='app__parentContainer'>
               <CreationOptions
-                handleInputChange={handleInputChange}
+                handleInputChange   = {(event) => {
+                  setListShow(false);
+                  setSubjName(event.target.value);
+                }}
                 subjName={subjName}
                 />
               <SubjectSearchList 
-                list_show={listShow}
-                subj_name={subjName}
-                addSelSubj={addSelSubj}
-                selSubj={selSubj}
-                handlePopSubject={handlePopSubject}
-                isExistingSubj={isExistingSubj}
-                allowMult={allowMult}
-                handleKeywordChange={handleKeywordChange}
-                keyWord={keyWord}
-                displayPopup={displayPopup}
-                setSubjHover={setSubjHover}
-                setHoveredSubj={setHoveredSubj}
-                addedSubj={addedSubj}
-                setAddedSubj={setAddedSubj}
-                displaySubjPopup={displaySubjPopup}
+                subj_name   = {subjName}
+                addSubject  = {
+                  (subject) => {
+                    setSelSubj(selSubj.concat(subject));
+                  }
+                }
+                popSubject     = {handlePopSubject}
+                isExistingSubj      = {isExistingSubj}
+                allowMult           = {allowMult}
+                handleKeywordChange = {(event) => {setKeyWord(event.target.value);}}
+                keyWord             = {keyWord}
+                setSubjHover        = {setSubjHover}
+                setHoveredSubj      = {setHoveredSubj}
+                displayPopup        = {displayPopup}
                 />
             </div>
             <div className='app__parentContainer'>
               <SubjectSelectList 
-                list_show={listShow}
-                subj_name={subjName}
-                addSelSubj={addSelSubj}
-                selSubj={selSubj}
-                handlePopSubject={handlePopSubject}
-                isExistingSubj={isExistingSubj}
-                allowMult={allowMult}
-                handleKeywordChange={handleKeywordChange}
-                keyWord={keyWord}
-                displayPopup={displayPopup}
-                setSubjHover={setSubjHover}
-                setHoveredSubj={setHoveredSubj}
-                addedSubj={addedSubj}
-                setAddedSubj={setAddedSubj}
-                setAllowMul={setAllowMult}
-                handleAllowMultChange={handleAllowMultChange}
-                displaySubjPopup={displaySubjPopup}
+                subj_name   = {subjName}
+                selSubj     = {selSubj}
+                addSubject  = {
+                  (subject) => {
+                    setSelSubj(selSubj.concat(subject));
+                  }
+                }
+                popSubject  = {handlePopSubject}
+                isExistingSubj      = {isExistingSubj}
+                allowMult           = {allowMult}
+                handleKeywordChange = {(event) => {setKeyWord(event.target.value);}}
+                keyWord             = {keyWord}
+                setAllowMul         = {setAllowMult}
+                handleAllowMultChange = {handleAllowMultChange}
+                setSubjHover        = {setSubjHover}
+                setHoveredSubj      = {setHoveredSubj}
+                displayPopup        = {displayPopup}
                 />
             </div>
             <div className='app__parentContainer'>
@@ -220,8 +213,31 @@ function App() {
           </div>
           }/>
           <Route path="/add" element={<Add
-            addingSubjName = {addingSubjName}
-            handleAddInputChange = {handleAddInputChange}
+            addingSubjName        = {addingSubjName}
+            handleAddInputChange  = {(event) => {
+              setAddingSubjName(event.target.value);}}
+
+            clickedSubject        = {clickedSubject}
+            setClickedSubject     = {setClickedSubject}
+
+            popAddedLecture = {popAddedLecture}
+            
+            keyWord = {addedSubjKeyWord}
+            handleKeywordChange = {(event) => {setAddedSubjKeyWord(event.target.value);}}
+
+            addSubject            = {
+              (lecture) => {
+                setAddedLectureList(addedLectureList.concat(lecture));
+              }
+            }
+            popSubject            = {popAddedLecture}
+
+            setSubjHover          = {setAddedSubjHover}
+            setHoveredSubj        = {setHoveredAddedSubj}
+
+            isExistingSubj = {isExistingAddedLect}
+
+            displayPopup          = {displayPopup}
             />}/>
         </Routes>
         {showTooltip && (
@@ -236,14 +252,7 @@ function App() {
           <Popup
             title={popupTitle}
             content={popupContent}
-            onClose={closePopup}
-          />
-        )}
-
-        {showSubjPopup && (
-          <SubjectPopup
-            subject={subjPopupSubj}
-            onClose={() => {setShowSubjPopup(false);}}
+            onClose={() => {setShowPopup(false);}}
           />
         )}
       </div>
