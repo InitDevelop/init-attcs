@@ -1,30 +1,35 @@
 import React, { useState } from 'react';
 import SubjectSelectList from '../components/SubjectSelectList'
 import "../App.css";
+import "../css/AppTable.css";
 import "./Add.css";
 import AddedSubjectList from './add_components/AddedSubjectList';
+import AddSubjectSearch from './add_components/AddSubjectSearch';
+import AddSubjectSearchList from './add_components/AddSubjectSearchList';
 
 function Add(props) {
-
-  let subjectIDs = [];
-
-  //Get Subject List
-  for (let i = 0; i < props.addedSubj.length; i++) {
-    if (!subjectIDs.includes(props.addedSubj[i].subj_id)) {
-      subjectIDs.push(props.addedSubj[i].subj_id);
-    }
-  }
-
   return (
-    <div className='app__maincontainer'>
+    <div className='app__mainContainer'>
       <div style={{width: "60%"}} className='app__parentbox'>
-        <AddedSubjectList
-          subjectIDs = {subjectIDs}
-          addedSubj = {props.addedSubj}
-        />
       </div>
-      <div className='app__parentbox'>
-        <SubjectSelectList 
+      <div className='app__parentContainer'>
+        <AddSubjectSearch
+          handleInputChange={props.handleAddInputChange}
+          subjName={props.addingSubjName}
+          />
+        <AddSubjectSearchList 
+          subj_name={props.addingSubjName}
+          />
+      </div>
+
+    </div>
+  )
+}
+
+export default Add
+
+/*
+        <SubjectSearchList 
           list_show={props.listShow}
           subj_name={props.subjName}
           addSelSubj={props.addSelSubj}
@@ -38,10 +43,4 @@ function Add(props) {
           setSubjHover={props.setSubjHover}
           setHoveredSubj={props.setHoveredSubj}
           />
-      </div>
-
-    </div>
-  )
-}
-
-export default Add
+*/

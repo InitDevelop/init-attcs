@@ -12,7 +12,7 @@
   width: calc(100% - 40px);
 
   border-radius: 10px;
-  box-shadow: 0px 0px 12px #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .appTable__scrollContainer, .appTable__selectScrollContainer {
@@ -26,7 +26,7 @@
   left: 20px;
   right: 20px;
 
-  border: 2px solid #bbbbbb;
+  border: 2px solid lightgray;
 }
 
 
@@ -44,5 +44,5 @@
   width: calc(100% - 40px);
 
   border-radius: 10px;
-  box-shadow: 0px 0px 12px #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

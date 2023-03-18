@@ -4,6 +4,7 @@ import '../../App.css'
 import SubjectGroup from './SubjectGroup'
 
 function AddedSubjectList(props) {
+
   return (
     <div className='list__subjectlist'>
       <h2 className="mid_title">담은 과목</h2>
@@ -13,9 +14,9 @@ function AddedSubjectList(props) {
               {
                 props.subjectIDs.map(
                   id => {
-                    <SubjectGroup
-                      id = {id}
-                      addedSubj = {props.addedSubj}
+                  <SubjectGroup
+                    id = {id}
+                    addedSubj = {props.addedSubj}
                     />
                   }
                 )

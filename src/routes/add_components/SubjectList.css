@@ -1,7 +1,7 @@
 .list__subjectlist {
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0px 0px 12px #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .list__subjectgroupbox {
@@ -9,7 +9,7 @@
   margin: 0 auto;
   background-color: #fff;
   padding: 20px;
-  box-shadow: 0px 1px 5px #555;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .list__subjectgroupbox h2 {

@@ -3,7 +3,7 @@ import '../css/LectureBox.css'
 
 function LectureBox(props) {
   return (
-    <table className='lecturebox' style={{width: "100%"}}
+    <table className='lecturebox' style={{ width: "100%" }}
     onMouseEnter={ (event) => {
       props.setHoveredSubj(props.subject);
       props.setSubjHover(true);
@@ -13,7 +13,7 @@ function LectureBox(props) {
       }
     }
     onClick={ (event) => {
-        
+
       }
     }>
       <tbody>
@@ -23,7 +23,14 @@ function LectureBox(props) {
               <tbody>
                 <tr>
                   <td>
-                    <span style={{fontWeight: "600"}}>{props.subject.subj_name + "  "}</span>
+                    <span 
+                      className='lecture_name'
+                      style={{ fontWeight: "600", cursor: "pointer" }}
+                      onClick={(event) => {
+                        props.displaySubjPopup(props.subject);
+                      }}>
+                      {props.subject.subj_name + "  "}
+                    </span>
                     { (props.subject.extra_info.includes("®")) && (
                       <button className='button-tiny' onClick={
                         () => {

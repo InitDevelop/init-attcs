@@ -8,7 +8,7 @@
 * {
   margin: 0;
   font-family: 'Pretendard-Regular';
-  vertical-align: middle;
+  
 }
 
 /* @media (max-width: 1000px) {
@@ -30,7 +30,7 @@
   justify-content: flex-start;
 
   background-color: #fff;
-  box-shadow: 0px 1px 5px gray;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .app__header {
@@ -101,7 +101,7 @@
 
 .app__creationoptions {
   text-align: center;
-  box-shadow: 0px 0px 12px #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 20px;
   width: calc(100% - 40px);
   border-radius: 10px;

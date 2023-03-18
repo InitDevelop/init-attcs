@@ -13,7 +13,7 @@
   flex-grow: 1;
   flex-shrink: 1;
 
-  box-shadow: 0px 0px 12px #999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .timetable__table {
@@ -52,4 +52,5 @@
   position: absolute;
   padding: 5px;
   box-sizing: border-box;
+  transition : 100ms;
 }

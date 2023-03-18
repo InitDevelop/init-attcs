@@ -16,8 +16,8 @@ function SubjectSelectList(props) {
     <div className="appTable__containerFull">
       <h2 className='mid_title' style={{ width: "100%" }}>
         <span style={{ marginRight: "5%" }}>담은 강좌</span>
-        <label className='label-1' style={{ fontWeight: "normal" }}>
-          <input 
+        <label className='label-1' style={{ fontWeight: "normal", cursor: "pointer" }}>
+          <input style={{ cursor: "pointer", verticalAlign: "middle" }}
             className='checkbox-1'
             type="checkbox"
             checked={props.allowMult}
@@ -40,6 +40,7 @@ function SubjectSelectList(props) {
                 handlePopSubject = {props.handlePopSubject}
                 addedSubj={props.addedSubj}
                 addSubj={props.addSubj}
+                displaySubjPopup={props.displaySubjPopup}
               />
             )
           }

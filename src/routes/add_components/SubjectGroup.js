@@ -7,6 +7,8 @@ function SubjectGroup(props) {
 
   let matchingSubjects = [];
 
+  console.log(matchingSubjects)
+
   for (let i = 0; i < props.addedSubj.length; i++) {
     if (props.addedSubj[i].subj_id === props.id) {
       matchingSubjects.push(props.addedSubj[i]);

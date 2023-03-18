@@ -10,10 +10,17 @@
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   line-height: 1.4;
+  transition : 193ms;
+}
+
+.lecture_name:hover {
+  transition : 193ms;
+  color: #00a3cc;
 }
 
 .lecturebox:hover {
-  background-color: #ddd;
+  transition : 193ms;
+  background-color: #eee;
 }
 
 .lecturebox__table_in_table {
@@ -26,4 +33,12 @@
 
 .lecturebox__table_in_table td {
   text-align: left;
+}
+
+.text_left {
+  float: left;
+}
+
+.text_right {
+  float: right;
 }

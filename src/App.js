@@ -7,11 +7,13 @@ import CreationOptions from './components/CreationOptions';
 import Add from './routes/Add'
 import TimeTable from './components/TimeTable';
 import Popup from './components/Popup';
+import SubjectPopup from './components/SubjectPopup';
 import Tooltip from './components/Tooltip';
 import logo from './img/logo.png';
 
 function App() {
 
+  // Variables, Functions for Main App
   const [allowMult, setAllowMult] = useState(false);
   const [selSubj, addSelSubj] = useState([]);
   const [popSubj, popSelSubj] = useState(null);
@@ -125,6 +127,24 @@ function App() {
     setShowSubjPopup(true);
   }
 
+  
+
+
+
+  //Variables, Functions for Add Page
+  const [addingSubjName, setAddingSubjName] = useState(""); 
+
+  const handleAddInputChange = (event) => {
+    setAddingSubjName(event.target.value);
+  }
+
+
+
+
+
+
+
+
   return (
     <BrowserRouter>
       <div className="app" onMouseMove={handleMouseMove}>
@@ -164,6 +184,7 @@ function App() {
                 setHoveredSubj={setHoveredSubj}
                 addedSubj={addedSubj}
                 setAddedSubj={setAddedSubj}
+                displaySubjPopup={displaySubjPopup}
                 />
             </div>
             <div className='app__parentContainer'>
@@ -184,6 +205,7 @@ function App() {
                 setAddedSubj={setAddedSubj}
                 setAllowMul={setAllowMult}
                 handleAllowMultChange={handleAllowMultChange}
+                displaySubjPopup={displaySubjPopup}
                 />
             </div>
             <div className='app__parentContainer'>
@@ -198,20 +220,8 @@ function App() {
           </div>
           }/>
           <Route path="/add" element={<Add
-            list_show={listShow}
-            subj_name={subjName}
-            addSelSubj={addSelSubj}
-            selSubj={selSubj}
-            handlePopSubject={handlePopSubject}
-            isExistingSubj={isExistingSubj}
-            allowMult={allowMult}
-            handleKeywordChange={handleKeywordChange}
-            keyWord={keyWord}
-            displayPopup={displayPopup}
-            setSubjHover={setSubjHover}
-            setHoveredSubj={setHoveredSubj}
-            addedSubj={addedSubj}
-            setAddedSubj={setAddedSubj}
+            addingSubjName = {addingSubjName}
+            handleAddInputChange = {handleAddInputChange}
             />}/>
         </Routes>
         {showTooltip && (
@@ -227,6 +237,13 @@ function App() {
             title={popupTitle}
             content={popupContent}
             onClose={closePopup}
+          />
+        )}
+
+        {showSubjPopup && (
+          <SubjectPopup
+            subject={subjPopupSubj}
+            onClose={() => {setShowSubjPopup(false);}}
           />
         )}
       </div>
