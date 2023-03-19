@@ -6,10 +6,9 @@ function AddedSubject(props) {
   return (
     <div className='list__addedsubject'>
       <h3>
-        <span className='credit'> {props.subject.lect_no} </span>
-        {"\t"}
-        <span className='credit'> {props.subject.prof} </span>
-        {"\t"}
+        <span className='credit' style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
+        <span style={{marginRight: "10px"}}> {props.subject.prof} </span>
+        {"\t\t"}
         { (props.subject.extra_info.includes("®")) && (
           <button className='button-tiny' onClick={
             () => {
@@ -24,8 +23,17 @@ function AddedSubject(props) {
             }
           }>외국어</button>
         )}
+
+        <button className='button-tiny-3' style={
+          {
+            marginLeft: "5px",
+            position: "absolute",
+            right: "20px"
+          }
+        } onClick={
+            () => {props.popAddedLecture(props.subject)}
+        }> 제거 </button>
       </h3>
-      
     </div>
   )
 }

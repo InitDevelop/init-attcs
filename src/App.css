@@ -201,6 +201,18 @@
   border: solid 2px #0066cc;
 }
 
+.button-0:disabled{
+  background-color: #fff;
+  color: #747474;
+  border: solid 2px #747474;
+}
+
+.button-0:disabled:hover{
+  background-color: #d6d6d6;
+  color: #747474;
+  border: solid 2px #747474;
+}
+
 .button-1 {
   font-weight: 400;
   font-size: 100%;
@@ -291,6 +303,29 @@
   background-color: #fff;
   color: #00cca3;
   border: solid 2px #00cca3;
+}
+
+.button-tiny-3 {
+  font-weight: 400;
+  font-size: 100%;
+  color: #fff;
+  background-color: #0066cc;
+  border: solid #0066cc 2px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 10px;
+  transition : 193ms;
+  transform: translateY(0);
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button-tiny-3:hover {
+  transition : 50ms;
+  background-color: #fff;
+  color: #0066cc;
+  border: solid 2px #0066cc;
 }
 
 .label-1 {

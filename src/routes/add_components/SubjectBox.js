@@ -26,7 +26,7 @@ function LectureBox(props) {
           {props.subj_name + "  "}
         </strong>
           ({props.subj_id}){"  "}
-        <span style={{ color: "#176BFF" }}><strong>{showText && "눌러서 선택"}</strong></span>
+        <h4 style={{ color: "#176BFF" }}><strong>{showText && "눌러서 선택"}</strong></h4>
       </p>
     </div>
   )

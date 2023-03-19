@@ -37,11 +37,27 @@ function Add(props) {
           
           isExistingSubj  = {props.isExistingSubj}
 
+          addedLectures     = {props.addedLectures}
+          setAddedLectures  = {props.setAddedLectures}
+
+          addedSubjectIDs = {props.addedSubjectIDs}
+          setAddedSubjectIDs = {props.setAddedSubjectIDs}
+
           displayPopup    = {props.displayPopup}
         />
       </div>
       <div className='app__parentContainer' style={{ width: "35%" }}>
+        <AddedSubjectList
+          addedLectures     = {props.addedLectures}
+          setAddedLectures  = {props.setAddedLectures}
 
+          addedSubjectIDs = {props.addedSubjectIDs}
+          setAddedSubjectIDs = {props.setAddedSubjectIDs}
+
+          popAddedLecture = {props.popAddedLecture}
+
+          displayPopup    = {props.displayPopup}
+        />
       </div>
     </div>
   )

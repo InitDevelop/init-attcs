@@ -106,12 +106,21 @@ function App() {
   const [hoveredAddedSubj, setHoveredAddedSubj] = useState([]);
   const [addedSubjKeyWord, setAddedSubjKeyWord] = useState("");
 
+  const [addedLectures, setAddedLectures] = useState([]);
+  const [addedSubjectIDs, setAddedSubjectIDs] = useState([]);
 
-  const popAddedLecture = (subject) => {
-    setPopAddedSubj(subject);
-    setAddedLectureList(addedLectureList.filter(
-      item => (item.subj_id !== subject.subj_id) 
-        || (item.lect_no !== subject.lect_no)));
+  const popAddedLecture = (lectureToPop) => {
+    let filteredLength = addedLectures.filter(
+      lecture => lecture.subj_id = lectureToPop.subj_id
+    ).length;
+    setAddedLectures(addedLectures.filter(
+      lecture => lecture !== lectureToPop
+    ));
+    if (filteredLength === 1) {
+      setAddedSubjectIDs(addedSubjectIDs.filter(
+        id => id !== lectureToPop.subj_id
+      ));
+    }
   }
 
   const isExistingAddedLect = (subject) => {
@@ -236,6 +245,12 @@ function App() {
             setHoveredSubj        = {setHoveredAddedSubj}
 
             isExistingSubj = {isExistingAddedLect}
+
+            addedLectures         = {addedLectures}
+            setAddedLectures      = {setAddedLectures}
+
+            addedSubjectIDs       = {addedSubjectIDs}
+            setAddedSubjectIDs    = {setAddedSubjectIDs}
 
             displayPopup          = {displayPopup}
             />}/>

@@ -1,28 +1,39 @@
 import React from 'react'
 import './SubjectList.css'
-import '../../App.css'
+import '../../css/AppTable.css';
+import '../../App.css';
 import SubjectGroup from './SubjectGroup'
 
 function AddedSubjectList(props) {
 
   return (
-    <div className='list__subjectlist'>
-      <h2 className="mid_title">담은 과목</h2>
-        <div className="table__scroll_container">
-          <table className="table_borderless">
-            <tbody>
-              {
-                props.subjectIDs.map(
-                  id => {
+    <div className='appTable__container'>
+      <h2 className="mid_title">담은 강좌</h2>
+        <div className="appTable__scrollContainer">
+          {
+            props.addedSubjectIDs.map(
+              (subj_id) => {
+                return (
                   <SubjectGroup
-                    id = {id}
-                    addedSubj = {props.addedSubj}
-                    />
-                  }
+                  id = {subj_id}
+                  lectures = {props.addedLectures.filter(
+                    (lecture) => {return lecture.subj_id === subj_id}
+                    )}
+                  displayPopup = {props.displayPopup}
+
+                  addedLectures     = {props.addedLectures}
+                  setAddedLectures  = {props.setAddedLectures}
+        
+                  addedSubjectIDs = {props.addedSubjectIDs}
+                  setAddedSubjectIDs = {props.setAddedSubjectIDs}
+
+                  popAddedLecture = {props.popAddedLecture}
+                  />
                 )
+                
               }
-            </tbody>
-          </table>
+            )
+          }
         </div>
     </div>
   )

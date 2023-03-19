@@ -18,10 +18,8 @@
 
 .appTable__scrollContainer, .appTable__selectScrollContainer {
   position: absolute;
-
   overflow: auto;
 
-  
   top: 60px;
   bottom: 20px;
   left: 20px;
@@ -29,6 +27,5 @@
 
   border: 2px solid lightgray;
 }
-
 
 /* SELECT CONTAINER */
