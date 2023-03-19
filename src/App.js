@@ -157,6 +157,7 @@ function App() {
             <Link to="/" className='links'>시간표</Link>
             <Link to="/add" className='links'>과목 담기</Link>
             <Link to="/create" className='links'>자동 생성</Link>
+            <h3 style = {{ color: "lightgray" }}>ATTCS v0.3.01 (for beta testing), developed by @gong_zak_so</h3>
           </div>
         </div>
       </div>
