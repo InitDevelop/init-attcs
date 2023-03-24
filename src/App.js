@@ -11,7 +11,7 @@ import Tooltip from './components/Tooltip';
 import logo from './img/logo.png';
 
 function App() {
-
+  
   // Variables, Functions for Main App
   const [allowMult, setAllowMult] = useState(false);
   const [selSubj, setSelSubj] = useState([]);
@@ -20,8 +20,9 @@ function App() {
   const [subjName, setSubjName] = useState(""); 
   const [listShow, setListShow] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
   const [popupTitle, setPopupTitle] = useState("");
-  const [popupContent, setPopupContent] = useState(""); 
+  const [popupContent, setPopupContent] = useState("");
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -32,9 +33,6 @@ function App() {
   const [hoveredSubj, setHoveredSubj] = useState([]);
 
   const [addedSubj, setAddedSubj] = useState([]);
-
-  const [subjPopupSubj, setSubjPopupSubj] = useState([]);
-  const [showSubjPopup, setShowSubjPopup] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -95,7 +93,11 @@ function App() {
     setShowPopup(true);
   }
 
- 
+  const displayCustomEventPopup = (title, content, closeEvent) => {
+    setPopupTitle(title);
+    setPopupContent(content);
+    setShowPopup(true);
+  }
 
   //Variables, Functions for Add Page
   const [addingSubjName, setAddingSubjName] = useState("");
@@ -111,10 +113,10 @@ function App() {
 
   const popAddedLecture = (lectureToPop) => {
     let filteredLength = addedLectures.filter(
-      lecture => lecture.subj_id = lectureToPop.subj_id
+      (lecture) => {return lecture.subj_id === lectureToPop.subj_id}
     ).length;
     setAddedLectures(addedLectures.filter(
-      lecture => lecture !== lectureToPop
+      (lecture) => {return lecture !== lectureToPop}
     ));
     if (filteredLength === 1) {
       setAddedSubjectIDs(addedSubjectIDs.filter(
@@ -135,11 +137,6 @@ function App() {
     }
     return ret;
   }
-
-
-
-
-
 
   return (
     <BrowserRouter>
@@ -226,7 +223,6 @@ function App() {
             addingSubjName        = {addingSubjName}
             handleAddInputChange  = {(event) => {
               setAddingSubjName(event.target.value);}}
-
             clickedSubject        = {clickedSubject}
             setClickedSubject     = {setClickedSubject}
 
@@ -268,7 +264,7 @@ function App() {
           <Popup
             title={popupTitle}
             content={popupContent}
-            onClose={() => {setShowPopup(false);}}
+            onClose={() => {setShowPopup(false)}}
           />
         )}
       </div>

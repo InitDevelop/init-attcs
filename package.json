@@ -1,7 +1,7 @@
 {
   "name": "init-attcs",
   "version": "0.3.01",
-  "homepage": "https://initdevelop.github.io/init-attcs",
+  "homepage": "https://initdevelop.github.io/",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",

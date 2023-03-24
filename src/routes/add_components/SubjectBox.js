@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../css/LectureBox.css'
 import '../../css/AppTable.css'
 
-function LectureBox(props) {
+function SubjectBox(props) {
 
   const [showText, setShowText] = useState(false);
 
@@ -32,4 +32,4 @@ function LectureBox(props) {
   )
 }
 
-export default LectureBox
+export default SubjectBox

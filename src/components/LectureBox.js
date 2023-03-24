@@ -1,22 +1,34 @@
 import React from 'react'
 import '../css/LectureBox.css'
 import '../App.css'
+import { border } from '@chakra-ui/react';
 
 function LectureBox(props) {
   return (
     <table className='lecturebox' style={
       { 
         width: "100%",
-        cursor: (props.boxType === "add") ? "pointer" : "auto"
+        cursor: (props.boxType === "add" || props.boxType === "remove") ? "pointer" : "auto",
+        border: props.boxType === "remove" ? (props.SubjectToRemove === props.subject ? "2px solid #405cf5" : "") : ""
       }}
     onMouseEnter={ (event) => {
-      props.setHoveredSubj(props.subject);
-      props.setSubjHover(true);
+      if (props.boxType === "list" || props.boxType === "search") {
+        props.setHoveredSubj(props.subject);
+        props.setSubjHover(true);
+      }
     }}
     onMouseLeave={ (event) => {
+      if (props.boxType === "list" || props.boxType === "search") {
         props.setSubjHover(false);
       }
-    }>
+      }
+    }
+    onClick={ (event) => {
+      if (props.boxType === "remove") {
+        props.setSubjectToRemove(props.subject);
+      }
+    }}>
+
       <tbody>
         <tr>
           {
@@ -33,7 +45,14 @@ function LectureBox(props) {
               <input style={{ cursor: "pointer", verticalAlign: "middle" }}
               className='checkbox-1'
               type="checkbox"
-              checked={props.selectedLectures.includes(props.subject)}
+              checked={
+                !props.addedLectures.includes(props.subject) ?
+                  props.selectedLectures.includes(props.subject) :
+                  true
+              }
+              disabled={
+                props.addedLectures.includes(props.subject)
+              }
               onChange={
                 (event) => {
                   if (!event.target.checked) {
@@ -54,7 +73,7 @@ function LectureBox(props) {
                     <span 
                       className='lecture_name'
                       style={{ fontWeight: "600", cursor: "pointer" }}
-                      onClick={() => {
+                      onClick={() => { if (props.boxType !== "remove") {
                         props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
                           <table className='subjectpopup__table'>
                             <tbody>
@@ -100,7 +119,7 @@ function LectureBox(props) {
                               </tr>
                             </tbody>
                           </table>
-                        );
+                        ); }
                       }
                       }>
                       {props.subject.subj_name + "  "}

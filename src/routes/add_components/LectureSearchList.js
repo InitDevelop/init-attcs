@@ -107,7 +107,7 @@ function LectureSearchList(props) {
               <td style={{width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px"}}>
                 <button className="button-0"
                   style={{ width: "100%", fontSize: "130%" }}
-                  disabled={(selectedLectures.length === 0)}
+                  disabled={selectedLectures.filter(item => !props.addedLectures.includes(item)).length === 0}
                   onClick={() => {
                       if (selectedLectures.length > 0) {
                         props.setAddedLectures(props.addedLectures.concat(
@@ -122,9 +122,9 @@ function LectureSearchList(props) {
                     }
                   }>
                   {
-                    selectedLectures.length !== 0 ?
+                    (selectedLectures.filter(item => !props.addedLectures.includes(item)).length !== 0) ?
                     (
-                      <span>선택한 강좌 <strong>{selectedLectures.length}개</strong> 모두 담기</span>
+                      <span>선택한 강좌 <strong>{selectedLectures.filter(item => !props.addedLectures.includes(item)).length}개</strong> 모두 담기</span>
                     ) : (<strong>담을 과목을 선택하세요</strong>)
                   }
                 </button> 
