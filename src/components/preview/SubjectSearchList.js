@@ -1,11 +1,13 @@
-import subjects from "../db/data.json";
-import React from 'react'
-import '../css/AppTable.css';
-import '../App.css';
-import LectureBox from "./LectureBox";
+import subjects from "../../db/data.json";
+import React, { useContext } from 'react'
+import '../../css/AppTable.css';
+import '../../App.css';
+import LectureBox from "../global/LectureBox";
+import { PreviewContext } from "../../App";
 
+function SubjectSearchList() {
 
-function SubjectSearchList(props) {
+  const data = useContext(PreviewContext);
 
   const accuracy = (abbrev, full) => {
     return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
@@ -31,44 +33,40 @@ function SubjectSearchList(props) {
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
       <h2 className="mid_title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
-        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={props.keyWord} onChange={props.handleKeywordChange}></input>
+        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={data.keyWord} onChange={data.handleKeywordChange}></input>
       </h2>
       <div className="appTable__scrollContainer">
         {
           subjects.subjects
           .filter(
             (subject) => {
-              let args = props.subj_name.split(" ");
+              let args = data.searchText.split(" ");
               let isRelatedProf;
               let isRelated;
               if (args.length > 1) {
                 isRelated = isRelatedName(
-                  props.subj_name.substring(0, props.subj_name.length - args[args.length - 1].length), subject.subj_name);
+                  data.searchText.substring(0, data.searchText.length - args[args.length - 1].length), subject.subj_name);
                 isRelatedProf = isRelatedName(args[args.length - 1], subject.prof);
               } else {
-                isRelated = isRelatedName(props.subj_name, subject.subj_name);
+                isRelated = isRelatedName(data.searchText, subject.subj_name);
                 isRelatedProf = true;
               }
-              let isRelatedKeyWord = (props.keyWord === "") || subject.extra_info.replace(' ', '').includes(props.keyWord);
-              return ((props.subj_name.length > 1) && isRelated && isRelatedProf && isRelatedKeyWord);
+              let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
+              return ((data.searchText.length > 1) && isRelated && isRelatedProf && isRelatedKeyWord);
             }
           )
-          .sort((a, b) => (accuracy(props.subj_name, b.subj_name) - accuracy(props.subj_name, a.subj_name))).map(
+          .sort((a, b) => (accuracy(data.searchText, b.subj_name) - accuracy(data.searchText, a.subj_name))).map(
             subject => {
               return (
                 <LectureBox
                 boxType         = "search"
-    
-                addSubject      = {props.addSubject}
-                popSubject      = {props.popSubject}
-    
-                setSubjHover    = {props.setSubjHover}
-                setHoveredSubj  = {props.setHoveredSubj}
-                
+                addSubject      = {data.addSubject}
+                popSubject      = {data.popSubject}
+                setSubjHover    = {data.setSubjHover}
+                setHoveredSubj  = {data.setHoveredSubj}
                 subject         = {subject}
-                isExistingSubj  = {props.isExistingSubj}
-    
-                displayPopup    = {props.displayPopup}
+                isExistingSubj  = {data.isExistingSubj}
+                displayPopup    = {data.displayPopup}
               />
               )
             }

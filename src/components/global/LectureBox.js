@@ -1,7 +1,6 @@
 import React from 'react'
-import '../css/LectureBox.css'
-import '../App.css'
-import { border } from '@chakra-ui/react';
+import '../../css/LectureBox.css'
+import '../../App.css'
 
 function LectureBox(props) {
   return (
@@ -83,7 +82,7 @@ function LectureBox(props) {
                                   <h4 className='value'>{props.subject.lect_type}</h4>
                                 </td>
                                 <td>
-                                <h4 className='key'>과정</h4>
+                                  <h4 className='key'>과정</h4>
                                   <h4 className='value'>{props.subject.grad} 과정</h4>
                                 </td>
                                 <td>
@@ -173,7 +172,6 @@ function LectureBox(props) {
             }
             </td> : ("")
           }
-          
         </tr>
       </tbody>
     </table>

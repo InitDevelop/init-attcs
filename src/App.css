@@ -1,23 +1,9 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable-std-dynamic-subset.css");
 
-/* @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-} */
-
 * {
   margin: 0;
-  font-family: 'Pretendard-Regular';
-  
+  font-family: 'Pretendard Variable';
 }
-
-/* @media (max-width: 1000px) {
-  .app {
-    overflow-x: auto;
-  }
-} */
 
 .app {
   position: relative;
@@ -50,6 +36,7 @@
 .app__header_links {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .links {
@@ -64,6 +51,8 @@
 }
 
 .links:hover {
+  transition: 400ms;
+  border-radius: 10px;
   background-color: #f0f0f0;
   border: 2px solid white;
 }
@@ -73,9 +62,23 @@
   border: 2px solid white;
 }
 
-.links:focus {
-  border: 2px solid gray;
+.link_current {
+  transition: 400ms;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+  font-size: 2.8vh;
+  font-weight: 700;
+  padding: 10px;
+  margin-right: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+/* .links:focus {
+  border: 2px solid gray;
+} */
 
 .app__mainContainer {
   display: flex;

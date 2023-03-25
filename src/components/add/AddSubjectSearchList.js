@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import subjects from "../../db/data.json";
 import "../../css/AppTable.css"
 import SubjectBox from './SubjectBox';
+import { CreationContext } from "../../App";
 
-function AddSubjectSearchList(props) {
+function AddSubjectSearchList() {
 
+  const data = useContext(CreationContext);
   let subjectsAdded = [];
+
+  const accuracy = (abbrev, full) => {
+    return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
+  };
 
   function isRelatedName(abbrev, full) {
     abbrev = abbrev.replace(" ", "");
@@ -28,22 +34,23 @@ function AddSubjectSearchList(props) {
       <h2 className="mid_title">찾은 과목
       </h2>
       <div className="appTable__scrollContainer">
-        {subjects.subjects
-        .map(subject => {
-          let isRelated = isRelatedName(props.subj_name, subject.subj_name);
-          
-          if ((props.subj_name !== "") && isRelated && !subjectsAdded.includes(subject.subj_id)) {
+        {subjects.subjects.filter(
+          (subject) => {
+            let isRelated = isRelatedName(data.addingSubjName, subject.subj_name);
+            return ((data.addingSubjName !== "") && isRelated);
+          }
+        )
+        .sort((a, b) => (accuracy(data.addingSubjName, b.subj_name) - accuracy(data.addingSubjName, a.subj_name))).map(subject => {
+          if (!subjectsAdded.includes(subject.subj_id)) {
             subjectsAdded.push(subject.subj_id);
             return (
               <SubjectBox
                 subj_name           = {subject.subj_name}
                 subj_id             = {subject.subj_id}
-                clickedSubject      = {props.clickedSubject}
-                setClickedSubject   = {props.setClickedSubject}
+                clickedSubject      = {data.clickedSubject}
+                setClickedSubject   = {data.setClickedSubject}
               />
             )
-          } else {
-            return ("")
           }
         }
         )}
@@ -52,4 +59,4 @@ function AddSubjectSearchList(props) {
     )
 }
 
-export default AddSubjectSearchList
+export default AddSubjectSearchList;

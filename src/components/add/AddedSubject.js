@@ -1,5 +1,5 @@
 import React from 'react'
-import "./SubjectList.css"
+import "../../css/SubjectList.css"
 import "../../App.css"
 
 function AddedSubject(props) {

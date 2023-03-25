@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import "./SubjectList.css"
+import "../../css/SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
 import AddedSubject from './AddedSubject'

@@ -1,20 +1,22 @@
 import subjects from "../../db/data.json";
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
-import LectureBox from "../../components/LectureBox";
+import LectureBox from "../global/LectureBox";
+import { CreationContext } from "../../App";
 
-function LectureSearchList(props) {
-
-  const prevPropsRef = useRef(props);
+function LectureSearchList() {
+  
+  const data = useContext(CreationContext);
+  const prevPropsRef = useRef(data);
 
   useEffect(() => {
     const prevProps = prevPropsRef.current;
-    if (prevProps.subj_id !== props.subj_id) {
+    if (prevProps.clickedSubject !== data.clickedSubject) {
       setSelectedLectures([]);
       shownLectures = [];
     }
-    prevPropsRef.current = props;
+    prevPropsRef.current = data;
   });
 
   const [selectedLectures, setSelectedLectures] = useState([]);
@@ -24,29 +26,29 @@ function LectureSearchList(props) {
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
       <h2 className="mid_title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
-        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={props.keyWord} onChange={props.handleKeywordChange}></input>
+        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={data.addedSubjKeyWord} onChange={data.handleKeywordChange}></input>
       </h2>
       <div className="appTable__scrollContainer" style = {{ bottom: "100px" }}>
         {subjects.subjects
         .map(subject => {
-          let isRelatedKeyWord = (props.keyWord === "") || subject.extra_info.replace(' ', '').includes(props.keyWord);
-          if ((props.subj_id === subject.subj_id) && isRelatedKeyWord) {
+          let isRelatedKeyWord = (data.addedSubjKeyWord === "") || subject.extra_info.replace(' ', '').includes(data.addedSubjKeyWord);
+          if ((data.clickedSubject === subject.subj_id) && isRelatedKeyWord) {
             shownLectures.push(subject);
           }
-          return (props.subj_id === subject.subj_id) && isRelatedKeyWord ? (
+          return (data.clickedSubject === subject.subj_id) && isRelatedKeyWord ? (
             <LectureBox
               boxType         = "add"
 
-              addSubject      = {props.addSubject}
-              popSubject      = {props.popSubject}
+              addSubject      = {data.addSubject}
+              popSubject      = {data.popAddedLecture}
 
-              setSubjHover    = {props.setSubjHover}
-              setHoveredSubj  = {props.setHoveredSubj}
+              setSubjHover    = {data.setSubjHover}
+              setHoveredSubj  = {data.setHoveredSubj}
               
               subject         = {subject}
-              isExistingSubj  = {props.isExistingSubj}
+              isExistingSubj  = {data.isExistingSubj}
 
-              setClickedSubject = {props.setClickedSubject}
+              setClickedSubject = {data.setClickedSubject}
 
               selectedLectures = {selectedLectures}
               selectLecture = {
@@ -63,8 +65,8 @@ function LectureSearchList(props) {
                   );
                 }
               }
-              addedLectures = {props.addedLectures}
-              displayPopup    = {props.displayPopup}
+              addedLectures = {data.addedLectures}
+              displayPopup = {data.displayPopup}
             />
           ) : ""
         }
@@ -107,24 +109,24 @@ function LectureSearchList(props) {
               <td style={{width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px"}}>
                 <button className="button-0"
                   style={{ width: "100%", fontSize: "130%" }}
-                  disabled={selectedLectures.filter(item => !props.addedLectures.includes(item)).length === 0}
+                  disabled={selectedLectures.filter(item => !data.addedLectures.includes(item)).length === 0}
                   onClick={() => {
                       if (selectedLectures.length > 0) {
-                        props.setAddedLectures(props.addedLectures.concat(
+                        data.setAddedLectures(data.addedLectures.concat(
                           selectedLectures.filter(
-                            (lecture) => {return !props.addedLectures.includes(lecture)}
+                            (lecture) => {return !data.addedLectures.includes(lecture)}
                           )
                           ));
                       }
-                      if (!props.addedSubjectIDs.includes(props.subj_id)) {
-                        props.setAddedSubjectIDs(props.addedSubjectIDs.concat(props.subj_id));
+                      if (!data.addedSubjectIDs.includes(data.clickedSubject)) {
+                        data.setAddedSubjectIDs(data.addedSubjectIDs.concat(data.clickedSubject));
                       }
                     }
                   }>
                   {
-                    (selectedLectures.filter(item => !props.addedLectures.includes(item)).length !== 0) ?
+                    (selectedLectures.filter(item => !data.addedLectures.includes(item)).length !== 0) ?
                     (
-                      <span>선택한 강좌 <strong>{selectedLectures.filter(item => !props.addedLectures.includes(item)).length}개</strong> 모두 담기</span>
+                      <span>선택한 강좌 <strong>{selectedLectures.filter(item => !data.addedLectures.includes(item)).length}개</strong> 모두 담기</span>
                     ) : (<strong>담을 과목을 선택하세요</strong>)
                   }
                 </button> 
@@ -137,4 +139,4 @@ function LectureSearchList(props) {
   )
 }
 
-export default LectureSearchList
+export default LectureSearchList;

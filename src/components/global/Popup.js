@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/Popup.css'
-import '../App.css'
+import '../../css/Popup.css'
+import '../../App.css'
 
 function Popup(props) {
   return (

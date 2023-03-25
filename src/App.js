@@ -1,51 +1,54 @@
 import './App.css';
 import React, {useState, useEffect} from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
-import SubjectSearchList from './components/SubjectSearchList';
-import SubjectSelectList from './components/SubjectSelectList';
-import CreationOptions from './components/CreationOptions';
-import Add from './routes/Add'
-import TimeTable from './components/TimeTable';
-import Popup from './components/Popup';
-import Tooltip from './components/Tooltip';
+import Add from './pages/Add';
+import Preview from './pages/Preview';
+import Create from './pages/Create';
+
 import logo from './img/logo.png';
+import inst1 from './img/inst1.png';
+
+export const PreviewContext = React.createContext();
+export const CreationContext = React.createContext();
+
+const appVersion = "0.4.0";
 
 function App() {
-  
-  // Variables, Functions for Main App
-  const [allowMult, setAllowMult] = useState(false);
+
+  /****************************************************************************
+    THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
+  ****************************************************************************/
+
+  // States related to data
   const [selSubj, setSelSubj] = useState([]);
-  const [popSubj, popSelSubj] = useState(null);
+
+  // States related to search options
+  const [allowMult, setAllowMult] = useState(false);
   const [keyWord, setKeyWord] = useState("");
-  const [subjName, setSubjName] = useState(""); 
-  const [listShow, setListShow] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const [searchText, setSearchText] = useState(""); // Originally subjName
 
-  const [popupTitle, setPopupTitle] = useState("");
-  const [popupContent, setPopupContent] = useState("");
-
+  // States related to the tooltip
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [tooltipContent, setTooltipContent] = useState("content");
   const [scrollPosition, setScrollPosition] = useState(0);
 
+  // States related to hovered subjects
   const [subjHover, setSubjHover] = useState(false);
   const [hoveredSubj, setHoveredSubj] = useState([]);
 
-  const [addedSubj, setAddedSubj] = useState([]);
-
+  // useEffect for following scroll
   useEffect(() => {
     function handleScroll() {
       setScrollPosition(window.pageYOffset || document.documentElement.scrollTop);
     }
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  // This function checks if some lecture exists in the timetable
   const isExistingSubj = (subject) => {
     let ret = false;
     for (let i = 0; i < selSubj.length; i++) {
@@ -62,11 +65,12 @@ function App() {
       }
     }
     return ret;
-  }
+  };
 
+  // This function handles change in the allowMult option
+  // If this option gets unchecked, then some lectures get deleted
   const handleAllowMultChange = (event) => {
     setAllowMult(event.target.checked);
-
     if (!event.target.checked) {
       let subj_id_list = [];
       for (let i = 0; i < selSubj.length; i++) {
@@ -74,43 +78,64 @@ function App() {
           subj_id_list.push(selSubj[i].subj_id);
         }
       }
-
       setSelSubj(selSubj.filter(item => !subj_id_list.includes(item.subj_id)));
       displayPopup("교과목명 중복 허용 해제", "교과목명이 중복된 과목들은 제거되었습니다.");
     }
   };
 
+  // Pops a certain subject out of the selSubj list
   const handlePopSubject = (subject) => {
-    popSelSubj(subject);
     setSelSubj(selSubj.filter(
       item => (item.subj_id !== subject.subj_id) 
         || (item.lect_no !== subject.lect_no)));
-  }
+  };
 
+  // Handles input change in the search box
+  const handleInputChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  // Handles input change in the keyword box
+  const handleKeywordChange = (event) => {
+    setKeyWord(event.target.value);
+  };
+
+  // Handles adding subject to selSubj
+  const addSubject = (subject) => {
+    setSelSubj(selSubj.concat(subject));
+  };
+
+  /****************************************************************************
+    THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE ADD PAGE AND CREATE PAGE
+  ****************************************************************************/
+
+  // State related to current page
+  const [currentPage, setCurrentPage] = useState("preview");
+
+  // States related to searching subjects
+  const [addingSubjName, setAddingSubjName] = useState("");
+  const [clickedSubject, setClickedSubject] = useState([]);
+  const [addedSubjKeyWord, setAddedSubjKeyWord] = useState("");
+
+  // State related to added subjects and lectures
+  const [addedLectureList, setAddedLectureList] = useState([]);
+  const [addedLectures, setAddedLectures] = useState([]);
+  const [addedSubjectIDs, setAddedSubjectIDs] = useState([]);
+  const [addedSubj, setAddedSubj] = useState([]);
+
+  // States related to popups
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupTitle, setPopupTitle] = useState("");
+  const [popupContent, setPopupContent] = useState("");
+
+  // Displays popup with "title" and "content"
   const displayPopup = (title, content) => {
     setPopupTitle(title);
     setPopupContent(content);
     setShowPopup(true);
   }
 
-  const displayCustomEventPopup = (title, content, closeEvent) => {
-    setPopupTitle(title);
-    setPopupContent(content);
-    setShowPopup(true);
-  }
-
-  //Variables, Functions for Add Page
-  const [addingSubjName, setAddingSubjName] = useState("");
-  const [clickedSubject, setClickedSubject] = useState([]);
-  const [addedLectureList, setAddedLectureList] = useState([]);
-  const [popAddedSubj, setPopAddedSubj] = useState(null);
-  const [addedSubjHover, setAddedSubjHover] = useState(false);
-  const [hoveredAddedSubj, setHoveredAddedSubj] = useState([]);
-  const [addedSubjKeyWord, setAddedSubjKeyWord] = useState("");
-
-  const [addedLectures, setAddedLectures] = useState([]);
-  const [addedSubjectIDs, setAddedSubjectIDs] = useState([]);
-
+  // Pops added lecture in the added lectures list
   const popAddedLecture = (lectureToPop) => {
     let filteredLength = addedLectures.filter(
       (lecture) => {return lecture.subj_id === lectureToPop.subj_id}
@@ -123,8 +148,9 @@ function App() {
         id => id !== lectureToPop.subj_id
       ));
     }
-  }
+  };
 
+  // Function that checks if some subject already exists
   const isExistingAddedLect = (subject) => {
     let ret = false;
     for (let i = 0; i < addedSubj.length; i++) {
@@ -136,137 +162,144 @@ function App() {
       }
     }
     return ret;
+  };
+
+  // Function that adds subjects to added lecture list
+  const addAddSubject = (lecture) => {
+    setAddedLectureList(addedLectureList.concat(lecture));
+  };
+
+  // Function that handles input in addSubjectSearch
+  const handleAddInputChange = (event) => {
+    setAddingSubjName(event.target.value);
+  };
+
+  // Function that handles input in keyword box
+  const handleAddKeywordChange = (event) => {
+    setAddedSubjKeyWord(event.target.value);
   }
 
+  const data = {
+    addingSubjName, setAddingSubjName,
+    clickedSubject, setClickedSubject,
+    addedSubjKeyWord, setAddedSubjKeyWord,
+
+    addedLectureList, setAddedLectureList,
+    addedLectures, setAddedLectures,
+    addedSubjectIDs, setAddedSubjectIDs,
+    addedSubj, setAddedSubj,
+
+    showPopup, setShowPopup,
+    popupTitle, setPopupTitle,
+    popupContent, setPopupContent,
+
+    displayPopup,
+    popAddedLecture,
+    isExistingAddedLect,
+    addAddSubject,
+    handleAddInputChange,
+    handleAddKeywordChange
+  };
+  
   return (
     <BrowserRouter>
-      <div className="app" onMouseMove={
-        (event) => {
-          setTooltipPosition({ x: event.clientX, y: event.clientY });
-        }
-      }>
-      <div className='app__header_container'>
-        <div className="app__header">
-          <img className="app_header_logo" src={logo}
-            style={{width: "auto", height: "7vh", marginRight: "30px"}}
-          />
-          <div className='app__header_links'>
-            <Link to="/" className='links'>시간표</Link>
-            <Link to="/add" className='links'>과목 담기</Link>
-            <Link to="/create" className='links'>자동 생성</Link>
-            <h3 style = {{ color: "lightgray" }}>ATTCS v0.3.01 (for beta testing), developed by @gong_zak_so</h3>
+
+      {/* Main container for the entire app */}
+
+      <div className='app'>
+        
+        {/* Header for the entire app */}
+        
+        <div className="app__header_container">
+          <div className="app__header">
+            <img className="app_header_logo" src={logo}
+              style={{width: "auto", height: "7vh", marginRight: "30px"}}
+            />
+
+            {/* Links for the pages */}
+
+            <div className='app__header_links'>
+              <Link className={ currentPage === "preview" ? "link_current" : "links" }
+                to="/" onClick = { () => {setCurrentPage("preview")} }>시간표</Link>
+              <Link className={ currentPage === "add" ? "link_current" : "links" } 
+                to="/add" onClick = { () => {setCurrentPage("add")} }>과목 담기</Link>
+              <Link className={ currentPage === "create" ? "link_current" : "links" } 
+                to="/create" onClick = { () => {setCurrentPage("create")} }>자동 생성</Link>
+              <span style={
+                { color: "gray", "fontWeight": "400", fontSize: "larger", marginLeft: "30px", marginRight: "30px" }
+              }>ATTCS v{appVersion} (for beta testing), developed by @gong_zak_so</span>
+              <button className='button-0' style={{ fontSize: "larger" }}
+                onClick={() => {displayPopup(
+                  "사용 설명서",
+                  <img src={inst1}
+                    style={{width: "100%"}}
+                  />
+                )}}>
+                설명서
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <Routes>
-        <Route exact path="/" element={ 
-          <div className='app__mainContainer'>
-            <div className='app__parentContainer'>
-              <CreationOptions
-                handleInputChange   = {(event) => {
-                  setListShow(false);
-                  setSubjName(event.target.value);
-                }}
-                subjName={subjName}
-                />
-              <SubjectSearchList 
-                subj_name   = {subjName}
-                addSubject  = {
-                  (subject) => {
-                    setSelSubj(selSubj.concat(subject));
-                  }
+        {/* The pages of this app */}
+
+        <Routes>
+
+          {/* The Preview (main) Page */}
+
+          <Route exact path="/" element={
+            <PreviewContext.Provider
+              value = {
+                {
+                  selSubj, setSelSubj,
+        
+                  allowMult, setAllowMult,
+                  keyWord, setKeyWord,
+                  searchText, setSearchText,
+        
+                  showPopup, setShowPopup,
+                  popupTitle, setPopupTitle,
+                  popupContent, setPopupContent,
+        
+                  showTooltip, setShowTooltip,
+                  tooltipPosition, setTooltipPosition,
+                  tooltipContent, setTooltipContent,
+                  scrollPosition, setScrollPosition,
+        
+                  subjHover, setSubjHover,
+                  hoveredSubj, setHoveredSubj,
+        
+                  isExistingSubj,
+                  handleAllowMultChange,
+                  handlePopSubject,
+                  displayPopup,
+                  handleInputChange,
+                  handleKeywordChange,
+                  addSubject
                 }
-                popSubject     = {handlePopSubject}
-                isExistingSubj      = {isExistingSubj}
-                allowMult           = {allowMult}
-                handleKeywordChange = {(event) => {setKeyWord(event.target.value);}}
-                keyWord             = {keyWord}
-                setSubjHover        = {setSubjHover}
-                setHoveredSubj      = {setHoveredSubj}
-                displayPopup        = {displayPopup}
-                />
-            </div>
-            <div className='app__parentContainer'>
-              <SubjectSelectList 
-                subj_name   = {subjName}
-                selSubj     = {selSubj}
-                addSubject  = {
-                  (subject) => {
-                    setSelSubj(selSubj.concat(subject));
-                  }
-                }
-                popSubject  = {handlePopSubject}
-                isExistingSubj      = {isExistingSubj}
-                allowMult           = {allowMult}
-                handleKeywordChange = {(event) => {setKeyWord(event.target.value);}}
-                keyWord             = {keyWord}
-                setAllowMul         = {setAllowMult}
-                handleAllowMultChange = {handleAllowMultChange}
-                setSubjHover        = {setSubjHover}
-                setHoveredSubj      = {setHoveredSubj}
-                displayPopup        = {displayPopup}
-                />
-            </div>
-            <div className='app__parentContainer'>
-              <TimeTable
-                selSubj={selSubj}
-                setShowTooltip={setShowTooltip}
-                setTooltipContent={setTooltipContent}
-                hoveredSubj={hoveredSubj}
-                subjHover={subjHover}
-              />
-            </div>
-          </div>
-          }/>
-          <Route path="/add" element={<Add
-            addingSubjName        = {addingSubjName}
-            handleAddInputChange  = {(event) => {
-              setAddingSubjName(event.target.value);}}
-            clickedSubject        = {clickedSubject}
-            setClickedSubject     = {setClickedSubject}
-
-            popAddedLecture = {popAddedLecture}
-            
-            keyWord = {addedSubjKeyWord}
-            handleKeywordChange = {(event) => {setAddedSubjKeyWord(event.target.value);}}
-
-            addSubject            = {
-              (lecture) => {
-                setAddedLectureList(addedLectureList.concat(lecture));
               }
-            }
-            popSubject            = {popAddedLecture}
+            >
+              <Preview />
+            </PreviewContext.Provider>
+          }/>
 
-            setSubjHover          = {setAddedSubjHover}
-            setHoveredSubj        = {setHoveredAddedSubj}
+          {/* The Add Page */}
 
-            isExistingSubj = {isExistingAddedLect}
+          <Route path="/add" element={
+            <CreationContext.Provider value={data}>
+              <Add />
+            </CreationContext.Provider>
+          }/>
 
-            addedLectures         = {addedLectures}
-            setAddedLectures      = {setAddedLectures}
+          {/* The Create Page */}
 
-            addedSubjectIDs       = {addedSubjectIDs}
-            setAddedSubjectIDs    = {setAddedSubjectIDs}
+          <Route path="/create" element={
+            <CreationContext.Provider value={data}>
+              <Create />
+            </CreationContext.Provider>
+          }/>
 
-            displayPopup          = {displayPopup}
-            />}/>
         </Routes>
-        {showTooltip && (
-          <Tooltip
-            tooltipContent={tooltipContent}
-            tooltipPosition={tooltipPosition}
-            scrollPosition={scrollPosition}
-          />
-        )}
-
-        {showPopup && (
-          <Popup
-            title={popupTitle}
-            content={popupContent}
-            onClose={() => {setShowPopup(false)}}
-          />
-        )}
       </div>
     </BrowserRouter>
   );
