@@ -1,6 +1,7 @@
 import subjects from "../../db/data.json";
 import React, { useContext } from 'react'
 import '../../css/AppTable.css';
+import '../../AppMobile.css';
 import '../../App.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";

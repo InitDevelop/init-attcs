@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../css/LectureBox.css'
 import '../../App.css'
+import '../../AppMobile.css';
 
 function LectureBox(props) {
   return (

@@ -2,6 +2,7 @@ import subjects from "../../db/data.json";
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
+import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 
@@ -107,8 +108,8 @@ function LectureSearchList() {
                 />
               </td>
               <td style={{width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px"}}>
-                <button className="button-0"
-                  style={{ width: "100%", fontSize: "130%" }}
+                <button className="button-0 button-0-larger"
+                  style={{ width: "100%", height: "100%" }}
                   disabled={selectedLectures.filter(item => !data.addedLectures.includes(item)).length === 0}
                   onClick={() => {
                       if (selectedLectures.length > 0) {

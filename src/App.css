@@ -39,6 +39,12 @@
   align-items: center;
 }
 
+.app_header_logo{
+  margin-right: 20px;
+  height: 60%;
+  width: auto;
+}
+
 .links {
   box-sizing: border-box;
   text-decoration: none;
@@ -197,6 +203,10 @@
   cursor: pointer;
   display: inline-block;
 }
+
+.button-0-larger {
+  font-size: 130%;
+}
   
 .button-0:hover{
   transition : 193ms;
@@ -347,3 +357,4 @@
   background-color: #eaeaea;
   padding: 3px;
 }
+

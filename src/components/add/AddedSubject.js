@@ -2,13 +2,14 @@ import React from 'react'
 import "../../css/SubjectList.css"
 import "../../App.css"
 
+
 function AddedSubject(props) {
   return (
     <div className='list__addedsubject'>
       <h3>
         <span className='credit' style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
         <span style={{marginRight: "10px"}}> {props.subject.prof} </span>
-        {"\t\t"}
+        {"\t"}
         { (props.subject.extra_info.includes("®")) && (
           <button className='button-tiny' onClick={
             () => {

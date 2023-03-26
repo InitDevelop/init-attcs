@@ -1,4 +1,5 @@
 import './App.css';
+import './AppMobile.css';
 import React, {useState, useEffect} from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Add from './pages/Add';
@@ -11,7 +12,7 @@ import inst1 from './img/inst1.png';
 export const PreviewContext = React.createContext();
 export const CreationContext = React.createContext();
 
-const appVersion = "0.4.0";
+const appVersion = "0.4.1";
 
 function App() {
 
@@ -212,9 +213,7 @@ function App() {
         
         <div className="app__header_container">
           <div className="app__header">
-            <img className="app_header_logo" src={logo}
-              style={{width: "auto", height: "7vh", marginRight: "30px"}}
-            />
+            <img className="app_header_logo" src={logo}/>
 
             {/* Links for the pages */}
 
@@ -225,18 +224,24 @@ function App() {
                 to="/add" onClick = { () => {setCurrentPage("add")} }>과목 담기</Link>
               <Link className={ currentPage === "create" ? "link_current" : "links" } 
                 to="/create" onClick = { () => {setCurrentPage("create")} }>자동 생성</Link>
-              <span style={
-                { color: "gray", "fontWeight": "400", fontSize: "larger", marginLeft: "30px", marginRight: "30px" }
-              }>ATTCS v{appVersion} (for beta testing), developed by @gong_zak_so</span>
-              <button className='button-0' style={{ fontSize: "larger" }}
-                onClick={() => {displayPopup(
-                  "사용 설명서",
-                  <img src={inst1}
-                    style={{width: "100%"}}
-                  />
-                )}}>
-                설명서
-              </button>
+              <div className='for_testing'>
+                <span style={
+                  { color: "gray", "fontWeight": "400", fontSize: "larger",
+                    marginLeft: "15px", marginRight: "15px" }
+                }>ATTCS v{appVersion} (beta){"\n"}</span>
+                <button className='button-0' style={{ fontSize: "larger" }}
+                  onClick={() => {displayPopup(
+                    "설명",
+                    <div>
+                      <img src={inst1}
+                      style={{width: "100%"}}
+                      />
+                      ATTCS v{appVersion} (for beta testing) Developed by Gong_Zak_So
+                    </div>
+                  )}}>
+                  설명
+                </button>
+              </div>
             </div>
           </div>
         </div>

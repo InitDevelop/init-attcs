@@ -12,14 +12,14 @@ function Add() {
 
   return (
     <div className='app__mainContainer'>
-      <div className='app__parentContainer' style={{ width: "25%" }}>
+      <div className='app__parentContainer'>
         <AddSubjectSearch/>
         <AddSubjectSearchList/>
       </div>
       <div className='app__parentContainer'>
         <LectureSearchList/>
       </div>
-      <div className='app__parentContainer' style={{ width: "35%" }}>
+      <div className='app__parentContainer'>
         <AddedSubjectList/>
       </div>
       {
