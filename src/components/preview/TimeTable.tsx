@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import "../../css/TimeTable.css"
 import '../../AppMobile.css';
-import { PreviewContext } from "../../App";
+import { PreviewContext } from "../../App.tsx";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51",

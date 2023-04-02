@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import '../../css/SubjectList.css'
 import '../../css/AppTable.css';
 import '../../App.css';
-import SubjectGroup from './SubjectGroup'
-import { CreationContext } from "../../App";
+import SubjectGroup from './SubjectGroup.tsx'
+import { CreationContext } from "../../App.tsx";
 
 function AddedSubjectList() {
 

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import subjects from "../../db/data.json";
 import "../../css/AppTable.css"
-import SubjectBox from './SubjectBox';
-import { CreationContext } from "../../App";
+import SubjectBox from './SubjectBox.tsx';
+import { CreationContext } from "../../App.tsx";
 
 function AddSubjectSearchList() {
 

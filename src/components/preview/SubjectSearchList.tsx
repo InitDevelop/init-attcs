@@ -3,8 +3,8 @@ import React, { useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../AppMobile.css';
 import '../../App.css';
-import LectureBox from "../global/LectureBox";
-import { PreviewContext } from "../../App";
+import LectureBox from "../global/LectureBox.tsx";
+import { PreviewContext } from "../../App.tsx";
 
 function SubjectSearchList() {
 

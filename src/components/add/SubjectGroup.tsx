@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import "../../css/SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
-import AddedSubject from './AddedSubject'
+import AddedSubject from './AddedSubject.tsx'
 
 function SubjectGroup(props) {
 

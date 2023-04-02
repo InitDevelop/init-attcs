@@ -2,9 +2,11 @@ import './App.css';
 import './AppMobile.css';
 import React, {useState, useEffect} from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
-import Add from './pages/Add';
-import Preview from './pages/Preview';
-import Create from './pages/Create';
+import Add from './pages/Add.tsx';
+import Preview from './pages/Preview.tsx';
+import Create from './pages/Create.tsx';
+import SubjTooltip from './components/global/SubjTooltip.tsx';
+import Popup from './components/global/Popup.tsx';
 
 import logo from './img/logo.png';
 import inst1 from './img/inst1.png';
@@ -110,7 +112,7 @@ function App() {
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE ADD PAGE AND CREATE PAGE
   ****************************************************************************/
 
-  // State related to current page
+  // State related to current pages
   const [currentPage, setCurrentPage] = useState("preview");
 
   // States related to searching subjects
@@ -119,6 +121,8 @@ function App() {
   const [addedSubjKeyWord, setAddedSubjKeyWord] = useState("");
 
   // State related to added subjects and lectures
+  const [lectureGroups, setLectureGroups] = useState([]);
+
   const [addedLectureList, setAddedLectureList] = useState([]);
   const [addedLectures, setAddedLectures] = useState([]);
   const [addedSubjectIDs, setAddedSubjectIDs] = useState([]);
@@ -185,6 +189,8 @@ function App() {
     clickedSubject, setClickedSubject,
     addedSubjKeyWord, setAddedSubjKeyWord,
 
+    lectureGroups, setLectureGroups,
+    
     addedLectureList, setAddedLectureList,
     addedLectures, setAddedLectures,
     addedSubjectIDs, setAddedSubjectIDs,
@@ -305,6 +311,27 @@ function App() {
           }/>
 
         </Routes>
+
+        {
+          showTooltip && (
+          <SubjTooltip
+            mode = "preview"
+            tooltipContent = {tooltipContent}
+            tooltipPosition = {tooltipPosition}
+            scrollPosition = {scrollPosition}
+          />
+          )
+        }
+
+        {
+          showPopup && (
+            <Popup
+              title = {popupTitle}
+              content = {popupContent}
+              onClose = {() => {setShowPopup(false)}}
+            />
+          )
+        }
       </div>
     </BrowserRouter>
   );

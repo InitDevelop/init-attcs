@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
 import '../../AppMobile.css';
-import LectureBox from "../global/LectureBox";
-import { CreationContext } from "../../App";
+import LectureBox from "../global/LectureBox.tsx";
+import { CreationContext } from "../../App.tsx";
 
 function LectureSearchList() {
   
@@ -112,16 +112,16 @@ function LectureSearchList() {
                   style={{ width: "100%", height: "100%" }}
                   disabled={selectedLectures.filter(item => !data.addedLectures.includes(item)).length === 0}
                   onClick={() => {
-                      if (selectedLectures.length > 0) {
-                        data.setAddedLectures(data.addedLectures.concat(
-                          selectedLectures.filter(
-                            (lecture) => {return !data.addedLectures.includes(lecture)}
-                          )
-                          ));
-                      }
-                      if (!data.addedSubjectIDs.includes(data.clickedSubject)) {
-                        data.setAddedSubjectIDs(data.addedSubjectIDs.concat(data.clickedSubject));
-                      }
+                    if (selectedLectures.length > 0) {
+                      data.setAddedLectures(data.addedLectures.concat(
+                        selectedLectures.filter(
+                          (lecture) => {return !data.addedLectures.includes(lecture)}
+                        )
+                        ));
+                    }
+                    if (!data.addedSubjectIDs.includes(data.clickedSubject)) {
+                      data.setAddedSubjectIDs(data.addedSubjectIDs.concat(data.clickedSubject));
+                    }
                     }
                   }>
                   {
