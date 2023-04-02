@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { CreationContext } from "../App.tsx";
-import AddedSubjectList from '../components/add/AddedSubjectList.tsx';
+import { CreationContext } from "../App";
+import AddedSubjectList from '../components/add/AddedSubjectList';
 
 function Create() {
 

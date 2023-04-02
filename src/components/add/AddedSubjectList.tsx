@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import '../../css/SubjectList.css'
 import '../../css/AppTable.css';
 import '../../App.css';
-import SubjectGroup from './SubjectGroup.tsx'
-import { CreationContext } from "../../App.tsx";
+import SubjectGroup from './SubjectGroup'
+import { CreationContext } from "../../App";
 
 function AddedSubjectList() {
 
@@ -18,15 +18,10 @@ function AddedSubjectList() {
               (subj_id) => {
                 return (
                   <SubjectGroup
-                  id = {subj_id}
                   lectures = {data.addedLectures.filter(
                     (lecture) => {return lecture.subj_id === subj_id}
                     )}
                   displayPopup = {data.displayPopup}
-                  addedLectures     = {data.addedLectures}
-                  setAddedLectures  = {data.setAddedLectures}
-                  addedSubjectIDs = {data.addedSubjectIDs}
-                  setAddedSubjectIDs = {data.setAddedSubjectIDs}
                   popAddedLecture = {data.popAddedLecture}
                   />
                 )

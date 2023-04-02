@@ -2,7 +2,13 @@ import React from 'react'
 import '../../css/Popup.css'
 import '../../App.css'
 
-function Popup(props) {
+type propType = {
+  title: string;
+  content: React.ReactNode;
+  onClose: () => void;
+}
+
+function Popup(props: propType) {
   return (
     <div className="popup">
       <div style={{whiteSpace:'pre-wrap'}} className="popup-inner">

@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import "../../css/TimeTable.css"
 import '../../AppMobile.css';
-import { PreviewContext } from "../../App.tsx";
+import { PreviewContext } from "../../App";
+import { timeSlot } from '../../interfaces/Lecture';
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51",
   "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
 
-const isTimeIntersect = (thisStart, thisEnd, thatStart, thatEnd) => {
+const isTimeIntersect = (thisStart: number, thisEnd: number, thatStart: number, thatEnd: number) => {
   let ret = true;
   if (thisStart > thatEnd || thisEnd < thatStart) {
     ret = false;
@@ -15,7 +16,7 @@ const isTimeIntersect = (thisStart, thisEnd, thatStart, thatEnd) => {
   return ret;
 }
 
-const getDateValue = (dateChar) => {
+const getDateValue = (dateChar: string): number => {
   let date = 5;
   switch (dateChar) {
     case "월":
@@ -41,8 +42,8 @@ function TimeTable() {
 
   const data = useContext(PreviewContext);
 
-  let timeSlots = [];
-  let hoveredTimeSlots = [];
+  let timeSlots: timeSlot[] = [];
+  let hoveredTimeSlots: timeSlot[] = [];
 
   for (let j = 0; j < data.selSubj.length; j++) {
     let times = data.selSubj[j].time.split("/");
@@ -98,7 +99,8 @@ function TimeTable() {
         subjName: data.hoveredSubj.subj_name,
         leftPos: leftPos,
         topPos: topPos,
-        height: height
+        height: height,
+        id: 0
       });
     }
   }

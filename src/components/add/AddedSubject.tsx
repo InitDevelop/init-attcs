@@ -1,9 +1,14 @@
-import React from 'react'
 import "../../css/SubjectList.css"
 import "../../App.css"
+import { lecture } from '../../interfaces/Lecture';
 
+type propType = {
+  subject: lecture;
+  displayPopup: (title: string, content: JSX.Element) => void;
+  popAddedLecture: (lecture: lecture) => void;
+};
 
-function AddedSubject(props) {
+function AddedSubject(props: propType) {
   return (
     <div className='list__addedsubject'>
       <h3>
@@ -13,14 +18,14 @@ function AddedSubject(props) {
         { (props.subject.extra_info.includes("®")) && (
           <button className='button-tiny' onClick={
             () => {
-              props.displayPopup("수강반 제한 정보", props.subject.extra_info);
+              props.displayPopup("수강반 제한 정보", <>{props.subject.extra_info}</>);
             }
           }>수강반 제한</button>
         )}
         { (props.subject.lang !== "한국어") && (
           <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
             () => {
-              props.displayPopup("강의 언어", props.subject.lang);
+              props.displayPopup("강의 언어", <>{props.subject.lang}</>);
             }
           }>외국어</button>
         )}

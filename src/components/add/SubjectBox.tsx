@@ -2,7 +2,14 @@ import React, { useState } from 'react'
 import '../../css/LectureBox.css'
 import '../../css/AppTable.css'
 
-function SubjectBox(props) {
+type propType = {
+  subj_id: string;
+  subj_name: string;
+  clickedSubject: string;
+  setClickedSubject: (param: string) => void;
+}
+
+function SubjectBox(props: propType) {
 
   const [showText, setShowText] = useState(false);
 

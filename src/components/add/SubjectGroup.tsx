@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from 'react'
 import "../../css/SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
-import AddedSubject from './AddedSubject.tsx'
+import AddedSubject from './AddedSubject'
+import { lecture } from "../../interfaces/Lecture";
 
-function SubjectGroup(props) {
+type propType = {
+  lectures: lecture[];
+  displayPopup: (title: string, content: React.ReactNode) => void;
+  popAddedLecture: (param: lecture) => void;
+}
+
+function SubjectGroup(props: propType) {
 
   return (
     <div className='list__subjectgroupbox'>
@@ -26,13 +32,6 @@ function SubjectGroup(props) {
               <AddedSubject
                 subject = {subject}
                 displayPopup = {props.displayPopup}
-
-                addedLectures     = {props.addedLectures}
-                setAddedLectures  = {props.setAddedLectures}
-      
-                addedSubjectIDs = {props.addedSubjectIDs}
-                setAddedSubjectIDs = {props.setAddedSubjectIDs}
-
                 popAddedLecture = {props.popAddedLecture}
               />
             )

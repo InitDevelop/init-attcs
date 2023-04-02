@@ -2,8 +2,30 @@ import React from 'react'
 import '../../css/LectureBox.css'
 import '../../App.css'
 import '../../AppMobile.css';
+import { lecture } from '../../interfaces/Lecture';
 
-function LectureBox(props) {
+type propType = {
+  boxType: string;
+  SubjectToRemove: lecture;
+
+  setHoveredSubj: (param: lecture) => void;
+  subject: lecture;
+  setSubjHover: (param: boolean) => void;
+  setSubjectToRemove: (param: lecture) => void;
+  selectedLectures: lecture[];
+  addedLectures: lecture[];
+  selectLecture: (param: lecture) => void;
+  deselectLecture: (param: lecture) => void;
+  displayPopup: (title: string, content: React.ReactNode) => void;
+
+  isExistingSubj: (param: lecture) => boolean;
+  addSubject: (param: lecture) => void;
+  popSubject: (param: lecture) => void;
+
+  setClickedSubject: (param: string) => void;
+}
+
+function LectureBox(props: propType) {
   return (
     <table className='lecturebox' style={
       { 
@@ -106,13 +128,13 @@ function LectureBox(props) {
                                 </td>
                               </tr>
                               <tr>
-                                <td colSpan="3">
+                                <td colSpan={3}>
                                   <h4 className='key'>강의 시간</h4>
                                   <h4 className='value'>{props.subject.time}</h4>
                                 </td>
                               </tr>
                               <tr>
-                                <td colSpan="3">
+                                <td colSpan={3}>
                                   <h4 className='key'>추가 정보</h4>
                                   <h4 className='value'>{props.subject.extra_info}</h4>
                                 </td>

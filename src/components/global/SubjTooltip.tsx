@@ -1,7 +1,14 @@
-import React from 'react'
 import "../../css/Tooltip.css"
+import { xyTuple } from "../../interfaces/Util";
 
-function SubjTooltip(props) {
+type propType = {
+  tooltipPosition: xyTuple;
+  scrollPosition: number;
+  tooltipContent: string;
+  mode: string;
+}
+
+function SubjTooltip(props: propType) {
   return (
     <div className='tooltip'
         style={{

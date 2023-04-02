@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import '../../App.css';
-import LectureBox from '../global/LectureBox.tsx';
-import { PreviewContext } from "../../App.tsx";
+import LectureBox from '../global/LectureBox';
+import { PreviewContext } from "../../App";
+import { lecture } from '../../interfaces/Lecture';
 
 function SubjectSelectList() {
 
@@ -32,15 +33,42 @@ function SubjectSelectList() {
           subject => {
             return (
               <LectureBox
-                boxType         = "list"
-                addSubject      = {data.addSubject}
-                popSubject      = {data.handlePopSubject}
-                setHoveredSubj  = {data.setHoveredSubj}
-                setSubjHover    = {data.setSubjHover}
-                subject         = {subject}
-                isExistingSubj  = {data.isExistingSubj}
-                displayPopup    = {data.displayPopup}
-              />
+                boxType="list"
+                addSubject={data.addSubject}
+                popSubject={data.handlePopSubject}
+                setHoveredSubj={data.setHoveredSubj}
+                setSubjHover={data.setSubjHover}
+                subject={subject}
+                isExistingSubj={data.isExistingSubj}
+                displayPopup={data.displayPopup} SubjectToRemove={{
+                  lect_type: '',
+                  lect_col: '',
+                  lect_dept: '',
+                  grad: '',
+                  grade: '',
+                  subj_id: '',
+                  lect_no: '',
+                  subj_name: '',
+                  subj_subname: '',
+                  credit: '',
+                  cred_lect: '',
+                  cred_lab: '',
+                  time: '',
+                  lect_form: '',
+                  lect_room: '',
+                  prof: '',
+                  student_count: '',
+                  extra_info: '',
+                  lang: ''
+                }} setSubjectToRemove={function (param: lecture): void {
+                  throw new Error('Function not implemented.');
+                } } selectedLectures={[]} addedLectures={[]} selectLecture={function (param: lecture): void {
+                  throw new Error('Function not implemented.');
+                } } deselectLecture={function (param: lecture): void {
+                  throw new Error('Function not implemented.');
+                } } setClickedSubject={function (param: string): void {
+                  throw new Error('Function not implemented.');
+                } }              />
             )
           }
         )}

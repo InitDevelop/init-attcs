@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import "../../App.css"
-import { PreviewContext } from "../../App.tsx";
+import { PreviewContext } from "../../App";
 
 function CreationOptions() {
 

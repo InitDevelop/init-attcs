@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-import Popup from '../components/global/Popup.tsx';
-import SubjTooltip from '../components/global/SubjTooltip.tsx';
-import CreationOptions from '../components/preview/CreationOptions.tsx';
-import SubjectSearchList from '../components/preview/SubjectSearchList.tsx';
-import SubjectSelectList from '../components/preview/SubjectSelectList.tsx';
-import TimeTable from '../components/preview/TimeTable.tsx';
-import { PreviewContext } from "../App.tsx";
+import { useContext } from 'react';
+import CreationOptions from '../components/preview/CreationOptions';
+import SubjectSearchList from '../components/preview/SubjectSearchList';
+import SubjectSelectList from '../components/preview/SubjectSelectList';
+import TimeTable from '../components/preview/TimeTable';
+import { PreviewContext } from "../App";
 
 
 function Preview() {

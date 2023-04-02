@@ -1,20 +1,23 @@
-import subjects from "../../db/data.json";
+import lectureData from "../../db/data.json";
 import React, { useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../AppMobile.css';
 import '../../App.css';
-import LectureBox from "../global/LectureBox.tsx";
-import { PreviewContext } from "../../App.tsx";
+import LectureBox from "../global/LectureBox";
+import { PreviewContext } from "../../App";
+import { lecture } from "../../interfaces/Lecture";
+
+const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
 function SubjectSearchList() {
 
   const data = useContext(PreviewContext);
 
-  const accuracy = (abbrev, full) => {
+  const accuracy = (abbrev: string, full: string) => {
     return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
   };
 
-  function isRelatedName(abbrev, full) {
+  function isRelatedName(abbrev: string, full: string) {
     abbrev = abbrev.replace(" ", "");
     full = full.replace(" ", "");
     var ret = true;
@@ -38,9 +41,9 @@ function SubjectSearchList() {
       </h2>
       <div className="appTable__scrollContainer">
         {
-          subjects.subjects
+          lectureDatabase
           .filter(
-            (subject) => {
+            (subject: lecture) => {
               let args = data.searchText.split(" ");
               let isRelatedProf;
               let isRelated;
@@ -60,15 +63,42 @@ function SubjectSearchList() {
             subject => {
               return (
                 <LectureBox
-                boxType         = "search"
-                addSubject      = {data.addSubject}
-                popSubject      = {data.popSubject}
-                setSubjHover    = {data.setSubjHover}
-                setHoveredSubj  = {data.setHoveredSubj}
-                subject         = {subject}
-                isExistingSubj  = {data.isExistingSubj}
-                displayPopup    = {data.displayPopup}
-              />
+                  boxType="search"
+                  addSubject={data.addSubject}
+                  popSubject={data.popSubject}
+                  setSubjHover={data.setSubjHover}
+                  setHoveredSubj={data.setHoveredSubj}
+                  subject={subject}
+                  isExistingSubj={data.isExistingSubj}
+                  displayPopup={data.displayPopup} SubjectToRemove={{
+                    lect_type: "",
+                    lect_col: "",
+                    lect_dept: "",
+                    grad: "",
+                    grade: "",
+                    subj_id: "",
+                    lect_no: "",
+                    subj_name: "",
+                    subj_subname: "",
+                    credit: "",
+                    cred_lect: "",
+                    cred_lab: "",
+                    time: "",
+                    lect_form: "",
+                    lect_room: "",
+                    prof: "",
+                    student_count: "",
+                    extra_info: "",
+                    lang: ""
+                  }} setSubjectToRemove={function (param: lecture): void {
+                    throw new Error("Function not implemented.");
+                  } } selectedLectures={[]} addedLectures={[]} selectLecture={function (param: lecture): void {
+                    throw new Error("Function not implemented.");
+                  } } deselectLecture={function (param: lecture): void {
+                    throw new Error("Function not implemented.");
+                  } } setClickedSubject={function (param: string): void {
+                    throw new Error("Function not implemented.");
+                  } }              />
               )
             }
           )

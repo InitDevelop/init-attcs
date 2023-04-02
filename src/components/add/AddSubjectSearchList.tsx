@@ -1,22 +1,25 @@
 import React, { useContext } from 'react';
-import subjects from "../../db/data.json";
+import lectureData from "../../db/data.json";
 import "../../css/AppTable.css"
-import SubjectBox from './SubjectBox.tsx';
-import { CreationContext } from "../../App.tsx";
+import SubjectBox from './SubjectBox';
+import { CreationContext } from "../../App";
+import { lecture } from '../../interfaces/Lecture';
+
+const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
 function AddSubjectSearchList() {
 
   const data = useContext(CreationContext);
-  let subjectsAdded = [];
+  let subjectsAdded: string[] = [];
 
-  const accuracy = (abbrev, full) => {
+  const accuracy = (abbrev: string, full: string): number => {
     return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
   };
 
-  function isRelatedName(abbrev, full) {
+  function isRelatedName(abbrev: string, full: string): boolean {
     abbrev = abbrev.replace(" ", "");
     full = full.replace(" ", "");
-    var ret = true;
+    let ret: boolean = true;
     for (let i = 0; i < abbrev.length; i++) {
       var sub = abbrev.substring(i, i + 1);
       if (full.includes(sub)) {
@@ -34,8 +37,8 @@ function AddSubjectSearchList() {
       <h2 className="mid_title">찾은 과목
       </h2>
       <div className="appTable__scrollContainer">
-        {subjects.subjects.filter(
-          (subject) => {
+        {lectureDatabase.filter(
+          (subject: lecture) => {
             let isRelated = isRelatedName(data.addingSubjName, subject.subj_name);
             return ((data.addingSubjName !== "") && isRelated);
           }

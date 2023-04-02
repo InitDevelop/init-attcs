@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { CreationContext } from "../App.tsx";
-import AddedSubjectList from '../components/add/AddedSubjectList.tsx';
-import AddSubjectSearch from '../components/add/AddSubjectSearch.tsx';
-import AddSubjectSearchList from '../components/add/AddSubjectSearchList.tsx';
-import LectureSearchList from '../components/add/LectureSearchList.tsx';
+import { CreationContext } from "../App";
+import AddedSubjectList from '../components/add/AddedSubjectList';
+import AddSubjectSearch from '../components/add/AddSubjectSearch';
+import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
+import LectureSearchList from '../components/add/LectureSearchList';
 
 function Add() {
 
