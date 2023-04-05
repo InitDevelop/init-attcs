@@ -10,7 +10,7 @@ import Popup from './components/global/Popup';
 
 import logo from './img/logo.png';
 import inst1 from './img/inst1.png';
-import { blankLecture, lecture } from './interfaces/Lecture';
+import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
 import { xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes } from './interfaces/ContextTypes';
 
@@ -65,27 +65,7 @@ export const PreviewContext = React.createContext<previewContextTypes>({
   setSubjHover: function (param: boolean): void {
     throw new Error('Function not implemented.');
   },
-  hoveredSubj: {
-    lect_type: '',
-    lect_col: '',
-    lect_dept: '',
-    grad: '',
-    grade: '',
-    subj_id: '',
-    lect_no: '',
-    subj_name: '',
-    subj_subname: '',
-    credit: '',
-    cred_lect: '',
-    cred_lab: '',
-    time: '',
-    lect_form: '',
-    lect_room: '',
-    prof: '',
-    student_count: '',
-    extra_info: '',
-    lang: ''
-  },
+  hoveredSubj: blankLecture,
   setHoveredSubj: function (param: lecture): void {
     throw new Error('Function not implemented.');
   },
@@ -93,9 +73,6 @@ export const PreviewContext = React.createContext<previewContextTypes>({
     throw new Error('Function not implemented.');
   },
   handleAllowMultChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  handlePopSubject: function (subject: lecture): void {
     throw new Error('Function not implemented.');
   },
   displayPopup: function (title: string, content: React.ReactNode): void {
@@ -114,33 +91,18 @@ export const PreviewContext = React.createContext<previewContextTypes>({
     throw new Error('Function not implemented.');
   }
 });
+
 export const CreationContext = React.createContext<creationContextTypes>({
   addingSubjName: '',
   setAddingSubjName: function (param: string): void {
     throw new Error('Function not implemented.');
   },
-  clickedSubject: "",
+  clickedSubject: '',
   setClickedSubject: function (param: string): void {
     throw new Error('Function not implemented.');
   },
   addedSubjKeyWord: '',
   setAddedSubjKeyWord: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  addedLectureList: [],
-  setAddedLectureList: function (param: lecture[]): void {
-    throw new Error('Function not implemented.');
-  },
-  addedLectures: [],
-  setAddedLectures: function (param: lecture[]): void {
-    throw new Error('Function not implemented.');
-  },
-  addedSubjectIDs: [],
-  setAddedSubjectIDs: function (param: string[]): void {
-    throw new Error('Function not implemented.');
-  },
-  addedSubj: [],
-  setAddedSubj: function (param: lecture[]): void {
     throw new Error('Function not implemented.');
   },
   showPopup: false,
@@ -155,16 +117,28 @@ export const CreationContext = React.createContext<creationContextTypes>({
   setPopupContent: function (param: React.ReactNode): void {
     throw new Error('Function not implemented.');
   },
+  isExistingSubj: function (lecture: lecture): boolean {
+    throw new Error('Function not implemented.');
+  },
+  addLectureToGroup: function (param: lecture): void {
+    throw new Error('Function not implemented.');
+  },
+  removeLectureFromGroup: function (param: lecture): void {
+    throw new Error('Function not implemented.');
+  },
+  lectureGroups: [],
+  includesLecture: function (param: lecture): boolean {
+    throw new Error('Function not implemented.');
+  },
+  subjHover: false,
+  setSubjHover: function (param: boolean): void {
+    throw new Error('Function not implemented.');
+  },
+  hoveredSubj: blankLecture,
+  setHoveredSubj: function (param: lecture): void {
+    throw new Error('Function not implemented.');
+  },
   displayPopup: function (title: string, content: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  popAddedLecture: function (lectureToPop: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  isExistingAddedLect: function (subject: lecture): boolean {
-    throw new Error('Function not implemented.');
-  },
-  addAddSubject: function (lecture: lecture): void {
     throw new Error('Function not implemented.');
   },
   handleAddInputChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
@@ -173,35 +147,7 @@ export const CreationContext = React.createContext<creationContextTypes>({
   handleAddKeywordChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
     throw new Error('Function not implemented.');
   },
-  isExistingSubj: function (lecture: lecture): boolean {
-    throw new Error('Function not implemented.');
-  },
-  subjHover: false,
-  setSubjHover: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  hoveredSubj: {
-    lect_type: '',
-    lect_col: '',
-    lect_dept: '',
-    grad: '',
-    grade: '',
-    subj_id: '',
-    lect_no: '',
-    subj_name: '',
-    subj_subname: '',
-    credit: '',
-    cred_lect: '',
-    cred_lab: '',
-    time: '',
-    lect_form: '',
-    lect_room: '',
-    prof: '',
-    student_count: '',
-    extra_info: '',
-    lang: ''
-  },
-  setHoveredSubj: function (param: lecture): void {
+  setLectureGroups: function (param: lectureGroup[]): void {
     throw new Error('Function not implemented.');
   }
 });
@@ -314,16 +260,48 @@ function App() {
   const [clickedSubject, setClickedSubject] = useState<string>("");
   const [addedSubjKeyWord, setAddedSubjKeyWord] = useState<string>("");
 
-  // State related to added subjects and lectures
-  const [addedLectureList, setAddedLectureList] = useState<Array<lecture>>([]);
-  const [addedLectures, setAddedLectures] = useState<Array<lecture>>([]);
-  const [addedSubjectIDs, setAddedSubjectIDs] = useState<Array<string>>([]);
-  const [addedSubj, setAddedSubj] = useState<Array<lecture>>([]);
-
   // States related to popups
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [popupTitle, setPopupTitle] = useState<string>("");
   const [popupContent, setPopupContent] = useState<React.ReactNode>(<></>);
+
+  // State, Functions related to lectureGroups
+  const [lectureGroups, setLectureGroups] = useState<lectureGroup[]>([]);
+
+  const addLectureToGroup = (lect: lecture) => {
+    const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
+    let copy = lectureGroups;
+    if (IDs.includes(lect.subj_id)) {
+      const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
+      copy[index].lectures.push(lect);
+    } else {
+      copy.push({
+        subj_id: lect.subj_id,
+        lectures: [lect]
+      });
+    }
+    setLectureGroups(copy);
+  }
+
+  const removeLectureFromGroup = (lect: lecture) => {
+    const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
+    let copy = lectureGroups;
+    copy[index].lectures = lectureGroups[index].lectures.filter(l => l !== lect);
+    if (copy[index].lectures.length === 0) {
+      copy = copy.filter(lg => lg.subj_id !== lect.subj_id);
+    }
+    setLectureGroups(copy);
+  }
+
+  const includesLecture = (lect: lecture) => {
+    const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
+    if (IDs.includes(lect.subj_id)) {
+      const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
+      return lectureGroups[index].lectures.includes(lect);
+    } else {
+      return false;
+    }
+  }
 
   // Displays popup with "title" and "content"
   const displayPopup = (title: string, content: React.ReactNode) => {
@@ -331,40 +309,6 @@ function App() {
     setPopupContent(content);
     setShowPopup(true);
   }
-
-  // Pops added lecture in the added lectures list
-  const popAddedLecture = (lectureToPop: lecture) => {
-    let filteredLength = addedLectures.filter(
-      (lecture) => {return lecture.subj_id === lectureToPop.subj_id}
-    ).length;
-    setAddedLectures(addedLectures.filter(
-      (lecture) => {return lecture !== lectureToPop}
-    ));
-    if (filteredLength === 1) {
-      setAddedSubjectIDs(addedSubjectIDs.filter(
-        (id) => (id) !== (lectureToPop.subj_id)
-      ));
-    }
-  };
-
-  // Function that checks if some subject already exists
-  const isExistingAddedLect = (subject: lecture) => {
-    let ret: boolean = false;
-    for (let i = 0; i < addedSubj.length; i++) {
-      if (addedSubj[i].subj_id === subject.subj_id) {
-        if (addedSubj[i].lect_no === subject.lect_no) {
-          ret = true;
-          break;
-        }
-      }
-    }
-    return ret;
-  };
-
-  // Function that adds subjects to added lecture list
-  const addAddSubject = (lecture: lecture) => {
-    setAddedLectureList(addedLectureList.concat(lecture));
-  };
 
   // Function that handles input in addSubjectSearch
   const handleAddInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -397,7 +341,6 @@ function App() {
 
     isExistingSubj,
     handleAllowMultChange,
-    handlePopSubject,
     displayPopup,
     handleInputChange,
     handleKeywordChange,
@@ -410,25 +353,23 @@ function App() {
     clickedSubject, setClickedSubject,
     addedSubjKeyWord, setAddedSubjKeyWord,
 
-    addedLectureList, setAddedLectureList,
-    addedLectures, setAddedLectures,
-    addedSubjectIDs, setAddedSubjectIDs,
-    addedSubj, setAddedSubj,
-
     showPopup, setShowPopup,
     popupTitle, setPopupTitle,
     popupContent, setPopupContent,
 
     displayPopup,
-    popAddedLecture,
-    isExistingAddedLect,
-    addAddSubject,
     handleAddInputChange,
     handleAddKeywordChange,
     isExistingSubj,
 
     subjHover, setSubjHover,
-    hoveredSubj, setHoveredSubj
+    hoveredSubj, setHoveredSubj,
+
+    addLectureToGroup,
+    removeLectureFromGroup,
+    lectureGroups,
+    setLectureGroups,
+    includesLecture
   };
   
   return (

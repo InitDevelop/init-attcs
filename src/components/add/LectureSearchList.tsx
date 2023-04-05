@@ -5,26 +5,30 @@ import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
-import { lecture } from "../../interfaces/Lecture";
+import { blankLecture, lecture } from "../../interfaces/Lecture";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
-function LectureSearchList() {
-  
+type propType = {
+  selectedLectures: lecture[];
+  setSelectedLectures: (param: lecture[]) => void;
+}
+
+function LectureSearchList(props: propType) {
+
+  let shownLectures: lecture[] = [];
+
   const data = useContext(CreationContext);
   const prevPropsRef = useRef(data);
 
   useEffect(() => {
     const prevProps = prevPropsRef.current;
     if (prevProps.clickedSubject !== data.clickedSubject) {
-      setSelectedLectures([]);
+      props.setSelectedLectures([]);
       shownLectures = [];
     }
     prevPropsRef.current = data;
   });
-
-  const [selectedLectures, setSelectedLectures] = useState<lecture[]>([]);
-  let shownLectures: lecture[] = [];
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
@@ -40,55 +44,25 @@ function LectureSearchList() {
             shownLectures.push(subject);
           }
           return (data.clickedSubject === subject.subj_id) && isRelatedKeyWord ? (
-            <LectureBox
-              boxType="add"
-
-              addSubject={data.addAddSubject}
-              popSubject={data.popAddedLecture}
-
-              setSubjHover={data.setSubjHover}
-              setHoveredSubj={data.setHoveredSubj}
-
-              subject={subject}
-              isExistingSubj={data.isExistingSubj}
-
-              setClickedSubject={data.setClickedSubject}
-
-              selectedLectures={selectedLectures}
-              selectLecture={(lecture: lecture) => {
-                setSelectedLectures(selectedLectures.concat(lecture));
-              } }
-              deselectLecture={(lecture: lecture) => {
-                setSelectedLectures(
-                  selectedLectures.filter(
-                    (other) => (lecture.lect_no !== other.lect_no)
-                  )
-                );
-              } }
-              addedLectures={data.addedLectures}
-              displayPopup={data.displayPopup} SubjectToRemove={{
-                lect_type: "",
-                lect_col: "",
-                lect_dept: "",
-                grad: "",
-                grade: "",
-                subj_id: "",
-                lect_no: "",
-                subj_name: "",
-                subj_subname: "",
-                credit: "",
-                cred_lect: "",
-                cred_lab: "",
-                time: "",
-                lect_form: "",
-                lect_room: "",
-                prof: "",
-                student_count: "",
-                extra_info: "",
-                lang: ""
-              }} setSubjectToRemove={function (param: lecture): void {
-                throw new Error("Function not implemented.");
-              } }            />
+            <LectureBox boxType={"add"} subject={subject}
+            displayPopup={data.displayPopup}
+            addLectureToList={
+              (lect: lecture) => {
+                props.setSelectedLectures(props.selectedLectures.concat(lect));
+              }
+            }
+            removeLectureFromList={
+              (lect: lecture) => {
+                props.setSelectedLectures(props.selectedLectures.filter(l => l !== lect));
+              }
+            }
+            setHoveredSubj={data.setHoveredSubj}
+            setSubjHover={data.setSubjHover}
+            isExistingSubj={data.isExistingSubj}
+            selectedLectures={props.selectedLectures}
+            lectureGroups={data.lectureGroups}
+            includesLecture={data.includesLecture}            
+            />
           ) : ""
         }
         )}
@@ -115,13 +89,13 @@ function LectureSearchList() {
                 <input style={{ cursor: "pointer", verticalAlign: "middle" }}
                 className='checkbox-1'
                 type="checkbox"
-                checked={(selectedLectures.length === shownLectures.length) && shownLectures.length > 0}
+                checked={(props.selectedLectures.length === shownLectures.length) && shownLectures.length > 0}
                 onChange={
                   (event) => {
                     if (!event.target.checked) {
-                      setSelectedLectures([]);
+                      props.setSelectedLectures([]);
                     } else {
-                      setSelectedLectures(shownLectures);
+                      props.setSelectedLectures(shownLectures);
                     }
                   }
                 }
@@ -130,24 +104,17 @@ function LectureSearchList() {
               <td style={{width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px"}}>
                 <button className="button-0 button-0-larger"
                   style={{ width: "100%", height: "100%" }}
-                  disabled={selectedLectures.filter(item => !data.addedLectures.includes(item)).length === 0}
+                  disabled={props.selectedLectures.filter(item => !data.includesLecture(item)).length === 0}
                   onClick={() => {
-                    if (selectedLectures.length > 0) {
-                      data.setAddedLectures(data.addedLectures.concat(
-                        selectedLectures.filter(
-                          (lecture) => {return !data.addedLectures.includes(lecture)}
-                        )
-                        ));
+                    for (let i = 0; i < props.selectedLectures.length; i++) {
+                      data.addLectureToGroup(props.selectedLectures[i]);
+                      props.setSelectedLectures([]);
                     }
-                    if (!data.addedSubjectIDs.includes(data.clickedSubject)) {
-                      data.setAddedSubjectIDs(data.addedSubjectIDs.concat(data.clickedSubject));
-                    }
-                    }
-                  }>
+                  }}>
                   {
-                    (selectedLectures.filter(item => !data.addedLectures.includes(item)).length !== 0) ?
+                    (props.selectedLectures.filter(item => !data.includesLecture(item)).length !== 0) ?
                     (
-                      <span>선택한 강좌 <strong>{selectedLectures.filter(item => !data.addedLectures.includes(item)).length}개</strong> 모두 담기</span>
+                      <span>선택한 강좌 <strong>{props.selectedLectures.filter(item => !data.includesLecture(item)).length}개</strong> 모두 담기</span>
                     ) : (<strong>담을 과목을 선택하세요</strong>)
                   }
                 </button> 

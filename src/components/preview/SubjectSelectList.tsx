@@ -30,45 +30,20 @@ function SubjectSelectList() {
       </h2>
       <div className="appTable__selectScrollContainer">
         {data.selSubj.map(
-          subject => {
+          (subject: lecture) => {
             return (
-              <LectureBox
-                boxType="list"
-                addSubject={data.addSubject}
-                popSubject={data.handlePopSubject}
-                setHoveredSubj={data.setHoveredSubj}
-                setSubjHover={data.setSubjHover}
-                subject={subject}
-                isExistingSubj={data.isExistingSubj}
-                displayPopup={data.displayPopup} SubjectToRemove={{
-                  lect_type: '',
-                  lect_col: '',
-                  lect_dept: '',
-                  grad: '',
-                  grade: '',
-                  subj_id: '',
-                  lect_no: '',
-                  subj_name: '',
-                  subj_subname: '',
-                  credit: '',
-                  cred_lect: '',
-                  cred_lab: '',
-                  time: '',
-                  lect_form: '',
-                  lect_room: '',
-                  prof: '',
-                  student_count: '',
-                  extra_info: '',
-                  lang: ''
-                }} setSubjectToRemove={function (param: lecture): void {
-                  throw new Error('Function not implemented.');
-                } } selectedLectures={[]} addedLectures={[]} selectLecture={function (param: lecture): void {
-                  throw new Error('Function not implemented.');
-                } } deselectLecture={function (param: lecture): void {
-                  throw new Error('Function not implemented.');
-                } } setClickedSubject={function (param: string): void {
-                  throw new Error('Function not implemented.');
-                } }              />
+              <LectureBox boxType={"list"} subject={subject}
+              displayPopup={data.displayPopup}
+              addLectureToList={data.addSubject}
+              removeLectureFromList={data.popSubject}
+              setHoveredSubj={data.setHoveredSubj}
+              setSubjHover={data.setSubjHover}
+              isExistingSubj={data.isExistingSubj}
+              selectedLectures={[]}
+              lectureGroups={[]}
+              includesLecture={function (param: lecture): boolean {
+                throw new Error('Function not implemented.');
+              }}/>
             )
           }
         )}

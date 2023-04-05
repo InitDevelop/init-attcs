@@ -1,31 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
 import '../../css/SubjectList.css'
 import '../../css/AppTable.css';
 import '../../App.css';
 import SubjectGroup from './SubjectGroup'
 import { CreationContext } from "../../App";
+import { lecture, lectureGroup } from '../../interfaces/Lecture';
 
 function AddedSubjectList() {
 
   const data = useContext(CreationContext);
-
+  
   return (
     <div className='appTable__container'>
       <h2 className="mid_title">담은 강좌</h2>
         <div className="appTable__scrollContainer">
           {
-            data.addedSubjectIDs.map(
-              (subj_id) => {
+            data.lectureGroups.map(
+              (lg: lectureGroup) => {
                 return (
                   <SubjectGroup
-                  lectures = {data.addedLectures.filter(
-                    (lecture) => {return lecture.subj_id === subj_id}
-                    )}
-                  displayPopup = {data.displayPopup}
-                  popAddedLecture = {data.popAddedLecture}
-                  />
+                    lectureGroup={lg}
+                    displayPopup={data.displayPopup}
+                    popAddedLecture={data.removeLectureFromGroup}/>
                 )
-                
               }
             )
           }
@@ -34,4 +31,4 @@ function AddedSubjectList() {
   )
 }
 
-export default AddedSubjectList
+export default AddedSubjectList;

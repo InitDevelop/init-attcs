@@ -5,7 +5,7 @@ import '../../AppMobile.css';
 import '../../App.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
-import { lecture } from "../../interfaces/Lecture";
+import { blankLecture, lecture } from "../../interfaces/Lecture";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
@@ -60,45 +60,20 @@ function SubjectSearchList() {
             }
           )
           .sort((a, b) => (accuracy(data.searchText, b.subj_name) - accuracy(data.searchText, a.subj_name))).map(
-            subject => {
+            (subject: lecture) => {
               return (
-                <LectureBox
-                  boxType="search"
-                  addSubject={data.addSubject}
-                  popSubject={data.popSubject}
-                  setSubjHover={data.setSubjHover}
-                  setHoveredSubj={data.setHoveredSubj}
-                  subject={subject}
-                  isExistingSubj={data.isExistingSubj}
-                  displayPopup={data.displayPopup} SubjectToRemove={{
-                    lect_type: "",
-                    lect_col: "",
-                    lect_dept: "",
-                    grad: "",
-                    grade: "",
-                    subj_id: "",
-                    lect_no: "",
-                    subj_name: "",
-                    subj_subname: "",
-                    credit: "",
-                    cred_lect: "",
-                    cred_lab: "",
-                    time: "",
-                    lect_form: "",
-                    lect_room: "",
-                    prof: "",
-                    student_count: "",
-                    extra_info: "",
-                    lang: ""
-                  }} setSubjectToRemove={function (param: lecture): void {
-                    throw new Error("Function not implemented.");
-                  } } selectedLectures={[]} addedLectures={[]} selectLecture={function (param: lecture): void {
-                    throw new Error("Function not implemented.");
-                  } } deselectLecture={function (param: lecture): void {
-                    throw new Error("Function not implemented.");
-                  } } setClickedSubject={function (param: string): void {
-                    throw new Error("Function not implemented.");
-                  } }              />
+                <LectureBox boxType={"search"} subject={subject}
+                displayPopup={data.displayPopup}
+                addLectureToList={data.addSubject}
+                removeLectureFromList={data.popSubject}
+                setHoveredSubj={data.setHoveredSubj}
+                setSubjHover={data.setSubjHover}
+                isExistingSubj={data.isExistingSubj}
+                selectedLectures={[]}
+                lectureGroups={[]}
+                includesLecture={function (param: lecture): boolean {
+                  throw new Error("Function not implemented.");
+                } }/>
               )
             }
           )

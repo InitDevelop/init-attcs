@@ -1,4 +1,4 @@
-import { lecture } from "./Lecture";
+import { lecture, lectureGroup } from "./Lecture";
 import { xyTuple } from "./Util";
 
 export type previewContextTypes = {
@@ -36,7 +36,6 @@ export type previewContextTypes = {
 
     isExistingSubj: (lecture: lecture) => boolean;
     handleAllowMultChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handlePopSubject: (subject: lecture) => void;
     displayPopup: (title: string, content: React.ReactNode) => void;
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleKeywordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -51,15 +50,6 @@ export type creationContextTypes = {
     setClickedSubject: (param: string) => void;
     addedSubjKeyWord: string;
     setAddedSubjKeyWord: (param: string) => void;
-    
-    addedLectureList: lecture[];
-    setAddedLectureList: (param: lecture[]) => void;
-    addedLectures: lecture[];
-    setAddedLectures: (param: lecture[]) => void;
-    addedSubjectIDs: string[];
-    setAddedSubjectIDs: (param: string[]) => void;
-    addedSubj: lecture[];
-    setAddedSubj: (param: lecture[]) => void;
 
     showPopup: boolean;
     setShowPopup: (param: boolean) => void;
@@ -69,15 +59,20 @@ export type creationContextTypes = {
     setPopupContent: (param: React.ReactNode) => void;
     isExistingSubj: (lecture: lecture) => boolean;
 
+    addLectureToGroup: (param: lecture) => void;
+    removeLectureFromGroup: (param: lecture) => void;
+
+    lectureGroups: lectureGroup[];
+    setLectureGroups: (param: lectureGroup[]) => void;
+
+    includesLecture: (param: lecture) => boolean;
+
     subjHover: boolean;
     setSubjHover: (param: boolean) => void;
     hoveredSubj: lecture;
     setHoveredSubj: (param: lecture) => void;
 
     displayPopup: (title: string, content: React.ReactNode) => void;
-    popAddedLecture: (lectureToPop: lecture) => void;
-    isExistingAddedLect: (subject: lecture) => boolean;
-    addAddSubject: (lecture: lecture) => void;
     handleAddInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleAddKeywordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

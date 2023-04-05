@@ -2,91 +2,101 @@ import React from 'react'
 import '../../css/LectureBox.css'
 import '../../App.css'
 import '../../AppMobile.css';
-import { lecture } from '../../interfaces/Lecture';
+import { lecture, lectureGroup } from '../../interfaces/Lecture';
 
 type propType = {
   boxType: string;
-  SubjectToRemove: lecture;
+  // "search" and "list" is for the preview page
+  // "add" is for the add page
 
-  setHoveredSubj: (param: lecture) => void;
+  // Common properties
   subject: lecture;
-  setSubjHover: (param: boolean) => void;
-  setSubjectToRemove: (param: lecture) => void;
-  selectedLectures: lecture[];
-  addedLectures: lecture[];
-  selectLecture: (param: lecture) => void;
-  deselectLecture: (param: lecture) => void;
   displayPopup: (title: string, content: React.ReactNode) => void;
 
-  isExistingSubj: (param: lecture) => boolean;
-  addSubject: (param: lecture) => void;
-  popSubject: (param: lecture) => void;
+  addLectureToList: (param: lecture) => void;
+  removeLectureFromList: (param: lecture) => void;
 
-  setClickedSubject: (param: string) => void;
+  // For preview page - both search and list
+  setHoveredSubj: (param: lecture) => void;
+  setSubjHover: (param: boolean) => void;
+
+  isExistingSubj: (param: lecture) => boolean;
+
+  // For add page
+  selectedLectures: lecture[];
+
+  lectureGroups: lectureGroup[];
+  includesLecture: (param: lecture) => boolean;
+
 }
 
 function LectureBox(props: propType) {
   return (
-    <table className='lecturebox' style={
-      { 
+    <table className='lecturebox'
+    style={
+      {
         width: "100%",
-        cursor: (props.boxType === "add" || props.boxType === "remove") ? "pointer" : "auto",
-        border: props.boxType === "remove" ? (props.SubjectToRemove === props.subject ? "2px solid #405cf5" : "") : ""
-      }}
-    onMouseEnter={ (event) => {
-      if (props.boxType === "list" || props.boxType === "search") {
+        cursor: (props.boxType === "add") ? "pointer" : "auto"
+      }
+    }
+    onMouseEnter={ () => {
+      if (props.boxType === "search" || props.boxType === "list") {
         props.setHoveredSubj(props.subject);
         props.setSubjHover(true);
       }
     }}
-    onMouseLeave={ (event) => {
-      if (props.boxType === "list" || props.boxType === "search") {
+    onMouseLeave={ () => {
+      if (props.boxType === "search" || props.boxType === "list") {
         props.setSubjHover(false);
       }
       }
     }
-    onClick={ (event) => {
-      if (props.boxType === "remove") {
-        props.setSubjectToRemove(props.subject);
-      }
-    }}>
+    onClick={ () => {
+      // TODO To be added...
+    }}
+    >
 
       <tbody>
         <tr>
+
+          {/* A checkbox that conditionally appears in the add page */}
+          {/* The functions removeLectureFromList and addLectureToList is used in the context of the add page! */}
+
           {
             (props.boxType === "add") &&
             <td style={{ paddingLeft: "10px" }}
-              onClick={ (event) => {
+              onClick={ () => {
                 if (props.selectedLectures.includes(props.subject)) {
-                  props.deselectLecture(props.subject);
+                  props.removeLectureFromList(props.subject);
                 } else {
-                  props.selectLecture(props.subject);
+                  props.addLectureToList(props.subject);
                 }
               }}
             >
-              <input style={{ cursor: "pointer", verticalAlign: "middle" }}
-              className='checkbox-1'
-              type="checkbox"
-              checked={
-                !props.addedLectures.includes(props.subject) ?
-                  props.selectedLectures.includes(props.subject) :
-                  true
-              }
-              disabled={
-                props.addedLectures.includes(props.subject)
-              }
-              onChange={
-                (event) => {
-                  if (!event.target.checked) {
-                    props.deselectLecture(props.subject);
-                  } else {
-                    props.selectLecture(props.subject);
+              <input className='checkbox-1' type="checkbox" style={{ cursor: "pointer", verticalAlign: "middle" }}
+                checked={
+                  props.includesLecture(props.subject) ?
+                    true :
+                    props.selectedLectures.includes(props.subject)
+                }
+                disabled={
+                  props.includesLecture(props.subject)
+                }
+                onChange={
+                  (event) => {
+                    if (!event.target.checked) {
+                      props.removeLectureFromList(props.subject);
+                    } else {
+                      props.addLectureToList(props.subject);
+                    }
                   }
                 }
-              }
-            />
+              />
             </td>
           }
+
+          {/* main lecture box body */}
+
           <td style={{width: "80%", whiteSpace: "pre-wrap"}}>
             <table className='lecturebox__table_in_table'>
               <tbody>
@@ -171,34 +181,46 @@ function LectureBox(props: propType) {
               </tbody>
             </table>
           </td>
-          {
-            props.boxType !== "add" ? <td style={{width: "20%", textAlign: "center"}}>
+
+          {/* button that appears at the very right */}
+          
+          { (props.boxType !== "add") ?
+            <td style={{width: "20%", textAlign: "center"}}>
             {
               props.boxType === "list" ? (
-              <button className="button-0" onClick={() => props.popSubject(props.subject)}>
+              
+              <button className="button-0" onClick={() => props.removeLectureFromList(props.subject)}>
                 제거
               </button> 
-              ) : props.boxType === "search" ? (
+              )
+              
+              : 
+              
+              props.boxType === "search" ? (
               <button className="button-0" onClick={() => {
                 const addingSubj = props.subject;
                 if (props.isExistingSubj(addingSubj)) {
                   props.displayPopup("교과목명 중복",
                     "이미 추가된 교과목입니다.\n해당 강좌를 담으시려면 \"교과목명 중복 허용하기\"를 체크하시길 바랍니다.");
                 } else {
-                  props.addSubject(addingSubj);
+                  props.addLectureToList(addingSubj);
                 }
                 }
                 }>
                 추가
               </button>
+
+
               ) : (<p></p>)
             }
             </td> : ("")
           }
+
         </tr>
       </tbody>
+
     </table>
-  )
+  );
 }
 
-export default LectureBox
+export default LectureBox;

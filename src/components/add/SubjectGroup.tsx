@@ -2,10 +2,10 @@ import "../../css/SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
 import AddedSubject from './AddedSubject'
-import { lecture } from "../../interfaces/Lecture";
+import { lecture, lectureGroup } from "../../interfaces/Lecture";
 
 type propType = {
-  lectures: lecture[];
+  lectureGroup: lectureGroup;
   displayPopup: (title: string, content: React.ReactNode) => void;
   popAddedLecture: (param: lecture) => void;
 }
@@ -15,8 +15,8 @@ function SubjectGroup(props: propType) {
   return (
     <div className='list__subjectgroupbox'>
       <h2 style={{fontWeight: "500"}}>
-        <strong>{props.lectures[0].subj_name}</strong>
-        {"      "}<span> {props.lectures.length}개 강좌 </span>
+        <strong>{props.lectureGroup.lectures[0].subj_name}</strong>
+        {"      "}<span> {props.lectureGroup.lectures.length}개 강좌 </span>
         {"      "}
         <label>
         <input style = {{ cursor: "pointer", verticalAlign: "middle" }}
@@ -26,7 +26,7 @@ function SubjectGroup(props: propType) {
         />  필수 과목</label>
       </h2>
       {
-        props.lectures.map(
+        props.lectureGroup.lectures.map(
           subject => {
             return (
               <AddedSubject

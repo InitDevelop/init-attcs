@@ -52,3 +52,8 @@ export type timeSlot = {
   topPos: string;
   height: string;
 }
+
+export type lectureGroup = {
+  subj_id: string;
+  lectures: lecture[];
+}
