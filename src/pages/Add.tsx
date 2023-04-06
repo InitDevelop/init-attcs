@@ -8,6 +8,7 @@ import { lecture } from '../interfaces/Lecture';
 
 function Add() {
 
+  const [updateCount, setUpdateCount] = useState<number>(0);
   const [selectedLectures, setSelectedLectures] = useState<lecture[]>([]);
   const data = useContext(CreationContext);
 
@@ -21,10 +22,15 @@ function Add() {
         <LectureSearchList
           selectedLectures={selectedLectures}
           setSelectedLectures={setSelectedLectures}
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}
         />
       </div>
       <div className='app__parentContainer'>
-        <AddedSubjectList/>
+        <AddedSubjectList
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}
+        />
       </div>
     </div>
   )

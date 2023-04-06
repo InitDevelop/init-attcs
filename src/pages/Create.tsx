@@ -9,7 +9,9 @@ function Create() {
   return (
     <div className='app__mainContainer'>
       <div className='app__parentContainer'>
-        <AddedSubjectList/>
+        {/* <AddedSubjectList
+          
+        /> */}
       </div>
       <div className='app__parentContainer'>
 

@@ -6,6 +6,8 @@ type propType = {
   subject: lecture;
   displayPopup: (title: string, content: JSX.Element) => void;
   popAddedLecture: (lecture: lecture) => void;
+  updateCount: number;
+  setUpdateCount: (param: number) => void;
 };
 
 function AddedSubject(props: propType) {
@@ -37,7 +39,10 @@ function AddedSubject(props: propType) {
             right: "20px"
           }
         } onClick={
-            () => {props.popAddedLecture(props.subject)}
+            () => {
+              props.popAddedLecture(props.subject);
+              props.setUpdateCount(props.updateCount + 1);
+            }
         }> 제거 </button>
       </h3>
     </div>

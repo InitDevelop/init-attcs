@@ -14,7 +14,7 @@ import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
 import { xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes } from './interfaces/ContextTypes';
 
-const appVersion: string = "0.5.0";
+const appVersion: string = "0.5.4";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],

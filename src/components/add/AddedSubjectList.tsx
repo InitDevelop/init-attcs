@@ -6,7 +6,12 @@ import SubjectGroup from './SubjectGroup'
 import { CreationContext } from "../../App";
 import { lecture, lectureGroup } from '../../interfaces/Lecture';
 
-function AddedSubjectList() {
+type propType = {
+  updateCount: number;
+  setUpdateCount: (param: number) => void;
+}
+
+function AddedSubjectList(props: propType) {
 
   const data = useContext(CreationContext);
   
@@ -21,7 +26,10 @@ function AddedSubjectList() {
                   <SubjectGroup
                     lectureGroup={lg}
                     displayPopup={data.displayPopup}
-                    popAddedLecture={data.removeLectureFromGroup}/>
+                    popAddedLecture={data.removeLectureFromGroup}
+                    updateCount={props.updateCount}
+                    setUpdateCount={props.setUpdateCount}
+                    />
                 )
               }
             )

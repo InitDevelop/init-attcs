@@ -8,6 +8,8 @@ type propType = {
   lectureGroup: lectureGroup;
   displayPopup: (title: string, content: React.ReactNode) => void;
   popAddedLecture: (param: lecture) => void;
+  updateCount: number;
+  setUpdateCount: (param: number) => void;
 }
 
 function SubjectGroup(props: propType) {
@@ -33,6 +35,8 @@ function SubjectGroup(props: propType) {
                 subject = {subject}
                 displayPopup = {props.displayPopup}
                 popAddedLecture = {props.popAddedLecture}
+                updateCount={props.updateCount}
+                setUpdateCount={props.setUpdateCount}  
               />
             )
           }

@@ -1,17 +1,19 @@
 import lectureData from "../../db/data.json";
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
-import { blankLecture, lecture } from "../../interfaces/Lecture";
+import { lecture } from "../../interfaces/Lecture";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
 type propType = {
   selectedLectures: lecture[];
   setSelectedLectures: (param: lecture[]) => void;
+  updateCount: number;
+  setUpdateCount: (param: number) => void;
 }
 
 function LectureSearchList(props: propType) {
