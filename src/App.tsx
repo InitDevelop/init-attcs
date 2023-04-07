@@ -13,8 +13,10 @@ import inst1 from './img/inst1.png';
 import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
 import { xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes } from './interfaces/ContextTypes';
+import MobileMenuButton from './components/global/MobileMenuButton';
+import MobileMenu from './components/global/MobileMenu';
 
-const appVersion: string = "0.5.4";
+const appVersion: string = "0.6.0-alpha.1";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],
@@ -153,6 +155,12 @@ export const CreationContext = React.createContext<creationContextTypes>({
 });
 
 function App() {
+
+  /****************************************************************************
+    THESE VARIABLES, STATES, FUNCTIONS ARE FOR GLOBAL USE
+  ****************************************************************************/
+
+  const [menuOpened, setMenuOpened] = useState<boolean>(false);
 
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
@@ -398,7 +406,7 @@ function App() {
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
-                }>ATTCS v{appVersion} (beta){"\n"}</span>
+                }>ATTCS v{appVersion}{"\n"}</span>
                 <button className='button-0' style={{ fontSize: "larger" }}
                   onClick={() => {displayPopup(
                     "설명",
@@ -412,11 +420,26 @@ function App() {
                   설명
                 </button>
               </div>
+
+              <MobileMenuButton
+                open={menuOpened}
+                onClick={ () => {
+                  setMenuOpened(!menuOpened);
+                }}/>
+
             </div>
           </div>
         </div>
 
         {/* The pages of this app */}
+
+        {
+          menuOpened && (
+            <MobileMenu
+              toggleOpen={() => setMenuOpened(!menuOpened)}
+            />
+          )
+        }
 
         <Routes>
 

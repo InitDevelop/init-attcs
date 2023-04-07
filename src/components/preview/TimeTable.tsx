@@ -1,52 +1,31 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import "../../css/TimeTable.css"
 import '../../AppMobile.css';
 import { PreviewContext } from "../../App";
-import { timeSlot } from '../../interfaces/Lecture';
+import { lecture, timeSlot } from '../../interfaces/Lecture';
+import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51",
   "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
 
-const isTimeIntersect = (thisStart: number, thisEnd: number, thatStart: number, thatEnd: number) => {
-  let ret = true;
-  if (thisStart > thatEnd || thisEnd < thatStart) {
-    ret = false;
-  }
-  return ret;
+type propType = {
+  lectures: lecture[];
+  subjHover: boolean;
+  hoveredSubj: lecture;
+  setShowTooltip: (param: boolean) => void;
+  setTooltipContent: (param: string) => void;
 }
 
-const getDateValue = (dateChar: string): number => {
-  let date = 5;
-  switch (dateChar) {
-    case "월":
-      date = 0;
-      break;
-    case "화":
-      date = 1;
-      break;
-    case "수":
-      date = 2;
-      break;
-    case "목":
-      date = 3;
-      break;
-    case "금":
-      date = 4;
-      break;
-  }
-  return date;
-}
+function TimeTable(props: propType) {
 
-function TimeTable() {
-
-  const data = useContext(PreviewContext);
+  //const data = useContext(PreviewContext);
 
   let timeSlots: timeSlot[] = [];
   let hoveredTimeSlots: timeSlot[] = [];
 
-  for (let j = 0; j < data.selSubj.length; j++) {
-    let times = data.selSubj[j].time.split("/");
+  for (let j = 0; j < props.lectures.length; j++) {
+    let times = props.lectures[j].time.split("/");
     let count = times.length;
 
     for (let i = 0; i < count; i++) {
@@ -60,14 +39,14 @@ function TimeTable() {
 
       let topPos = `${((startHour - 9) + startMin / 60) * 6}vh`;
       let height = `${((endHour - startHour) + (endMin - startMin) / 60) * 6}vh`;
-      let leftPos = `${10 + date * 18}%`;
+      let leftPos = `${7.5 + date * 18.5}%`;
 
       timeSlots.push({
         startTime: startHour * 100 + startMin,
         endTime: endHour * 100 + endMin,
         date: date,
         id: j,
-        subjName: data.selSubj[j].subj_name,
+        subjName: props.lectures[j].subj_name,
         leftPos: leftPos,
         topPos: topPos,
         height: height
@@ -75,8 +54,8 @@ function TimeTable() {
     }
   }
 
-  if (data.subjHover) {
-    let hoverTimes = data.hoveredSubj.time.split("/");
+  if (props.subjHover) {
+    let hoverTimes = props.hoveredSubj.time.split("/");
     let hoverCount = hoverTimes.length;
 
     for (let k = 0; k < hoverCount; k++) {
@@ -90,13 +69,13 @@ function TimeTable() {
 
       let topPos = `${((startHour - 9) + startMin / 60) * 6}vh`;
       let height = `${((endHour - startHour) + (endMin - startMin) / 60) * 6}vh`;
-      let leftPos = `${10 + date * 18}%`;
+      let leftPos = `${7.5 + date * 18.5}%`;
 
       hoveredTimeSlots.push({
         startTime: startHour * 100 + startMin,
         endTime: endHour * 100 + endMin,
         date: date,
-        subjName: data.hoveredSubj.subj_name,
+        subjName: props.hoveredSubj.subj_name,
         leftPos: leftPos,
         topPos: topPos,
         height: height,
@@ -134,8 +113,8 @@ function TimeTable() {
                 item => {
                   return (
                     <div className='timetable__subject'
-                      onMouseOver={(event) => {
-                        data.setShowTooltip(true);
+                      onMouseOver={ () => {
+                        props.setShowTooltip(true);
                         let content = item.subjName;
                         for (let i = 0; i < timeSlots.length; i++) {
                           if (item.id === timeSlots[i].id) {
@@ -147,10 +126,10 @@ function TimeTable() {
                             }
                           }
                         }
-                        data.setTooltipContent(content);
+                        props.setTooltipContent(content);
                       }}
-                      onMouseOut={(event) => {
-                        data.setShowTooltip(false);
+                      onMouseOut={ () => {
+                        props.setShowTooltip(false);
                       }}
                       style={
                         {
@@ -167,7 +146,7 @@ function TimeTable() {
                 }
               )}
 
-              {data.subjHover && (
+              {props.subjHover && (
                 hoveredTimeSlots.map(
                   item => {
                     return (

@@ -161,14 +161,14 @@ function LectureBox(props: propType) {
                         () => {
                           props.displayPopup("수강반 제한 정보", props.subject.extra_info);
                         }
-                      }>수강반 제한</button>
+                      }>수강반</button>
                     )}
                     { (props.subject.lang !== "한국어") && (
                       <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
                         () => {
                           props.displayPopup("강의 언어", props.subject.lang);
                         }
-                      }>외국어</button>
+                      }>언어</button>
                     )}
                   </td>
                 </tr>

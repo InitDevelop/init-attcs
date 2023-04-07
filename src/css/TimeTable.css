@@ -17,40 +17,54 @@
 }
 
 .timetable__table {
+  box-sizing: border-box;
+  
   width: 100%;
 
-  border: 2px solid #cccccc;
+  border: 1px solid #cccccc;
   border-collapse: collapse;
 }
 
 .timetable__row {
-  border: 2px solid #cccccc;
+  box-sizing: border-box;
+
+  border: 1px solid #cccccc;
   height: 6vh;
 }
 
 .timetable__item {
-  border: 2px solid #cccccc;
+  box-sizing: border-box;
+
+  border: 1px solid #cccccc;
   width: 18%;
 }
 
 .timetable__timeslot {
-  border: 2px solid #cccccc;
+  border: 1px solid #cccccc;
   background-color: #eeeeee;
-  width: 10%;
+  color: #777;
+  font-weight: 500;
+  font-size: small;
+  vertical-align: top;
+  width: 7.5%;
 }
 
 .timetable__subject {
+  cursor: default;
   color: #fff;
   border-radius: 5px;
   font-weight: 400;
   font-size: medium;
+  text-align: center;
+  word-break: normal;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18%;
+  width: 18.5%;
   overflow: hidden;
   position: absolute;
   padding: 5px;
   box-sizing: border-box;
   transition : 100ms;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }

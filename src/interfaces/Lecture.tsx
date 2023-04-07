@@ -53,6 +53,13 @@ export type timeSlot = {
   height: string;
 }
 
+export type pseudoTimeSlot = {
+  startTime: number;
+  endTime: number;
+  date: number;
+  lecture: lecture;
+}
+
 export type lectureGroup = {
   subj_id: string;
   lectures: lecture[];

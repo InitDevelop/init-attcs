@@ -23,7 +23,13 @@ function Preview() {
       </div>
 
       <div className='app__parentContainer'>
-        <TimeTable/>
+        <TimeTable
+          lectures={data.selSubj}
+          subjHover={data.subjHover}
+          hoveredSubj={data.hoveredSubj}
+          setShowTooltip={data.setShowTooltip}
+          setTooltipContent={data.setTooltipContent}        
+        />
       </div>
     </div>
   );
