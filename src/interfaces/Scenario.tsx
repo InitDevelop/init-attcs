@@ -3,6 +3,7 @@ import { lecture, lectureGroup } from "./Lecture";
 
 export type scenario = {
   lectures: lecture[];
+  shareTimeLectures: lecture[][];
 };
 
 export const getDateValue = (dateChar: string): number => {
@@ -84,10 +85,11 @@ export const intersects = (sc: scenario, lect: lecture) => {
 }
 
 export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
-  let returnScenario: scenario = { lectures: [] };
+  let returnScenario: scenario = { lectures: [], shareTimeLectures: [] };
   for (let i = 0; i < lectureGroups.length; i++) {
     if (!intersects(returnScenario, lectureGroups[i].lectures[indexes[i]])) {
       returnScenario.lectures.push(lectureGroups[i].lectures[indexes[i]]);
+      returnScenario.shareTimeLectures.push(lectureGroups[i].timeShareLectures[indexes[i]]);
     }
   }
   return (returnScenario);

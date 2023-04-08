@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { CreationContext } from "../App";
-import { CreateScenarios } from '../components/create/CreateScenarios';
 import TimeTable from '../components/preview/TimeTable';
 import { blankLecture } from '../interfaces/Lecture';
 import CreationViewPanel from '../components/create/CreationViewPanel';
@@ -37,8 +36,6 @@ function Create() {
         }
       }
     >
-
-
       <div className='app__parentContainer'>
         <AddedSubjectList
           updateCount={updateCount}
@@ -56,7 +53,7 @@ function Create() {
             setTooltipContent={data.setTooltipContent}   
             />
           ) : (
-            <div>
+            <div className='appTable__container'>
               <h1 style={{ fontWeight: "400" }}>시간표가 아직 생성되지 않았습니다.</h1>
               <h1>생성 버튼을 눌러주세요!</h1>
             </div>

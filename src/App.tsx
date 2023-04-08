@@ -17,7 +17,7 @@ import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
 
-const appVersion: string = "0.6.0-RC1";
+const appVersion: string = "0.6.0";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],
@@ -56,8 +56,8 @@ export const PreviewContext = React.createContext<previewContextTypes>({
   setTooltipPosition: function (param: xyTuple): void {
     throw new Error('Function not implemented.');
   },
-  tooltipContent: "",
-  setTooltipContent: function (param: string): void {
+  tooltipContent: <></>,
+  setTooltipContent: function (param: React.ReactNode): void {
     throw new Error('Function not implemented.');
   },
   scrollPosition: 0,
@@ -169,8 +169,8 @@ export const CreationContext = React.createContext<creationContextTypes>({
   setTooltipPosition: function (param: xyTuple): void {
     throw new Error('Function not implemented.');
   },
-  tooltipContent: '',
-  setTooltipContent: function (param: string): void {
+  tooltipContent: <></>,
+  setTooltipContent: function (param: React.ReactNode): void {
     throw new Error('Function not implemented.');
   }
 });
@@ -182,6 +182,7 @@ function App() {
   ****************************************************************************/
 
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
 
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
@@ -198,7 +199,7 @@ function App() {
   // States related to the tooltip
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const [tooltipPosition, setTooltipPosition] = useState<xyTuple>({ x: 0, y: 0 });
-  const [tooltipContent, setTooltipContent] = useState<string>("");
+  const [tooltipContent, setTooltipContent] = useState<React.ReactNode>("");
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   // States related to hovered subjects
@@ -252,12 +253,14 @@ function App() {
   };
 
   // Pops a certain subject out of the selSubj list
+  /*
   const handlePopSubject = (subject: lecture) => {
     setSelSubj(selSubj.filter(
       item => (item.subj_id !== subject.subj_id) 
         || (item.lect_no !== subject.lect_no)));
   };
-
+  */
+ 
   // Handles input change in the search box
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -282,7 +285,6 @@ function App() {
   ****************************************************************************/
 
   // State related to current pages
-  const [currentPage, setCurrentPage] = useState<string>("preview");
 
   // States related to searching subjects
   const [addingSubjName, setAddingSubjName] = useState<string>("");
@@ -310,7 +312,8 @@ function App() {
     } else {
       copy.push({
         subj_id: lect.subj_id,
-        lectures: [lect]
+        lectures: [lect],
+        timeShareLectures: []
       });
     }
     setLectureGroups(copy);
@@ -410,7 +413,7 @@ function App() {
     tooltipPosition, setTooltipPosition,
     tooltipContent, setTooltipContent
   };
-  
+
   return (
     <BrowserRouter>
 
@@ -423,17 +426,17 @@ function App() {
         
         <div className="app__header_container">
           <div className="app__header">
-            <img className="app_header_logo" src={logo}/>
+            <img className="app_header_logo" src={logo} alt=""/>
 
             {/* Links for the pages */}
 
             <div className='app__header_links'>
-              <Link className={ currentPage === "preview" ? "link_current" : "links" }
-                to="/" onClick = { () => {setCurrentPage("preview")} }>시간표</Link>
-              <Link className={ currentPage === "add" ? "link_current" : "links" } 
-                to="/add" onClick = { () => {setCurrentPage("add")} }>과목 담기</Link>
-              <Link className={ currentPage === "create" ? "link_current" : "links" } 
-                to="/create" onClick = { () => {setCurrentPage("create")} }>자동 생성</Link>
+              <Link className={ currentPage === "/" ? "link_current" : "links" }
+                to="/" onClick = { () => {setCurrentPage("/")} }>시간표</Link>
+              <Link className={ currentPage === "/add" ? "link_current" : "links" } 
+                to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
+              <Link className={ currentPage === "/create" ? "link_current" : "links" } 
+                to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
@@ -443,7 +446,7 @@ function App() {
                   onClick={() => {displayPopup(
                     "설명",
                     <div>
-                      <img src={inst1}
+                      <img src={inst1} alt=""
                       style={{width: "100%"}}
                       />
                       ATTCS v{appVersion} (for beta testing) Developed by Gong_Zak_So
@@ -452,7 +455,7 @@ function App() {
                   설명
                 </button>
 
-                <button className='button-0' style={{ fontSize: "larger" }}
+                {/* <button className='button-0' style={{ fontSize: "larger" }}
                   onClick={() => {displayPopup(
                     "이거를 만든 사람",
                     <div>
@@ -464,7 +467,7 @@ function App() {
                     </div>
                   )}}>
                   만든 사람
-                </button>
+                </button> */}
               </div>
 
               <MobileMenuButton
@@ -488,6 +491,15 @@ function App() {
         }
 
         <Routes>
+
+          {/* For github page guests */}
+          <Route path="/init-attcs" element={
+            <div style={{ fontSize: "xx-large", marginTop: "50px", fontWeight: "300" }}>
+              <strong>ATTCS에 오신 것을 환영합니다!</strong>
+              <br/>
+              상단 메뉴 중 하나를 선택하시면 사용을 시작하실 수 있습니다.
+            </div>
+          }/>
 
           {/* The Preview (main) Page */}
 

@@ -51,6 +51,7 @@ export type timeSlot = {
   leftPos: string;
   topPos: string;
   height: string;
+  room: string;
 }
 
 export type pseudoTimeSlot = {
@@ -63,4 +64,5 @@ export type pseudoTimeSlot = {
 export type lectureGroup = {
   subj_id: string;
   lectures: lecture[];
+  timeShareLectures: lecture[][];
 }

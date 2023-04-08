@@ -39,11 +39,11 @@ function AddSubjectSearchList() {
       <div className="appTable__scrollContainer">
         {lectureDatabase.filter(
           (subject: lecture) => {
-            let isRelated = isRelatedName(data.addingSubjName, subject.subj_name);
+            let isRelated = isRelatedName(data.addingSubjName, subject.prof + subject.subj_name + subject.prof);
             return ((data.addingSubjName !== "") && isRelated);
           }
         )
-        .sort((a, b) => (accuracy(data.addingSubjName, b.subj_name) - accuracy(data.addingSubjName, a.subj_name))).map(subject => {
+        .sort((a, b) => accuracy(data.addingSubjName, b.subj_name) - accuracy(data.addingSubjName, a.subj_name)).map(subject => {
           if (!subjectsAdded.includes(subject.subj_id)) {
             subjectsAdded.push(subject.subj_id);
             return (

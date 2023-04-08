@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import "../../css/TimeTable.css"
 import '../../AppMobile.css';
 import { PreviewContext } from "../../App";
@@ -6,15 +5,15 @@ import { lecture, timeSlot } from '../../interfaces/Lecture';
 import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51",
-  "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
+const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
+//const colors = ["#FE8484", "#FEA784", "#FEDB84", "#8DDB8B", "#7FCADF", "#7FA4DF", "#8686D8", "#B98BD3", "#E399CA"];
 
 type propType = {
   lectures: lecture[];
   subjHover: boolean;
   hoveredSubj: lecture;
   setShowTooltip: (param: boolean) => void;
-  setTooltipContent: (param: string) => void;
+  setTooltipContent: (param: React.ReactNode) => void;
 }
 
 function TimeTable(props: propType) {
@@ -27,6 +26,7 @@ function TimeTable(props: propType) {
   for (let j = 0; j < props.lectures.length; j++) {
     let times = props.lectures[j].time.split("/");
     let count = times.length;
+    let rooms = props.lectures[j].lect_room.split("/")
 
     for (let i = 0; i < count; i++) {
       let date = 0;
@@ -49,7 +49,8 @@ function TimeTable(props: propType) {
         subjName: props.lectures[j].subj_name,
         leftPos: leftPos,
         topPos: topPos,
-        height: height
+        height: height,
+        room: rooms[i]
       });
     }
   }
@@ -57,6 +58,7 @@ function TimeTable(props: propType) {
   if (props.subjHover) {
     let hoverTimes = props.hoveredSubj.time.split("/");
     let hoverCount = hoverTimes.length;
+    let rooms = props.hoveredSubj.lect_room.split("/")
 
     for (let k = 0; k < hoverCount; k++) {
       let date = 0;
@@ -79,7 +81,8 @@ function TimeTable(props: propType) {
         leftPos: leftPos,
         topPos: topPos,
         height: height,
-        id: 0
+        id: 0,
+        room: rooms[k]
       });
     }
   }
@@ -114,6 +117,7 @@ function TimeTable(props: propType) {
                   return (
                     <div className='timetable__subject'
                       onMouseOver={ () => {
+                        let intersectFlag: boolean = false;
                         props.setShowTooltip(true);
                         let content = item.subjName;
                         for (let i = 0; i < timeSlots.length; i++) {
@@ -123,10 +127,18 @@ function TimeTable(props: propType) {
                           if (item.date === timeSlots[i].date) {
                             if (isTimeIntersect(item.startTime, item.endTime, timeSlots[i].startTime, timeSlots[i].endTime)) {
                                 content += ("\n" + timeSlots[i].subjName);
+                                intersectFlag = true;
                             }
                           }
                         }
-                        props.setTooltipContent(content);
+                        props.setTooltipContent(
+                        <div>
+                          {content}
+                          {intersectFlag && (
+                            <span style={{color: "darkred", fontWeight: "800"}}>{"\n"}강좌의 시간이 겹칩니다!</span>
+                          )}
+                        </div>
+                        );
                       }}
                       onMouseOut={ () => {
                         props.setShowTooltip(false);
@@ -140,7 +152,7 @@ function TimeTable(props: propType) {
                         }
                       }
                     >
-                      {item.subjName}
+                      <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>
                     </div>
                   )
                 }
@@ -159,6 +171,7 @@ function TimeTable(props: propType) {
                           backgroundColor: "rgba(0, 0, 0, 0.2)"
                         }
                       }>
+                      <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>
                       </div>
                     )
                   }

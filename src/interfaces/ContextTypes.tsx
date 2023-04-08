@@ -25,8 +25,8 @@ export type previewContextTypes = {
     setShowTooltip: (param: boolean) => void;
     tooltipPosition: xyTuple;
     setTooltipPosition: (param: xyTuple) => void;
-    tooltipContent: string;
-    setTooltipContent: (param: string) => void;
+    tooltipContent: React.ReactNode;
+    setTooltipContent: (param: React.ReactNode) => void;
     scrollPosition: number;
     setScrollPosition: (param: number) => void;
 
@@ -86,6 +86,6 @@ export type creationContextTypes = {
     setShowTooltip: (param: boolean) => void;
     tooltipPosition: xyTuple;
     setTooltipPosition: (param: xyTuple) => void;
-    tooltipContent: string;
-    setTooltipContent: (param: string) => void;
+    tooltipContent: React.ReactNode;
+    setTooltipContent: (param: React.ReactNode) => void;
 }

@@ -45,3 +45,9 @@
   font-size: larger;
   text-align: left;
 }
+
+.lecture_name:hover {
+  transition : 193ms;
+  font-weight: 800;
+  color: #00a3cc;
+}

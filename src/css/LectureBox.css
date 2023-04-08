@@ -13,11 +13,6 @@
   transition : 193ms;
 }
 
-.lecture_name:hover {
-  transition : 193ms;
-  color: #00a3cc;
-}
-
 .lecturebox:hover {
   transition : 193ms;
   background-color: #ddd;

@@ -5,7 +5,7 @@ import '../../AppMobile.css';
 import '../../App.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
-import { blankLecture, lecture } from "../../interfaces/Lecture";
+import { lecture } from "../../interfaces/Lecture";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
@@ -13,8 +13,12 @@ function SubjectSearchList() {
 
   const data = useContext(PreviewContext);
 
-  const accuracy = (abbrev: string, full: string) => {
-    return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
+  const accuracy = (abbrev: string, subj_name: string, prof: string) => {
+    let prefix: number = 0;
+    if (!isRelatedName(abbrev, subj_name)) {
+      prefix -= 1000;
+    }
+    return prefix + (abbrev.replace(" ", "").length / subj_name.replace(" ", "").length);
   };
 
   function isRelatedName(abbrev: string, full: string) {
@@ -44,22 +48,12 @@ function SubjectSearchList() {
           lectureDatabase
           .filter(
             (subject: lecture) => {
-              let args = data.searchText.split(" ");
-              let isRelatedProf;
-              let isRelated;
-              if (args.length > 1) {
-                isRelated = isRelatedName(
-                  data.searchText.substring(0, data.searchText.length - args[args.length - 1].length), subject.subj_name);
-                isRelatedProf = isRelatedName(args[args.length - 1], subject.prof);
-              } else {
-                isRelated = isRelatedName(data.searchText, subject.subj_name);
-                isRelatedProf = true;
-              }
+              let isRelated = isRelatedName(data.searchText, subject.prof + subject.subj_name + subject.prof);
               let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
-              return ((data.searchText.length > 1) && isRelated && isRelatedProf && isRelatedKeyWord);
+              return ((data.searchText.length > 1) && isRelated && isRelatedKeyWord);
             }
           )
-          .sort((a, b) => (accuracy(data.searchText, b.subj_name) - accuracy(data.searchText, a.subj_name))).map(
+          .sort((a, b) => (accuracy(data.searchText, b.subj_name, b.prof) - accuracy(data.searchText, a.subj_name, a.prof))).map(
             (subject: lecture) => {
               return (
                 <LectureBox boxType={"search"} subject={subject}

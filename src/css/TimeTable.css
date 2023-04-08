@@ -49,16 +49,20 @@
 }
 
 .timetable__subject {
+  white-space: pre-wrap;
+
   cursor: default;
   color: #fff;
+
   border-radius: 5px;
-  font-weight: 400;
-  font-size: medium;
-  text-align: center;
-  word-break: normal;
+
+  font-weight: 300;
+  font-size: 14px;
+
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+
   width: 18.5%;
   overflow: hidden;
   position: absolute;
@@ -66,4 +70,15 @@
   box-sizing: border-box;
   transition : 100ms;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  overflow: auto;
+}
+
+.timetable__subject span {
+  width: 100%;
+  text-align: left;
+  word-break: normal;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

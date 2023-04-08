@@ -3,7 +3,6 @@ import "../../css/AppTable.css";
 import "../../css/SubjectList.css";
 import { CreationContext } from "../../App";
 import { CreateScenarios } from './CreateScenarios';
-import { lecture } from '../../interfaces/Lecture';
 import CreateAddedSubject from './CreateAddedSubject';
 
 /*
@@ -15,6 +14,10 @@ const getIndex = (n: number, d: number) => {
   }
 }
 */
+
+function range(start: number, end: number, step: number = 1): number[] {
+  return Array.from({ length: Math.ceil((end - start) / step) }, (_, i) => start + i * step);
+}
 
 function CreationViewPanel() {
 
@@ -100,12 +103,14 @@ function CreationViewPanel() {
       }>
         {
           (data.scenarios.length > 0) &&
-          data.scenarios[data.scenarioNumber].lectures.map(
-            (lect: lecture) => {
+
+          range(0, data.scenarios[data.scenarioNumber].lectures.length).map(
+            (index: number) => {
               return (
                 <CreateAddedSubject
-                  subject={lect}
+                  subject={data.scenarios[data.scenarioNumber].lectures[index]}
                   displayPopup={data.displayPopup}
+                  timeShareLect={data.scenarios[data.scenarioNumber].shareTimeLectures[index]}
                 />
               )
             }

@@ -28,7 +28,7 @@ function SubjectGroup(props: propType) {
         />  필수 과목</label>
       </h2>
       {
-        props.lectureGroup.lectures.map(
+        props.lectureGroup.lectures.sort((a, b) => parseInt(a.lect_no) - parseInt(b.lect_no)).map(
           subject => {
             return (
               <AddedSubject
