@@ -15,8 +15,9 @@ import { xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes } from './interfaces/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
+import { scenario } from './interfaces/Scenario';
 
-const appVersion: string = "0.6.0-alpha.1";
+const appVersion: string = "0.6.0-RC1";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],
@@ -151,6 +152,26 @@ export const CreationContext = React.createContext<creationContextTypes>({
   },
   setLectureGroups: function (param: lectureGroup[]): void {
     throw new Error('Function not implemented.');
+  },
+  scenarios: [],
+  setScenarios: function (param: scenario[]): void {
+    throw new Error('Function not implemented.');
+  },
+  scenarioNumber: 0,
+  setScenarioNumber: function (param: number): void {
+    throw new Error('Function not implemented.');
+  },
+  showTooltip: false,
+  setShowTooltip: function (param: boolean): void {
+    throw new Error('Function not implemented.');
+  },
+  tooltipPosition: {x: 0, y: 0},
+  setTooltipPosition: function (param: xyTuple): void {
+    throw new Error('Function not implemented.');
+  },
+  tooltipContent: '',
+  setTooltipContent: function (param: string): void {
+    throw new Error('Function not implemented.');
   }
 });
 
@@ -276,6 +297,10 @@ function App() {
   // State, Functions related to lectureGroups
   const [lectureGroups, setLectureGroups] = useState<lectureGroup[]>([]);
 
+  // State related to the create page
+  const [scenarios, setScenarios] = useState<scenario[]>([]);
+  const [scenarioNumber, setScenarioNumber] = useState<number>(0);
+
   const addLectureToGroup = (lect: lecture) => {
     const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
     let copy = lectureGroups;
@@ -373,11 +398,17 @@ function App() {
     subjHover, setSubjHover,
     hoveredSubj, setHoveredSubj,
 
+    scenarios, setScenarios,
+    scenarioNumber, setScenarioNumber,
+
     addLectureToGroup,
     removeLectureFromGroup,
     lectureGroups,
     setLectureGroups,
-    includesLecture
+    includesLecture,
+    showTooltip, setShowTooltip,
+    tooltipPosition, setTooltipPosition,
+    tooltipContent, setTooltipContent
   };
   
   return (
@@ -385,7 +416,8 @@ function App() {
 
       {/* Main container for the entire app */}
 
-      <div className='app'>
+      <div className='app' onMouseMove={ (event) => {
+        setTooltipPosition({ x: event.clientX, y: event.clientY }); }}>
         
         {/* Header for the entire app */}
         
@@ -407,7 +439,7 @@ function App() {
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
                 }>ATTCS v{appVersion}{"\n"}</span>
-                <button className='button-0' style={{ fontSize: "larger" }}
+                <button className='button-0' style={{ fontSize: "larger", marginRight: "20px" }}
                   onClick={() => {displayPopup(
                     "설명",
                     <div>
@@ -418,6 +450,20 @@ function App() {
                     </div>
                   )}}>
                   설명
+                </button>
+
+                <button className='button-0' style={{ fontSize: "larger" }}
+                  onClick={() => {displayPopup(
+                    "이거를 만든 사람",
+                    <div>
+                      <strong>안녕하세요. 서울대학교 전기정보공학부 학부생 강문석입니다.
+                      ATTCS의 개발자입니다.</strong> 코딩은 사람이 하는 일이고, 이 앱은 JavaScript, TypeScript와 React를 처음 배우면서 코딩한 앱이라서
+                      버그나 오류가 발생할 수 있습니다. 버그나 오류가 발생한다면 
+                      <strong> "그럴 수 있지"</strong>라고 너그럽게 생각해주시고
+                      저에게 알려주시면 감사하겠습니다. 잘 사용해주세요!
+                    </div>
+                  )}}>
+                  만든 사람
                 </button>
               </div>
 
@@ -465,7 +511,7 @@ function App() {
 
           <Route path="/create" element={
             <CreationContext.Provider value={creationContextData}>
-              <Create />
+              <Create/>
             </CreationContext.Provider>
           }/>
 

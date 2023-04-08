@@ -11,8 +11,7 @@ function Preview() {
   const data = useContext(PreviewContext);
 
   return (
-    <div className="app__mainContainer" onMouseMove={ (event) => {
-      data.setTooltipPosition({ x: event.clientX, y: event.clientY }); }}>
+    <div className="app__mainContainer">
       <div className='app__parentContainer'>
         <CreationOptions/>
         <SubjectSearchList/>

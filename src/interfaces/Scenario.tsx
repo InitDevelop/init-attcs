@@ -73,8 +73,10 @@ export const intersects = (sc: scenario, lect: lecture) => {
   totalLoop: for (const lectTimeSlot of timeSlotsThis) {
     for (const scTimeSlot of timeSlotsThat) {
       if (isTimeIntersect(lectTimeSlot.startTime, lectTimeSlot.endTime, scTimeSlot.startTime, scTimeSlot.endTime)) {
-        isIntersect = true;
-        break totalLoop;
+        if (lectTimeSlot.date === scTimeSlot.date) {
+          isIntersect = true;
+          break totalLoop;
+        }
       }
     }
   }

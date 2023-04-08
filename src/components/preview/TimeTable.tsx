@@ -164,10 +164,7 @@ function TimeTable(props: propType) {
                   }
                 )
               )}
-
-
             </div>
-            
           </div>
         )
       }

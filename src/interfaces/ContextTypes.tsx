@@ -1,4 +1,5 @@
 import { lecture, lectureGroup } from "./Lecture";
+import { scenario } from "./Scenario";
 import { xyTuple } from "./Util";
 
 export type previewContextTypes = {
@@ -72,7 +73,19 @@ export type creationContextTypes = {
     hoveredSubj: lecture;
     setHoveredSubj: (param: lecture) => void;
 
+    scenarios: scenario[];
+    setScenarios: (param: scenario[]) => void;
+    scenarioNumber: number;
+    setScenarioNumber: (param: number) => void;
+
     displayPopup: (title: string, content: React.ReactNode) => void;
     handleAddInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleAddKeywordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+    showTooltip: boolean;
+    setShowTooltip: (param: boolean) => void;
+    tooltipPosition: xyTuple;
+    setTooltipPosition: (param: xyTuple) => void;
+    tooltipContent: string;
+    setTooltipContent: (param: string) => void;
 }
