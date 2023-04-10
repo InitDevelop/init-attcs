@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import '../../App.css';
+import '../../AppMobile.css';
 import LectureBox from '../global/LectureBox';
 import { PreviewContext } from "../../App";
 import { lecture } from '../../interfaces/Lecture';

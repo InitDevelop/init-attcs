@@ -1,8 +1,8 @@
 import lectureData from "../../db/data.json";
 import React, { useContext } from 'react'
 import '../../css/AppTable.css';
-import '../../AppMobile.css';
 import '../../App.css';
+import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
@@ -39,10 +39,11 @@ function SubjectSearchList() {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <h2 className="mid_title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
+      <span className="mid_title">
+        <span style={{ marginRight: "5%" }}>찾은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
         <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={data.keyWord} onChange={data.handleKeywordChange}></input>
-      </h2>
+      </span>
       <div className="appTable__scrollContainer">
         {
           lectureDatabase

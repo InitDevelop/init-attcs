@@ -13,7 +13,7 @@
   flex-grow: 1;
   flex-shrink: 1;
 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 }
 
 .timetable__table {
@@ -48,6 +48,10 @@
   width: 7.5%;
 }
 
+.mid_title {
+  font-size: x-large;
+}
+
 .timetable__subject {
   white-space: pre-wrap;
 
@@ -69,7 +73,7 @@
   padding: 5px;
   box-sizing: border-box;
   transition : 100ms;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 
   overflow: auto;
 }
@@ -81,4 +85,29 @@
 
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 900px) {
+  .timetable__container {
+    border-radius: 0px;
+  
+    padding: 20px 10px;
+    height: 100%;
+    width: calc(100% - 20px);
+  
+    flex-grow: 1;
+    flex-shrink: 1;
+    box-shadow: var(--shadow);
+  }
+
+  .timetable__subject span {
+    width: 100%;
+    text-align: left;
+    word-break: normal;
+  
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: small;
+  }
 }

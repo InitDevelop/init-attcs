@@ -59,3 +59,15 @@
 .value {
   font-weight: normal;
 }
+
+
+@media only screen and (max-width: 900px) {
+  .popup {
+    font-size: large;
+  }
+  
+  .popup__title {
+    font-size: x-large;
+  }
+
+}

@@ -17,7 +17,7 @@ import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
 
-const appVersion: string = "0.6.0";
+const appVersion: string = "0.6.1";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],

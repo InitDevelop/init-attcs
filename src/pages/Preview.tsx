@@ -13,15 +13,6 @@ function Preview() {
   return (
     <div className="app__mainContainer">
       <div className='app__parentContainer'>
-        <CreationOptions/>
-        <SubjectSearchList/>
-      </div>
-
-      <div className='app__parentContainer'>
-        <SubjectSelectList/>
-      </div>
-
-      <div className='app__parentContainer'>
         <TimeTable
           lectures={data.selSubj}
           subjHover={data.subjHover}
@@ -29,6 +20,15 @@ function Preview() {
           setShowTooltip={data.setShowTooltip}
           setTooltipContent={data.setTooltipContent}        
         />
+      </div>
+
+      <div className='app__parentContainer'>
+        <CreationOptions/>
+        <SubjectSearchList/>
+      </div>
+
+      <div className='app__parentContainer'>
+        <SubjectSelectList/>
       </div>
     </div>
   );

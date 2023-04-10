@@ -1,5 +1,9 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
 
+:root {
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 * {
   margin: 0;
   font-family: 'Pretendard Variable';
@@ -79,7 +83,7 @@
   margin-right: 15px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 }
 
 /* .links:focus {
@@ -112,7 +116,7 @@
 
 .app__creationoptions {
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
   padding: 20px;
   width: calc(100% - 40px);
   border-radius: 10px;
