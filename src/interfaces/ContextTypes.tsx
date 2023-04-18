@@ -60,6 +60,9 @@ export type creationContextTypes = {
     setPopupContent: (param: React.ReactNode) => void;
     isExistingSubj: (lecture: lecture) => boolean;
 
+    relatedLectures: lecture[];
+    setRelatedLectures: (param: lecture[]) => void;
+
     addLectureToGroup: (param: lecture) => void;
     removeLectureFromGroup: (param: lecture) => void;
 

@@ -3,6 +3,9 @@ import '../../css/AppTable.css';
 import '../../App.css';
 import AddedSubject from './AddedSubject'
 import { lecture, lectureGroup } from "../../interfaces/Lecture";
+import { CreationContext } from "../../App";
+import { useContext } from "react";
+import { range } from "../../interfaces/Util";
 
 type propType = {
   lectureGroup: lectureGroup;
@@ -13,6 +16,7 @@ type propType = {
 }
 
 function SubjectGroup(props: propType) {
+  const data = useContext(CreationContext);
 
   return (
     <div className='list__subjectgroupbox'>
@@ -37,7 +41,14 @@ function SubjectGroup(props: propType) {
                 displayPopup = {props.displayPopup}
                 popAddedLecture = {props.popAddedLecture}
                 updateCount={props.updateCount}
-                setUpdateCount={props.setUpdateCount}  
+                setUpdateCount={props.setUpdateCount}
+                isInScenario={(lect: lecture) => {
+                  if (data.scenarios.length > 0) {
+                    return data.relatedLectures.includes(lect);
+                  } else {
+                    return false;
+                  }
+                }}
               />
             )
           }

@@ -1,5 +1,5 @@
 .popup {
-  font-size: 20px;
+  font-size: 16px;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -12,16 +12,18 @@
 }
 
 .popup__title {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .popup-inner {
+  overflow: auto;
   line-height: 1.4;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  max-width: 800px;
+  width: 700px;
+  max-height: 80%;
   text-align: center;
 }
 

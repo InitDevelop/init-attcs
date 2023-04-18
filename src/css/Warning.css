@@ -1,0 +1,23 @@
+.time_warning_box {
+  padding: 8px;
+  width: 90%;
+  border: 3px solid #ffa20b;
+  color: #ffa20b;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: large;
+  margin-bottom: 20px;
+  transition: 100ms;
+}
+
+.empty_warning_box {
+  padding: 8px;
+  width: 90%;
+  border: 3px solid #3a8176;
+  color: #3a8176;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: large;
+  margin-bottom: 20px;
+  transition: 100ms;
+}

@@ -1,8 +1,8 @@
 import { lecture, lectureGroup, pseudoTimeSlot } from "../../interfaces/Lecture";
 import { getScenario, getTimeSlots, scenario } from "../../interfaces/Scenario";
-import { getDistance } from "../../interfaces/Util";
+import { getDistance, warning } from "../../interfaces/Util";
 
-const DISTANCE_LIMIT: number = 0;
+const DISTANCE_LIMIT: number = 1.53;
 
 export function printScenarios(lectureGroups: lectureGroup[]) {
   const result: number[][] = [];
@@ -71,7 +71,8 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
 
   for (const r of result) {
     let scResult = getScenario(lectureGroups, r);
-    scResult.scenario.warnings = getDistanceWarnings(scResult.scenario);
+    scResult.scenario.warnings = getWarnings(scResult.scenario);
+    
     if (scResult.scenario.lectures.length === lectureGroups.length) {
       scenarioResults.push(scResult.scenario);
     } else {
@@ -94,8 +95,15 @@ function getMinuteDifference(from: number, to: number) {
 }
 
 
-export function getDistanceWarnings(sc: scenario) {
-  let returnVal: string[] = [];
+export function getWarnings(sc: scenario): warning[] {
+  let distanceWarning: warning = {
+    warningType: "time",
+    extraInfo: []
+  };
+  let emptyDateWarning: warning = {
+    warningType: "empty",
+    extraInfo: []
+  };
 
   let timeSlots: pseudoTimeSlot[] = [];
   let daysTimeSlots: pseudoTimeSlot[][] = [[], [], [], [], []];
@@ -106,11 +114,13 @@ export function getDistanceWarnings(sc: scenario) {
   
   for (const ts of timeSlots) {
     daysTimeSlots[ts.date].push(ts);
-    
   }
 
   for (let i = 0; i < 5; i++) {
     daysTimeSlots[i].sort((a, b) => a.startTime - b.startTime);
+    if (daysTimeSlots[i].length === 0) {
+      emptyDateWarning.extraInfo.push(i.toString());
+    }
   }
 
   for (let i = 0; i < 5; i++) {
@@ -119,18 +129,17 @@ export function getDistanceWarnings(sc: scenario) {
         let bdngFrom: number = parseInt(daysTimeSlots[i][j].room.split("-")[0]);
         let bdngTo: number = parseInt(daysTimeSlots[i][j + 1].room.split("-")[0]);
 
-
-        if (getDistance(bdngFrom, bdngTo) > DISTANCE_LIMIT) {
-          if (!returnVal.includes(daysTimeSlots[i][j].lecture.subj_name)) {
-            returnVal.push(daysTimeSlots[i][j].lecture.subj_name);
+        if (getDistance(bdngFrom, bdngTo) / getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) > DISTANCE_LIMIT) {
+          if (!distanceWarning.extraInfo.includes(daysTimeSlots[i][j].lecture.subj_name)) {
+            distanceWarning.extraInfo.push(daysTimeSlots[i][j].lecture.subj_name);
           }
-          if (!returnVal.includes(daysTimeSlots[i][j + 1].lecture.subj_name)) {
-            returnVal.push(daysTimeSlots[i][j + 1].lecture.subj_name);
+          if (!distanceWarning.extraInfo.includes(daysTimeSlots[i][j + 1].lecture.subj_name)) {
+            distanceWarning.extraInfo.push(daysTimeSlots[i][j + 1].lecture.subj_name);
           }
         } 
       }
     }
   }
 
-  return returnVal;
+  return [emptyDateWarning, distanceWarning].filter(warning => warning.extraInfo.length > 0);
 }

@@ -165,12 +165,16 @@ export const CreationContext = React.createContext<creationContextTypes>({
   setShowTooltip: function (param: boolean): void {
     throw new Error('Function not implemented.');
   },
-  tooltipPosition: {x: 0, y: 0},
+  tooltipPosition: { x: 0, y: 0 },
   setTooltipPosition: function (param: xyTuple): void {
     throw new Error('Function not implemented.');
   },
   tooltipContent: <></>,
   setTooltipContent: function (param: React.ReactNode): void {
+    throw new Error('Function not implemented.');
+  },
+  relatedLectures: [],
+  setRelatedLectures: function (param: lecture[]): void {
     throw new Error('Function not implemented.');
   }
 });
@@ -302,6 +306,7 @@ function App() {
   // State related to the create page
   const [scenarios, setScenarios] = useState<scenario[]>([]);
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
+  const [relatedLectures, setRelatedLectures] = useState<lecture[]>([]);
 
   const addLectureToGroup = (lect: lecture) => {
     const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
@@ -398,6 +403,8 @@ function App() {
     handleAddInputChange,
     handleAddKeywordChange,
     isExistingSubj,
+    
+    relatedLectures, setRelatedLectures,
 
     subjHover, setSubjHover,
     hoveredSubj, setHoveredSubj,

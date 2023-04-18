@@ -2,8 +2,11 @@ import React, { useContext } from 'react';
 import "../../css/AppTable.css";
 import "../../css/SubjectList.css";
 import { CreationContext } from "../../App";
-import { CreateScenarios, getDistanceWarnings } from './CreateScenarios';
+import { CreateScenarios } from './CreateScenarios';
 import CreateAddedSubject from './CreateAddedSubject';
+import { range } from '../../interfaces/Util';
+import { lecture } from '../../interfaces/Lecture';
+import Warning from './Warning';
 
 const warningSign = '⚠';
 
@@ -16,10 +19,6 @@ const getIndex = (n: number, d: number) => {
   }
 }
 */
-
-function range(start: number, end: number, step: number = 1): number[] {
-  return Array.from({ length: Math.ceil((end - start) / step) }, (_, i) => start + i * step);
-}
 
 function CreationViewPanel() {
 
@@ -73,6 +72,12 @@ function CreationViewPanel() {
         onClick={() => {
             if (data.scenarioNumber > 0) {
               data.setScenarioNumber(data.scenarioNumber - 1);
+
+              let relatedLectures: lecture[] = [];
+              for (let i = 0; i < data.scenarios[data.scenarioNumber - 1].shareTimeLectures.length; i++) {
+                relatedLectures.push(...data.scenarios[data.scenarioNumber - 1].shareTimeLectures[i]);
+              }
+              data.setRelatedLectures(relatedLectures);
             }
           }}>이전 시나리오</button>
         
@@ -85,6 +90,12 @@ function CreationViewPanel() {
         onClick={() => {
             if (data.scenarioNumber < data.scenarios.length - 1) {
               data.setScenarioNumber(data.scenarioNumber + 1);
+
+              let relatedLectures: lecture[] = [];
+              for (let i = 0; i < data.scenarios[data.scenarioNumber + 1].shareTimeLectures.length; i++) {
+                relatedLectures.push(...data.scenarios[data.scenarioNumber + 1].shareTimeLectures[i]);
+              }
+              data.setRelatedLectures(relatedLectures);
             }
           }}>다음 시나리오</button>
         <br/>
@@ -103,8 +114,11 @@ function CreationViewPanel() {
       
       {
         (data.scenarios.length > 0) && (
-          (getDistanceWarnings(data.scenarios[data.scenarioNumber]).length > 0) && (
-            <h5><span style={{ fontFamily: 'Segoe UI, Noto Color Emoji, sans-serif' }}>&#x26A0;</span> 동선 문제 우려</h5>
+          data.scenarios[data.scenarioNumber].warnings.map(
+            warning =>
+            <Warning
+            warningType={warning.warningType}
+            />
           )
         )
       }
@@ -121,6 +135,17 @@ function CreationViewPanel() {
         }
       }>
         
+      </div>
+
+
+    </div>
+  );
+}
+
+export default CreationViewPanel;
+
+/*
+
         {
           (data.scenarios.length > 0) &&
 
@@ -136,11 +161,6 @@ function CreationViewPanel() {
             }
           )
         }
-      </div>
 
 
-    </div>
-  );
-}
-
-export default CreationViewPanel;
+*/

@@ -52,6 +52,7 @@ export type timeSlot = {
   topPos: string;
   height: string;
   room: string;
+  lectures: lecture[];
 }
 
 export type pseudoTimeSlot = {

@@ -1,8 +1,10 @@
 import "../../css/TimeTable.css"
+import "../../css/AppTable.css"
 import '../../AppMobile.css';
 import { PreviewContext } from "../../App";
 import { lecture, timeSlot } from '../../interfaces/Lecture';
 import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
+import { MultLectureInformationTable } from "../global/LectureInformationTable";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
@@ -14,6 +16,7 @@ type propType = {
   hoveredSubj: lecture;
   setShowTooltip: (param: boolean) => void;
   setTooltipContent: (param: React.ReactNode) => void;
+  displayPopup: (title: string, content: React.ReactNode) => void;
 }
 
 function TimeTable(props: propType) {
@@ -37,8 +40,8 @@ function TimeTable(props: propType) {
 
       date = getDateValue(times[i].substring(0, 1));
 
-      let topPos = `${((startHour - 9) + startMin / 60) * 6}vh`;
-      let height = `${((endHour - startHour) + (endMin - startMin) / 60) * 6}vh`;
+      let topPos = `calc((100%)*${((startHour - 9) + startMin / 60)}/13)`;
+      let height = `calc((100%)*${((endHour - startHour) + (endMin - startMin) / 60)}/13)`;
       let leftPos = `${7.5 + date * 18.5}%`;
 
       timeSlots.push({
@@ -50,7 +53,8 @@ function TimeTable(props: propType) {
         leftPos: leftPos,
         topPos: topPos,
         height: height,
-        room: rooms[i]
+        room: rooms[i],
+        lectures: [props.lectures[j]]
       });
     }
   }
@@ -69,8 +73,8 @@ function TimeTable(props: propType) {
 
       date = getDateValue(hoverTimes[k].substring(0, 1));
 
-      let topPos = `${((startHour - 9) + startMin / 60) * 6}vh`;
-      let height = `${((endHour - startHour) + (endMin - startMin) / 60) * 6}vh`;
+      let topPos = `calc((100%)*${((startHour - 9) + startMin / 60)}/13)`;
+      let height = `calc((100%)*${((endHour - startHour) + (endMin - startMin) / 60)}/13)`;
       let leftPos = `${7.5 + date * 18.5}%`;
 
       hoveredTimeSlots.push({
@@ -82,7 +86,8 @@ function TimeTable(props: propType) {
         topPos: topPos,
         height: height,
         id: 0,
-        room: rooms[k]
+        room: rooms[k],
+        lectures: [props.hoveredSubj]
       });
     }
   }
@@ -91,27 +96,28 @@ function TimeTable(props: propType) {
     <PreviewContext.Consumer>
       { () => {
         return (
-          <div className='timetable__container'>
-            <div style={{position: 'relative'}}>
-              <table className='timetable__table'>
-                <tbody>
-                  {times.map(
-                    time => {
-                      return (
-                        <tr className='timetable__row'>
-                          <td className='timetable__timeslot'>{time}</td>
-                          <td className='timetable__item'></td>
-                          <td className='timetable__item'></td>
-                          <td className='timetable__item'></td>
-                          <td className='timetable__item'></td>
-                          <td className='timetable__item'></td>
-                        </tr>
-                      )
-                    }
-                  )}
-                </tbody>         
-              </table>
+          <div className='appTable__container'>
+            <div className="timetable__hostBox">
+            <table className='timetable__table'>
+              <tbody>
+                {times.map(
+                  time => {
+                    return (
+                      <tr className='timetable__row'>
+                        <td className='timetable__timeslot'>{time}</td>
+                        <td className='timetable__item'></td>
+                        <td className='timetable__item'></td>
+                        <td className='timetable__item'></td>
+                        <td className='timetable__item'></td>
+                        <td className='timetable__item'></td>
+                      </tr>
+                    )
+                  }
+                )}
+              </tbody>         
+            </table>
 
+            
               {timeSlots.map(
                 item => {
                   return (
@@ -134,6 +140,8 @@ function TimeTable(props: propType) {
                         props.setTooltipContent(
                         <div>
                           {content}
+                          {"\n"}
+                          <span style={{fontWeight: "400"}}>{item.room}</span>
                           {intersectFlag && (
                             <span style={{color: "darkred", fontWeight: "800"}}>{"\n"}강좌의 시간이 겹칩니다!</span>
                           )}
@@ -142,6 +150,11 @@ function TimeTable(props: propType) {
                       }}
                       onMouseOut={ () => {
                         props.setShowTooltip(false);
+                      }}
+                      onClick={ () => {/*
+                        props.displayPopup("강좌 상세 정보",
+                          MultLectureInformationTable(item.lectures)
+                        );*/
                       }}
                       style={
                         {
@@ -178,6 +191,8 @@ function TimeTable(props: propType) {
                 )
               )}
             </div>
+
+
           </div>
         )
       }

@@ -8,11 +8,12 @@ type propType = {
   popAddedLecture: (lecture: lecture) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
+  isInScenario: (param: lecture) => boolean;
 };
 
 function AddedSubject(props: propType) {
   return (
-    <div className='list__addedsubject'>
+    <div className='list__addedsubject' style={{ backgroundColor: props.isInScenario(props.subject) ? "#ccc" : "#fff" }}>
       <h3>
         <span className='credit' style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
         <span 

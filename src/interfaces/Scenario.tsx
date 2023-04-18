@@ -1,10 +1,11 @@
 import { pseudoTimeSlot } from "./Lecture";
 import { lecture, lectureGroup } from "./Lecture";
+import { warning } from "./Util";
 
 export type scenario = {
   lectures: lecture[];
   shareTimeLectures: lecture[][];
-  warnings: string[];
+  warnings: warning[];
 };
 
 export const getDateValue = (dateChar: string): number => {

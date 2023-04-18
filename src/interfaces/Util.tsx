@@ -1,8 +1,18 @@
 import buildingData from "../db/building_data.json"
+import { lecture } from "./Lecture";
 
 export interface xyTuple {
   x: number,
   y: number
+}
+
+export interface warning {
+  warningType: 'time' | 'lunch' | 'empty';
+  extraInfo: string[];
+}
+
+export function range(start: number, end: number, step: number = 1): number[] {
+  return Array.from({ length: Math.ceil((end - start) / step) }, (_, i) => start + i * step);
 }
 
 export function getDistance(from: number, to: number) {

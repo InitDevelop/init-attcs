@@ -18,7 +18,8 @@ function Preview() {
           subjHover={data.subjHover}
           hoveredSubj={data.hoveredSubj}
           setShowTooltip={data.setShowTooltip}
-          setTooltipContent={data.setTooltipContent}        
+          setTooltipContent={data.setTooltipContent}     
+          displayPopup={data.displayPopup}   
         />
       </div>
 
