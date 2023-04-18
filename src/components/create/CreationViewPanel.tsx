@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import "../../css/AppTable.css";
 import "../../css/SubjectList.css";
 import { CreationContext } from "../../App";
-import { CreateScenarios } from './CreateScenarios';
+import { CreateScenarios, getDistanceWarnings } from './CreateScenarios';
 import CreateAddedSubject from './CreateAddedSubject';
+
+const warningSign = '⚠';
 
 /*
 const getIndex = (n: number, d: number) => {
@@ -58,14 +60,12 @@ function CreationViewPanel() {
         개의 시나리오 중 <strong>{data.scenarioNumber + 1}</strong>번째
       </h2>
 
-
-      <br/>
-
       <div style={
         {
           display: "flex",
           flexDirection: "row",
-          fontSize: "large"
+          fontSize: "large",
+          marginBottom: "10px"
         }
       }>
         <button className='button-0'
@@ -75,6 +75,11 @@ function CreationViewPanel() {
               data.setScenarioNumber(data.scenarioNumber - 1);
             }
           }}>이전 시나리오</button>
+        
+        {/* <h2 style={{ fontWeight: "200" }}>
+        <strong>{data.scenarioNumber + 1}</strong>/<strong>{data.scenarios.length}</strong>
+        </h2> */}
+
         <button className='button-0'
         style={{ margin: "0px 20px" }}
         onClick={() => {
@@ -90,17 +95,32 @@ function CreationViewPanel() {
           border: "none",
           borderTop: "1px solid #ccc",
           height: "1px",
-          margin: "30px 0"
+          margin: "10px 0"
         }
       }/>
 
-
+      <br/>
+      
+      {
+        (data.scenarios.length > 0) && (
+          (getDistanceWarnings(data.scenarios[data.scenarioNumber]).length > 0) && (
+            <h5><span style={{ fontFamily: 'Segoe UI, Noto Color Emoji, sans-serif' }}>&#x26A0;</span> 동선 문제 우려</h5>
+          )
+        )
+      }
+      
       <div
       style={
         {
-          width: "100%"
+          overflow: "auto",
+          position: "absolute",
+          height: "40%",
+          left: "20px",
+          right: "20px",
+          bottom: "20px"
         }
       }>
+        
         {
           (data.scenarios.length > 0) &&
 

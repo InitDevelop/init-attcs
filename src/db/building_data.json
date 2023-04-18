@@ -1,0 +1,839 @@
+{
+  "buildings": [
+    {
+     "building_num": 1,
+     "row": 64,
+     "column": 52
+    },
+    {
+     "building_num": 2,
+     "row": 64,
+     "column": 50
+    },
+    {
+     "building_num": 3,
+     "row": 66,
+     "column": 47
+    },
+    {
+     "building_num": 4,
+     "row": 66,
+     "column": 49
+    },
+    {
+     "building_num": 5,
+     "row": 65,
+     "column": 46
+    },
+    {
+     "building_num": 6,
+     "row": 66,
+     "column": 44
+    },
+    {
+     "building_num": 7,
+     "row": 63,
+     "column": 45
+    },
+    {
+     "building_num": 8,
+     "row": 63,
+     "column": 46
+    },
+    {
+     "building_num": 9,
+     "row": 62,
+     "column": 39
+    },
+    {
+     "building_num": 10,
+     "row": 63,
+     "column": 41
+    },
+    {
+     "building_num": 11,
+     "row": 61,
+     "column": 41
+    },
+    {
+     "building_num": 12,
+     "row": 60,
+     "column": 43
+    },
+    {
+     "building_num": 13,
+     "row": 59,
+     "column": 46
+    },
+    {
+     "building_num": 14,
+     "row": 66,
+     "column": 43
+    },
+    {
+     "building_num": 15,
+     "row": 73,
+     "column": 54
+    },
+    {
+     "building_num": 16,
+     "row": 78,
+     "column": 58
+    },
+    {
+     "building_num": 17,
+     "row": 75,
+     "column": 54
+    },
+    {
+     "building_num": 18,
+     "row": 48,
+     "column": 51
+    },
+    {
+     "building_num": 19,
+     "row": 45,
+     "column": 51
+    },
+    {
+     "building_num": 20,
+     "row": 56,
+     "column": 50
+    },
+    {
+     "building_num": 21,
+     "row": 53,
+     "column": 52
+    },
+    {
+     "building_num": 22,
+     "row": 53,
+     "column": 57
+    },
+    {
+     "building_num": 23,
+     "row": 56,
+     "column": 57
+    },
+    {
+     "building_num": 24,
+     "row": 60,
+     "column": 61
+    },
+    {
+     "building_num": 25,
+     "row": 57,
+     "column": 61
+    },
+    {
+     "building_num": 26,
+     "row": 56,
+     "column": 59
+    },
+    {
+     "building_num": 27,
+     "row": 54,
+     "column": 60
+    },
+    {
+     "building_num": 28,
+     "row": 52,
+     "column": 59
+    },
+    {
+     "building_num": 29,
+     "row": 45,
+     "column": 47
+    },
+    {
+     "building_num": 30,
+     "row": 48,
+     "column": 57
+    },
+    {
+     "building_num": 31,
+     "row": 49,
+     "column": 60
+    },
+    {
+     "building_num": 32,
+     "row": 47,
+     "column": 60
+    },
+    {
+     "building_num": 33,
+     "row": 46,
+     "column": 58
+    },
+    {
+     "building_num": 34,
+     "row": 44,
+     "column": 55
+    },
+    {
+     "building_num": 35,
+     "row": 47,
+     "column": 53
+    },
+    {
+     "building_num": 36,
+     "row": 42,
+     "column": 55
+    },
+    {
+     "building_num": 37,
+     "row": 43,
+     "column": 58
+    },
+    {
+     "building_num": 38,
+     "row": 39,
+     "column": 58
+    },
+    {
+     "building_num": 39,
+     "row": 39,
+     "column": 55
+    },
+    {
+     "building_num": 40,
+     "row": 36,
+     "column": 55
+    },
+    {
+     "building_num": 41,
+     "row": 43,
+     "column": 51
+    },
+    {
+     "building_num": 42,
+     "row": 41,
+     "column": 51
+    },
+    {
+     "building_num": 43,
+     "row": 41,
+     "column": 53
+    },
+    {
+     "building_num": 44,
+     "row": 39,
+     "column": 53
+    },
+    {
+     "building_num": 45,
+     "row": 35,
+     "column": 50
+    },
+    {
+     "building_num": 46,
+     "row": 49,
+     "column": 45
+    },
+    {
+     "building_num": 47,
+     "row": 38,
+     "column": 41
+    },
+    {
+     "building_num": 48,
+     "row": 35,
+     "column": 45
+    },
+    {
+     "building_num": 49,
+     "row": 77,
+     "column": 46
+    },
+    {
+     "building_num": 50,
+     "row": 77,
+     "column": 52
+    },
+    {
+     "building_num": 51,
+     "row": 78,
+     "column": 51
+    },
+    {
+     "building_num": 52,
+     "row": 78,
+     "column": 49
+    },
+    {
+     "building_num": 53,
+     "row": 76,
+     "column": 48
+    },
+    {
+     "building_num": 54,
+     "row": 74,
+     "column": 48
+    },
+    {
+     "building_num": 55,
+     "row": 73,
+     "column": 50
+    },
+    {
+     "building_num": 56,
+     "row": 86,
+     "column": 47
+    },
+    {
+     "building_num": 57,
+     "row": 87,
+     "column": 49
+    },
+    {
+     "building_num": 58,
+     "row": 88,
+     "column": 53
+    },
+    {
+     "building_num": 59,
+     "row": 85,
+     "column": 50
+    },
+    {
+     "building_num": 60,
+     "row": 62,
+     "column": 56
+    },
+    {
+     "building_num": 61,
+     "row": 62,
+     "column": 47
+    },
+    {
+     "building_num": 62,
+     "row": 59,
+     "column": 53
+    },
+    {
+     "building_num": 63,
+     "row": 58,
+     "column": 58
+    },
+    {
+     "building_num": 64,
+     "row": 80,
+     "column": 63
+    },
+    {
+     "building_num": 66,
+     "row": 47,
+     "column": 46
+    },
+    {
+     "building_num": 67,
+     "row": 78,
+     "column": 62
+    },
+    {
+     "building_num": 68,
+     "row": 90,
+     "column": 43
+    },
+    {
+     "building_num": 69,
+     "row": 50,
+     "column": 51
+    },
+    {
+     "building_num": 70,
+     "row": 92,
+     "column": 51
+    },
+    {
+     "building_num": 71,
+     "row": 96,
+     "column": 52
+    },
+    {
+     "building_num": 72,
+     "row": 71,
+     "column": 53
+    },
+    {
+     "building_num": 73,
+     "row": 69,
+     "column": 57
+    },
+    {
+     "building_num": 74,
+     "row": 71,
+     "column": 50
+    },
+    {
+     "building_num": 75,
+     "row": 45,
+     "column": 64
+    },
+    {
+     "building_num": 76,
+     "row": 66,
+     "column": 39
+    },
+    {
+     "building_num": 79,
+     "row": 100,
+     "column": 51
+    },
+    {
+     "building_num": 80,
+     "row": 99,
+     "column": 49
+    },
+    {
+     "building_num": 81,
+     "row": 94,
+     "column": 45
+    },
+    {
+     "building_num": 82,
+     "row": 72,
+     "column": 45
+    },
+    {
+     "building_num": 83,
+     "row": 78,
+     "column": 55
+    },
+    {
+     "building_num": 84,
+     "row": 73,
+     "column": 52
+    },
+    {
+     "building_num": 85,
+     "row": 96,
+     "column": 48
+    },
+    {
+     "building_num": 86,
+     "row": 103,
+     "column": 50
+    },
+    {
+     "building_num": 97,
+     "row": 91,
+     "column": 58
+    },
+    {
+     "building_num": 98,
+     "row": 92,
+     "column": 58
+    },
+    {
+     "building_num": 100,
+     "row": 55,
+     "column": 41
+    },
+    {
+     "building_num": 101,
+     "row": 77,
+     "column": 60
+    },
+    {
+     "building_num": 102,
+     "row": 61,
+     "column": 63
+    },
+    {
+     "building_num": 103,
+     "row": 80,
+     "column": 44
+    },
+    {
+     "building_num": 104,
+     "row": 39,
+     "column": 50
+    },
+    {
+     "building_num": 105,
+     "row": 37,
+     "column": 48
+    },
+    {
+     "building_num": 109,
+     "row": 67,
+     "column": 51
+    },
+    {
+     "building_num": 111,
+     "row": 59,
+     "column": 42
+    },
+    {
+     "building_num": 113,
+     "row": 85,
+     "column": 54
+    },
+    {
+     "building_num": 115,
+     "row": 91,
+     "column": 66
+    },
+    {
+     "building_num": 123,
+     "row": 97,
+     "column": 24
+    },
+    {
+     "building_num": 124,
+     "row": 99,
+     "column": 25
+    },
+    {
+     "building_num": 125,
+     "row": 98,
+     "column": 28
+    },
+    {
+     "building_num": 126,
+     "row": 97,
+     "column": 26
+    },
+    {
+     "building_num": 127,
+     "row": 96,
+     "column": 29
+    },
+    {
+     "building_num": 129,
+     "row": 52,
+     "column": 62
+    },
+    {
+     "building_num": 130,
+     "row": 37,
+     "column": 57
+    },
+    {
+     "building_num": 131,
+     "row": 33,
+     "column": 58
+    },
+    {
+     "building_num": 132,
+     "row": 39,
+     "column": 46
+    },
+    {
+     "building_num": 133,
+     "row": 37,
+     "column": 59
+    },
+    {
+     "building_num": 135,
+     "row": 91,
+     "column": 46
+    },
+    {
+     "building_num": 137,
+     "row": 93,
+     "column": 49
+    },
+    {
+     "building_num": 138,
+     "row": 43,
+     "column": 43
+    },
+    {
+     "building_num": 139,
+     "row": 42,
+     "column": 45
+    },
+    {
+     "building_num": 140,
+     "row": 82,
+     "column": 43
+    },
+    {
+     "building_num": 141,
+     "row": 43,
+     "column": 47
+    },
+    {
+     "building_num": 142,
+     "row": 47,
+     "column": 47
+    },
+    {
+     "building_num": 143,
+     "row": 55,
+     "column": 50
+    },
+    {
+     "building_num": 144,
+     "row": 83,
+     "column": 33
+    },
+    {
+     "building_num": 150,
+     "row": 94,
+     "column": 59
+    },
+    {
+     "building_num": 151,
+     "row": 92,
+     "column": 56
+    },
+    {
+     "building_num": 152,
+     "row": 90,
+     "column": 56
+    },
+    {
+     "building_num": 153,
+     "row": 91,
+     "column": 53
+    },
+    {
+     "building_num": 200,
+     "row": 51,
+     "column": 65
+    },
+    {
+     "building_num": 201,
+     "row": 48,
+     "column": 66
+    },
+    {
+     "building_num": 203,
+     "row": 55,
+     "column": 66
+    },
+    {
+     "building_num": 220,
+     "row": 81,
+     "column": 46
+    },
+    {
+     "building_num": 221,
+     "row": 84,
+     "column": 44
+    },
+    {
+     "building_num": 222,
+     "row": 83,
+     "column": 49
+    },
+    {
+     "building_num": 300,
+     "row": 22,
+     "column": 51
+    },
+    {
+     "building_num": 301,
+     "row": 17,
+     "column": 52
+    },
+    {
+     "building_num": 302,
+     "row": 12,
+     "column": 52
+    },
+    {
+     "building_num": 310,
+     "row": 11,
+     "column": 56
+    },
+    {
+     "building_num": 311,
+     "row": 13,
+     "column": 54
+    },
+    {
+     "building_num": 312,
+     "row": 21,
+     "column": 54
+    },
+    {
+     "building_num": 313,
+     "row": 23,
+     "column": 54
+    },
+    {
+     "building_num": 314,
+     "row": 25,
+     "column": 52
+    },
+    {
+     "building_num": 316,
+     "row": 5,
+     "column": 59
+    },
+    {
+     "building_num": 330,
+     "row": 15,
+     "column": 60
+    },
+    {
+     "building_num": 331,
+     "row": 13,
+     "column": 61
+    },
+    {
+     "building_num": 500,
+     "row": 59,
+     "column": 66
+    },
+    {
+     "building_num": 900,
+     "row": 68,
+     "column": 32
+    },
+    {
+     "building_num": 901,
+     "row": 70,
+     "column": 33
+    },
+    {
+     "building_num": 902,
+     "row": 68,
+     "column": 34
+    },
+    {
+     "building_num": 903,
+     "row": 66,
+     "column": 33
+    },
+    {
+     "building_num": 904,
+     "row": 64,
+     "column": 33
+    },
+    {
+     "building_num": 905,
+     "row": 67,
+     "column": 30
+    },
+    {
+     "building_num": 906,
+     "row": 72,
+     "column": 31
+    },
+    {
+     "building_num": 907,
+     "row": 85,
+     "column": 34
+    },
+    {
+     "building_num": 908,
+     "row": 86,
+     "column": 35
+    },
+    {
+     "building_num": 909,
+     "row": 88,
+     "column": 34
+    },
+    {
+     "building_num": 918,
+     "row": 65,
+     "column": 30
+    },
+    {
+     "building_num": 919,
+     "row": 76,
+     "column": 29
+    },
+    {
+     "building_num": 920,
+     "row": 80,
+     "column": 28
+    },
+    {
+     "building_num": 921,
+     "row": 78,
+     "column": 28
+    },
+    {
+     "building_num": 922,
+     "row": 76,
+     "column": 27
+    },
+    {
+     "building_num": 923,
+     "row": 78,
+     "column": 26
+    },
+    {
+     "building_num": 924,
+     "row": 79,
+     "column": 26
+    },
+    {
+     "building_num": 925,
+     "row": 81,
+     "column": 29
+    },
+    {
+     "building_num": 926,
+     "row": 82,
+     "column": 28
+    },
+    {
+     "building_num": 931,
+     "row": 94,
+     "column": 29
+    },
+    {
+     "building_num": 932,
+     "row": 93,
+     "column": 29
+    },
+    {
+     "building_num": 933,
+     "row": 93,
+     "column": 28
+    },
+    {
+     "building_num": 934,
+     "row": 94,
+     "column": 25
+    },
+    {
+     "building_num": 940,
+     "row": 89,
+     "column": 26
+    },
+    {
+     "building_num": 941,
+     "row": 90,
+     "column": 30
+    },
+    {
+     "building_num": 942,
+     "row": 89,
+     "column": 21
+    },
+    {
+     "building_num": 943,
+     "row": 91,
+     "column": 22
+    },
+    {
+     "building_num": 944,
+     "row": 92,
+     "column": 24
+    },
+    {
+     "building_num": 945,
+     "row": 86,
+     "column": 22
+    },
+    {
+     "building_num": 946,
+     "row": 86,
+     "column": 30
+    },
+    {
+     "building_num": 950,
+     "row": 83,
+     "column": 25
+    }
+   ]
+}

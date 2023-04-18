@@ -1,5 +1,8 @@
-import { lecture, lectureGroup } from "../../interfaces/Lecture";
-import { getScenario, scenario } from "../../interfaces/Scenario";
+import { lecture, lectureGroup, pseudoTimeSlot } from "../../interfaces/Lecture";
+import { getScenario, getTimeSlots, scenario } from "../../interfaces/Scenario";
+import { getDistance } from "../../interfaces/Util";
+
+const DISTANCE_LIMIT: number = 0;
 
 export function printScenarios(lectureGroups: lectureGroup[]) {
   const result: number[][] = [];
@@ -44,7 +47,8 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
     lectureGroups.push({
       subj_id: originalLectureGroups[i].subj_id,
       lectures: representiveLect,
-      timeShareLectures: timeShareLects
+      timeShareLectures: timeShareLects,
+      mustInclude: originalLectureGroups[i].mustInclude
     });
   }
 
@@ -66,11 +70,67 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
   }
 
   for (const r of result) {
-    let scResult: scenario = getScenario(lectureGroups, r);
-    if (scResult.lectures.length === lectureGroups.length) {
-      scenarioResults.push(scResult);
+    let scResult = getScenario(lectureGroups, r);
+    scResult.scenario.warnings = getDistanceWarnings(scResult.scenario);
+    if (scResult.scenario.lectures.length === lectureGroups.length) {
+      scenarioResults.push(scResult.scenario);
+    } else {
+      if (scResult.leftovers.filter(id => {
+        return (lectureGroups[lectureGroups.findIndex(lg => lg.subj_id === id)].mustInclude)
+      }).length === 0) {
+        scenarioResults.push(scResult.scenario);
+      }
     }
   }
 
   setScenarios(scenarioResults);
+}
+
+function getMinuteDifference(from: number, to: number) {
+  let startMin: number = Math.floor(from / 100) * 60 + from % 100;
+  let endMin: number   = Math.floor(to / 100) * 60 + to % 100;
+
+  return (endMin - startMin);
+}
+
+
+export function getDistanceWarnings(sc: scenario) {
+  let returnVal: string[] = [];
+
+  let timeSlots: pseudoTimeSlot[] = [];
+  let daysTimeSlots: pseudoTimeSlot[][] = [[], [], [], [], []];
+
+  for (const lect of sc.lectures) {
+    timeSlots.push(...getTimeSlots(lect));
+  }
+  
+  for (const ts of timeSlots) {
+    daysTimeSlots[ts.date].push(ts);
+    
+  }
+
+  for (let i = 0; i < 5; i++) {
+    daysTimeSlots[i].sort((a, b) => a.startTime - b.startTime);
+  }
+
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < daysTimeSlots[i].length - 1; j++) {
+      if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) <= 20) {
+        let bdngFrom: number = parseInt(daysTimeSlots[i][j].room.split("-")[0]);
+        let bdngTo: number = parseInt(daysTimeSlots[i][j + 1].room.split("-")[0]);
+
+
+        if (getDistance(bdngFrom, bdngTo) > DISTANCE_LIMIT) {
+          if (!returnVal.includes(daysTimeSlots[i][j].lecture.subj_name)) {
+            returnVal.push(daysTimeSlots[i][j].lecture.subj_name);
+          }
+          if (!returnVal.includes(daysTimeSlots[i][j + 1].lecture.subj_name)) {
+            returnVal.push(daysTimeSlots[i][j + 1].lecture.subj_name);
+          }
+        } 
+      }
+    }
+  }
+
+  return returnVal;
 }

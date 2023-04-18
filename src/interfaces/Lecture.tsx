@@ -59,10 +59,12 @@ export type pseudoTimeSlot = {
   endTime: number;
   date: number;
   lecture: lecture;
+  room: string;
 }
 
 export type lectureGroup = {
   subj_id: string;
   lectures: lecture[];
   timeShareLectures: lecture[][];
+  mustInclude: boolean;
 }

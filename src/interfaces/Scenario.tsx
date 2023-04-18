@@ -4,6 +4,7 @@ import { lecture, lectureGroup } from "./Lecture";
 export type scenario = {
   lectures: lecture[];
   shareTimeLectures: lecture[][];
+  warnings: string[];
 };
 
 export const getDateValue = (dateChar: string): number => {
@@ -33,6 +34,7 @@ export function getTimeSlots(lect: lecture) {
 
   let times = lect.time.split("/");
   let count = times.length;
+  let rooms = lect.lect_room.split("/")
 
   for (let i = 0; i < count; i++) {
     let date = 0;
@@ -47,7 +49,8 @@ export function getTimeSlots(lect: lecture) {
       startTime: startHour * 100 + startMin,
       endTime: endHour * 100 + endMin,
       date: date,
-      lecture: lect
+      lecture: lect,
+      room: rooms[i]
     });
   }
 
@@ -85,12 +88,16 @@ export const intersects = (sc: scenario, lect: lecture) => {
 }
 
 export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
-  let returnScenario: scenario = { lectures: [], shareTimeLectures: [] };
+  let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [] };
+  let leftOverIDs: string[] = [];
   for (let i = 0; i < lectureGroups.length; i++) {
     if (!intersects(returnScenario, lectureGroups[i].lectures[indexes[i]])) {
       returnScenario.lectures.push(lectureGroups[i].lectures[indexes[i]]);
       returnScenario.shareTimeLectures.push(lectureGroups[i].timeShareLectures[indexes[i]]);
+    } else {
+      leftOverIDs.push(lectureGroups[i].subj_id);
     }
   }
-  return (returnScenario);
+
+  return {scenario: returnScenario, leftovers: leftOverIDs};
 }

@@ -17,7 +17,7 @@ import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
 
-const appVersion: string = "0.6.1";
+const appVersion: string = "0.6.2";
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],
@@ -313,7 +313,8 @@ function App() {
       copy.push({
         subj_id: lect.subj_id,
         lectures: [lect],
-        timeShareLectures: []
+        timeShareLectures: [],
+        mustInclude: true
       });
     }
     setLectureGroups(copy);

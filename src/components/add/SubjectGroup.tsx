@@ -24,7 +24,8 @@ function SubjectGroup(props: propType) {
         <input style = {{ cursor: "pointer", verticalAlign: "middle" }}
           className='checkbox-1'
           type="checkbox"
-          checked={true}
+          checked={props.lectureGroup.mustInclude}
+          onChange={ () => { props.lectureGroup.mustInclude = !props.lectureGroup.mustInclude } }
         />  필수 과목</label>
       </h2>
       {

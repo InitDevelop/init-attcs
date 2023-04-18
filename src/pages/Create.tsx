@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CreationContext } from "../App";
 import TimeTable from '../components/preview/TimeTable';
 import { blankLecture } from '../interfaces/Lecture';
@@ -16,6 +16,20 @@ const getIndex = (n: number, d: number) => {
 */
 
 function Create() {
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const [updateCount, setUpdateCount] = useState<number>(0);
   const data = useContext(CreationContext);
@@ -43,6 +57,10 @@ function Create() {
         />
       </div>
       <div className='app__parentContainer'>
+        {/* {
+          isMobile &&
+          <CircleScenarios/>
+        } */}
         {
           (data.scenarios.length > 0) ? (
             <TimeTable
@@ -54,8 +72,8 @@ function Create() {
             />
           ) : (
             <div className='appTable__container'>
-              <h1 style={{ fontWeight: "400" }}>시간표가 아직 생성되지 않았습니다.</h1>
-              <h1>생성 버튼을 눌러주세요!</h1>
+              <h2 style={{ fontWeight: "400" }}>시간표가 아직 생성되지 않았습니다.</h2>
+              <h2>생성 버튼을 눌러주세요!</h2>
             </div>
           )
         }
