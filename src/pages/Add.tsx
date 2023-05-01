@@ -1,11 +1,11 @@
 import "../App.css";
-import { ReactNode, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { CreationContext } from "../App";
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import AddSubjectSearch from '../components/add/AddSubjectSearch';
 import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
-import { blankLecture, lecture } from '../interfaces/Lecture';
+import { lecture } from '../interfaces/Lecture';
 import TimeTable from '../components/preview/TimeTable';
 
 function Add() {
@@ -37,8 +37,8 @@ function Add() {
           data.subjHover ?
           <div className='app-parent-container'>
           <TimeTable
-              lectures={[data.hoveredSubj]}
-              subjHover={false} hoveredSubj={blankLecture}
+              lectures={[...selectedLectures]}
+              subjHover={data.subjHover} hoveredSubj={data.hoveredSubj}
               setShowTooltip={data.setShowTooltip}
               setTooltipContent={data.setTooltipContent}
               displayPopup={data.displayPopup}/>

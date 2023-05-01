@@ -290,6 +290,8 @@ function App() {
                 to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
               <Link className={ currentPage === "/create" ? "link-current" : "links" } 
                 to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
+              <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
+                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
@@ -351,6 +353,12 @@ function App() {
           <Route path="/create" element={
             <CreationContext.Provider value={creationContextData}>
               <Create/>
+            </CreationContext.Provider>
+          }/>
+
+          <Route path="/settings" element={
+            <CreationContext.Provider value={creationContextData}>
+              
             </CreationContext.Provider>
           }/>
 
