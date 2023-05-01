@@ -12,7 +12,7 @@ import logo from './img/logo.png';
 import inst1 from './img/inst1.png';
 import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
 import { xyTuple } from './interfaces/Util';
-import { previewContextTypes, creationContextTypes } from './interfaces/ContextTypes';
+import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './interfaces/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
@@ -20,165 +20,8 @@ import packageJson from '../package.json';
 
 const appVersion: string = packageJson.version;
 
-export const PreviewContext = React.createContext<previewContextTypes>({
-  selSubj: [],
-  setSelSubj: function (lect: lecture[]): void {
-    throw new Error('Function not implemented.');
-  },
-  allowMult: false,
-  setAllowMult: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  keyWord: '',
-  setKeyWord: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  searchText: '',
-  setSearchText: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  showPopup: false,
-  setShowPopup: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  popupTitle: '',
-  setPopupTitle: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  popupContent: <></>,
-  setPopupContent: function (param: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  showTooltip: false,
-  setShowTooltip: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  tooltipPosition: {x: 0, y: 0},
-  setTooltipPosition: function (param: xyTuple): void {
-    throw new Error('Function not implemented.');
-  },
-  tooltipContent: <></>,
-  setTooltipContent: function (param: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  scrollPosition: 0,
-  setScrollPosition: function (param: number): void {
-    throw new Error('Function not implemented.');
-  },
-  subjHover: false,
-  setSubjHover: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  hoveredSubj: blankLecture,
-  setHoveredSubj: function (param: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  isExistingSubj: function (lecture: lecture): boolean {
-    throw new Error('Function not implemented.');
-  },
-  handleAllowMultChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  displayPopup: function (title: string, content: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  handleInputChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  handleKeywordChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  addSubject: function (subject: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  popSubject: function (subject: lecture): void {
-    throw new Error('Function not implemented.');
-  }
-});
-
-export const CreationContext = React.createContext<creationContextTypes>({
-  addingSubjName: '',
-  setAddingSubjName: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  clickedSubject: '',
-  setClickedSubject: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  addedSubjKeyWord: '',
-  setAddedSubjKeyWord: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  showPopup: false,
-  setShowPopup: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  popupTitle: '',
-  setPopupTitle: function (param: string): void {
-    throw new Error('Function not implemented.');
-  },
-  popupContent: undefined,
-  setPopupContent: function (param: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  isExistingSubj: function (lecture: lecture): boolean {
-    throw new Error('Function not implemented.');
-  },
-  addLectureToGroup: function (param: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  removeLectureFromGroup: function (param: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  lectureGroups: [],
-  includesLecture: function (param: lecture): boolean {
-    throw new Error('Function not implemented.');
-  },
-  subjHover: false,
-  setSubjHover: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  hoveredSubj: blankLecture,
-  setHoveredSubj: function (param: lecture): void {
-    throw new Error('Function not implemented.');
-  },
-  displayPopup: function (title: string, content: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  handleAddInputChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  handleAddKeywordChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error('Function not implemented.');
-  },
-  setLectureGroups: function (param: lectureGroup[]): void {
-    throw new Error('Function not implemented.');
-  },
-  scenarios: [],
-  setScenarios: function (param: scenario[]): void {
-    throw new Error('Function not implemented.');
-  },
-  scenarioNumber: 0,
-  setScenarioNumber: function (param: number): void {
-    throw new Error('Function not implemented.');
-  },
-  showTooltip: false,
-  setShowTooltip: function (param: boolean): void {
-    throw new Error('Function not implemented.');
-  },
-  tooltipPosition: { x: 0, y: 0 },
-  setTooltipPosition: function (param: xyTuple): void {
-    throw new Error('Function not implemented.');
-  },
-  tooltipContent: <></>,
-  setTooltipContent: function (param: React.ReactNode): void {
-    throw new Error('Function not implemented.');
-  },
-  relatedLectures: [],
-  setRelatedLectures: function (param: lecture[]): void {
-    throw new Error('Function not implemented.');
-  }
-});
+export const PreviewContext = React.createContext<previewContextTypes>(defaultPreviewContext);
+export const CreationContext = React.createContext<creationContextTypes>(defaultCreationContext);
 
 function App() {
 
@@ -434,50 +277,24 @@ function App() {
         
         {/* Header for the entire app */}
         
-        <div className="app__header_container">
-          <div className="app__header">
-            <img className="app_header_logo" src={logo} alt=""/>
+        <div className="app-header-container">
+          <div className="app-header">
+            <img className="app-header-logo" src={logo} alt=""/>
 
             {/* Links for the pages */}
 
-            <div className='app__header_links'>
-              <Link className={ currentPage === "/" ? "link_current" : "links" }
+            <div className='app-header-links'>
+              <Link className={ currentPage === "/" ? "link-current" : "links" }
                 to="/" onClick = { () => {setCurrentPage("/")} }>시간표</Link>
-              <Link className={ currentPage === "/add" ? "link_current" : "links" } 
+              <Link className={ currentPage === "/add" ? "link-current" : "links" } 
                 to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
-              <Link className={ currentPage === "/create" ? "link_current" : "links" } 
+              <Link className={ currentPage === "/create" ? "link-current" : "links" } 
                 to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
                 }>ATTCS v{appVersion}{"\n"}</span>
-                <button className='button-0' style={{ fontSize: "larger", marginRight: "20px" }}
-                  onClick={() => {displayPopup(
-                    "설명",
-                    <div>
-                      <img src={inst1} alt=""
-                      style={{width: "100%"}}
-                      />
-                      ATTCS v{appVersion} (for beta testing) Developed by Gong_Zak_So
-                    </div>
-                  )}}>
-                  설명
-                </button>
-
-                {/* <button className='button-0' style={{ fontSize: "larger" }}
-                  onClick={() => {displayPopup(
-                    "이거를 만든 사람",
-                    <div>
-                      <strong>안녕하세요. 서울대학교 전기정보공학부 학부생 강문석입니다.
-                      ATTCS의 개발자입니다.</strong> 코딩은 사람이 하는 일이고, 이 앱은 JavaScript, TypeScript와 React를 처음 배우면서 코딩한 앱이라서
-                      버그나 오류가 발생할 수 있습니다. 버그나 오류가 발생한다면 
-                      <strong> "그럴 수 있지"</strong>라고 너그럽게 생각해주시고
-                      저에게 알려주시면 감사하겠습니다. 잘 사용해주세요!
-                    </div>
-                  )}}>
-                  만든 사람
-                </button> */}
               </div>
 
               <MobileMenuButton

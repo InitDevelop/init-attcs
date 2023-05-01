@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import "../App.css";
+import { ReactNode, useContext, useState } from 'react';
 import { CreationContext } from "../App";
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import AddSubjectSearch from '../components/add/AddSubjectSearch';
 import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
-import { lecture } from '../interfaces/Lecture';
+import { blankLecture, lecture } from '../interfaces/Lecture';
+import TimeTable from '../components/preview/TimeTable';
 
 function Add() {
 
@@ -12,15 +14,16 @@ function Add() {
   const [selectedLectures, setSelectedLectures] = useState<lecture[]>([]);
   const [selectedDates, setSelectedDates] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
+
   const data = useContext(CreationContext);
 
   return (
-    <div className='app__mainContainer'>
-      <div className='app__parentContainer'>
+    <div className='app-main-container'>
+      <div className='app-parent-container'>
         <AddSubjectSearch/>
         <AddSubjectSearchList/>
       </div>
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
         <LectureSearchList
           selectedLectures={selectedLectures}
           setSelectedLectures={setSelectedLectures}
@@ -30,12 +33,23 @@ function Add() {
           selectedDates={selectedDates} selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}/>
       </div>
-      <div className='app__parentContainer'>
-        <AddedSubjectList
-          updateCount={updateCount}
-          setUpdateCount={setUpdateCount}
-        />
-      </div>
+      {
+          data.subjHover ?
+          <div className='app-parent-container'>
+          <TimeTable
+              lectures={[data.hoveredSubj]}
+              subjHover={false} hoveredSubj={blankLecture}
+              setShowTooltip={data.setShowTooltip}
+              setTooltipContent={data.setTooltipContent}
+              displayPopup={data.displayPopup}/>
+          </div>
+          :
+          <div className='app-parent-container'>
+            <AddedSubjectList
+              updateCount={updateCount}
+              setUpdateCount={setUpdateCount}/>
+          </div>
+      }
     </div>
   )
 }

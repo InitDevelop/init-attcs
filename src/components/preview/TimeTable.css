@@ -3,24 +3,7 @@
   text-align: center;
 }
 
-/*
-.timetable__container {
-  position: relative;
-  padding: 20px;
-  height: 100%;
-  width: calc(100% - 40px);
-
-  border-radius: 10px;
-
-
-
-  flex-grow: 1;
-  flex-shrink: 1;
-
-  box-shadow: var(--shadow);
-}*/
-
-.timetable__table {
+.timetable-table {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -29,7 +12,7 @@
   border-collapse: collapse;
 }
 
-.timetable__hostBox {
+.timetable-host-box {
   position: absolute;
 
   left: 20px;
@@ -41,20 +24,20 @@
   height: calc(100% - 40px);
 }
 
-.timetable__row {
+.timetable-row {
   box-sizing: border-box;
 
   border: 1px solid #cccccc;
 }
 
-.timetable__item {
+.timetable-item {
   box-sizing: border-box;
 
   border: 1px solid #cccccc;
   width: 18.5%;
 }
 
-.timetable__timeslot {
+.timetable-timeslot {
   border: 1px solid #cccccc;
   background-color: #eeeeee;
   color: #777;
@@ -64,11 +47,7 @@
   width: 7.5%;
 }
 
-.mid_title {
-  font-size: x-large;
-}
-
-.timetable__subject {
+.timetable-subject {
   white-space: pre-wrap;
 
   cursor: pointer;
@@ -94,7 +73,7 @@
   overflow: auto;
 }
 
-.timetable__subject span {
+.timetable-subject span {
   width: 100%;
   text-align: left;
   word-break: normal;
@@ -104,7 +83,7 @@
 }
 
 @media only screen and (max-width: 900px) {
-  .timetable__container {
+  .timetable-container {
     border-radius: 0px;
   
     padding: 20px 10px;
@@ -116,7 +95,7 @@
     box-shadow: var(--shadow);
   }
 
-  .timetable__subject span {
+  .timetable-subject span {
     width: 100%;
     text-align: left;
     word-break: normal;

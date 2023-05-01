@@ -1,4 +1,4 @@
-import "../../css/SubjectList.css"
+import "./SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
 import AddedSubject from './AddedSubject'
@@ -19,7 +19,7 @@ function SubjectGroup(props: propType) {
   const data = useContext(CreationContext);
 
   return (
-    <div className='list__subjectgroupbox'>
+    <div className='list-subjectgroupbox'>
       <h2 style={{fontWeight: "500"}}>
         <strong>{props.lectureGroup.lectures[0].subj_name}</strong>
         {"      "}<span> {props.lectureGroup.lectures.length}개 강좌 </span>

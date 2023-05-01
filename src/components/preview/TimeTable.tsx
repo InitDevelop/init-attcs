@@ -1,10 +1,9 @@
-import "../../css/TimeTable.css"
+import "./TimeTable.css"
 import "../../css/AppTable.css"
 import '../../AppMobile.css';
 import { PreviewContext } from "../../App";
 import { lecture, timeSlot } from '../../interfaces/Lecture';
 import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
-import { MultLectureInformationTable } from "../global/LectureInformationTable";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
@@ -97,19 +96,19 @@ function TimeTable(props: propType) {
       { () => {
         return (
           <div className='appTable__container'>
-            <div className="timetable__hostBox">
-            <table className='timetable__table'>
+            <div className="timetable-host-box">
+            <table className='timetable-table'>
               <tbody>
                 {times.map(
                   time => {
                     return (
-                      <tr className='timetable__row'>
-                        <td className='timetable__timeslot'>{time}</td>
-                        <td className='timetable__item'></td>
-                        <td className='timetable__item'></td>
-                        <td className='timetable__item'></td>
-                        <td className='timetable__item'></td>
-                        <td className='timetable__item'></td>
+                      <tr className='timetable-row'>
+                        <td className='timetable-timeslot'>{time}</td>
+                        <td className='timetable-item'></td>
+                        <td className='timetable-item'></td>
+                        <td className='timetable-item'></td>
+                        <td className='timetable-item'></td>
+                        <td className='timetable-item'></td>
                       </tr>
                     )
                   }
@@ -121,7 +120,7 @@ function TimeTable(props: propType) {
               {timeSlots.map(
                 item => {
                   return (
-                    <div className='timetable__subject'
+                    <div className='timetable-subject'
                       onMouseOver={ () => {
                         let intersectFlag: boolean = false;
                         props.setShowTooltip(true);
@@ -175,7 +174,7 @@ function TimeTable(props: propType) {
                 hoveredTimeSlots.map(
                   item => {
                     return (
-                      <div className='timetable__subject'
+                      <div className='timetable-subject'
                       style={
                         {
                           left: item.leftPos,

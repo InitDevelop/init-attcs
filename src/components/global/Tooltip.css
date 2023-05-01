@@ -1,7 +1,6 @@
 .tooltip {
-  border: 1px solid #ccc;
   padding: 10px;
-  box-shadow: 0px 0px 5px gray;
+  box-shadow: var(--shadow);
   border-radius: 10px;
   font-weight: 600;
   white-space: pre-wrap;

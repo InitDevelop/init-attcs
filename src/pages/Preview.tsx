@@ -11,8 +11,8 @@ function Preview() {
   const data = useContext(PreviewContext);
 
   return (
-    <div className="app__mainContainer">
-      <div className='app__parentContainer'>
+    <div className="app-main-container">
+      <div className='app-parent-container'>
         <TimeTable
           lectures={data.selSubj}
           subjHover={data.subjHover}
@@ -23,12 +23,12 @@ function Preview() {
         />
       </div>
 
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
         <CreationOptions/>
         <SubjectSearchList/>
       </div>
 
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
         <SubjectSelectList/>
       </div>
     </div>

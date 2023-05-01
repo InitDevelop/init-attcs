@@ -1,7 +1,34 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
 
+/* This CSS file defines the universal styles that are used for all components of this app */
+
+* {
+  margin: 0 auto;
+  font-family: 'Pretendard Variable';
+}
+
 :root {
+  /* Shadows and Borders */
+  --lightgray-border: 1px solid #cccccc;
   --shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+  /* Font Weights */
+  --light-weight-font: 300;
+  --regular-weight-font: 400;
+  --bold-weight-font: 600;
+  --extrabold-weight-font: 700;
+  --heavy-weight-font: 800;
+
+  /* Font Sizes */
+  --middle-size-font: 25px;
+  --small-size-font: 20px;
+  --tiny-size-font: 15px;
+
+  /* Default Margin and Paddings */
+  --short-margin: 5px;
+  --default-margin: 10px;
+  --long-margin: 15px;
+
 }
 
 ::-webkit-scrollbar {
@@ -13,28 +40,87 @@
   border-radius: 10px;
 }
 
-* {
-  margin: 0;
-  font-family: 'Pretendard Variable';
+/* Title Font Styles */
+
+.large-title, .large-title-hoverable {
+  font-size: x-large;
+  font-weight: var(--bold-weight-font);
+  margin-bottom: var(--default-margin);
 }
+
+.large-title-hoverable:hover {
+  transition : 193ms;
+  font-weight: var(--extrabold-weight-font);
+  color: #00a3cc;
+  cursor: pointer;
+}
+
+.medium-title, .medium-title-hoverable {
+  font-size: large;
+  font-weight: var(--bold-weight-font);
+  margin-bottom: var(--default-margin);
+}
+
+.medium-title-hoverable:hover {
+  transition : 193ms;
+  font-weight: var(--extrabold-weight-font);
+  color: #00a3cc;
+  cursor: pointer;
+}
+
+.small-title {
+  font-size: medium;
+  font-weight: var(--extrabold-weight-font);
+  margin-bottom: var(--default-margin);
+}
+
+.x-small-title {
+  font-size: small;
+  font-weight: var(--extrabold-weight-font);
+  margin-bottom: var(--default-margin);
+}
+
+/* Regular Text Font Styles */
+
+.large-text {
+  font-size: x-large;
+  font-weight: var(--regular-weight-font);
+}
+
+.medium-text {
+  font-size: large;
+  font-weight: var(--regular-weight-font);
+}
+
+.small-text {
+  font-size: medium;
+  font-weight: var(--regular-weight-font);
+}
+
+.x-small-text {
+  font-size: small;
+  font-weight: var(--regular-weight-font);
+}
+
 
 .app {
   position: relative;
+  width: 100%;
 }
 
-.app__header_container {
+.app-header-container {
   position: relative;
 
   display: flex;
   flex-direction: row;
-  height: 10vh;
+  height: 75px;
   justify-content: flex-start;
 
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.app__header {
+.app-header {
   position: absolute;
 
   left: 3%;
@@ -46,14 +132,14 @@
   justify-content: flex-start;
 }
 
-.app__header_links {
+.app-header-links {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.app_header_logo{
-  margin-right: 20px;
+.app-header-logo{
+  margin-right: 40px;
   height: 60%;
   width: auto;
 }
@@ -62,32 +148,29 @@
   box-sizing: border-box;
   text-decoration: none;
   color: black;
-  font-size: 2.8vh;
-  font-weight: 700;
+  font-size: x-large;
+  font-weight: var(--bold-weight-font);
   padding: 10px;
   margin-right: 15px;
-  border: 2px solid white;
 }
 
 .links:hover {
   transition: 400ms;
   border-radius: 10px;
   background-color: #f0f0f0;
-  border: 2px solid white;
 }
 
 .links:active {
   background-color: #e6e6e6;
-  border: 2px solid white;
 }
 
-.link_current {
+.link-current {
   transition: 400ms;
   box-sizing: border-box;
   text-decoration: none;
   color: black;
-  font-size: 2.8vh;
-  font-weight: 700;
+  font-size: x-large;
+  font-weight: var(--bold-weight-font);
   padding: 10px;
   margin-right: 15px;
   background-color: #fff;
@@ -95,19 +178,18 @@
   box-shadow: var(--shadow);
 }
 
-/* .links:focus {
-  border: 2px solid gray;
-} */
 
-.app__mainContainer {
+
+/* Containers */
+.app-main-container {
   display: flex;
   flex-direction: row;
 
   margin-top: 3vh;
-  height: 83vh;
+  height: calc(100vh - 140px);
 }
 
-.app__parentContainer {
+.app-parent-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -118,12 +200,7 @@
   width: 30%;
 }
 
-.app__headerText {
-  margin: 20px;
-  color: black;
-}
-
-.app__creationoptions {
+.app-creation-options {
   text-align: center;
   box-shadow: var(--shadow);
   padding: 20px;
@@ -133,30 +210,13 @@
   white-space: pre-wrap;
 }
 
-.app__creationoptions_contents {
-  display: flex;
-  flex-direction: column;
-}
-
-
 
 /* OTHER STYLES */
 
-.mid_title {
-  height: auto;
-  flex: 0 0 auto;
-  overflow: hidden;
-
-  margin-top: -5px;
-  margin-bottom: 10px;
-  font-size: 25px;
-  font-weight: 600;
-}
-
 .input-1 {
   text-align: left;
-  font-weight: 300;
-  font-size: 18px;
+  font-weight: var(--regular-weight-font);
+  font-size: large;
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 6px;

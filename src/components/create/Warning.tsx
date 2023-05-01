@@ -1,5 +1,4 @@
-import React from 'react'
-import "../../css/Warning.css"
+import "./Warning.css"
 
 type propType = {
   warningType: string;
@@ -8,13 +7,13 @@ type propType = {
 function getComponent(warningType: string) {
   if (warningType === "time") {
     return (
-      <div className="time_warning_box">
+      <div className="time-warning-box">
         <strong>[동선 주의!]</strong> 강의실 사이 거리가 멀어요!
       </div>
     )
   } else if (warningType === "empty") {
     return (
-      <div className="empty_warning_box">
+      <div className="empty-warning-box">
         <strong>[공강!]</strong> 와! 공강이 있어요!
       </div>
     )

@@ -10,9 +10,9 @@ function CreationOptions() {
     <PreviewContext.Consumer>
       { () => {
         return (
-          <div style={{ alignItems: "center" }} className="app__creationoptions">
+          <div style={{ alignItems: "center" }} className='app-creation-options'>
           <div style={{ marginBottom: "10px" }}>
-            <h2 className="mid_title">강좌 검색하기</h2>
+            <p className="large-title">강좌 검색하기</p>
             <input type="text" 
               style={{ width: "90%", marginBottom: "10px" }}
               value={data.searchText} onChange={data.handleInputChange} className="input-1"></input>

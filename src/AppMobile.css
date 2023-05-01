@@ -3,18 +3,7 @@
   * {
   }
 
-  .mid_title {
-    height: auto;
-    flex: 0 0 auto;
-    overflow: hidden;
-  
-    margin-top: -5px;
-    margin-bottom: 10px;
-    font-size: 25px;
-    font-weight: 600;
-  }
-
-  .app__mainContainer {
+  .app-main-container {
     display: flex;
     flex-direction: column;
   
@@ -26,11 +15,11 @@
     display: none;
   }
 
-  .app__header {
+  .app-header {
     width: 90%;
   }
 
-  .app__header_links {
+  .app-header-links {
     display: none;
     width: 90%;
     display: flex;
@@ -39,29 +28,29 @@
     align-items: center;
   }
 
-  .app__creationoptions {
+  .app-creation-options {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     border-radius: 0;
   }
 
-  .app__parentContainer {
+  .app-parent-container {
     width: 100%;
   }
 
-  .timetable__container, .appTable__container {
+  .timetable-container, .appTable__container {
     height: 500px;
     margin-bottom: 5%;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   }
 
-  .link_current, .links {
+  .link-current, .links {
     display: none;
     font-size: calc(10vw / 2.2);
     margin-right: 5px;
     padding: calc(10vw / 4);
   }
 
-  .app_header_logo{
+  .app-header-logo{
     margin-right: 10px;
     height: 60%;
     width: auto;
@@ -81,7 +70,7 @@
     right: -5px;
   }
 
-  .timetable__subject {
+  .timetable-subject {
     font-weight: 300;
     font-size: 10px;
   }

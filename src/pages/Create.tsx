@@ -4,17 +4,6 @@ import TimeTable from '../components/preview/TimeTable';
 import { blankLecture, lecture } from '../interfaces/Lecture';
 import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
-import ScenariosDisplay from '../components/create/ScenariosDisplay';
-
-/*
-const getIndex = (n: number, d: number) => {
-  if (n >= 0) {
-    return n % d;
-  } else {
-    return Math.abs(n) % d + (n % d);
-  }
-}
-*/
 
 function Create() {
 
@@ -36,7 +25,7 @@ function Create() {
   const data = useContext(CreationContext);
 
   return (
-    <div className='app__mainContainer'
+    <div className='app-main-container'
       onKeyDown={
         (event) => {
           if (event.key === 'ArrowRight') {
@@ -63,7 +52,7 @@ function Create() {
         }
       }
     >
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
       {
         (data.scenarios.length > 0) ? (
           <TimeTable
@@ -75,17 +64,16 @@ function Create() {
           displayPopup={data.displayPopup} 
           />
         ) : (
-          <div className='appTable__container'>
+          <div className='app-parent-container'>
             <h2 style={{ fontWeight: "400" }}>시간표가 아직 생성되지 않았습니다.</h2>
-            <h2>생성 버튼을 눌러주세요!</h2>
           </div>
         )
       }
       </div>
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
         <CreationViewPanel/>
       </div>
-      <div className='app__parentContainer'>
+      <div className='app-parent-container'>
         <AddedSubjectList
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../css/LectureBox.css'
+import '../global/LectureBox.css'
 import '../../css/AppTable.css'
 
 type propType = {

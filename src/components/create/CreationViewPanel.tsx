@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import "../../css/AppTable.css";
-import "../../css/SubjectList.css";
+import "../add/SubjectList.css";
 import { CreationContext } from "../../App";
 import { CreateScenarios } from './CreateScenarios';
-import CreateAddedSubject from './CreateAddedSubject';
-import { range } from '../../interfaces/Util';
 import { lecture } from '../../interfaces/Lecture';
 import Warning from './Warning';
 

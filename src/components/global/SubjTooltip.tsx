@@ -1,4 +1,4 @@
-import "../../css/Tooltip.css"
+import "./Tooltip.css"
 import { xyTuple } from "../../interfaces/Util";
 
 type propType = {

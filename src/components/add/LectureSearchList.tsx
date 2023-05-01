@@ -6,7 +6,6 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
-import { SelectDate } from "../global/SelectDate";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
@@ -58,7 +57,7 @@ function LectureSearchList(props: propType) {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <h2 className="mid_title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
+      <h2 className="large-title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
         <input className="input-1" type="text" style={{width: "20%", height: "80%", marginRight: "3%" }} value={data.addedSubjKeyWord} onChange={data.handleAddKeywordChange}></input>
         <select className="input-1" style={{width: "20%", height: "80%", fontSize: "medium", verticalAlign: "middle", padding: "0"}}

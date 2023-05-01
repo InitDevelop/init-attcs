@@ -38,7 +38,7 @@ function AddSubjectSearchList() {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <h2 className="mid_title">찾은 과목
+      <h2 className="large-title">찾은 과목
       </h2>
       <div className="appTable__scrollContainer">
         {lectureDatabase.filter(

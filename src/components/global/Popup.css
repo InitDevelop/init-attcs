@@ -1,5 +1,5 @@
 .popup {
-  font-size: 16px;
+  font-size: large;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.popup__title {
+.popup-title {
   font-size: 25px;
 }
 
@@ -38,20 +38,20 @@
   text-align: center;
 }
 
-.subjectpopup__table {
+.subjectpopup-table {
   border-collapse: collapse;
-  border: 2px solid black;
+  border: 1px solid gray;
   width: 100%;
 }
 
-.subjectpopup__table tr {
-  border: 2px solid black;
+.subjectpopup-table tr {
+  border: 1px solid gray;
 }
 
-.subjectpopup__table td {
+.subjectpopup-table td {
   padding: 10px;
   justify-content: space-between;
-  border: 2px solid black;
+  border: 1px solid gray;
 }
 
 .key {

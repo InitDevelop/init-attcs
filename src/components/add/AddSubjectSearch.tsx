@@ -6,9 +6,9 @@ function AddSubjectSearch() {
   const data = useContext(CreationContext);
 
   return (
-    <div style={{ alignItems: "center" }} className="app__creationoptions">
+    <div style={{ alignItems: "center" }} className='app-creation-options'>
       <div style={{ marginBottom: "10px" }}>
-        <h2 className="mid_title">과목 검색하기</h2>
+        <p className="large-title">과목 검색하기</p>
         <input type="text" 
           style={{ width: "90%", marginBottom: "10px" }}
           value={data.addingSubjName} onChange={data.handleAddInputChange} className="input-1"></input>

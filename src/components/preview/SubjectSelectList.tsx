@@ -19,7 +19,7 @@ function SubjectSelectList() {
 
   return (
     <div className="appTable__container">
-      <h2 className='mid_title' style={{ width: "100%" }}>
+      <h2 className='large-title' style={{ width: "100%" }}>
         <span style={{ marginRight: "5%" }}>담은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", cursor: "pointer" }}>
           <input style={{ cursor: "pointer", verticalAlign: "middle" }}

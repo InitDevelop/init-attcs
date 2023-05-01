@@ -1,9 +1,8 @@
-import { lecture, lectureGroup } from "./Lecture";
+import { blankLecture, lecture, lectureGroup } from "./Lecture";
 import { scenario } from "./Scenario";
 import { xyTuple } from "./Util";
 
 export type previewContextTypes = {
-    
     selSubj: lecture[];
     setSelSubj: (lect: lecture[]) => void;
 
@@ -43,6 +42,8 @@ export type previewContextTypes = {
     addSubject: (subject: lecture) => void;
     popSubject: (param: lecture) => void;
 }
+
+
 
 export type creationContextTypes = {
     addingSubjName: string;
@@ -92,3 +93,163 @@ export type creationContextTypes = {
     tooltipContent: React.ReactNode;
     setTooltipContent: (param: React.ReactNode) => void;
 }
+
+export const defaultPreviewContext = {
+    selSubj: [],
+    setSelSubj: function (lect: lecture[]): void {
+      throw new Error('Function not implemented.');
+    },
+    allowMult: false,
+    setAllowMult: function (param: boolean): void {
+      throw new Error('Function not implemented.');
+    },
+    keyWord: '',
+    setKeyWord: function (param: string): void {
+      throw new Error('Function not implemented.');
+    },
+    searchText: '',
+    setSearchText: function (param: string): void {
+      throw new Error('Function not implemented.');
+    },
+    showPopup: false,
+    setShowPopup: function (param: boolean): void {
+      throw new Error('Function not implemented.');
+    },
+    popupTitle: '',
+    setPopupTitle: function (param: string): void {
+      throw new Error('Function not implemented.');
+    },
+    popupContent: <></>,
+    setPopupContent: function (param: React.ReactNode): void {
+      throw new Error('Function not implemented.');
+    },
+    showTooltip: false,
+    setShowTooltip: function (param: boolean): void {
+      throw new Error('Function not implemented.');
+    },
+    tooltipPosition: {x: 0, y: 0},
+    setTooltipPosition: function (param: xyTuple): void {
+      throw new Error('Function not implemented.');
+    },
+    tooltipContent: <></>,
+    setTooltipContent: function (param: React.ReactNode): void {
+      throw new Error('Function not implemented.');
+    },
+    scrollPosition: 0,
+    setScrollPosition: function (param: number): void {
+      throw new Error('Function not implemented.');
+    },
+    subjHover: false,
+    setSubjHover: function (param: boolean): void {
+      throw new Error('Function not implemented.');
+    },
+    hoveredSubj: blankLecture,
+    setHoveredSubj: function (param: lecture): void {
+      throw new Error('Function not implemented.');
+    },
+    isExistingSubj: function (lecture: lecture): boolean {
+      throw new Error('Function not implemented.');
+    },
+    handleAllowMultChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
+      throw new Error('Function not implemented.');
+    },
+    displayPopup: function (title: string, content: React.ReactNode): void {
+      throw new Error('Function not implemented.');
+    },
+    handleInputChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
+      throw new Error('Function not implemented.');
+    },
+    handleKeywordChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
+      throw new Error('Function not implemented.');
+    },
+    addSubject: function (subject: lecture): void {
+      throw new Error('Function not implemented.');
+    },
+    popSubject: function (subject: lecture): void {
+      throw new Error('Function not implemented.');
+    }
+};
+
+export const defaultCreationContext = {
+    addingSubjName: '',
+    setAddingSubjName: function (param: string): void {
+        throw new Error('Function not implemented.');
+    },
+    clickedSubject: '',
+    setClickedSubject: function (param: string): void {
+        throw new Error('Function not implemented.');
+    },
+    addedSubjKeyWord: '',
+    setAddedSubjKeyWord: function (param: string): void {
+        throw new Error('Function not implemented.');
+    },
+    showPopup: false,
+    setShowPopup: function (param: boolean): void {
+        throw new Error('Function not implemented.');
+    },
+    popupTitle: '',
+    setPopupTitle: function (param: string): void {
+        throw new Error('Function not implemented.');
+    },
+    popupContent: undefined,
+    setPopupContent: function (param: React.ReactNode): void {
+        throw new Error('Function not implemented.');
+    },
+    isExistingSubj: function (lecture: lecture): boolean {
+        throw new Error('Function not implemented.');
+    },
+    addLectureToGroup: function (param: lecture): void {
+        throw new Error('Function not implemented.');
+    },
+    removeLectureFromGroup: function (param: lecture): void {
+        throw new Error('Function not implemented.');
+    },
+    lectureGroups: [],
+    includesLecture: function (param: lecture): boolean {
+        throw new Error('Function not implemented.');
+    },
+    subjHover: false,
+    setSubjHover: function (param: boolean): void {
+        throw new Error('Function not implemented.');
+    },
+    hoveredSubj: blankLecture,
+    setHoveredSubj: function (param: lecture): void {
+        throw new Error('Function not implemented.');
+    },
+    displayPopup: function (title: string, content: React.ReactNode): void {
+        throw new Error('Function not implemented.');
+    },
+    handleAddInputChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
+        throw new Error('Function not implemented.');
+    },
+    handleAddKeywordChange: function (event: React.ChangeEvent<HTMLInputElement>): void {
+        throw new Error('Function not implemented.');
+    },
+    setLectureGroups: function (param: lectureGroup[]): void {
+        throw new Error('Function not implemented.');
+    },
+    scenarios: [],
+    setScenarios: function (param: scenario[]): void {
+        throw new Error('Function not implemented.');
+    },
+    scenarioNumber: 0,
+    setScenarioNumber: function (param: number): void {
+        throw new Error('Function not implemented.');
+    },
+    showTooltip: false,
+    setShowTooltip: function (param: boolean): void {
+        throw new Error('Function not implemented.');
+    },
+    tooltipPosition: { x: 0, y: 0 },
+    setTooltipPosition: function (param: xyTuple): void {
+        throw new Error('Function not implemented.');
+    },
+    tooltipContent: <></>,
+    setTooltipContent: function (param: React.ReactNode): void {
+        throw new Error('Function not implemented.');
+    },
+    relatedLectures: [],
+    setRelatedLectures: function (param: lecture[]): void {
+        throw new Error('Function not implemented.');
+    }
+};

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../css/LectureBox.css'
+import './LectureBox.css'
 import '../../App.css'
 import '../../AppMobile.css';
 import { lecture, lectureGroup } from '../../interfaces/Lecture';
@@ -41,13 +41,13 @@ function LectureBox(props: propType) {
       }
     }
     onMouseEnter={ () => {
-      if (props.boxType === "search" || props.boxType === "list") {
+      if (props.boxType === "search" || props.boxType === "list" || props.boxType === "add") {
         props.setHoveredSubj(props.subject);
         props.setSubjHover(true);
       }
     }}
     onMouseLeave={ () => {
-      if (props.boxType === "search" || props.boxType === "list") {
+      if (props.boxType === "search" || props.boxType === "list" || props.boxType === "add") {
         props.setSubjHover(false);
       }
       }
@@ -99,13 +99,12 @@ function LectureBox(props: propType) {
           {/* main lecture box body */}
 
           <td style={{width: "80%", whiteSpace: "pre-wrap"}}>
-            <table className='lecturebox__table_in_table'>
+            <table className='lecturebox-table-in-table'>
               <tbody>
                 <tr>
                   <td>
                     <span 
-                      className='lecture_name'
-                      style={{ fontWeight: "600", cursor: "pointer" }}
+                      className='medium-title-hoverable'
                       onClick={() => { if (props.boxType !== "remove") {
                         props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
                           LectureInformationTable(props.subject)
@@ -119,14 +118,14 @@ function LectureBox(props: propType) {
                         () => {
                           props.displayPopup("수강반 제한 정보", props.subject.extra_info);
                         }
-                      }>수강반</button>
+                      }><p style={{fontSize: "medium", fontWeight: 700}}>수강반</p></button>
                     )}
                     { (props.subject.lang !== "한국어") && (
                       <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
                         () => {
                           props.displayPopup("강의 언어", props.subject.lang);
                         }
-                      }>언어</button>
+                      }><p style={{fontSize: "medium", fontWeight: 700}}>언어</p></button>
                     )}
                   </td>
                 </tr>
@@ -147,7 +146,10 @@ function LectureBox(props: propType) {
             {
               props.boxType === "list" ? (
               
-              <button className="button-0" onClick={() => props.removeLectureFromList(props.subject)}>
+              <button className="button-0" onClick={() => {
+                props.removeLectureFromList(props.subject);
+                props.setSubjHover(false);
+              }}>
                 제거
               </button> 
               )
