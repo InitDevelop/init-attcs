@@ -16,8 +16,9 @@ import { previewContextTypes, creationContextTypes } from './interfaces/ContextT
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
+import packageJson from '../package.json';
 
-const appVersion: string = "0.6.2";
+const appVersion: string = packageJson.version;
 
 export const PreviewContext = React.createContext<previewContextTypes>({
   selSubj: [],
@@ -268,6 +269,7 @@ function App() {
   // Handles input change in the search box
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
+    setKeyWord("");
   };
 
   // Handles input change in the keyword box

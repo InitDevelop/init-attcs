@@ -12,8 +12,12 @@ function AddSubjectSearchList() {
   const data = useContext(CreationContext);
   let subjectsAdded: string[] = [];
 
-  const accuracy = (abbrev: string, full: string): number => {
-    return (abbrev.replace(" ", "").length / full.replace(" ", "").length);
+  const accuracy = (abbrev: string, subj_name: string) => {
+    let prefix: number = 0;
+    if (!isRelatedName(abbrev, subj_name)) {
+      prefix -= 1000;
+    }
+    return prefix + (abbrev.replace(" ", "").length / subj_name.replace(" ", "").length);
   };
 
   function isRelatedName(abbrev: string, full: string): boolean {

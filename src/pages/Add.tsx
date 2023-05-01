@@ -10,6 +10,8 @@ function Add() {
 
   const [updateCount, setUpdateCount] = useState<number>(0);
   const [selectedLectures, setSelectedLectures] = useState<lecture[]>([]);
+  const [selectedDates, setSelectedDates] = useState<number[]>([]);
+  const [selectedOption, setSelectedOption] = useState('');
   const data = useContext(CreationContext);
 
   return (
@@ -24,7 +26,9 @@ function Add() {
           setSelectedLectures={setSelectedLectures}
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}
-        />
+          setSelectedDates={setSelectedDates}
+          selectedDates={selectedDates} selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}/>
       </div>
       <div className='app__parentContainer'>
         <AddedSubjectList

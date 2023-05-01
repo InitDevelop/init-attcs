@@ -6,8 +6,10 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
+import { SelectDate } from "../global/SelectDate";
 
 const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
+const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 
 function isRelatedName(abbrev: string, full: string): boolean {
   abbrev = abbrev.replace(" ", "");
@@ -30,6 +32,10 @@ type propType = {
   setSelectedLectures: (param: lecture[]) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
+  selectedDates: number[];
+  setSelectedDates: (param: number[]) => void;
+  selectedOption: string;
+  setSelectedOption: (param: string) => void;
 }
 
 function LectureSearchList(props: propType) {
@@ -43,6 +49,8 @@ function LectureSearchList(props: propType) {
     const prevProps = prevPropsRef.current;
     if (prevProps.clickedSubject !== data.clickedSubject) {
       props.setSelectedLectures([]);
+      data.setAddedSubjKeyWord("");
+      props.setSelectedOption("");
       shownLectures = [];
     }
     prevPropsRef.current = data;
@@ -52,17 +60,34 @@ function LectureSearchList(props: propType) {
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
       <h2 className="mid_title"><span style={{ marginRight: "5%" }}>찾은 강좌</span>
         <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
-        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={data.addedSubjKeyWord} onChange={data.handleAddKeywordChange}></input>
+        <input className="input-1" type="text" style={{width: "20%", height: "80%", marginRight: "3%" }} value={data.addedSubjKeyWord} onChange={data.handleAddKeywordChange}></input>
+        <select className="input-1" style={{width: "20%", height: "80%", fontSize: "medium", verticalAlign: "middle", padding: "0"}}
+        value={props.selectedOption} onChange={(event) => {props.setSelectedOption(event.target.value)}}>
+          <option value="" style={{padding: "0"}}>요일 선택</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+
       </h2>
       <div className="appTable__scrollContainer" style = {{ bottom: "100px" }}>
         {lectureDatabase
         .map(subject => {
           let isRelated = isRelatedName(data.addingSubjName, subject.prof + subject.subj_name + subject.prof);
           let isRelatedKeyWord = (data.addedSubjKeyWord === "") || subject.extra_info.replace(' ', '').includes(data.addedSubjKeyWord);
+          let isCorrectDate =
+            (props.selectedOption === "월요일"
+              || props.selectedOption === "화요일"
+              || props.selectedOption === "수요일"
+              || props.selectedOption === "목요일"
+              || props.selectedOption === "금요일") ? subject.time.includes(props.selectedOption.substring(0, 1)) : true;
+          
           if ((data.clickedSubject === subject.subj_id) && isRelatedKeyWord) {
             shownLectures.push(subject);
           }
-          return (data.clickedSubject === subject.subj_id) && isRelatedKeyWord && isRelated ? (
+          return (data.clickedSubject === subject.subj_id) && isRelatedKeyWord && isRelated && isCorrectDate ? (
             <LectureBox boxType={"add"} subject={subject}
             displayPopup={data.displayPopup}
             addLectureToList={

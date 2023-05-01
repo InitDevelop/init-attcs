@@ -41,6 +41,12 @@ function CreationViewPanel() {
         () => {
             data.setScenarioNumber(0);
             CreateScenarios(data.setScenarios, data.lectureGroups);
+            
+            let relatedLectures: lecture[] = [];
+            for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
+              relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
+            }
+            data.setRelatedLectures(relatedLectures);
           }
       }>{(data.scenarios.length > 0) ? "시간표 다시 생성하기" : "시간표 자동 생성하기"}</button>
 
