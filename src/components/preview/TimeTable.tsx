@@ -1,15 +1,17 @@
 import "./TimeTable.css"
-import "../../css/AppTable.css"
 import '../../AppMobile.css';
+import "../../css/AppTable.css"
 import { PreviewContext } from "../../App";
 import { lecture, timeSlot } from '../../interfaces/Lecture';
 import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
+import React from "react";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
 //const colors = ["#FE8484", "#FEA784", "#FEDB84", "#8DDB8B", "#7FCADF", "#7FA4DF", "#8686D8", "#B98BD3", "#E399CA"];
 
 type propType = {
+  isMobile: boolean;
   lectures: lecture[];
   subjHover: boolean;
   hoveredSubj: lecture;
@@ -19,7 +21,6 @@ type propType = {
 }
 
 function TimeTable(props: propType) {
-
   //const data = useContext(PreviewContext);
 
   let timeSlots: timeSlot[] = [];
@@ -180,7 +181,7 @@ function TimeTable(props: propType) {
                           left: item.leftPos,
                           top: item.topPos,
                           height: item.height,
-                          backgroundColor: "rgba(0, 0, 0, 0.2)"
+                          backgroundColor: !props.isMobile ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.9)"
                         }
                       }>
                       <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>

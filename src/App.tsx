@@ -23,14 +23,22 @@ const appVersion: string = packageJson.version;
 export const PreviewContext = React.createContext<previewContextTypes>(defaultPreviewContext);
 export const CreationContext = React.createContext<creationContextTypes>(defaultCreationContext);
 
-function App() {
 
+function App() {
+  
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR GLOBAL USE
   ****************************************************************************/
 
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 900);
+  /* 
+  const isMobile = resolution >= 320 && resolution <= 480;
+  const isTablet = resolution >= 768 && resolution <= 1024;
+  const isDesktop = !isMobile && !isTablet;
+  */
+
 
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
@@ -65,6 +73,13 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {setIsMobile(window.innerWidth <= 900)});
+    return () => {
+      window.removeEventListener('resize', () => {setIsMobile(window.innerWidth <= 900)});
+    }
+  });
+
   // This function checks if some lecture exists in the timetable
   const isExistingSubj = (lecture: lecture) => {
     let ret: boolean = false;
@@ -86,9 +101,9 @@ function App() {
 
   // This function handles change in the allowMult option
   // If this option gets unchecked, then some lectures get deleted
-  const handleAllowMultChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAllowMult(event.target.checked);
-    if (!event.target.checked) {
+  const handleAllowMultChange = () => {
+    setAllowMult(!allowMult);
+    if (!allowMult) {
       let subj_id_list: Array<string> = [];
       for (let i = 0; i < selSubj.length; i++) {
         if (selSubj.filter(item => item.subj_id === selSubj[i].subj_id).length > 1) {
@@ -208,6 +223,8 @@ function App() {
   }
 
   const previewContextData: previewContextTypes = {
+    isMobile,
+
     selSubj, setSelSubj,
 
     allowMult, setAllowMult,
@@ -236,6 +253,8 @@ function App() {
   };
 
   const creationContextData: creationContextTypes = {
+    isMobile,
+
     addingSubjName, setAddingSubjName,
     clickedSubject, setClickedSubject,
     addedSubjKeyWord, setAddedSubjKeyWord,
@@ -269,7 +288,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       {/* Main container for the entire app */}
 
       <div className='app' onMouseMove={ (event) => {
@@ -311,13 +329,7 @@ function App() {
 
         {/* The pages of this app */}
 
-        {
-          menuOpened && (
-            <MobileMenu
-              toggleOpen={() => setMenuOpened(!menuOpened)}
-            />
-          )
-        }
+        
 
         <Routes>
 
@@ -381,6 +393,14 @@ function App() {
               title = {popupTitle}
               content = {popupContent}
               onClose = {() => {setShowPopup(false)}}
+            />
+          )
+        }
+
+        {
+          menuOpened && (
+            <MobileMenu
+              toggleOpen={() => setMenuOpened(!menuOpened)}
             />
           )
         }

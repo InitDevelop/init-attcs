@@ -21,13 +21,11 @@ function SubjectSelectList() {
     <div className="appTable__container">
       <h2 className='large-title' style={{ width: "100%" }}>
         <span style={{ marginRight: "5%" }}>담은 강좌</span>
-        <label className='label-1' style={{ fontWeight: "normal", cursor: "pointer" }}>
-          <input style={{ cursor: "pointer", verticalAlign: "middle" }}
-            className='checkbox-1'
-            type="checkbox"
-            checked={data.allowMult}
-            onChange={data.handleAllowMultChange}
-        /> 중복 허용</label>
+        <button className='button-tiny'
+          onClick={
+            () => {data.handleAllowMultChange();}
+          }
+        >{data.allowMult ? "중복 허용됨" : "중복 제외됨"}</button>
       </h2>
       <div className="appTable__selectScrollContainer">
         {data.selSubj.map(

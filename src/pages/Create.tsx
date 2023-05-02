@@ -25,6 +25,7 @@ function Create() {
   const data = useContext(CreationContext);
 
   return (
+    data.isMobile ?
     <div className='app-main-container'
       onKeyDown={
         (event) => {
@@ -56,12 +57,13 @@ function Create() {
       {
         (data.scenarios.length > 0) ? (
           <TimeTable
-          lectures={data.scenarios[data.scenarioNumber].lectures}
-          subjHover={false}
-          hoveredSubj={blankLecture}
-          setShowTooltip={data.setShowTooltip}
-          setTooltipContent={data.setTooltipContent}  
-          displayPopup={data.displayPopup} 
+            isMobile={data.isMobile}
+            lectures={data.scenarios[data.scenarioNumber].lectures}
+            subjHover={false}
+            hoveredSubj={blankLecture}
+            setShowTooltip={data.setShowTooltip}
+            setTooltipContent={data.setTooltipContent}  
+            displayPopup={data.displayPopup} 
           />
         ) : (
           <div className='app-parent-container'>
@@ -79,6 +81,10 @@ function Create() {
           setUpdateCount={setUpdateCount}
         />
       </div>
+    </div>
+    :
+    <div className='app-main-container'>
+      
     </div>
   )
 }

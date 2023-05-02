@@ -18,7 +18,8 @@ function Add() {
   const data = useContext(CreationContext);
 
   return (
-    <div className='app-main-container'>
+    data.isMobile ?
+    <div className='app-main-container'>    
       <div className='app-parent-container'>
         <AddSubjectSearch/>
         <AddSubjectSearchList/>
@@ -37,11 +38,12 @@ function Add() {
           data.subjHover ?
           <div className='app-parent-container'>
           <TimeTable
-              lectures={[...selectedLectures]}
-              subjHover={data.subjHover} hoveredSubj={data.hoveredSubj}
-              setShowTooltip={data.setShowTooltip}
-              setTooltipContent={data.setTooltipContent}
-              displayPopup={data.displayPopup}/>
+            isMobile={data.isMobile}
+            lectures={[...selectedLectures]}
+            subjHover={data.subjHover} hoveredSubj={data.hoveredSubj}
+            setShowTooltip={data.setShowTooltip}
+            setTooltipContent={data.setTooltipContent}
+            displayPopup={data.displayPopup}/>
           </div>
           :
           <div className='app-parent-container'>
@@ -50,6 +52,10 @@ function Add() {
               setUpdateCount={setUpdateCount}/>
           </div>
       }
+    </div>
+    :
+    <div className='app-main-container'>
+      
     </div>
   )
 }

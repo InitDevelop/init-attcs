@@ -65,11 +65,16 @@
 
 @media only screen and (max-width: 900px) {
   .popup {
-    font-size: large;
+    font-size: small;
+  }
+
+  .value {
+    word-break: break-all;
+    hyphens: auto;
   }
   
-  .popup__title {
-    font-size: x-large;
+  .popup-title {
+    font-size: large;
   }
 
 }

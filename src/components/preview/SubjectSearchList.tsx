@@ -41,8 +41,10 @@ function SubjectSearchList() {
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
       <span className="large-title">
         <span style={{ marginRight: "5%" }}>찾은 강좌</span>
-        <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>수강반</label>
-        <input className="input-1" type="text" style={{width: "20%", height: "80%"}} value={data.keyWord} onChange={data.handleKeywordChange}></input>
+        <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>
+          <span className="large-text">수강반</span>
+        </label>
+        <input className="input-1" type="text" style={{width: "20%", height: "100%", fontSize: "17px"}} value={data.keyWord} onChange={data.handleKeywordChange}></input>
       </span>
       <div className="appTable__scrollContainer">
         {
