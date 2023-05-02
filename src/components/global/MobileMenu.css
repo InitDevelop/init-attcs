@@ -11,9 +11,12 @@
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  padding: 20px 0px;
+  padding: 60px 0px;
 
-  border-left: 2px solid #eee;;
+  border-left: 2px solid #eee;
+
+  transition: 200ms;
+  transition-delay: 200ms;
 }
 
 .mobile-menu-link {

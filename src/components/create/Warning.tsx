@@ -14,7 +14,7 @@ function getComponent(warningType: string) {
   } else if (warningType === "empty") {
     return (
       <div className="empty-warning-box">
-        <strong>[공강!]</strong> 와! 공강이 있어요!
+        <strong>[공강!]</strong> 와! 공강이 있어요! 😀
       </div>
     )
   }

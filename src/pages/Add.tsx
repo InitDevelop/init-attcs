@@ -18,7 +18,7 @@ function Add() {
   const data = useContext(CreationContext);
 
   return (
-    data.isMobile ?
+    !data.isMobile ?
     <div className='app-main-container'>    
       <div className='app-parent-container'>
         <AddSubjectSearch/>
@@ -35,7 +35,7 @@ function Add() {
           setSelectedOption={setSelectedOption}/>
       </div>
       {
-          data.subjHover ?
+        data.subjHover ?
           <div className='app-parent-container'>
           <TimeTable
             isMobile={data.isMobile}

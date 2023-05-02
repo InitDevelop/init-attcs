@@ -25,7 +25,7 @@ function Create() {
   const data = useContext(CreationContext);
 
   return (
-    data.isMobile ?
+    !data.isMobile ?
     <div className='app-main-container'
       onKeyDown={
         (event) => {
