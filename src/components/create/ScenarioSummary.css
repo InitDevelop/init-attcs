@@ -1,0 +1,43 @@
+.scenario-summary-container {
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  margin: 10px 10px;
+}
+
+.scenario-summary-row-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.arrow-button {
+  padding: 10px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.arrow-button:hover {
+  background-color: #eee;
+  transition: 190ms;
+}
+
+.arrow-button:active {
+  background-color: #ddd;
+}
+
+.priority {
+  font-size: x-large;
+  font-weight: 700;
+  background-color: #eee;
+  color: #fff;
+  margin-top: 15px;
+  width: 90%;
+  padding: 10px;
+  border-radius: 5px;
+}

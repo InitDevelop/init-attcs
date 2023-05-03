@@ -41,7 +41,6 @@
 }
 
 /* Title Font Styles */
-
 .large-title, .large-title-hoverable {
   font-size: x-large;
   font-weight: var(--bold-weight-font);
@@ -81,6 +80,11 @@
 }
 
 /* Regular Text Font Styles */
+
+.x-large-text {
+  font-size: xx-large;
+  font-weight: var(--regular-weight-font);
+}
 
 .large-text {
   font-size: x-large;

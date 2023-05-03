@@ -69,22 +69,49 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
     result.push(combination);
   }
 
+  const priorities: number[] = [];
+
   for (const r of result) {
     let scResult = getScenario(lectureGroups, r);
     scResult.scenario.warnings = getWarnings(scResult.scenario);
-    
+
+    for (const warn of scResult.scenario.warnings) {
+      switch (warn.warningType) {
+        case "time":
+          scResult.scenario.priority -= warn.extraInfo.length;
+          break;
+        case "lunch":
+          break;
+        case "empty":
+          scResult.scenario.priority += 3;
+          break;
+      }
+    }
+
     if (scResult.scenario.lectures.length === lectureGroups.length) {
       scenarioResults.push(scResult.scenario);
+      if (!priorities.includes(scResult.scenario.priority)) {
+        priorities.push(scResult.scenario.priority);
+      }
     } else {
       if (scResult.leftovers.filter(id => {
         return (lectureGroups[lectureGroups.findIndex(lg => lg.subj_id === id)].mustInclude)
       }).length === 0) {
         scenarioResults.push(scResult.scenario);
+        if (!priorities.includes(scResult.scenario.priority)) {
+          priorities.push(scResult.scenario.priority);
+        }
       }
     }
   }
 
-  setScenarios(scenarioResults);
+  let sorted = priorities.sort((a, b) => (b - a));
+  
+  for (let i = 0; i < scenarioResults.length; i++) {
+    scenarioResults[i].priority = sorted.indexOf(scenarioResults[i].priority) + 1;
+  }
+
+  setScenarios(scenarioResults.sort((a, b) => (a.priority - b.priority)));
 }
 
 function getMinuteDifference(from: number, to: number) {

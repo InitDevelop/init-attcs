@@ -6,6 +6,7 @@ export type scenario = {
   lectures: lecture[];
   shareTimeLectures: lecture[][];
   warnings: warning[];
+  priority: number;
 };
 
 export const getDateValue = (dateChar: string): number => {
@@ -89,7 +90,7 @@ export const intersects = (sc: scenario, lect: lecture) => {
 }
 
 export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
-  let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [] };
+  let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [], priority: 0 };
   let leftOverIDs: string[] = [];
   for (let i = 0; i < lectureGroups.length; i++) {
     if (!intersects(returnScenario, lectureGroups[i].lectures[indexes[i]])) {

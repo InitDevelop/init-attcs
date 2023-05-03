@@ -5,6 +5,7 @@ import { CreationContext } from "../../App";
 import { CreateScenarios } from './CreateScenarios';
 import { lecture } from '../../interfaces/Lecture';
 import Warning from './Warning';
+import ScenarioSummary from './ScenarioSummary';
 
 const warningSign = '⚠';
 
@@ -39,12 +40,13 @@ function CreationViewPanel() {
         () => {
             data.setScenarioNumber(0);
             CreateScenarios(data.setScenarios, data.lectureGroups);
-            
-            let relatedLectures: lecture[] = [];
-            for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
-              relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
+            if (data.scenarios.length > 0) {
+              let relatedLectures: lecture[] = [];
+              for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
+                relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
+              }
+              data.setRelatedLectures(relatedLectures);
             }
-            data.setRelatedLectures(relatedLectures);
           }
       }>{(data.scenarios.length > 0) ? "시간표 다시 생성하기" : "시간표 자동 생성하기"}</button>
 
@@ -57,65 +59,10 @@ function CreationViewPanel() {
         }
       }/>
 
-      <h2 className="mid_title" style={{ margin: "20px 10px" }}>생성 결과 확인하기</h2>
-      <h2 style={{ fontWeight: "200", marginBottom: "20px" }}>
-        <strong>{data.scenarios.length}</strong>
-        개의 시나리오 중 <strong>{data.scenarioNumber + 1}</strong>번째
-      </h2>
-
-      <div style={
-        {
-          display: "flex",
-          flexDirection: "row",
-          fontSize: "large",
-          marginBottom: "10px"
-        }
-      }>
-        <button className='button-0'
-        style={{ margin: "0px 20px" }}
-        onClick={() => {
-            if (data.scenarioNumber > 0) {
-              data.setScenarioNumber(data.scenarioNumber - 1);
-
-              let relatedLectures: lecture[] = [];
-              for (let i = 0; i < data.scenarios[data.scenarioNumber - 1].shareTimeLectures.length; i++) {
-                relatedLectures.push(...data.scenarios[data.scenarioNumber - 1].shareTimeLectures[i]);
-              }
-              data.setRelatedLectures(relatedLectures);
-            }
-          }}>이전 시나리오</button>
-        
-        {/* <h2 style={{ fontWeight: "200" }}>
-        <strong>{data.scenarioNumber + 1}</strong>/<strong>{data.scenarios.length}</strong>
-        </h2> */}
-
-        <button className='button-0'
-        style={{ margin: "0px 20px" }}
-        onClick={() => {
-            if (data.scenarioNumber < data.scenarios.length - 1) {
-              data.setScenarioNumber(data.scenarioNumber + 1);
-
-              let relatedLectures: lecture[] = [];
-              for (let i = 0; i < data.scenarios[data.scenarioNumber + 1].shareTimeLectures.length; i++) {
-                relatedLectures.push(...data.scenarios[data.scenarioNumber + 1].shareTimeLectures[i]);
-              }
-              data.setRelatedLectures(relatedLectures);
-            }
-          }}>다음 시나리오</button>
-        <br/>
-      </div>
-
-      <hr style={
-        {
-          border: "none",
-          borderTop: "1px solid #ccc",
-          height: "1px",
-          margin: "10px 0"
-        }
-      }/>
-
       <br/>
       
+      <ScenarioSummary/>
+
       {
         (data.scenarios.length > 0) && (
           data.scenarios[data.scenarioNumber].warnings.map(
@@ -147,24 +94,3 @@ function CreationViewPanel() {
 }
 
 export default CreationViewPanel;
-
-/*
-
-        {
-          (data.scenarios.length > 0) &&
-
-          range(0, data.scenarios[data.scenarioNumber].lectures.length).map(
-            (index: number) => {
-              return (
-                <CreateAddedSubject
-                  subject={data.scenarios[data.scenarioNumber].lectures[index]}
-                  displayPopup={data.displayPopup}
-                  timeShareLect={data.scenarios[data.scenarioNumber].shareTimeLectures[index]}
-                />
-              )
-            }
-          )
-        }
-
-
-*/

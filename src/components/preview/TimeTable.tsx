@@ -7,7 +7,7 @@ import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
 import React from "react";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
+export const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
 //const colors = ["#FE8484", "#FEA784", "#FEDB84", "#8DDB8B", "#7FCADF", "#7FA4DF", "#8686D8", "#B98BD3", "#E399CA"];
 
 type propType = {

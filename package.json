@@ -1,6 +1,6 @@
 {
   "name": "init-attcs",
-  "version": "0.7.0_beta1",
+  "version": "0.7.0_beta2",
   "homepage": "https://initdevelop.github.io/init-attcs/",
   "private": true,
   "dependencies": {
