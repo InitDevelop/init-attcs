@@ -5,7 +5,9 @@ import { CreationContext } from '../../App';
 import { lecture } from '../../interfaces/Lecture';
 import Left from '../../img/left.svg';
 import Right from '../../img/right.svg';
-import { colors } from '../preview/TimeTable';
+
+const colors: string[] 
+  = ["#39709D", "#6FB9CB", "#ECC862", "#F19B61", "#F3825F", "#F96859"];
 
 function ScenarioSummary() {
   const data = useContext(CreationContext);
@@ -36,7 +38,8 @@ function ScenarioSummary() {
             <strong>{data.scenarioNumber + 1}</strong>번째 시간표
           </p>
           <p className="priority" style={
-            { backgroundColor: colors[(data.scenarios[data.scenarioNumber].priority - 1) % colors.length] }}>
+            { backgroundColor: 
+              colors[(data.scenarios[data.scenarioNumber].priority - 1) <= 5 ? (data.scenarios[data.scenarioNumber].priority - 1) : 5] }}>
             {data.scenarios[data.scenarioNumber].priority}순위
           </p>
         </div>

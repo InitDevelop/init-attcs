@@ -61,7 +61,11 @@ function CreationViewPanel() {
 
       <br/>
       
-      <ScenarioSummary/>
+      {
+        (data.scenarios.length > 0) && (
+          <ScenarioSummary/>
+        )
+      }
 
       {
         (data.scenarios.length > 0) && (
