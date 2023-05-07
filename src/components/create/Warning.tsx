@@ -8,13 +8,37 @@ function getComponent(warningType: string) {
   if (warningType === "time") {
     return (
       <div className="time-warning-box">
-        <strong>[동선 주의!]</strong> 강의실 사이 거리가 멀어요!🏃‍♂️⌚
+        🏃‍♂️ 강의실 사이 동선이 걱정돼요!
       </div>
     )
   } else if (warningType === "empty") {
     return (
       <div className="empty-warning-box">
-        <strong>[공강!]</strong> 와! 공강이 있어요! 😀
+        😀 공강이 있어요!
+      </div>
+    )
+  } else if (warningType === "count") {
+    return (
+      <div className="count-warning-box">
+        ⌛ 수업시간이 5시간 이상인 날이 있어요!
+      </div>
+    )
+  } else if (warningType === "morning") {
+    return (
+      <div className="morning-warning-box">
+        🥱 이른 아침수업이 있어요!
+      </div>
+    )
+  } else if (warningType === "lunch") {
+    return (
+      <div className="lunch-warning-box">
+        🍚 점심 먹을 시간이 부족해요!
+      </div>
+    )
+  } else if (warningType === "space") {
+    return (
+      <div className="space-warning-box">
+        🕒 3시간 이상 우주공강이 있어요!
       </div>
     )
   }

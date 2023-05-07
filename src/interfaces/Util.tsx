@@ -7,7 +7,7 @@ export interface xyTuple {
 }
 
 export interface warning {
-  warningType: 'time' | 'lunch' | 'empty';
+  warningType: 'time' | 'lunch' | 'empty' | 'count' | 'morning' | 'space';
   extraInfo: string[];
 }
 

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { CreationContext } from "../App";
+import "../App.css"
 import TimeTable from '../components/preview/TimeTable';
 import { blankLecture, lecture } from '../interfaces/Lecture';
 import CreationViewPanel from '../components/create/CreationViewPanel';
@@ -66,9 +67,7 @@ function Create() {
             displayPopup={data.displayPopup} 
           />
         ) : (
-          <div className='app-parent-container'>
-            <h2 style={{ fontWeight: "400" }}>시간표가 아직 생성되지 않았습니다.</h2>
-          </div>
+          <p className='large-title' style={{ width: "100%", marginTop: "50px" }}>[시간표가 아직 생성되지 않았습니다.]</p>
         )
       }
       </div>

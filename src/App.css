@@ -433,6 +433,7 @@
 .credit {
   background-color: #eaeaea;
   padding: 3px;
+  border-radius: 4px;
 }
 
 .mobile-menu-link:hover {

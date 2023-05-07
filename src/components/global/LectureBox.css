@@ -13,6 +13,21 @@
   transition : 193ms;
 }
 
+.clicked-lecturebox {
+  margin: 0 auto;
+  max-height: 100px;
+  
+  font-size: large;
+  font-weight: normal;
+
+  background-color: #76d1e8;
+  padding: 5px;
+  
+  border-bottom: 1px solid lightgray;
+  line-height: 1.4;
+  transition : 193ms;
+}
+
 .lecturebox:hover {
   transition : 193ms;
   background-color: #ddd;

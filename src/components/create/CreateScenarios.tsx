@@ -78,12 +78,24 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
     for (const warn of scResult.scenario.warnings) {
       switch (warn.warningType) {
         case "time":
-          scResult.scenario.priority -= warn.extraInfo.length;
+          scResult.scenario.priority -= 0.5;
           break;
         case "lunch":
           break;
         case "empty":
-          scResult.scenario.priority += 3;
+          scResult.scenario.priority += 3 * warn.extraInfo.length;
+          break;
+        case "count":
+          scResult.scenario.priority -= 0.5;
+          break;
+        case "morning":
+          scResult.scenario.priority -= 0.5 * warn.extraInfo.length;
+          break;
+        case "lunch":
+          scResult.scenario.priority -= 0.5;
+          break;
+        case "space":
+          scResult.scenario.priority -= 0.5;
           break;
       }
     }
@@ -131,6 +143,22 @@ export function getWarnings(sc: scenario): warning[] {
     warningType: "empty",
     extraInfo: []
   };
+  let lectureCountWarning: warning = {
+    warningType: "count",
+    extraInfo: []
+  };
+  let morningWarning: warning = {
+    warningType: "morning",
+    extraInfo: []
+  };
+  let lunchWarning: warning = {
+    warningType: "lunch",
+    extraInfo: []
+  };
+  let spaceWarning: warning = {
+    warningType: "space",
+    extraInfo: []
+  };
 
   let timeSlots: pseudoTimeSlot[] = [];
   let daysTimeSlots: pseudoTimeSlot[][] = [[], [], [], [], []];
@@ -147,11 +175,52 @@ export function getWarnings(sc: scenario): warning[] {
     daysTimeSlots[i].sort((a, b) => a.startTime - b.startTime);
     if (daysTimeSlots[i].length === 0) {
       emptyDateWarning.extraInfo.push(i.toString());
+    } else {
+      let timeSum = 0;
+      for (let j = 0; j < daysTimeSlots[i].length; j++) {
+        timeSum += getMinuteDifference(daysTimeSlots[i][j].startTime, daysTimeSlots[i][j].endTime);
+      }
+      if (timeSum >= 300) {
+        lectureCountWarning.extraInfo.push(i.toString());
+      }
+
+      if (getMinuteDifference(900, daysTimeSlots[i][0].startTime) <= 40) {
+        morningWarning.extraInfo.push(i.toString());
+      }
     }
   }
 
   for (let i = 0; i < 5; i++) {
+    let existsLunchTime = false;
+    if (daysTimeSlots[i].length === 0) {
+      existsLunchTime = true;
+    } else if (daysTimeSlots[i].length === 1) {
+      if (daysTimeSlots[i][0].endTime <= 1400 || daysTimeSlots[i][0].startTime >= 1200) {
+        existsLunchTime = true;
+      }
+    } else {
+      if (daysTimeSlots[i][0].startTime >= 1200 || daysTimeSlots[i][daysTimeSlots[i].length - 1].endTime <= 1400) {
+        existsLunchTime = true;
+      }
+    }
+
     for (let j = 0; j < daysTimeSlots[i].length - 1; j++) {
+      if (j == daysTimeSlots[i].length - 2) {
+        if (daysTimeSlots[i][j].endTime <= 1400) {
+          existsLunchTime = true;
+        }
+      }
+
+      if (daysTimeSlots[i][j].endTime >= 1100 && daysTimeSlots[i][j].endTime <= 1400) {
+        if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 30) {
+          existsLunchTime = true;
+        }
+      }
+
+      if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 180) {
+        spaceWarning.extraInfo.push(i.toString());
+      }
+
       if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) <= 20) {
         let bdngFrom: number = parseInt(daysTimeSlots[i][j].room.split("-")[0]);
         let bdngTo: number = parseInt(daysTimeSlots[i][j + 1].room.split("-")[0]);
@@ -166,7 +235,10 @@ export function getWarnings(sc: scenario): warning[] {
         } 
       }
     }
+    if (!existsLunchTime) {
+      lunchWarning.extraInfo.push(i.toString());
+    }
   }
 
-  return [emptyDateWarning, distanceWarning].filter(warning => warning.extraInfo.length > 0);
+  return [distanceWarning, lectureCountWarning, lunchWarning, spaceWarning, emptyDateWarning, morningWarning].filter(warning => warning.extraInfo.length > 0);
 }

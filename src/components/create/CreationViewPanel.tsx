@@ -67,16 +67,7 @@ function CreationViewPanel() {
         )
       }
 
-      {
-        (data.scenarios.length > 0) && (
-          data.scenarios[data.scenarioNumber].warnings.map(
-            warning =>
-            <Warning
-            warningType={warning.warningType}
-            />
-          )
-        )
-      }
+
       
       <div
       style={
