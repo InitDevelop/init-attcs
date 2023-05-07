@@ -255,6 +255,7 @@ function App() {
   const creationContextData: creationContextTypes = {
     isMobile,
 
+    setSelSubj,
     addingSubjName, setAddingSubjName,
     clickedSubject, setClickedSubject,
     addedSubjKeyWord, setAddedSubjKeyWord,

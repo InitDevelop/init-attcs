@@ -4,20 +4,9 @@ import "../add/SubjectList.css";
 import { CreationContext } from "../../App";
 import { CreateScenarios } from './CreateScenarios';
 import { lecture } from '../../interfaces/Lecture';
-import Warning from './Warning';
 import ScenarioSummary from './ScenarioSummary';
 
 const warningSign = '⚠';
-
-/*
-const getIndex = (n: number, d: number) => {
-  if (n >= 0) {
-    return n % d;
-  } else {
-    return Math.abs(n) % d + (n % d);
-  }
-}
-*/
 
 function CreationViewPanel() {
 
@@ -67,21 +56,30 @@ function CreationViewPanel() {
         )
       }
 
+      <br/>
 
-      
-      <div
-      style={
-        {
-          overflow: "auto",
-          position: "absolute",
-          height: "40%",
-          left: "20px",
-          right: "20px",
-          bottom: "20px"
-        }
-      }>
-        
-      </div>
+      {
+        data.scenarios.length > 0 && (
+          <button className='button-0'
+          style={
+            {
+              marginTop: "20px",
+              marginBottom: "20px",
+              width: "70%",
+              fontSize: "x-large",
+              fontWeight: "700"
+            }
+          }
+          onClick={
+            () => {
+                if (data.scenarios.length > 0) {
+                  data.setSelSubj(data.scenarios[data.scenarioNumber].lectures);
+                  data.displayPopup("시간표 가져오기", <>시간표 가져오기에 성공했습니다. "시간표" 메뉴에서 이 시간표를 확인할 수 있습니다.</>);
+                }
+              }
+          }>시간표 가져오기</button>
+        )
+      }
 
 
     </div>

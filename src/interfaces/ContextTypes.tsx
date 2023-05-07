@@ -50,6 +50,8 @@ export type previewContextTypes = {
 export type creationContextTypes = {
   isMobile: boolean;
 
+  setSelSubj: (lect: lecture[]) => void;
+
   addingSubjName: string;
   setAddingSubjName: (param: string) => void;
   clickedSubject: string;
@@ -179,6 +181,9 @@ export const defaultPreviewContext = {
 export const defaultCreationContext = {
   isMobile: false,
 
+  setSelSubj: function (lect: lecture[]): void {
+    throw new Error('Function not implemented.');
+  },
   addingSubjName: '',
   setAddingSubjName: function (param: string): void {
       throw new Error('Function not implemented.');
