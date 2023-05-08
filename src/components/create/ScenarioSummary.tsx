@@ -43,6 +43,16 @@ function ScenarioSummary() {
   const numPriorities = getNumPriorities(prioritiesCount);
   return (
     <div className='scenario-summary-container'>
+
+      <hr style={
+        {
+          border: "none",
+          borderTop: "1px solid #ccc",
+          height: "1px",
+          margin: "10px 0"
+        }
+      }/>
+
       <div className='scenario-summary-row-container'>
         <div style={{ width: "15%", verticalAlign: "middle" }}>
           <img className='arrow-button' src={Left}
@@ -88,8 +98,6 @@ function ScenarioSummary() {
           />
         </div>
       </div>
-
-      <br/>
       
       <hr style={
         {
@@ -100,9 +108,7 @@ function ScenarioSummary() {
         }
       }/>
 
-      <br/>
-
-      <div className='scenario-summary-row-container'>
+      <div className='scenario-summary-row-container' style={{ overflow: "auto", bottom: "0px" }}>
         <table className='summary-table'>
           <tbody>
             <tr>

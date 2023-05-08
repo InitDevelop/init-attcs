@@ -6,8 +6,6 @@ import { CreateScenarios } from './CreateScenarios';
 import { lecture } from '../../interfaces/Lecture';
 import ScenarioSummary from './ScenarioSummary';
 
-const warningSign = '⚠';
-
 function CreationViewPanel() {
 
   const data = useContext(CreationContext);
@@ -18,9 +16,11 @@ function CreationViewPanel() {
       <button className='button-0'
       style={
         {
-          marginTop: "20px",
-          marginBottom: "20px",
-          width: "70%",
+          position: "absolute",
+          left: "50%",
+          top: "20px",
+          transform: "translate(-50%, 0)",
+          width: "65%",
           fontSize: "x-large",
           fontWeight: "700"
         }
@@ -39,33 +39,16 @@ function CreationViewPanel() {
           }
       }>{(data.scenarios.length > 0) ? "시간표 다시 생성하기" : "시간표 자동 생성하기"}</button>
 
-      <hr style={
-        {
-          border: "none",
-          borderTop: "1px solid #ccc",
-          height: "1px",
-          margin: "10px 0"
-        }
-      }/>
-
-      <br/>
-      
-      {
-        (data.scenarios.length > 0) && (
-          <ScenarioSummary/>
-        )
-      }
-
-      <br/>
-
       {
         data.scenarios.length > 0 && (
           <button className='button-0'
           style={
             {
-              marginTop: "20px",
-              marginBottom: "20px",
-              width: "70%",
+              position: "absolute",
+              left: "50%",
+              top: "80px",
+              transform: "translate(-50%, 0)",
+              width: "65%",
               fontSize: "x-large",
               fontWeight: "700"
             }
@@ -80,6 +63,15 @@ function CreationViewPanel() {
           }>시간표 가져오기</button>
         )
       }
+
+      
+      {
+        (data.scenarios.length > 0) && (
+          <ScenarioSummary/>
+        )
+      }
+
+      
 
 
     </div>

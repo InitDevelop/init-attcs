@@ -215,6 +215,15 @@ export function getWarnings(sc: scenario): warning[] {
         if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 30) {
           existsLunchTime = true;
         }
+      } else if (daysTimeSlots[i][j].endTime > 1400) {
+
+      
+      } else if (daysTimeSlots[i][j].endTime < 1100) {
+        if (daysTimeSlots[i][j + 1].startTime >= 1130) {
+          existsLunchTime = true;
+        }
+      } else {
+
       }
 
       if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 180) {

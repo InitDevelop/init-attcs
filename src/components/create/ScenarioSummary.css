@@ -1,9 +1,16 @@
 .scenario-summary-container {
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  
+  top: 130px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
 
   flex-grow: 1;
   flex-shrink: 1;
+
+  display: flex;
+  flex-direction: column;
 
   margin: 10px 10px;
 }
@@ -18,7 +25,8 @@
 
 .summary-table {
   border-collapse: collapse;
-  width: 85%;
+  width: 90%;
+  padding: 0px 5px;
 }
 
 .table-key {
