@@ -152,7 +152,7 @@
   box-sizing: border-box;
   text-decoration: none;
   color: black;
-  font-size: x-large;
+  font-size: larger;
   font-weight: var(--bold-weight-font);
   padding: 10px;
   margin-right: 15px;
@@ -173,7 +173,7 @@
   box-sizing: border-box;
   text-decoration: none;
   color: black;
-  font-size: x-large;
+  font-size: larger;
   font-weight: var(--bold-weight-font);
   padding: 10px;
   margin-right: 15px;

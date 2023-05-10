@@ -17,6 +17,7 @@ import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
 import packageJson from '../package.json';
+import Settings from './pages/Settings';
 
 const appVersion: string = packageJson.version;
 
@@ -167,6 +168,9 @@ function App() {
   const [scenarios, setScenarios] = useState<scenario[]>([]);
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
   const [relatedLectures, setRelatedLectures] = useState<lecture[]>([]);
+  const [priority, setPriority] = useState<string[]>([
+    "empty", "time", "morning", "count", "lunch", "space"
+  ]);
 
   const addLectureToGroup = (lect: lecture) => {
     const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
@@ -284,7 +288,9 @@ function App() {
     includesLecture,
     showTooltip, setShowTooltip,
     tooltipPosition, setTooltipPosition,
-    tooltipContent, setTooltipContent
+    tooltipContent, setTooltipContent,
+
+    priority, setPriority
   };
 
   return (
@@ -323,7 +329,6 @@ function App() {
                 onClick={ () => {
                   setMenuOpened(!menuOpened);
                 }}/>
-
             </div>
           </div>
         </div>
@@ -371,7 +376,7 @@ function App() {
 
           <Route path="/settings" element={
             <CreationContext.Provider value={creationContextData}>
-              
+              <Settings/>
             </CreationContext.Provider>
           }/>
 
@@ -398,13 +403,10 @@ function App() {
           )
         }
 
-        {
-          menuOpened && (
-            <MobileMenu
-              toggleOpen={() => setMenuOpened(!menuOpened)}
-            />
-          )
-        }
+        <MobileMenu
+          toggleOpen={() => setMenuOpened(!menuOpened)}
+          isOpened={menuOpened}
+        />
       </div>
     </BrowserRouter>
   );

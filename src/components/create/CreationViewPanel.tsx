@@ -28,7 +28,7 @@ function CreationViewPanel() {
       onClick={
         () => {
             data.setScenarioNumber(0);
-            CreateScenarios(data.setScenarios, data.lectureGroups);
+            CreateScenarios(data.setScenarios, data.lectureGroups, data.priority);
             if (data.scenarios.length > 0) {
               let relatedLectures: lecture[] = [];
               for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {

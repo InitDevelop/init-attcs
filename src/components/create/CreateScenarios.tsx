@@ -23,12 +23,18 @@ export function printScenarios(lectureGroups: lectureGroup[]) {
   return ({});
 }
 
-export function CreateScenarios(setScenarios: (param: scenario[]) => void, originalLectureGroups: lectureGroup[]) {
+export function CreateScenarios(setScenarios: (param: scenario[]) => void, originalLectureGroups: lectureGroup[], priorityTypes: string[]) {
   setScenarios([]);
 
   // Pre-process lectureGroups so that
   // lectures which share the same time slots be categorized to the same scenario
 
+  const priorityWeights: number[] = [];
+
+  for (let i = 0; i < priorityTypes.length; i++) {
+    priorityWeights.push(10 * (priorityTypes.length - i - 1));
+  }
+  
   const lectureGroups: lectureGroup[] = [];
   const scenarioResults: scenario[] = [];
   
@@ -78,24 +84,22 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
     for (const warn of scResult.scenario.warnings) {
       switch (warn.warningType) {
         case "time":
-          scResult.scenario.priority -= 0.5;
-          break;
-        case "lunch":
+          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("time")];
           break;
         case "empty":
-          scResult.scenario.priority += 3 * warn.extraInfo.length;
+          scResult.scenario.priority += priorityWeights[priorityTypes.indexOf("empty")];
           break;
         case "count":
-          scResult.scenario.priority -= 0.5;
+          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("time")] + 0.1 * warn.extraInfo.length;
           break;
         case "morning":
-          scResult.scenario.priority -= 0.5 * warn.extraInfo.length;
+          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("morning")] + 0.1 * warn.extraInfo.length;
           break;
         case "lunch":
-          scResult.scenario.priority -= 0.5;
+          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("lunch")] + 0.1 * warn.extraInfo.length;
           break;
         case "space":
-          scResult.scenario.priority -= 0.5;
+          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("space")] + 0.1 * warn.extraInfo.length;
           break;
       }
     }

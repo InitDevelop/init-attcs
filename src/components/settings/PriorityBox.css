@@ -1,0 +1,21 @@
+.prioritybox {
+  margin: 0 auto;
+  max-height: 100px;
+  
+  font-size: large;
+  font-weight: normal;
+
+  background-color: #fff;
+  padding: 5px;
+  
+  border-bottom: 1px solid lightgray;
+  line-height: 1.4;
+  transition : 193ms;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.priority-info {
+  width: 75%;
+}

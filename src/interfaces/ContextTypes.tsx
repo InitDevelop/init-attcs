@@ -98,6 +98,9 @@ export type creationContextTypes = {
   setTooltipPosition: (param: xyTuple) => void;
   tooltipContent: React.ReactNode;
   setTooltipContent: (param: React.ReactNode) => void;
+
+  priority: string[];
+  setPriority: (param: string[]) => void;
 }
 
 export const defaultPreviewContext = {
@@ -263,6 +266,10 @@ export const defaultCreationContext = {
   },
   relatedLectures: [],
   setRelatedLectures: function (param: lecture[]): void {
+      throw new Error('Function not implemented.');
+  }, 
+  priority: [],
+  setPriority: function (param: string[]): void {
       throw new Error('Function not implemented.');
   }
 };
