@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
-import lectureData from "../../db/data.json";
 import "../../css/AppTable.css"
 import SubjectBox from './SubjectBox';
 import { CreationContext } from "../../App";
 import { lecture } from '../../interfaces/Lecture';
 
-const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
 function AddSubjectSearchList() {
 
@@ -41,7 +39,7 @@ function AddSubjectSearchList() {
       <h2 className="large-title">찾은 과목
       </h2>
       <div className="appTable__scrollContainer">
-        {lectureDatabase.filter(
+        {data.lectureDatabase.filter(
           (subject: lecture) => {
             let isRelated = isRelatedName(data.addingSubjName, subject.prof + subject.subj_name + subject.prof);
             return ((data.addingSubjName !== "") && isRelated);

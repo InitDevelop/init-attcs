@@ -1,4 +1,3 @@
-import lectureData from "../../db/data.json";
 import { useEffect, useRef, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
@@ -7,7 +6,6 @@ import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
 
-const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 
 function isRelatedName(abbrev: string, full: string): boolean {
@@ -72,7 +70,7 @@ function LectureSearchList(props: propType) {
 
       </h2>
       <div className="appTable__scrollContainer" style = {{ bottom: "100px" }}>
-        {lectureDatabase
+        {data.lectureDatabase
         .map(subject => {
           let isRelated = isRelatedName(data.addingSubjName, subject.prof + subject.subj_name + subject.prof);
           let isRelatedKeyWord = (data.addedSubjKeyWord === "") || subject.extra_info.replace(' ', '').includes(data.addedSubjKeyWord);

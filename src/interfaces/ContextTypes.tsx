@@ -3,6 +3,8 @@ import { scenario } from "./Scenario";
 import { xyTuple } from "./Util";
 
 export type previewContextTypes = {
+  lectureDatabase: lecture[];
+
   isMobile: boolean;
 
   selSubj: lecture[];
@@ -48,6 +50,7 @@ export type previewContextTypes = {
 
 
 export type creationContextTypes = {
+  lectureDatabase: lecture[];
   isMobile: boolean;
 
   setSelSubj: (lect: lecture[]) => void;
@@ -104,6 +107,7 @@ export type creationContextTypes = {
 }
 
 export const defaultPreviewContext = {
+  lectureDatabase: [],
   isMobile: false,
   
   selSubj: [],
@@ -182,6 +186,7 @@ export const defaultPreviewContext = {
 };
 
 export const defaultCreationContext = {
+  lectureDatabase: [],
   isMobile: false,
 
   setSelSubj: function (lect: lecture[]): void {

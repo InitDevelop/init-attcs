@@ -1,4 +1,3 @@
-import lectureData from "../../db/data.json";
 import React, { createContext, useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';

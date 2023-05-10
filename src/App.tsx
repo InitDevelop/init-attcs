@@ -1,5 +1,6 @@
 import './App.css';
 import './AppMobile.css';
+import lectureData from "./db/data.json"
 import React, {useState, useEffect} from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Add from './pages/Add';
@@ -18,6 +19,35 @@ import MobileMenu from './components/global/MobileMenu';
 import { scenario } from './interfaces/Scenario';
 import packageJson from '../package.json';
 import Settings from './pages/Settings';
+
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCk7TcB-NxrG7OSTs5NqwHJhLweAx6_tA8",
+  authDomain: "shaganpyo.firebaseapp.com",
+  projectId: "shaganpyo",
+  storageBucket: "shaganpyo.appspot.com",
+  messagingSenderId: "283150565834",
+  appId: "1:283150565834:web:c14e1df0d1858a430c8f33",
+  measurementId: "G-CH9KXLYSTD"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
 
 const appVersion: string = packageJson.version;
 
@@ -39,8 +69,17 @@ function App() {
   const isTablet = resolution >= 768 && resolution <= 1024;
   const isDesktop = !isMobile && !isTablet;
   */
+  const [lectureDatabase, setLectureDatabase] = useState<lecture[]>((lectureData as { subjects: lecture[] }).subjects);
 
-
+  // useEffect(() => {
+  //   fetch('data.json')
+  //     .then((response) => response.json())
+  //     .then((data) => setLectureData(data))
+  //     .catch((error) => console.log(error));
+  //   if (lectureData) {
+  //     setLectureDatabase((lectureData as { subjects: lecture[] }).subjects);
+  //   }
+  // }, []);
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
   ****************************************************************************/
@@ -227,6 +266,7 @@ function App() {
   }
 
   const previewContextData: previewContextTypes = {
+    lectureDatabase,
     isMobile,
 
     selSubj, setSelSubj,
@@ -257,6 +297,7 @@ function App() {
   };
 
   const creationContextData: creationContextTypes = {
+    lectureDatabase,
     isMobile,
 
     setSelSubj,
@@ -293,6 +334,10 @@ function App() {
     priority, setPriority
   };
 
+  if (!lectureData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <BrowserRouter>
       {/* Main container for the entire app */}
@@ -321,7 +366,13 @@ function App() {
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
-                }>ATTCS v{appVersion}{"\n"}</span>
+                }><strong>샤간표 베타 v{appVersion}</strong></span>
+                <span style={
+                  { color: "gray", "fontWeight": "400", fontSize: "larger",
+                    marginLeft: "15px", marginRight: "15px" }
+                }>
+                개발자 | 전기정보공학부 22 강문석
+                </span>
               </div>
 
               <MobileMenuButton

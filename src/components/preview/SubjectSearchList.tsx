@@ -1,4 +1,3 @@
-import lectureData from "../../db/data.json";
 import React, { useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
@@ -6,8 +5,6 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
-
-const lectureDatabase = (lectureData as { subjects: lecture[] }).subjects;
 
 function SubjectSearchList() {
 
@@ -48,8 +45,7 @@ function SubjectSearchList() {
       </span>
       <div className="appTable__scrollContainer">
         {
-          lectureDatabase
-          .filter(
+          data.lectureDatabase.filter(
             (subject: lecture) => {
               let isRelated = isRelatedName(data.searchText, subject.prof + subject.subj_name + subject.prof);
               let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
