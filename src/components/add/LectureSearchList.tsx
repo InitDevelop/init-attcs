@@ -5,6 +5,7 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
+import { CheckRelatedLecture } from '../global/CheckRelatedLecture';
 
 const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 
@@ -70,9 +71,9 @@ function LectureSearchList(props: propType) {
 
       </h2>
       <div className="appTable__scrollContainer" style = {{ bottom: "100px" }}>
-        {data.lectureDatabase
+        {data.lectureDatabase.filter(s => s.subj_id === data.clickedSubject)
         .map(subject => {
-          let isRelated = isRelatedName(data.addingSubjName, subject.prof + subject.subj_name + subject.prof);
+          let isRelated = CheckRelatedLecture(data.addingSubjName, subject);
           let isRelatedKeyWord = (data.addedSubjKeyWord === "") || subject.extra_info.replace(' ', '').includes(data.addedSubjKeyWord);
           let isCorrectDate =
             (props.selectedOption === "월요일"

@@ -9,6 +9,7 @@ import "../AppMobile.css";
 import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
 import PreviewAddMenu from '../components/preview/PreviewAddMenu';
 import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
+import { getHoveredTimeTableSlots, getTimeTableSlots } from '../interfaces/Lecture';
 
 function Preview() {
 
@@ -25,7 +26,8 @@ function Preview() {
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}
-          hoveredSubj={data.hoveredSubj}
+          timeSlots={getTimeTableSlots(data.selSubj)}
+          hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
           setShowTooltip={data.setShowTooltip}
           setTooltipContent={data.setTooltipContent}     
           displayPopup={data.displayPopup}   
@@ -48,7 +50,8 @@ function Preview() {
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}
-          hoveredSubj={data.hoveredSubj}
+          timeSlots={getTimeTableSlots(data.selSubj)}
+          hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
           setShowTooltip={data.setShowTooltip}
           setTooltipContent={data.setTooltipContent}     
           displayPopup={data.displayPopup}   

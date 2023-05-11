@@ -5,6 +5,7 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
+import { CheckRelatedLecture } from '../global/CheckRelatedLecture';
 
 function SubjectSearchList() {
 
@@ -46,10 +47,12 @@ function SubjectSearchList() {
       <div className="appTable__scrollContainer">
         {
           data.lectureDatabase.filter(
-            (subject: lecture) => {
-              let isRelated = isRelatedName(data.searchText, subject.prof + subject.subj_name + subject.prof);
-              let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
-              return ((data.searchText.length > 1) && isRelated && isRelatedKeyWord);
+            (lect: lecture) => {
+              return ((data.searchText.length > 1) && CheckRelatedLecture(data.searchText, lect));
+
+              //let isRelated = isRelatedName(data.searchText, subject.prof + subject.subj_name + subject.prof);
+              //let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
+              //return ((data.searchText.length > 1) && isRelated && isRelatedKeyWord);
             }
           )
           .sort((a, b) => (accuracy(data.searchText, b.subj_name, b.prof) - accuracy(data.searchText, a.subj_name, a.prof))).map(

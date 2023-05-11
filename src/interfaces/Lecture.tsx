@@ -1,3 +1,5 @@
+import { getDateValue } from "./Scenario";
+
 export type lecture = {
   lect_type: string;
   lect_col: string;
@@ -68,4 +70,80 @@ export type lectureGroup = {
   lectures: lecture[];
   timeShareLectures: lecture[][];
   mustInclude: boolean;
+}
+
+export const getTimeTableSlots = (lectures: lecture[]) => {
+  let timeSlots: timeSlot[] = [];
+
+  for (let j = 0; j < lectures.length; j++) {
+    let times = lectures[j].time.split("/");
+    let count = times.length;
+    let rooms = lectures[j].lect_room.split("/")
+
+    for (let i = 0; i < count; i++) {
+      let date = 0;
+      let startHour = parseInt(times[i].substring(2, 4));
+      let startMin = parseInt(times[i].substring(5, 7));
+      let endHour = parseInt(times[i].substring(8, 10));
+      let endMin = parseInt(times[i].substring(11, 13));
+
+      date = getDateValue(times[i].substring(0, 1));
+
+      let topPos = `calc((100%)*${((startHour - 9) + startMin / 60)}/13)`;
+      let height = `calc((100%)*${((endHour - startHour) + (endMin - startMin) / 60)}/13)`;
+      let leftPos = `${7.5 + date * 18.5}%`;
+
+      timeSlots.push({
+        startTime: startHour * 100 + startMin,
+        endTime: endHour * 100 + endMin,
+        date: date,
+        id: j,
+        subjName: lectures[j].subj_name,
+        leftPos: leftPos,
+        topPos: topPos,
+        height: height,
+        room: rooms[i],
+        lectures: [lectures[j]]
+      });
+    }
+  }
+
+  return timeSlots;
+}
+
+export const getHoveredTimeTableSlots = (subjHover: boolean, hoveredSubj: lecture) => {
+  let hoveredTimeSlots: timeSlot[] = [];
+  if (subjHover) {
+    let hoverTimes = hoveredSubj.time.split("/");
+    let hoverCount = hoverTimes.length;
+    let rooms = hoveredSubj.lect_room.split("/")
+
+    for (let k = 0; k < hoverCount; k++) {
+      let date = 0;
+      let startHour = parseInt(hoverTimes[k].substring(2, 4));
+      let startMin = parseInt(hoverTimes[k].substring(5, 7));
+      let endHour = parseInt(hoverTimes[k].substring(8, 10));
+      let endMin = parseInt(hoverTimes[k].substring(11, 13));
+
+      date = getDateValue(hoverTimes[k].substring(0, 1));
+
+      let topPos = `calc((100%)*${((startHour - 9) + startMin / 60)}/13)`;
+      let height = `calc((100%)*${((endHour - startHour) + (endMin - startMin) / 60)}/13)`;
+      let leftPos = `${7.5 + date * 18.5}%`;
+
+      hoveredTimeSlots.push({
+        startTime: startHour * 100 + startMin,
+        endTime: endHour * 100 + endMin,
+        date: date,
+        subjName: hoveredSubj.subj_name,
+        leftPos: leftPos,
+        topPos: topPos,
+        height: height,
+        id: 0,
+        room: rooms[k],
+        lectures: [hoveredSubj]
+      });
+    }
+  }
+  return hoveredTimeSlots;
 }

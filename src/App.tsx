@@ -28,6 +28,7 @@ import 'firebase/storage';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { downloadObjectAsJson } from './components/global/FileIO';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -46,8 +47,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-
 
 const appVersion: string = packageJson.version;
 
@@ -362,6 +361,49 @@ function App() {
                 to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
               <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
                 to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
+              <div className={"links"} 
+                onClick = { () => {
+                  const saveData = {
+                    selSubj,
+                    lectureGroups,
+                    scenarios,
+                    priority
+                  };
+                  downloadObjectAsJson(saveData, 'save_data');
+                } }>저장</div>
+              <div className={"links"} 
+                onClick = { () => {
+                  displayPopup("저장된 시간표 데이터 불러오기",
+                  <input type="file" className='button-0' onChange={
+                    (event) => {
+                      let tempData = { selSubj: [], lectureGroups: [], scenarios: [], priority: [] };
+
+                      if (event.target.files) {
+                        const file = event.target.files[0];
+                        const reader = new FileReader();
+                    
+                        reader.onload = (e) => {
+                          if (e.target) {
+                            const contents: any = e.target.result;
+                            const parsedData = JSON.parse(contents);
+                            tempData = parsedData;
+                            console.log(tempData);
+                            setSelSubj(tempData.selSubj);
+                            setLectureGroups(tempData.lectureGroups);
+                            setScenarios(tempData.scenarios);
+                            setPriority(tempData.priority);
+                            if (scenarios.length < 1) {
+                              setScenarioNumber(0);
+                            }
+                          }
+                        };
+                        
+                        reader.readAsText(file);
+                      }
+                    }
+                  } />
+                  );
+                } }>열기</div>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",

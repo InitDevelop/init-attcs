@@ -5,7 +5,7 @@ import AddedSubjectList from '../components/add/AddedSubjectList';
 import AddSubjectSearch from '../components/add/AddSubjectSearch';
 import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
-import { lecture } from '../interfaces/Lecture';
+import { getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
 import TimeTable from '../components/preview/TimeTable';
 
 function Add() {
@@ -40,7 +40,9 @@ function Add() {
           <TimeTable
             isMobile={data.isMobile}
             lectures={[...selectedLectures]}
-            subjHover={data.subjHover} hoveredSubj={data.hoveredSubj}
+            subjHover={data.subjHover}
+            timeSlots={getTimeTableSlots([...selectedLectures])}
+            hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}
             displayPopup={data.displayPopup}/>

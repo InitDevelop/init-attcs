@@ -61,11 +61,11 @@ function ScenarioSummary() {
                 if (data.scenarioNumber > 0) {
                   data.setScenarioNumber(data.scenarioNumber - 1);
     
-                  let relatedLectures: lecture[] = [];
-                  for (let i = 0; i < data.scenarios[data.scenarioNumber - 1].shareTimeLectures.length; i++) {
-                    relatedLectures.push(...data.scenarios[data.scenarioNumber - 1].shareTimeLectures[i]);
-                  }
-                  data.setRelatedLectures(relatedLectures);
+                  // let relatedLectures: lecture[] = [];
+                  // for (let i = 0; i < data.scenarios[data.scenarioNumber - 1].shareTimeLectures.length; i++) {
+                  //   relatedLectures.push(...data.scenarios[data.scenarioNumber - 1].shareTimeLectures[i]);
+                  // }
+                  // data.setRelatedLectures(relatedLectures);
                 }
               }
             }
@@ -87,11 +87,11 @@ function ScenarioSummary() {
                 if (data.scenarioNumber < data.scenarios.length - 1) {
                   data.setScenarioNumber(data.scenarioNumber + 1);
     
-                  let relatedLectures: lecture[] = [];
-                  for (let i = 0; i < data.scenarios[data.scenarioNumber + 1].shareTimeLectures.length; i++) {
-                    relatedLectures.push(...data.scenarios[data.scenarioNumber + 1].shareTimeLectures[i]);
-                  }
-                  data.setRelatedLectures(relatedLectures);
+                  // let relatedLectures: lecture[] = [];
+                  // for (let i = 0; i < data.scenarios[data.scenarioNumber + 1].shareTimeLectures.length; i++) {
+                  //   relatedLectures.push(...data.scenarios[data.scenarioNumber + 1].shareTimeLectures[i]);
+                  // }
+                  // data.setRelatedLectures(relatedLectures);
                 }
               }
             }
