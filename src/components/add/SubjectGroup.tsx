@@ -18,19 +18,25 @@ type propType = {
 function SubjectGroup(props: propType) {
   const data = useContext(CreationContext);
 
+  const handleRemoveAll = () => {
+    for (const lect of props.lectureGroup.lectures) {
+      props.popAddedLecture(lect);
+    }
+    props.setUpdateCount(props.updateCount + 1);
+  }
+
   return (
     <div className='list-subjectgroupbox'>
       <h2 style={{fontWeight: "500"}}>
-        <strong>{props.lectureGroup.lectures[0].subj_name}</strong>
-        {"      "}<span> {props.lectureGroup.lectures.length}개 강좌 </span>
-        {"      "}
-        <label>
+        <strong style={{ marginRight: "20px" }}>{props.lectureGroup.lectures[0].subj_name}</strong>
+        <label style={{ marginRight: "20px" }}>
         <input style = {{ cursor: "pointer", verticalAlign: "middle" }}
           className='checkbox-1'
           type="checkbox"
           checked={props.lectureGroup.mustInclude}
           onChange={ () => { props.lectureGroup.mustInclude = !props.lectureGroup.mustInclude } }
         />  필수 과목</label>
+        <button className="button-tiny" onClick={handleRemoveAll}>전체 제거</button>
       </h2>
       {
         props.lectureGroup.lectures.sort((a, b) => parseInt(a.lect_no) - parseInt(b.lect_no)).map(

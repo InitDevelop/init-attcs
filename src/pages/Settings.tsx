@@ -10,6 +10,7 @@ import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
 import PreviewAddMenu from '../components/preview/PreviewAddMenu';
 import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
 import PriorityManager from '../components/settings/PriorityManager';
+import Help from '../components/settings/Help';
 
 function Settings() {
 
@@ -20,19 +21,15 @@ function Settings() {
   return (
     !data.isMobile ?
     <div className="app-main-container">
-      <div className='app-parent-container'>
+      <div className='app-parent-container' style={{ width: "35%" }}>
         <PriorityManager
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}
         />
       </div>
 
-      <div className='app-parent-container'>
-
-      </div>
-
-      <div className='app-parent-container'>
-
+      <div className='app-parent-container' style={{ width: "55%" }}>
+        <Help/>
       </div>
     </div>
     :

@@ -150,7 +150,7 @@
 }
 
 .links {
-  user-select: none;
+  border-radius: 10px;
   cursor: pointer;
   box-sizing: border-box;
   text-decoration: none;
@@ -185,8 +185,6 @@
   border-radius: 10px;
   box-shadow: var(--shadow);
 }
-
-
 
 /* Containers */
 .app-main-container {

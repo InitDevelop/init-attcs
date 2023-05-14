@@ -12,7 +12,7 @@ import Popup from './components/global/Popup';
 import logo from './img/logo.png';
 import inst1 from './img/inst1.png';
 import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
-import { xyTuple } from './interfaces/Util';
+import { Dictionary, StringNumberPair, xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './interfaces/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
@@ -206,9 +206,9 @@ function App() {
   const [scenarios, setScenarios] = useState<scenario[]>([]);
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
   const [relatedLectures, setRelatedLectures] = useState<lecture[]>([]);
-  const [priority, setPriority] = useState<string[]>([
-    "empty", "time", "morning", "count", "lunch", "space"
-  ]);
+  const [priority, setPriority] = useState<Dictionary<number>>({
+    "empty": 1, "time": 2, "morning": 3, "count": 4, "lunch": 5, "space": 6
+  });
 
   const addLectureToGroup = (lect: lecture) => {
     const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
@@ -360,7 +360,7 @@ function App() {
               <Link className={ currentPage === "/create" ? "link-current" : "links" } 
                 to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
               <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
-                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
+                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정 및 도움말</Link>
               <div className={"links"} 
                 onClick = { () => {
                   const saveData = {
@@ -371,12 +371,13 @@ function App() {
                   };
                   downloadObjectAsJson(saveData, 'save_data');
                 } }>저장</div>
+              
               <div className={"links"} 
                 onClick = { () => {
                   displayPopup("저장된 시간표 데이터 불러오기",
                   <input type="file" className='button-0' onChange={
                     (event) => {
-                      let tempData = { selSubj: [], lectureGroups: [], scenarios: [], priority: [] };
+                      let tempData = { selSubj: [], lectureGroups: [], scenarios: [], priority: {} };
 
                       if (event.target.files) {
                         const file = event.target.files[0];
@@ -409,12 +410,6 @@ function App() {
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
                 }><strong>샤간표 베타 v{appVersion}</strong></span>
-                <span style={
-                  { color: "gray", "fontWeight": "400", fontSize: "larger",
-                    marginLeft: "15px", marginRight: "15px" }
-                }>
-                개발자 | 전기정보공학부 22 강문석
-                </span>
               </div>
 
               <MobileMenuButton

@@ -1,6 +1,6 @@
 import { blankLecture, lecture, lectureGroup } from "./Lecture";
 import { scenario } from "./Scenario";
-import { xyTuple } from "./Util";
+import { Dictionary, StringNumberPair, xyTuple } from "./Util";
 
 export type previewContextTypes = {
   lectureDatabase: lecture[];
@@ -102,8 +102,8 @@ export type creationContextTypes = {
   tooltipContent: React.ReactNode;
   setTooltipContent: (param: React.ReactNode) => void;
 
-  priority: string[];
-  setPriority: (param: string[]) => void;
+  priority: Dictionary<number>;
+  setPriority: (param: Dictionary<number>) => void;
 }
 
 export const defaultPreviewContext = {
@@ -273,8 +273,8 @@ export const defaultCreationContext = {
   setRelatedLectures: function (param: lecture[]): void {
       throw new Error('Function not implemented.');
   }, 
-  priority: [],
-  setPriority: function (param: string[]): void {
+  priority: {},
+  setPriority: function (param: {}): void {
       throw new Error('Function not implemented.');
   }
 };

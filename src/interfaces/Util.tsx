@@ -6,6 +6,13 @@ export interface xyTuple {
   y: number
 }
 
+export type Dictionary<T> = { [key: string]: T };
+
+export interface StringNumberPair {
+  key: string,
+  value: number
+}
+
 export interface warning {
   warningType: 'time' | 'lunch' | 'empty' | 'count' | 'morning' | 'space';
   extraInfo: string[];

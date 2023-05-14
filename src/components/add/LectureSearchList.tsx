@@ -82,7 +82,7 @@ function LectureSearchList(props: propType) {
               || props.selectedOption === "목요일"
               || props.selectedOption === "금요일") ? subject.time.includes(props.selectedOption.substring(0, 1)) : true;
           
-          if ((data.clickedSubject === subject.subj_id) && isRelatedKeyWord) {
+          if ((data.clickedSubject === subject.subj_id) && isRelatedKeyWord && isRelated) {
             shownLectures.push(subject);
           }
           return (data.clickedSubject === subject.subj_id) && isRelatedKeyWord && isRelated && isCorrectDate ? (

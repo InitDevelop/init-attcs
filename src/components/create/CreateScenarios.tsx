@@ -1,6 +1,6 @@
 import { lecture, lectureGroup, pseudoTimeSlot } from "../../interfaces/Lecture";
 import { getScenario, getTimeSlots, scenario } from "../../interfaces/Scenario";
-import { getDistance, warning } from "../../interfaces/Util";
+import { Dictionary, getDistance, warning } from "../../interfaces/Util";
 
 const DISTANCE_LIMIT: number = 1.53;
 
@@ -23,17 +23,11 @@ export function printScenarios(lectureGroups: lectureGroup[]) {
   return ({});
 }
 
-export function CreateScenarios(setScenarios: (param: scenario[]) => void, originalLectureGroups: lectureGroup[], priorityTypes: string[]) {
+export function CreateScenarios(setScenarios: (param: scenario[]) => void, originalLectureGroups: lectureGroup[], priorityValues: Dictionary<number>) {
   setScenarios([]);
 
   // Pre-process lectureGroups so that
   // lectures which share the same time slots be categorized to the same scenario
-
-  const priorityWeights: number[] = [];
-
-  for (let i = 0; i < priorityTypes.length; i++) {
-    priorityWeights.push(10 * (priorityTypes.length - i - 1));
-  }
   
   const lectureGroups: lectureGroup[] = [];
   const scenarioResults: scenario[] = [];
@@ -77,29 +71,49 @@ export function CreateScenarios(setScenarios: (param: scenario[]) => void, origi
 
   const priorities: number[] = [];
 
+  outerLoop:
   for (const r of result) {
     let scResult = getScenario(lectureGroups, r);
     scResult.scenario.warnings = getWarnings(scResult.scenario);
 
+    if (scResult.scenario.warnings.filter(w => w.warningType === "empty").length === 0) {
+      if (priorityValues["empty"] < 0.5 && priorityValues["empty"] > 0) {
+        continue outerLoop;
+      }
+    }
+
     for (const warn of scResult.scenario.warnings) {
+      let weight: number = Math.pow(10, Object.keys(priorityValues).length - Math.abs(priorityValues[warn.warningType]) - 1);
+      let sign: number = priorityValues[warn.warningType] > 0 ? 1 : -1;
+
+      if (warn.warningType === "empty") {
+        if (priorityValues["empty"] < 0 && priorityValues["empty"] > -0.5) {
+          continue outerLoop;
+        }
+      } else {
+        if (Math.abs(priorityValues[warn.warningType]) < 0.5) {
+          continue outerLoop;
+        }
+      }
+      
       switch (warn.warningType) {
         case "time":
-          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("time")];
+          scResult.scenario.priority -= sign * (weight);
           break;
         case "empty":
-          scResult.scenario.priority += priorityWeights[priorityTypes.indexOf("empty")];
+          scResult.scenario.priority += sign * (weight + 0.01 * warn.extraInfo.length);
           break;
         case "count":
-          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("time")] + 0.1 * warn.extraInfo.length;
+          scResult.scenario.priority -= sign * (weight + 0.01 * warn.extraInfo.length);
           break;
         case "morning":
-          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("morning")] + 0.1 * warn.extraInfo.length;
+          scResult.scenario.priority -= sign * (weight + 0.01 * warn.extraInfo.length);
           break;
         case "lunch":
-          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("lunch")] + 0.1 * warn.extraInfo.length;
+          scResult.scenario.priority -= sign * (weight + 0.01 * warn.extraInfo.length);
           break;
         case "space":
-          scResult.scenario.priority -= priorityWeights[priorityTypes.indexOf("space")] + 0.1 * warn.extraInfo.length;
+          scResult.scenario.priority -= sign * (weight + 0.01 * warn.extraInfo.length);
           break;
       }
     }

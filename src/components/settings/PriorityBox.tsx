@@ -1,52 +1,128 @@
-import React from 'react'
 import '../../App.css'
 import '../../AppMobile.css';
 import './PriorityBox.css';
-import { lecture, lectureGroup } from '../../interfaces/Lecture';
+import { Dictionary } from '../../interfaces/Util';
 
 type propType = {
   updateCount: number;
   setUpdateCount: (param: number) => void;
+
   message: string;
+  moreInfo: string;
+
   warningType: string;
-  priorities: string[];
-  setPriority: (param: string[]) => void;
+
+  priorities: Dictionary<number>;
+  setPriority: (param: Dictionary<number>) => void;
 }
 
 function PriorityBox(props: propType) {
+
+  const handleLowerPriority = () => {
+    if (Math.abs(props.priorities[props.warningType]) < Object.keys(props.priorities).length) {
+      let copy = props.priorities;
+      let changeKey = Object.keys(props.priorities).filter(key => Math.abs(props.priorities[key]) === Math.abs(props.priorities[props.warningType]) + 1)[0];
+      copy[changeKey] = copy[changeKey] > 0 ? copy[changeKey] - 1 : copy[changeKey] + 1;
+      copy[props.warningType] = copy[props.warningType] > 0 ? copy[props.warningType] + 1 : copy[props.warningType] - 1;
+      props.setPriority(copy);
+    }
+    props.setUpdateCount(props.updateCount + 1);
+  }
+
+  const handleRaisePriority = () => {
+    if (Math.abs(props.priorities[props.warningType]) > 1) {
+      let copy = props.priorities;
+      let changeKey = Object.keys(props.priorities).filter(key => Math.abs(props.priorities[key]) === Math.abs(props.priorities[props.warningType]) - 1)[0];
+      copy[changeKey] = copy[changeKey] > 0 ? copy[changeKey] + 1 : copy[changeKey] - 1;
+      copy[props.warningType] = copy[props.warningType] > 0 ? copy[props.warningType] - 1 : copy[props.warningType] + 1;
+      props.setPriority(copy);
+    }
+    props.setUpdateCount(props.updateCount + 1);
+  }
+
+  const handleToZero = () => {
+    let copy = props.priorities;
+    if (Math.abs(props.priorities[props.warningType]) > 0.5) {
+      let cnt = 1;
+      Object.keys(props.priorities).sort((a, b) => Math.abs(props.priorities[a]) - Math.abs(props.priorities[b])).map(
+        key => {
+          if (key !== props.warningType) {
+            if (props.priorities[key] > 0) {
+              copy[key] = cnt;
+            } else {
+              copy[key] = -cnt;
+            }
+            cnt++;
+          }
+        }
+      );
+      copy[props.warningType] = copy[props.warningType] > 0 ? 0.1 : -0.1;
+    } else {
+      Object.keys(props.priorities).map( key =>
+        {
+          if (key !== props.warningType) {
+            if (props.priorities[key] > 0) {
+              copy[key] = copy[key] + 1;
+            } else {
+              copy[key] = copy[key] - 1;
+            }
+          }
+        }
+      );
+      copy[props.warningType] = copy[props.warningType] > 0 ? 1 : -1;
+    }
+    props.setPriority(copy);
+    props.setUpdateCount(props.updateCount + 1);
+  }
+
+  const handleInvertEvent = () => {
+    let copy = props.priorities;
+    copy[props.warningType] = -copy[props.warningType];
+    props.setPriority(copy);
+    props.setUpdateCount(props.updateCount + 1);
+  }
+
   return (
     <div className='prioritybox'>
-      <button className='button-tiny'
-        onClick={
-          () => {
-            let index = props.priorities.indexOf(props.warningType);
-            if (index > 0) {
-              let temp = props.priorities[index - 1];
-              props.priorities[index - 1] = props.priorities[index];
-              props.priorities[index] = temp;
-            }
-            props.setUpdateCount(props.updateCount + 1);
+      <table className='prioritybox-table'>
+        <tbody>
+          <tr>
+            <td style={{ width: "20%" }}>
+              <p className={ 'filled-' + props.warningType + '-warning-box'}>
+                {Math.floor(Math.abs(props.priorities[props.warningType]))}순위</p>
+            </td>
+            <td style={{ width: "80%" }}>
+              <strong style={{ color: props.priorities[props.warningType] < 0 ? "red" : "black" }}>{props.message}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style={{ padding: "7px", textAlign: "justify" }}>
+              {props.moreInfo}
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style={{ padding: "7px", display: "flex", flexDirection: "row" }}>
+              <button className='button-0' onClick={handleRaisePriority} disabled={Math.abs(props.priorities[props.warningType]) < 0.5}>순위 ↑</button>
+              <button className='button-0' onClick={handleLowerPriority} disabled={Math.abs(props.priorities[props.warningType]) < 0.5}>순위 ↓</button>
+              <button className='button-0' onClick={handleToZero}>
+                {Math.abs(props.priorities[props.warningType]) > 0.5 ? "0순위로" : "원래대로"}</button>
+              <button className='button-0' onClick={handleInvertEvent}>반전</button>
+            </td>
+          </tr>
+          {
+            Math.abs(props.priorities[props.warningType]) < 0.5 && (
+              <tr>
+                <td></td>
+                <td style={{ padding: "7px", textAlign: "justify" }}>
+                  <p style={{ color: "darkred", fontWeight: "800", border: "2px solid darkred" }}>이 규칙을 만족하지 않는 시간표는 표시되지 않습니다.</p>
+                </td>
+              </tr>
+            )
           }
-        }
-      >↑</button>
-      <button className='button-tiny'
-        onClick={
-          () => {
-            let index = props.priorities.indexOf(props.warningType);
-            if (index < props.priorities.length - 1) {
-              let temp = props.priorities[index + 1];
-              props.priorities[index + 1] = props.priorities[index];
-              props.priorities[index] = temp;
-            }
-            props.setUpdateCount(props.updateCount + 1);
-          }
-        }
-      >↓</button>
-      <div className="priority-info">
-        <div className={props.warningType + '-warning-box'}>
-          <strong> [{props.priorities.indexOf(props.warningType) + 1}순위]</strong> {props.message}
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   );
 }
