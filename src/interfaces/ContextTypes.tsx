@@ -16,6 +16,7 @@ export type previewContextTypes = {
   setKeyWord: (param: string) => void;
   searchText: string;
   setSearchText: (param: string) => void;
+  shownLectures: lecture[];
 
   showPopup: boolean;
   setShowPopup: (param: boolean) => void;
@@ -61,6 +62,8 @@ export type creationContextTypes = {
   setClickedSubject: (param: string) => void;
   addedSubjKeyWord: string;
   setAddedSubjKeyWord: (param: string) => void;
+  matchingLectures: lecture[];
+  matchingSubjects: lecture[];
 
   showPopup: boolean;
   setShowPopup: (param: boolean) => void;
@@ -126,6 +129,7 @@ export const defaultPreviewContext = {
   setSearchText: function (param: string): void {
     throw new Error('Function not implemented.');
   },
+  shownLectures: [],
   showPopup: false,
   setShowPopup: function (param: boolean): void {
     throw new Error('Function not implemented.');
@@ -204,6 +208,8 @@ export const defaultCreationContext = {
   setAddedSubjKeyWord: function (param: string): void {
       throw new Error('Function not implemented.');
   },
+  matchingLectures: [],
+  matchingSubjects: [],
   showPopup: false,
   setShowPopup: function (param: boolean): void {
       throw new Error('Function not implemented.');

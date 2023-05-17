@@ -20,12 +20,12 @@ function SubjectSelectList() {
   return (
     <div className="appTable__container">
       <h2 className='large-title' style={{ width: "100%" }}>
-        <span style={{ marginRight: "5%" }}>담은 강좌</span>
-        <button className='button-tiny'
+        담은 강좌
+        {/* <button className='button-tiny'
           onClick={
             () => {data.handleAllowMultChange();}
           }
-        >{data.allowMult ? "중복 허용됨" : "중복 제외됨"}</button>
+        >{data.allowMult ? "중복 허용됨" : "중복 제외됨"}</button> */}
       </h2>
       <div className="appTable__selectScrollContainer">
         {data.selSubj.map(

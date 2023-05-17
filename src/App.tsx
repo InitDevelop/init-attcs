@@ -29,6 +29,7 @@ import 'firebase/storage';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { downloadObjectAsJson } from './components/global/FileIO';
+import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -87,9 +88,10 @@ function App() {
   const [selSubj, setSelSubj] = useState<Array<lecture>>([]);
 
   // States related to search options
-  const [allowMult, setAllowMult] = useState<boolean>(false);
+  const [allowMult, setAllowMult] = useState<boolean>(true);
   const [keyWord, setKeyWord] = useState<string>("");
   const [searchText, setSearchText] = useState<string>(""); // Originally subjName
+  const [shownLectures, setShownLectures] = useState<lecture[]>([]);
 
   // States related to the tooltip
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
@@ -166,8 +168,16 @@ function App() {
   // Handles input change in the search box
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
-    setKeyWord("");
   };
+
+  useEffect(() => {
+    setShownLectures(
+      lectureDatabase.filter(
+        (lect: lecture) => {
+          return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
+      ).sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
+    );
+  }, [searchText])
 
   // Handles input change in the keyword box
   const handleKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,6 +203,9 @@ function App() {
   const [addingSubjName, setAddingSubjName] = useState<string>("");
   const [clickedSubject, setClickedSubject] = useState<string>("");
   const [addedSubjKeyWord, setAddedSubjKeyWord] = useState<string>("");
+  const [matchingLectures, setMatchingLectures] = useState<lecture[]>([]);
+  const [matchingSubjects, setMatchingSubjects] = useState<lecture[]>([]);
+
 
   // States related to popups
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -257,7 +270,35 @@ function App() {
   // Function that handles input in addSubjectSearch
   const handleAddInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddingSubjName(event.target.value);
+    setClickedSubject("");
   };
+
+  useEffect(() => {
+    let subjectsAdded: string[] = [];
+    let matches: lecture[] = [];
+
+    let filtered = lectureDatabase.filter(
+      subject => addingSubjName.length > 1 && CheckRelatedLecture(addingSubjName, subject)
+    );
+
+    filtered.sort((a, b) => accuracy(addingSubjName, b.subj_name, "") - accuracy(addingSubjName, a.subj_name, ""))
+    .map(subject => 
+      {
+        if (!subjectsAdded.includes(subject.subj_id)) {
+          subjectsAdded.push(subject.subj_id);
+          matches.push(subject);
+        }
+      }
+    );
+    setMatchingSubjects(matches);
+
+    setMatchingLectures(
+      filtered.filter(
+        subject => subject.subj_id === clickedSubject
+      )
+    );
+
+  }, [addingSubjName, clickedSubject]);
 
   // Function that handles input in keyword box
   const handleAddKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -273,6 +314,7 @@ function App() {
     allowMult, setAllowMult,
     keyWord, setKeyWord,
     searchText, setSearchText,
+    shownLectures,
 
     showPopup, setShowPopup,
     popupTitle, setPopupTitle,
@@ -303,6 +345,8 @@ function App() {
     addingSubjName, setAddingSubjName,
     clickedSubject, setClickedSubject,
     addedSubjKeyWord, setAddedSubjKeyWord,
+    matchingLectures,
+    matchingSubjects,
 
     showPopup, setShowPopup,
     popupTitle, setPopupTitle,
@@ -501,3 +545,4 @@ function App() {
 }
 
 export default App;
+

@@ -9,10 +9,9 @@ import "../AppMobile.css";
 import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
 import PreviewAddMenu from '../components/preview/PreviewAddMenu';
 import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
-import { getHoveredTimeTableSlots, getTimeTableSlots } from '../interfaces/Lecture';
+import { getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
 
 function Preview() {
-
   const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
   const [isRemoveMenuVisible, setRemoveMenuVisible] = useState<boolean>(false);
 

@@ -12,7 +12,7 @@ const messages: Dictionary<string> = {
   "empty": "공강 있게",
   "morning": "이른 아침 수업 없게",
   "space": "우주공강 없게",
-  "count": "하루 총 수업시간 짧게"
+  "count": "강의 많은 날이 적게"
 };
 
 const messagesInv: Dictionary<string> = {
@@ -21,7 +21,7 @@ const messagesInv: Dictionary<string> = {
   "empty": "공강 없게",
   "morning": "이른 아침 수업 있게",
   "space": "우주공강 있게",
-  "count": "하루 총 수업시간 길게"
+  "count": "강의 많은 날이 있게"
 };
 
 const moreInfo: Dictionary<string> = {
@@ -30,7 +30,7 @@ const moreInfo: Dictionary<string> = {
   "empty": "공강(하루 종일 강의가 없는 날)이 가능한 경우를 우선시합니다.",
   "morning": "9시 40분 이전 아침 일찍 강의가 시작되는 경우를 후순위로 미룹니다.",
   "space": "두 강의 사이에 비는 시간이 3시간 이상인 경우(우주공강)를 후순위로 미룹니다.",
-  "count": "하루 총 수업시간이 5시간을 넘어가는 경우를 후순위로 미룹니다."
+  "count": "강의가 많은 날이 있는 경우(4개 이상)를 후순위로 미룹니다."
 };
 
 const moreInfoInv: Dictionary<string> = {
@@ -39,7 +39,7 @@ const moreInfoInv: Dictionary<string> = {
   "empty": "공강(하루 종일 강의가 없는 날)이 없는 경우를 우선시합니다.",
   "morning": "9시 40분 이전 아침 일찍 강의가 시작되는 경우를 우선시합니다.",
   "space": "두 강의 사이에 비는 시간이 3시간 이상인 경우(우주공강)를 우선시합니다.",
-  "count": "하루 총 수업시간이 5시간을 넘어가는 경우를 우선시합니다."
+  "count": "강의가 많은 날(4개 이상)이 있는 경우를 우선시합니다."
 };
 
 type propType = {

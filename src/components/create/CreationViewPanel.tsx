@@ -2,13 +2,66 @@ import { useContext } from 'react';
 import "../../css/AppTable.css";
 import "../add/SubjectList.css";
 import { CreationContext } from "../../App";
-import { CreateScenarios } from './CreateScenarios';
 import { lecture } from '../../interfaces/Lecture';
 import ScenarioSummary from './ScenarioSummary';
+import { scenario } from '../../interfaces/Scenario';
 
-function CreationViewPanel() {
+type propType = {
+  setIsLoading: (param: boolean) => void;
+  setScenarios: (param: scenario[]) => void;
+  setTotalCombinations: (param: number) => void;
+  setCurrentCombination: (param: number) => void;
+  setValidCombinations: (param: number) => void;
+};
+
+function CreationViewPanel(props: propType) {
 
   const data = useContext(CreationContext);
+
+  const runWorker = () => {
+    const worker = new Worker(new URL("./CreationWorker.tsx", import.meta.url));
+    props.setCurrentCombination(0);
+    props.setTotalCombinations(1);
+    props.setValidCombinations(0);
+    props.setIsLoading(true);
+    
+
+    worker.onmessage = (event) => {
+      if (event.data.finished) {
+        data.setScenarioNumber(0);
+        props.setScenarios(event.data.scenarios);
+        if (data.scenarios.length > 0) {
+          let relatedLectures: lecture[] = [];
+          for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
+            relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
+          }
+          data.setRelatedLectures(relatedLectures);
+        }
+        worker.terminate();
+        props.setIsLoading(false);
+      } else {
+        props.setCurrentCombination(event.data.current);
+        props.setTotalCombinations(event.data.total);
+        props.setValidCombinations(event.data.valid);
+      }
+    }
+
+    worker.postMessage({
+      originalLectureGroups: data.lectureGroups,
+      priorityValues: data.priority
+    });
+  }
+
+  const performCreationTask = async() => {
+    
+    
+
+    //await CreateScenarios(data.setScenarios, data.lectureGroups, data.priority);
+
+
+
+    
+  }
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
@@ -25,19 +78,7 @@ function CreationViewPanel() {
           fontWeight: "700"
         }
       }
-      onClick={
-        () => {
-            data.setScenarioNumber(0);
-            CreateScenarios(data.setScenarios, data.lectureGroups, data.priority);
-            if (data.scenarios.length > 0) {
-              let relatedLectures: lecture[] = [];
-              for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
-                relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
-              }
-              data.setRelatedLectures(relatedLectures);
-            }
-          }
-      }>{(data.scenarios.length > 0) ? "시간표 다시 생성하기" : "시간표 자동 생성하기"}</button>
+      onClick={runWorker}>{(data.scenarios.length > 0) ? "시간표 다시 생성하기" : "시간표 자동 생성하기"}</button>
 
       {
         data.scenarios.length > 0 && (

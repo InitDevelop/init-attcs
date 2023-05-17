@@ -160,8 +160,8 @@ function LectureBox(props: propType) {
               <button className="button-0" onClick={() => {
                 const addingSubj = props.subject;
                 if (props.isExistingSubj(addingSubj)) {
-                  props.displayPopup("교과목명 중복",
-                    "이미 추가된 교과목입니다.\n해당 강좌를 담으시려면 \"교과목명 중복 허용하기\"를 체크하시길 바랍니다.");
+                  props.displayPopup("교과목 중복",
+                    "이미 추가된 교과목입니다.");
                 } else {
                   props.addLectureToList(addingSubj);
                 }
@@ -175,10 +175,8 @@ function LectureBox(props: propType) {
             }
             </td> : ("")
           }
-
         </tr>
       </tbody>
-
     </table>
   );
 }

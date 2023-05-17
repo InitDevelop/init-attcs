@@ -11,8 +11,6 @@ type propType = {
 
 function SubjectBox(props: propType) {
 
-  const [showText, setShowText] = useState(false);
-
   return (
     <div className={(props.subj_id === props.clickedSubject) ? "clicked-lecturebox" : "lecturebox"} style={
       { 
@@ -21,8 +19,6 @@ function SubjectBox(props: propType) {
         paddingLeft: "15px",
         paddingRight: "15px",
       }}
-      onMouseEnter={() => setShowText(true)}
-      onMouseLeave={() => setShowText(false)}
       onClick={() => {
         props.setClickedSubject(props.subj_id);
       }}
@@ -31,7 +27,7 @@ function SubjectBox(props: propType) {
         <strong>
           {props.subj_name + "  "}
         </strong>
-          ({props.subj_id}){"  "}
+          ({props.subj_id})
       </p>
     </div>
   )

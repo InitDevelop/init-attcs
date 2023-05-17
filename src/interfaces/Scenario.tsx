@@ -60,34 +60,58 @@ export function getTimeSlots(lect: lecture) {
 }
 
 export const isTimeIntersect = (thisStart: number, thisEnd: number, thatStart: number, thatEnd: number) => {
-  let ret = true;
-  if (thisStart > thatEnd || thisEnd < thatStart) {
-    ret = false;
-  }
-  return ret;
+  return thisStart <= thatEnd && thisEnd >= thatStart;
 }
 
 export const intersects = (sc: scenario, lect: lecture) => {
-  let timeSlotsThis: pseudoTimeSlot[] = getTimeSlots(lect);
-  let timeSlotsThat: pseudoTimeSlot[] = [];
-  for (const scLect of sc.lectures) {
-    timeSlotsThat.push(...getTimeSlots(scLect));
+  let scenarioSlots: pseudoTimeSlot[] = sc.lectures.flatMap(lect => getTimeSlots(lect));
+  let newTimeSlots: pseudoTimeSlot[] = getTimeSlots(lect);
+  let timeSlotsThat: pseudoTimeSlot[][] = [[], [], [], [], []];
+  
+  for (const slot of scenarioSlots) {
+    if (slot.date > 5) continue;
+    timeSlotsThat[slot.date].push(slot);
   }
 
-  let isIntersect: boolean = false;
+  for (const newSlot of newTimeSlots) {
+    if (timeSlotsThat[newSlot.date].some(slot =>
+      isTimeIntersect(newSlot.startTime, newSlot.endTime, slot.startTime, slot.endTime))) {
+        return true;
+    }
+  }
+  return false;
+}
 
-  totalLoop: for (const lectTimeSlot of timeSlotsThis) {
-    for (const scTimeSlot of timeSlotsThat) {
-      if (isTimeIntersect(lectTimeSlot.startTime, lectTimeSlot.endTime, scTimeSlot.startTime, scTimeSlot.endTime)) {
-        if (lectTimeSlot.date === scTimeSlot.date) {
-          isIntersect = true;
-          break totalLoop;
-        }
+export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
+  let allowLeftover: boolean[] = lectureGroups.map(lg => !lg.mustInclude);
+  let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [], priority: 0 };
+  let leftOverIDs: string[] = [];
+  
+  // Meaning of exitCode
+  // 0 : success
+  // 1 : fail (includes intersecting timeslot)
+
+  let exitCode = 0;
+
+  for (let i = 0; i < lectureGroups.length; i++) {
+    if (!intersects(returnScenario, lectureGroups[i].timeShareLectures[indexes[i]][0])) {
+      returnScenario.lectures.push(lectureGroups[i].timeShareLectures[indexes[i]][0]);
+      returnScenario.shareTimeLectures.push(lectureGroups[i].timeShareLectures[indexes[i]]);
+    } else {
+      if (allowLeftover[i]) {
+        leftOverIDs.push(lectureGroups[i].subj_id);
+      } else {
+        return { scenario: returnScenario, leftovers: [], exitCode: 1 };
       }
     }
   }
-  return isIntersect;
+  return { scenario: returnScenario, leftovers: leftOverIDs, exitCode: exitCode };
+
 }
+
+/*
+
+BACKUP
 
 export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
   let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [], priority: 0 };
@@ -103,3 +127,21 @@ export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
 
   return {scenario: returnScenario, leftovers: leftOverIDs};
 }
+
+
+export function getScenario(lectureGroups: lectureGroup[], indexes: number[]) {
+  let returnScenario: scenario = { lectures: [], shareTimeLectures: [], warnings: [], priority: 0 };
+  let leftOverIDs: string[] = [];
+  for (let i = 0; i < lectureGroups.length; i++) {
+    if (!intersects(returnScenario, lectureGroups[i].timeShareLectures[indexes[i]][0])) {
+      returnScenario.lectures.push(lectureGroups[i].timeShareLectures[indexes[i]][0]);
+      returnScenario.shareTimeLectures.push(lectureGroups[i].timeShareLectures[indexes[i]]);
+    } else {
+      leftOverIDs.push(lectureGroups[i].subj_id);
+    }
+  }
+
+  return { scenario: returnScenario, leftovers: leftOverIDs };
+}
+
+*/

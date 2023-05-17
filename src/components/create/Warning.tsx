@@ -20,7 +20,7 @@ function getComponent(warningType: string) {
   } else if (warningType === "count") {
     return (
       <div className="count-warning-box">
-        ⌛ 수업시간이 5시간 이상인 날이 있어요!
+        ⌛ 강의가 많은 날이 있어요!
       </div>
     )
   } else if (warningType === "morning") {

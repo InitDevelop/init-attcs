@@ -11,51 +11,12 @@ function SubjectSearchList() {
 
   const data = useContext(PreviewContext);
 
-  const accuracy = (abbrev: string, subj_name: string, prof: string) => {
-    let prefix: number = 0;
-    if (!isRelatedName(abbrev, subj_name)) {
-      prefix -= 1000;
-    }
-    return prefix + (abbrev.replace(" ", "").length / subj_name.replace(" ", "").length);
-  };
-
-  function isRelatedName(abbrev: string, full: string) {
-    abbrev = abbrev.replace(" ", "");
-    full = full.replace(" ", "");
-    var ret = true;
-    for (let i = 0; i < abbrev.length; i++) {
-      var sub = abbrev.substring(i, i + 1);
-      if (full.includes(sub)) {
-        full = full.substring(full.indexOf(sub));
-      } else {
-        ret = false;
-        break;
-      }
-    }
-    return ret;
-  }
-
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <span className="large-title">
-        <span style={{ marginRight: "5%" }}>찾은 강좌</span>
-        <label className='label-1' style={{ fontWeight: "normal", marginRight: "2%" }}>
-          <span className="medium-text">수강반</span>
-        </label>
-        <input className="input-1" type="text" style={{width: "20%", height: "80%", fontSize: "17px"}} value={data.keyWord} onChange={data.handleKeywordChange}></input>
-      </span>
+      <span className="large-title">찾은 강좌</span>
       <div className="appTable__scrollContainer">
         {
-          data.lectureDatabase.filter(
-            (lect: lecture) => {
-              return ((data.searchText.length > 1) && CheckRelatedLecture(data.searchText, lect));
-
-              //let isRelated = isRelatedName(data.searchText, subject.prof + subject.subj_name + subject.prof);
-              //let isRelatedKeyWord = (data.keyWord === "") || subject.extra_info.replace(' ', '').includes(data.keyWord);
-              //return ((data.searchText.length > 1) && isRelated && isRelatedKeyWord);
-            }
-          )
-          .sort((a, b) => (accuracy(data.searchText, b.subj_name, b.prof) - accuracy(data.searchText, a.subj_name, a.prof))).map(
+          data.shownLectures.map(
             (subject: lecture) => {
               return (
                 <LectureBox boxType={"search"} subject={subject}

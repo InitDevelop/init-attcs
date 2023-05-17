@@ -24,25 +24,16 @@ function AddSubjectSearchList() {
       <h2 className="large-title">찾은 과목
       </h2>
       <div className="appTable__scrollContainer">
-        {data.lectureDatabase.filter(
-          (lect: lecture) => {
-            return ((data.addingSubjName !== "") && CheckRelatedLecture(data.addingSubjName, lect));
-          }
-        )
-        .sort((a, b) => accuracy(data.addingSubjName, b.subj_name) - accuracy(data.addingSubjName, a.subj_name)).map(subject => {
-          if (!subjectsAdded.includes(subject.subj_id)) {
-            subjectsAdded.push(subject.subj_id);
-            return (
-              <SubjectBox
-                subj_name           = {subject.subj_name}
-                subj_id             = {subject.subj_id}
-                clickedSubject      = {data.clickedSubject}
-                setClickedSubject   = {data.setClickedSubject}
-              />
-            )
-          }
+        {
+          data.matchingSubjects.map(subject => 
+            <SubjectBox
+              subj_name           = {subject.subj_name}
+              subj_id             = {subject.subj_id}
+              clickedSubject      = {data.clickedSubject}
+              setClickedSubject   = {data.setClickedSubject}
+            />
+          )
         }
-        )}
       </div>
     </div>
     )

@@ -5,8 +5,15 @@ import TimeTable from '../components/preview/TimeTable';
 import { blankLecture, getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
 import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
+import Loading from '../components/global/Loading';
 
 function Create() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [totalCombinations, setTotalCombinations] = useState<number>(1);
+  const [currentCombination, setCurrentCombination] = useState<number>(0);
+  const [validCombinations, setValidCombinations] = useState<number>(0);
+
   const [updateCount, setUpdateCount] = useState<number>(0);
   const data = useContext(CreationContext);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
@@ -77,7 +84,13 @@ function Create() {
       }
       </div>
       <div className='app-parent-container'>
-        <CreationViewPanel/>
+        <CreationViewPanel
+          setIsLoading={setIsLoading}
+          setScenarios={data.setScenarios}
+          setCurrentCombination={setCurrentCombination}
+          setTotalCombinations={setTotalCombinations}
+          setValidCombinations={setValidCombinations}
+        />
       </div>
       <div className='app-parent-container'>
         <AddedSubjectList
@@ -85,6 +98,16 @@ function Create() {
           setUpdateCount={setUpdateCount}
         />
       </div>
+
+      {
+        isLoading && (
+          <Loading
+            currentCombination={currentCombination}
+            totalCombinations={totalCombinations}
+            validCombinations={validCombinations}
+          />
+        )
+      }
     </div>
     :
     <div className='app-main-container'>
