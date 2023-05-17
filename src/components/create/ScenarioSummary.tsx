@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import './ScenarioSummary.css';
 import '../../App.css'
 import { CreationContext } from '../../App';
@@ -37,10 +37,13 @@ const getNumPriorities = (prioritiesCount: number[]) => {
 const colors: string[] 
   = ["#39709D", "#5997c9", "#f5c764", "#F19B61", "#F3825F", "#F96859"];
 
+
+
 function ScenarioSummary() {
   const data = useContext(CreationContext);
   const prioritiesCount = data.scenarios.map(sc => sc.priority);
   const numPriorities = getNumPriorities(prioritiesCount);
+
   return (
     <div className='scenario-summary-container'>
 

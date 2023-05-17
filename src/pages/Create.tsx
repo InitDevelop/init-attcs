@@ -8,6 +8,7 @@ import AddedSubjectList from '../components/add/AddedSubjectList';
 import Loading from '../components/global/Loading';
 
 function Create() {
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [totalCombinations, setTotalCombinations] = useState<number>(1);
@@ -20,15 +21,14 @@ function Create() {
   const prevPropsRef = useRef(data.scenarioNumber);
 
   useEffect(() => {
-    const prevProps = prevPropsRef.current;
-    if (prevProps !== data.scenarioNumber) {
+    if (data.scenarios.length > 0) {
       let relatedLectures: lecture[] = [];
       for (let i = 0; i < data.scenarios[data.scenarioNumber].shareTimeLectures.length; i++) {
         relatedLectures.push(...data.scenarios[data.scenarioNumber].shareTimeLectures[i]);
       }
       data.setRelatedLectures(relatedLectures);
     }
-  }, []);
+  }, [data.scenarioNumber]);
 
   useEffect(() => {
     function handleResize() {

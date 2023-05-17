@@ -48,13 +48,12 @@ function SubjectGroup(props: propType) {
                 popAddedLecture = {props.popAddedLecture}
                 updateCount={props.updateCount}
                 setUpdateCount={props.setUpdateCount}
-                isInScenario={(lect: lecture) => {
-                  if (data.scenarios.length > 0) {
-                    return data.relatedLectures.includes(lect);
-                  } else {
-                    return false;
+                isInScenario={
+                  (data.scenarios.length > 0) ?
+                  (data.relatedLectures.filter(l => l.subj_id === subject.subj_id && l.lect_no === subject.lect_no).length > 0)
+                  :
+                  false
                   }
-                }}
               />
             )
           }
