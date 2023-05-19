@@ -1,7 +1,7 @@
 import './App.css';
 import './AppMobile.css';
 import lectureData from "./db/data.json"
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Add from './pages/Add';
 import Preview from './pages/Preview';
@@ -10,9 +10,8 @@ import SubjTooltip from './components/global/SubjTooltip';
 import Popup from './components/global/Popup';
 
 import logo from './img/logo.png';
-import inst1 from './img/inst1.png';
 import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
-import { Dictionary, StringNumberPair, xyTuple } from './interfaces/Util';
+import { Dictionary, xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './interfaces/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
@@ -20,14 +19,12 @@ import { scenario } from './interfaces/Scenario';
 import packageJson from '../package.json';
 import Settings from './pages/Settings';
 
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -46,8 +43,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const appVersion: string = packageJson.version;
 
@@ -64,22 +59,8 @@ function App() {
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 900);
-  /* 
-  const isMobile = resolution >= 320 && resolution <= 480;
-  const isTablet = resolution >= 768 && resolution <= 1024;
-  const isDesktop = !isMobile && !isTablet;
-  */
   const [lectureDatabase, setLectureDatabase] = useState<lecture[]>((lectureData as { subjects: lecture[] }).subjects);
 
-  // useEffect(() => {
-  //   fetch('data.json')
-  //     .then((response) => response.json())
-  //     .then((data) => setLectureData(data))
-  //     .catch((error) => console.log(error));
-  //   if (lectureData) {
-  //     setLectureDatabase((lectureData as { subjects: lecture[] }).subjects);
-  //   }
-  // }, []);
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
   ****************************************************************************/
@@ -155,15 +136,6 @@ function App() {
       displayPopup("교과목명 중복 허용 해제", <>교과목명이 중복된 과목들은 제거되었습니다.</>);
     }
   };
-
-  // Pops a certain subject out of the selSubj list
-  /*
-  const handlePopSubject = (subject: lecture) => {
-    setSelSubj(selSubj.filter(
-      item => (item.subj_id !== subject.subj_id) 
-        || (item.lect_no !== subject.lect_no)));
-  };
-  */
  
   // Handles input change in the search box
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -453,7 +425,7 @@ function App() {
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
-                }><strong>샤간표 베타 v{appVersion}</strong></span>
+                }><strong>샤간표 v{appVersion}</strong></span>
               </div>
 
               <MobileMenuButton

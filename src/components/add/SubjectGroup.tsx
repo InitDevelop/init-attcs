@@ -5,7 +5,6 @@ import AddedSubject from './AddedSubject'
 import { lecture, lectureGroup } from "../../interfaces/Lecture";
 import { CreationContext } from "../../App";
 import { useContext } from "react";
-import { range } from "../../interfaces/Util";
 
 type propType = {
   lectureGroup: lectureGroup;

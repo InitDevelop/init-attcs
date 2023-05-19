@@ -58,8 +58,18 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
   outerLoop:
   for (const r of result) {
     currentProcessNum++;
+    
     let scResult = getScenario(lectureGroups, r);
 
+    if (currentProcessNum % 123 === 0) {
+      postMessage({scenarios: [],
+        finished: false,
+        current: currentProcessNum,
+        total: totalProcessCount,
+        valid: validCount
+      });
+    }
+    
     if (scResult.exitCode === 1) {
       continue outerLoop;
     }
@@ -105,6 +115,7 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
       total: totalProcessCount,
       valid: validCount
     });
+
   }
 
   let sorted = priorities.sort((a, b) => (b - a));

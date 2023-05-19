@@ -1,6 +1,7 @@
-import React from 'react'
 import "../../App.css";
 import "./MobilePreviewMenu.css"
+import plusIcon from "../../img/plus.png";
+import minusIcon from "../../img/minus.png";
 
 type propType = {
   //totalCredit: number;
@@ -11,14 +12,8 @@ type propType = {
 function MobilePreviewMenu(props: propType) {
   return (
     <div className='preview-menu-container'>
-      <button className='button-0'
-      onClick={() => props.setAddMenuVisible(true)}>
-        강좌 추가하기
-      </button>
-      <button className='button-0'
-      onClick={() => props.setRemoveMenuVisible(true)}>
-        강좌 제거하기
-      </button>
+      <img className='plus-button' src={plusIcon} alt={"add"} width={"15px"} height={"15px"} onClick={() => props.setAddMenuVisible(true)}/>
+      <img className='minus-button' src={minusIcon} alt={"add"} width={"15px"} height={"15px"} onClick={() => props.setRemoveMenuVisible(true)}/>
     </div>
   )
 }

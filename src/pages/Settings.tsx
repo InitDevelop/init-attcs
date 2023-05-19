@@ -1,14 +1,6 @@
 import { useContext, useState } from 'react';
-import CreationOptions from '../components/preview/CreationOptions';
-import SubjectSearchList from '../components/preview/SubjectSearchList';
-import SubjectSelectList from '../components/preview/SubjectSelectList';
-import TimeTable from '../components/preview/TimeTable';
 import { PreviewContext } from "../App";
-
 import "../AppMobile.css";
-import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
-import PreviewAddMenu from '../components/preview/PreviewAddMenu';
-import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
 import PriorityManager from '../components/settings/PriorityManager';
 import Help from '../components/settings/Help';
 
@@ -20,24 +12,25 @@ function Settings() {
 
   return (
     !data.isMobile ?
-    <div className="app-main-container">
-      <div className='app-parent-container' style={{ width: "35%" }}>
-        <PriorityManager
-          updateCount={updateCount}
-          setUpdateCount={setUpdateCount}
-        />
-      </div>
+      <div className="app-main-container">
+        <div className='app-parent-container' style={{ width: "35%" }}>
+          <PriorityManager
+            updateCount={updateCount}
+            setUpdateCount={setUpdateCount}
+          />
+        </div>
 
-      <div className='app-parent-container' style={{ width: "55%" }}>
-        <Help/>
+        <div className='app-parent-container' style={{ width: "55%" }}>
+          <Help/>
+        </div>
       </div>
-    </div>
     :
-    <div className="app-main-container">
-      <div className='app-parent-container'>
-
+      <div className="app-main-container">
+        <div className='app-parent-container'>
+          <br/>
+          <h1>모바일 버전은 준비중입니다!</h1>
+        </div>
       </div>
-    </div>
   );
 }
 

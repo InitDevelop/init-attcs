@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { CreationContext } from '../../App';
 
 function CircleScenarios() {

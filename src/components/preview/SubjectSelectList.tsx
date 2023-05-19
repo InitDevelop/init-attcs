@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from '../global/LectureBox';
@@ -42,7 +42,9 @@ function SubjectSelectList() {
               lectureGroups={[]}
               includesLecture={function (param: lecture): boolean {
                 throw new Error('Function not implemented.');
-              }}/>
+              }}
+              isMobile={data.isMobile}
+              />
             )
           }
         )}

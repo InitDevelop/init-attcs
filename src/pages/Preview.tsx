@@ -45,6 +45,7 @@ function Preview() {
     :
     <div className="app-main-container">
       <div className='app-parent-container'>
+
         <TimeTable
           isMobile={data.isMobile}
           lectures={data.selSubj}

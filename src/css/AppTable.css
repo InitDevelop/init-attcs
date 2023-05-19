@@ -45,6 +45,9 @@
     box-shadow: none;
 
     margin: 0;
+/* 
+    transition-property: transform;
+    transition: 200ms ease-in-out; */
   }
 
   .appTable__scrollContainer, .appTable__selectScrollContainer {

@@ -1,8 +1,8 @@
-import React, { createContext, useContext } from 'react'
+import { useContext } from 'react'
 import '../../css/AppTable.css';
 import '../../App.css';
 import '../../AppMobile.css';
-import { CreationContext, PreviewContext } from "../../App";
+import { CreationContext } from "../../App";
 import PriorityBox from "./PriorityBox";
 import { Dictionary } from '../../interfaces/Util';
 

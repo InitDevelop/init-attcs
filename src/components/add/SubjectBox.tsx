@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import '../global/LectureBox.css'
 import '../../css/AppTable.css'
 

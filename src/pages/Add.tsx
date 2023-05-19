@@ -15,6 +15,9 @@ function Add() {
   const [selectedDates, setSelectedDates] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
 
+  const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
+  const [isRemoveMenuVisible, setRemoveMenuVisible] = useState<boolean>(false);
+
   const data = useContext(CreationContext);
 
   return (
@@ -57,7 +60,8 @@ function Add() {
     </div>
     :
     <div className='app-main-container'>
-      
+      <br/>
+      <h1>모바일 버전은 준비중입니다!</h1>
     </div>
   )
 }

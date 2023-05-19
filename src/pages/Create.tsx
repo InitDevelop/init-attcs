@@ -111,7 +111,8 @@ function Create() {
     </div>
     :
     <div className='app-main-container'>
-      
+      <br/>
+      <h1>모바일 버전은 준비중입니다!</h1>
     </div>
   )
 }

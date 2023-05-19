@@ -1,10 +1,10 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
+import { useContext } from 'react'
 import './SubjectList.css'
 import '../../css/AppTable.css';
 import '../../App.css';
 import SubjectGroup from './SubjectGroup'
 import { CreationContext } from "../../App";
-import { lecture, lectureGroup } from '../../interfaces/Lecture';
+import { lectureGroup } from '../../interfaces/Lecture';
 
 type propType = {
   updateCount: number;

@@ -1,6 +1,6 @@
 import { blankLecture, lecture, lectureGroup } from "./Lecture";
 import { scenario } from "./Scenario";
-import { Dictionary, StringNumberPair, xyTuple } from "./Util";
+import { Dictionary, xyTuple } from "./Util";
 
 export type previewContextTypes = {
   lectureDatabase: lecture[];

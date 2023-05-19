@@ -56,7 +56,7 @@
 @media only screen and (max-width: 900px) {
   .lecturebox {
     margin: 0 auto;
-    max-height: 100px;
+    height: 100px;
     
     font-size: medium;
     font-weight: normal;

@@ -28,7 +28,7 @@ type propType = {
 
   lectureGroups: lectureGroup[];
   includesLecture: (param: lecture) => boolean;
-
+  isMobile: boolean;
 }
 
 function LectureBox(props: propType) {
@@ -113,17 +113,17 @@ function LectureBox(props: propType) {
                       }>
                       {props.subject.subj_name + "  "}
                     </span>
-                    { (props.subject.extra_info.includes("®")) && (
+                    { (props.subject.extra_info.includes("®")) && !props.isMobile && (
                       <button className='button-tiny' onClick={
                         () => {
-                          props.displayPopup("수강반 제한 정보", props.subject.extra_info);
+                          if (!props.isMobile) props.displayPopup("수강반 제한 정보", props.subject.extra_info);
                         }
                       }><p style={{fontSize: "medium", fontWeight: 700}}>수강반</p></button>
                     )}
-                    { (props.subject.lang !== "한국어") && (
+                    { (props.subject.lang !== "한국어") && !props.isMobile && (
                       <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
                         () => {
-                          props.displayPopup("강의 언어", props.subject.lang);
+                          if (!props.isMobile) props.displayPopup("강의 언어", props.subject.lang);
                         }
                       }><p style={{fontSize: "medium", fontWeight: 700}}>언어</p></button>
                     )}
@@ -131,10 +131,29 @@ function LectureBox(props: propType) {
                 </tr>
                 <tr>
                   <td>
-                    <span className='credit'>{props.subject.credit + "학점"}</span>
-                    <span>{"  " + props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
+                    <span className='credit'>{props.subject.credit + "학점"}</span>{"  "}
+                    { !props.isMobile &&
+                      <span>{"  " + props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
+                    }
+                    { (props.subject.extra_info.includes("®")) && props.isMobile && (
+                      <button className='button-tiny'>
+                        <p style={{fontSize: "medium", fontWeight: 700}}>수강반 제한</p>
+                      </button>
+                    )}
+                    { (props.subject.lang !== "한국어") && props.isMobile && (
+                      <button className='button-tiny-2' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium", fontWeight: 700}}>외국어</p>
+                      </button>
+                    )}
                   </td>
                 </tr>
+                { props.isMobile &&
+                  <tr>
+                    <td>
+                      <span>{props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
+                    </td>
+                  </tr>
+                }
               </tbody>
             </table>
           </td>

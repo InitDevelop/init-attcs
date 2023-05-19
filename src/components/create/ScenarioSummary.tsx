@@ -1,12 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import './ScenarioSummary.css';
 import '../../App.css'
 import { CreationContext } from '../../App';
-import { lecture } from '../../interfaces/Lecture';
 import Left from '../../img/left.svg';
 import Right from '../../img/right.svg';
 import { scenario } from '../../interfaces/Scenario';
-import { range } from '../../interfaces/Util';
 import Warning from './Warning';
 
 const creditSum = (sc: scenario) => {

@@ -3,12 +3,11 @@ import '../../AppMobile.css';
 import "../../css/AppTable.css"
 import { PreviewContext } from "../../App";
 import { lecture, timeSlot } from '../../interfaces/Lecture';
-import { getDateValue, isTimeIntersect } from '../../interfaces/Scenario';
+import { isTimeIntersect } from '../../interfaces/Scenario';
 import React from "react";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 export const colors = ["#de6b54", "#de8954", "#deb954", "#6aad51", "#51ad8d", "#519ead", "#4f6cc2", "#6d598f", "#8f5987"];
-//const colors = ["#FE8484", "#FEA784", "#FEDB84", "#8DDB8B", "#7FCADF", "#7FA4DF", "#8686D8", "#B98BD3", "#E399CA"];
 
 type propType = {
   isMobile: boolean;
@@ -28,7 +27,15 @@ function TimeTable(props: propType) {
     <PreviewContext.Consumer>
       { () => {
         return (
-          <div className='appTable__container'>
+          <div className='appTable__container'
+          style = { {
+            transform: props.isMobile ? (
+              props.subjHover ? `translateY(-${(Math.floor(props.hoveredTimeSlots[0].startTime / 100) - 9) * 100 / 13}%)` : "none"
+              ) : "none",
+            backgroundColor: props.subjHover ? "white" : "none"
+          } }
+
+          >
             <div className="timetable-host-box">
             <table className='timetable-table'>
               <tbody>
@@ -55,38 +62,35 @@ function TimeTable(props: propType) {
                   return (
                     <div className='timetable-subject'
                       onMouseOver={ () => {
-                        let intersectFlag: boolean = false;
-                        props.setShowTooltip(true);
-                        let content = item.subjName;
-                        for (let i = 0; i < props.timeSlots.length; i++) {
-                          if (item.id === props.timeSlots[i].id) {
-                            continue;
-                          }
-                          if (item.date === props.timeSlots[i].date) {
-                            if (isTimeIntersect(item.startTime, item.endTime, props.timeSlots[i].startTime, props.timeSlots[i].endTime)) {
-                                content += ("\n" + props.timeSlots[i].subjName);
-                                intersectFlag = true;
+                        if (!props.isMobile) {
+                          let intersectFlag: boolean = false;
+                          props.setShowTooltip(true);
+                          let content = item.subjName;
+                          for (let i = 0; i < props.timeSlots.length; i++) {
+                            if (item.id === props.timeSlots[i].id) {
+                              continue;
+                            }
+                            if (item.date === props.timeSlots[i].date) {
+                              if (isTimeIntersect(item.startTime, item.endTime, props.timeSlots[i].startTime, props.timeSlots[i].endTime)) {
+                                  content += ("\n" + props.timeSlots[i].subjName);
+                                  intersectFlag = true;
+                              }
                             }
                           }
+                          props.setTooltipContent(
+                          <div>
+                            {content}
+                            {"\n"}
+                            <span style={{fontWeight: "400"}}>{item.room}</span>
+                            {intersectFlag && (
+                              <span style={{color: "darkred", fontWeight: "800"}}>{"\n"}강좌의 시간이 겹칩니다!</span>
+                            )}
+                          </div>
+                          );
                         }
-                        props.setTooltipContent(
-                        <div>
-                          {content}
-                          {"\n"}
-                          <span style={{fontWeight: "400"}}>{item.room}</span>
-                          {intersectFlag && (
-                            <span style={{color: "darkred", fontWeight: "800"}}>{"\n"}강좌의 시간이 겹칩니다!</span>
-                          )}
-                        </div>
-                        );
                       }}
                       onMouseOut={ () => {
                         props.setShowTooltip(false);
-                      }}
-                      onClick={ () => {/*
-                        props.displayPopup("강좌 상세 정보",
-                          MultLectureInformationTable(item.lectures)
-                        );*/
                       }}
                       style={
                         {
@@ -113,7 +117,7 @@ function TimeTable(props: propType) {
                           left: item.leftPos,
                           top: item.topPos,
                           height: item.height,
-                          backgroundColor: !props.isMobile ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.9)"
+                          backgroundColor: "rgba(0, 0, 0, 0.2)"
                         }
                       }>
                       <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>

@@ -13,7 +13,7 @@ function MobileMenu(props: propType) {
       {
         props.isOpened && (
           <>
-                    <div
+          <div
             style = {
               {
                 position: "absolute",

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import "../../css/AppTable.css"
 import SubjectBox from './SubjectBox';
 import { CreationContext } from "../../App";
-import { lecture } from '../../interfaces/Lecture';
-import { CheckRelatedLecture, isRelatedName } from '../global/CheckRelatedLecture';
+import { isRelatedName } from '../global/CheckRelatedLecture';
 
 
 function AddSubjectSearchList() {

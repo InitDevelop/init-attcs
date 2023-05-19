@@ -5,7 +5,6 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
-import { CheckRelatedLecture } from '../global/CheckRelatedLecture';
 
 const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 
@@ -72,7 +71,8 @@ function LectureSearchList(props: propType) {
           isExistingSubj={data.isExistingSubj}
           selectedLectures={props.selectedLectures}
           lectureGroups={data.lectureGroups}
-          includesLecture={data.includesLecture}            
+          includesLecture={data.includesLecture}    
+          isMobile={data.isMobile}        
           />
           )
         }
