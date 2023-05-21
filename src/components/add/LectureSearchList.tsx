@@ -5,6 +5,7 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
+import { AddSearchListHelp } from '../global/Information';
 
 const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
 

@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import "../../App.css"
 import { PreviewContext } from "../../App";
+import { PreviewSearchLectureHelp } from '../global/Information';
 
 function CreationOptions() {
   const data = useContext(PreviewContext);
@@ -10,7 +11,7 @@ function CreationOptions() {
       {
         () => {
           return (
-            <div style={{ alignItems: "center" }} className='app-creation-options'>
+            <div style={{ alignItems: "center", position: "relative" }} className='app-creation-options'>
             <div style={{ marginBottom: "10px" }}>
               <p className="large-title">강좌 검색하기</p>
               <input type="text" 

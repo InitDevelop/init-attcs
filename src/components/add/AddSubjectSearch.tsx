@@ -1,12 +1,13 @@
 import { useContext } from 'react'
 import { CreationContext } from "../../App";
+import { AddSearchSubjectHelp } from '../global/Information';
 
 function AddSubjectSearch() {
 
   const data = useContext(CreationContext);
 
   return (
-    <div style={{ alignItems: "center" }} className='app-creation-options'>
+    <div style={{ alignItems: "center", position: "relative" }} className='app-creation-options'>
       <div style={{ marginBottom: "10px" }}>
         <p className="large-title">과목 검색하기</p>
         <input type="text" 

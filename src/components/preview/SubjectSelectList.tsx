@@ -4,6 +4,7 @@ import '../../AppMobile.css';
 import LectureBox from '../global/LectureBox';
 import { PreviewContext } from "../../App";
 import { lecture } from '../../interfaces/Lecture';
+import { PreviewSelectListHelp } from '../global/Information';
 
 function SubjectSelectList() {
 

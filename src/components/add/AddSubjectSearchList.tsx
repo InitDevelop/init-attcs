@@ -3,6 +3,7 @@ import "../../css/AppTable.css"
 import SubjectBox from './SubjectBox';
 import { CreationContext } from "../../App";
 import { isRelatedName } from '../global/CheckRelatedLecture';
+import { AddSubjectListHelp } from '../global/Information';
 
 
 function AddSubjectSearchList() {

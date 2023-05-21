@@ -353,6 +353,33 @@
   color: #000000;
 }
 
+.help-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-weight: 400;
+  font-size: 100%;
+  color: #fff;
+  background-color: #00a3cc;
+  border: solid #00a3cc 2px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 10px;
+  transition : 193ms;
+  transform: translateY(0);
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.help-button:hover {
+  transition : 50ms;
+  background-color: #fff;
+  color: #00a3cc;
+  border: solid 2px #00a3cc;
+}
+
 .button-tiny {
   font-weight: 400;
   font-size: 100%;

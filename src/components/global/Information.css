@@ -1,0 +1,10 @@
+.information {
+  text-align: left;
+  padding: 20px 40px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.information p {
+  text-align: left;
+}
