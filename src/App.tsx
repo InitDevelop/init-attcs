@@ -27,6 +27,7 @@ import 'firebase/storage';
 import { initializeApp } from "firebase/app";
 import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
+import Home from './pages/Home';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -178,6 +179,8 @@ function App() {
   const [matchingLectures, setMatchingLectures] = useState<lecture[]>([]);
   const [matchingSubjects, setMatchingSubjects] = useState<lecture[]>([]);
 
+  // States related to custom lectures
+  const [customLectures, setCustomLectures] = useState<lecture[]>([]);
 
   // States related to popups
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -364,13 +367,21 @@ function App() {
         
         <div className="app-header-container">
           <div className="app-header">
-            <img className="app-header-logo" src={logo} alt=""/>
+            
 
             {/* Links for the pages */}
 
             <div className='app-header-links'>
+              { !isMobile && 
+                <Link className="app-header-logo-link"
+                  to="/" onClick = { () => {setCurrentPage("/")} }>
+                  <img className="app-header-logo" src={logo} alt=""/>
+                </Link>
+              }
               <Link className={ currentPage === "/" ? "link-current" : "links" }
-                to="/" onClick = { () => {setCurrentPage("/")} }>시간표</Link>
+                to="/" onClick = { () => {setCurrentPage("/")} }>홈</Link>
+              <Link className={ currentPage === "/preview" ? "link-current" : "links" }
+                to="/preview" onClick = { () => {setCurrentPage("/preview")} }>시간표</Link>
               <Link className={ currentPage === "/add" ? "link-current" : "links" } 
                 to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
               <Link className={ currentPage === "/create" ? "link-current" : "links" } 
@@ -379,11 +390,13 @@ function App() {
                 to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정 및 도움말</Link>
               <div className={"links"} 
                 onClick = { () => {
+                  let version = 0;
                   const saveData = {
+                    version,
                     selSubj,
                     lectureGroups,
-                    scenarios,
-                    priority
+                    priority,
+                    customLectures
                   };
                   downloadObjectAsJson(saveData, 'save_data');
                 } }>저장</div>
@@ -393,8 +406,8 @@ function App() {
                   displayPopup("저장된 시간표 데이터 불러오기",
                   <input type="file" className='button-0' onChange={
                     (event) => {
-                      let tempData = { selSubj: [], lectureGroups: [], scenarios: [], priority: {} };
-
+                      let tempData = { version: 0, selSubj: [], lectureGroups: [], priority: {}, customLectures: [] };
+                      
                       if (event.target.files) {
                         const file = event.target.files[0];
                         const reader = new FileReader();
@@ -407,11 +420,8 @@ function App() {
                             console.log(tempData);
                             setSelSubj(tempData.selSubj);
                             setLectureGroups(tempData.lectureGroups);
-                            setScenarios(tempData.scenarios);
                             setPriority(tempData.priority);
-                            if (scenarios.length < 1) {
-                              setScenarioNumber(0);
-                            }
+                            setCustomLectures(tempData.customLectures);
                           }
                         };
                         
@@ -443,18 +453,13 @@ function App() {
 
         <Routes>
 
-          {/* For github page guests */}
-          <Route path="/init-attcs" element={
-            <div style={{ fontSize: "xx-large", marginTop: "50px", fontWeight: "300" }}>
-              <strong>ATTCS에 오신 것을 환영합니다!</strong>
-              <br/>
-              상단 메뉴 중 하나를 선택하시면 사용을 시작하실 수 있습니다.
-            </div>
+          <Route path="/" element={
+            <Home scrollPosition={scrollPosition}/>
           }/>
 
           {/* The Preview (main) Page */}
-
-          <Route path="/" element={
+          
+          <Route path="/preview" element={
             <PreviewContext.Provider
               value = {previewContextData}
             >

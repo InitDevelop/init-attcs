@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import "../../App.css"
 import { PreviewContext } from "../../App";
-import { PreviewSearchLectureHelp } from '../global/Information';
 
 function CreationOptions() {
   const data = useContext(PreviewContext);

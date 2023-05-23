@@ -114,11 +114,14 @@
 }
 
 .app-header-container {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
 
   display: flex;
   flex-direction: row;
-  height: 75px;
   justify-content: flex-start;
 
   background-color: #fff;
@@ -143,10 +146,12 @@
   align-items: center;
 }
 
-.app-header-logo{
+.app-header-logo-link {
   margin-right: 40px;
-  height: 60%;
-  width: auto;
+}
+
+.app-header-logo{
+  height: 45px;
 }
 
 .links {
@@ -191,7 +196,7 @@
   display: flex;
   flex-direction: row;
 
-  margin-top: 3vh;
+  margin-top: calc(75px + 3vh);
   height: calc(100vh - 140px);
 }
 
@@ -469,4 +474,24 @@
   transition: 400ms;
   border-radius: 10px;
   background-color: #eee;
+}
+
+@keyframes floating {
+  0% { transform: translate(0,  0px); }
+  50%  { transform: translate(0, 30px); }
+  100%   { transform: translate(0, -0px); }   
+}
+
+.look-down {
+  position: fixed;
+  left: 5%;
+  bottom: 10%;
+
+  background-color: white;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+
+	transform: translateY(0px);
+	animation: floating 2s ease-in-out infinite;
 }
