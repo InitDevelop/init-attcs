@@ -84,11 +84,11 @@ export function getWarnings(sc: scenario): warning[] {
     if (daysTimeSlots[i].length === 0) {
       existsLunchTime = true;
     } else if (daysTimeSlots[i].length === 1) {
-      if (daysTimeSlots[i][0].endTime <= 1400 || daysTimeSlots[i][0].startTime >= 1200) {
+      if (daysTimeSlots[i][0].endTime <= 1300 || daysTimeSlots[i][0].startTime >= 1200) {
         existsLunchTime = true;
       }
     } else {
-      if (daysTimeSlots[i][0].startTime >= 1200 || daysTimeSlots[i][daysTimeSlots[i].length - 1].endTime <= 1400) {
+      if (daysTimeSlots[i][0].startTime >= 1200 || daysTimeSlots[i][daysTimeSlots[i].length - 1].endTime <= 1300) {
         existsLunchTime = true;
       }
     }
@@ -97,13 +97,13 @@ export function getWarnings(sc: scenario): warning[] {
 
 
       if (j === daysTimeSlots[i].length - 2) {
-        if (daysTimeSlots[i][j].endTime <= 1400) {
+        if (daysTimeSlots[i][j].endTime <= 1300) {
           existsLunchTime = true;
         }
       }
 
       if (daysTimeSlots[i][j].endTime >= 1100 && daysTimeSlots[i][j].endTime <= 1400) {
-        if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 30) {
+        if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 60) {
           existsLunchTime = true;
         }
       } else if (daysTimeSlots[i][j].endTime > 1400) {

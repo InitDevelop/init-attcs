@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { PreviewContext } from "../App";
 import "../AppMobile.css";
 import PriorityManager from '../components/settings/PriorityManager';
-import Help from '../components/settings/Help';
+import CustomLecture from '../components/settings/CustomLectures';
 
 function Settings() {
 
@@ -13,15 +13,15 @@ function Settings() {
   return (
     !data.isMobile ?
       <div className="app-main-container">
-        <div className='app-parent-container' style={{ width: "35%" }}>
+        <div className='app-parent-container' style={{ width: "45%" }}>
           <PriorityManager
             updateCount={updateCount}
             setUpdateCount={setUpdateCount}
           />
         </div>
 
-        <div className='app-parent-container' style={{ width: "55%" }}>
-          <Help/>
+        <div className='app-parent-container' style={{ width: "45%" }}>
+          <CustomLecture/>
         </div>
       </div>
     :

@@ -16,7 +16,7 @@
 }
 
 .prioritybox:hover {
-  background-color: #eee;
+  background-color: #f7f7f7;
 }
 
 .prioritybox-table {
@@ -25,4 +25,10 @@
 
 .priority-info {
   width: 75%;
+}
+
+.schedule-timeslot {
+  margin: 5px 0px;
+  text-align: left;
+  white-space: pre-wrap;
 }

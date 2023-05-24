@@ -10,7 +10,7 @@ import SubjTooltip from './components/global/SubjTooltip';
 import Popup from './components/global/Popup';
 
 import logo from './img/logo.png';
-import { blankLecture, lecture, lectureGroup } from './interfaces/Lecture';
+import { blankLecture, customSchedule, lecture, lectureGroup } from './interfaces/Lecture';
 import { Dictionary, xyTuple } from './interfaces/Util';
 import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './interfaces/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
@@ -150,7 +150,7 @@ function App() {
           return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
       ).sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
     );
-  }, [searchText])
+  }, [searchText]);
 
   // Handles input change in the keyword box
   const handleKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -180,7 +180,7 @@ function App() {
   const [matchingSubjects, setMatchingSubjects] = useState<lecture[]>([]);
 
   // States related to custom lectures
-  const [customLectures, setCustomLectures] = useState<lecture[]>([]);
+  const [customLectures, setCustomLectures] = useState<customSchedule[]>([]);
 
   // States related to popups
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -275,6 +275,12 @@ function App() {
 
   }, [addingSubjName, clickedSubject]);
 
+  useEffect(() => {
+    setLectureDatabase(((lectureData as { subjects: lecture[] }).subjects).concat(
+      customLectures.map(cl => cl.schedule)
+    ));
+  }, [customLectures]);
+
   // Function that handles input in keyword box
   const handleAddKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddedSubjKeyWord(event.target.value);
@@ -322,6 +328,8 @@ function App() {
     addedSubjKeyWord, setAddedSubjKeyWord,
     matchingLectures,
     matchingSubjects,
+
+    customLectures, setCustomLectures,
 
     showPopup, setShowPopup,
     popupTitle, setPopupTitle,
@@ -387,7 +395,7 @@ function App() {
               <Link className={ currentPage === "/create" ? "link-current" : "links" } 
                 to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
               <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
-                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정 및 도움말</Link>
+                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
               <div className={"links"} 
                 onClick = { () => {
                   let version = 0;

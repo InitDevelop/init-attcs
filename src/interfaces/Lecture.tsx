@@ -1,5 +1,15 @@
 import { getDateValue } from "./Scenario";
 
+export type time = {
+  hour: number;
+  minute: number;
+}
+
+export type timeToTime = {
+  start: time;
+  end: time;
+}
+
 export type lecture = {
   lect_type: string;
   lect_col: string;
@@ -146,4 +156,12 @@ export const getHoveredTimeTableSlots = (subjHover: boolean, hoveredSubj: lectur
     }
   }
   return hoveredTimeSlots;
+}
+
+export type customSchedule = {
+  id: number;
+  schedule: lecture;
+  editable: boolean;
+  interval: timeToTime;
+  date: number;
 }

@@ -38,24 +38,25 @@ export function getTimeSlots(lect: lecture) {
   let count = times.length;
   let rooms = lect.lect_room.split("/")
 
-  for (let i = 0; i < count; i++) {
-    let date = 0;
-    let startHour = parseInt(times[i].substring(2, 4));
-    let startMin = parseInt(times[i].substring(5, 7));
-    let endHour = parseInt(times[i].substring(8, 10));
-    let endMin = parseInt(times[i].substring(11, 13));
-
-    date = getDateValue(times[i].substring(0, 1));
-
-    timeSlots.push({
-      startTime: startHour * 100 + startMin,
-      endTime: endHour * 100 + endMin,
-      date: date,
-      lecture: lect,
-      room: rooms[i]
-    });
+  if (lect.time.length > 0) {
+    for (let i = 0; i < count; i++) {
+      let date = 0;
+      let startHour = parseInt(times[i].substring(2, 4));
+      let startMin = parseInt(times[i].substring(5, 7));
+      let endHour = parseInt(times[i].substring(8, 10));
+      let endMin = parseInt(times[i].substring(11, 13));
+  
+      date = getDateValue(times[i].substring(0, 1));
+  
+      timeSlots.push({
+        startTime: startHour * 100 + startMin,
+        endTime: endHour * 100 + endMin,
+        date: date,
+        lecture: lect,
+        room: rooms[i]
+      });
+    }
   }
-
   return timeSlots;
 }
 

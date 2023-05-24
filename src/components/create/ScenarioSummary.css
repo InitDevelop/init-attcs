@@ -66,19 +66,3 @@
 
   transition: 200ms;
 }
-
-.item-square {
-  font-size: large;
-  background-color: #f0f0f0;
-  margin: 3px 7px;
-  padding: 7px;
-  border-radius: 7px;
-}
-
-.item-square-key {
-  font-size: large;
-  background-color: #eaeaea;
-  margin: 3px 7px;
-  padding: 7px;
-  border-radius: 7px;
-}

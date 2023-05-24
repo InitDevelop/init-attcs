@@ -15,7 +15,7 @@ function SubjTooltip(props: propType) {
           backgroundColor: "white",
           position: "absolute",
           left: props.tooltipPosition.x + 15,
-          top: props.tooltipPosition.y + props.scrollPosition + 20
+          top: props.tooltipPosition.y + props.scrollPosition - 90
         }}
       >
       {props.tooltipContent}

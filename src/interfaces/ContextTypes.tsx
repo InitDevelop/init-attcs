@@ -1,4 +1,4 @@
-import { blankLecture, lecture, lectureGroup } from "./Lecture";
+import { blankLecture, customSchedule, lecture, lectureGroup } from "./Lecture";
 import { scenario } from "./Scenario";
 import { Dictionary, xyTuple } from "./Util";
 
@@ -64,6 +64,9 @@ export type creationContextTypes = {
   setAddedSubjKeyWord: (param: string) => void;
   matchingLectures: lecture[];
   matchingSubjects: lecture[];
+
+  customLectures: customSchedule[];
+  setCustomLectures: (param: customSchedule[]) => void;
 
   showPopup: boolean;
   setShowPopup: (param: boolean) => void;
@@ -210,6 +213,12 @@ export const defaultCreationContext = {
   },
   matchingLectures: [],
   matchingSubjects: [],
+
+  customLectures: [],
+  setCustomLectures: function (param: customSchedule[]): void {
+    throw new Error('Function not implemented.');
+  },
+
   showPopup: false,
   setShowPopup: function (param: boolean): void {
       throw new Error('Function not implemented.');

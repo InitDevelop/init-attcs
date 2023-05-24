@@ -495,3 +495,24 @@
 	transform: translateY(0px);
 	animation: floating 2s ease-in-out infinite;
 }
+
+.item-square {
+  font-size: large;
+  background-color: #eee;
+  margin: 3px 7px;
+  padding: 7px;
+  border-radius: 7px;
+}
+
+.item-square-key {
+  font-size: large;
+  background-color: #e0e0e0;
+  margin: 3px 7px;
+  padding: 7px;
+  border-radius: 7px;
+}
+
+.select {
+  font-size: large;
+  padding: 4px;
+}

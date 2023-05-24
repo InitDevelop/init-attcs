@@ -12,7 +12,7 @@ function Home(props: propType) {
     <div className='app-main-container'> 
       <div className='app-parent-container' style={{ width: "65%" }}>
         <img src={title} height={"100%"}/>
-        <img src={help1} width={"100%"}/>
+        <img id='first-image' src={help1} width={"100%"}/>
         <img src={help2} width={"100%"}/>
         <img src={help3} width={"100%"}/>
       </div>

@@ -87,11 +87,11 @@ function PriorityBox(props: propType) {
       <table className='prioritybox-table'>
         <tbody>
           <tr>
-            <td style={{ width: "20%" }}>
+            <td style={{ width: "15%" }}>
               <p className={ 'filled-' + props.warningType + '-warning-box'}>
                 {Math.floor(Math.abs(props.priorities[props.warningType]))}순위</p>
             </td>
-            <td style={{ width: "80%" }}>
+            <td style={{ width: "85%" }}>
               <strong style={{ color: props.priorities[props.warningType] < 0 ? "red" : "black" }}>{props.message}</strong>
             </td>
           </tr>
