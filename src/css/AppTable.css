@@ -38,26 +38,35 @@
     flex-grow: 1;
     flex-shrink: 1;
   
-    padding: 0px 2px;
-    width: calc(100% - 4px);
+    padding: 0;
+    width: 100%;
   
     border-radius: 0px;
     box-shadow: none;
 
     margin: 0;
-/* 
-    transition-property: transform;
-    transition: 200ms ease-in-out; */
   }
 
   .appTable__scrollContainer, .appTable__selectScrollContainer {
     position: absolute;
     overflow: auto;
-  
+    
     top: 40px;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  
+    border: var(--lightgray-border);
+  }
+
+  .appTable__scrollContainer-no-title {
+    position: absolute;
+    overflow: auto;
+    
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
   
     border: var(--lightgray-border);
   }

@@ -66,3 +66,15 @@
 
   transition: 200ms;
 }
+
+@media only screen and (max-width: 900px) {
+  .priority {
+    font-size: medium;
+  }
+
+  .summary-table {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 0px 5px;
+  }
+}

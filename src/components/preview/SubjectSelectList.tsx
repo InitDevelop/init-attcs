@@ -1,10 +1,9 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from '../global/LectureBox';
 import { PreviewContext } from "../../App";
 import { lecture } from '../../interfaces/Lecture';
-import { PreviewSelectListHelp } from '../global/Information';
 
 function SubjectSelectList() {
 
@@ -27,6 +26,9 @@ function SubjectSelectList() {
             () => {data.handleAllowMultChange();}
           }
         >{data.allowMult ? "중복 허용됨" : "중복 제외됨"}</button> */}
+        <span style={{ marginLeft: "10px" }} className='small-title'>
+          총 {getCreditSum()}학점
+        </span>
       </h2>
       <div className="appTable__selectScrollContainer">
         {data.selSubj.map(

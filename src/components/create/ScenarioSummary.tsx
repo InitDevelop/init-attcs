@@ -56,17 +56,11 @@ function ScenarioSummary() {
 
       <div className='scenario-summary-row-container'>
         <div style={{ width: "15%", verticalAlign: "middle" }}>
-          <img className='arrow-button' src={Left}
+          <img className='arrow-button' src={Left} alt="left-button"
             onClick={
               () => {
                 if (data.scenarioNumber > 0) {
                   data.setScenarioNumber(data.scenarioNumber - 1);
-    
-                  // let relatedLectures: lecture[] = [];
-                  // for (let i = 0; i < data.scenarios[data.scenarioNumber - 1].shareTimeLectures.length; i++) {
-                  //   relatedLectures.push(...data.scenarios[data.scenarioNumber - 1].shareTimeLectures[i]);
-                  // }
-                  // data.setRelatedLectures(relatedLectures);
                 }
               }
             }
@@ -82,17 +76,11 @@ function ScenarioSummary() {
         </div>
 
         <div style={{ width: "15%", verticalAlign: "middle" }}>
-          <img className='arrow-button' src={Right}
+          <img className='arrow-button' src={Right} alt="right-button"
             onClick={
               () => {
                 if (data.scenarioNumber < data.scenarios.length - 1) {
                   data.setScenarioNumber(data.scenarioNumber + 1);
-    
-                  // let relatedLectures: lecture[] = [];
-                  // for (let i = 0; i < data.scenarios[data.scenarioNumber + 1].shareTimeLectures.length; i++) {
-                  //   relatedLectures.push(...data.scenarios[data.scenarioNumber + 1].shareTimeLectures[i]);
-                  // }
-                  // data.setRelatedLectures(relatedLectures);
                 }
               }
             }

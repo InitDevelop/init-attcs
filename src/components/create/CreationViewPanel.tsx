@@ -52,20 +52,8 @@ function CreationViewPanel(props: propType) {
     });
   }
 
-  const performCreationTask = async() => {
-    
-    
-
-    //await CreateScenarios(data.setScenarios, data.lectureGroups, data.priority);
-
-
-
-    
-  }
-
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-
       <button className='button-0'
       style={
         {
@@ -74,7 +62,7 @@ function CreationViewPanel(props: propType) {
           top: "20px",
           transform: "translate(-50%, 0)",
           width: "65%",
-          fontSize: "x-large",
+          fontSize: data.isMobile ? "medium" : "x-large",
           fontWeight: "700"
         }
       }
@@ -87,10 +75,10 @@ function CreationViewPanel(props: propType) {
             {
               position: "absolute",
               left: "50%",
-              top: "80px",
+              top: data.isMobile ? "70px" : "80px",
               transform: "translate(-50%, 0)",
               width: "65%",
-              fontSize: "x-large",
+              fontSize: data.isMobile ? "medium" : "x-large",
               fontWeight: "700"
             }
           }
@@ -104,17 +92,11 @@ function CreationViewPanel(props: propType) {
           }>시간표 가져오기</button>
         )
       }
-
-      
       {
         (data.scenarios.length > 0) && (
           <ScenarioSummary/>
         )
       }
-
-      
-
-
     </div>
   );
 }

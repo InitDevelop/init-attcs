@@ -1,16 +1,20 @@
-.mobile-menu-closed {
+.mobile-close-button {
   position: absolute;
+  top: 15px;
+  right: 30px;
+}
 
-  /* position: fixed; */
-  background-color: #fff;
-  width: 45%;
-  transform: translateX(100%);
+.mobile-menu-background {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 .mobile-menu {
-  position: absolute;
-
-  /* position: fixed; */
+  position: fixed;
   background-color: #fff;
   width: 45%;
   top: 0;
@@ -21,10 +25,7 @@
   justify-content: top;
   align-items: center;
   padding: 60px 0px;
-
   border-left: 2px solid #eee;
-
-  transition: 300ms;
 }
 
 .mobile-menu-link {

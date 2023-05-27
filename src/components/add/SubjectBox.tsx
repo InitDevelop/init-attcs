@@ -9,9 +9,8 @@ type propType = {
 }
 
 function SubjectBox(props: propType) {
-
   return (
-    <div className={(props.subj_id === props.clickedSubject) ? "clicked-lecturebox" : "lecturebox"} style={
+    <div className={(props.subj_id === props.clickedSubject) ? "clicked-lecturebox" : "subjectbox"} style={
       { 
         cursor: "pointer",
         padding: "10px",
@@ -32,4 +31,4 @@ function SubjectBox(props: propType) {
   )
 }
 
-export default SubjectBox
+export default SubjectBox;

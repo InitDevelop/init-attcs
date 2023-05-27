@@ -32,3 +32,9 @@
   text-align: left;
   white-space: pre-wrap;
 }
+
+@media only screen and (max-width: 900px) {
+  .prioritybox {
+    font-size: small;
+  }
+}

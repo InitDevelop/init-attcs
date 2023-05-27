@@ -233,7 +233,13 @@
   padding-top: 6px;
   padding-bottom: 6px;
   box-sizing: border-box;
+  border: var(--lightgray-border);
+  border-radius: 0;
   flex-grow: 1;
+}
+
+.input-1::placeholder {
+  color: #bcbcbc;
 }
 
 .button-9 {
@@ -513,6 +519,6 @@
 }
 
 .select {
-  font-size: large;
+  font-size: medium;
   padding: 4px;
 }

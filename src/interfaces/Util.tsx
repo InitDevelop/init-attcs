@@ -1,5 +1,4 @@
 import buildingData from "../db/building_data.json"
-import { lecture } from "./Lecture";
 
 export interface xyTuple {
   x: number,

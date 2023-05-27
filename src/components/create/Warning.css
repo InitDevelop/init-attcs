@@ -69,3 +69,14 @@
 .filled-space-warning-box {
   background-color: #af538c;
 }
+
+
+@media only screen and (max-width: 900px) {
+  .filled-time-warning-box, .filled-empty-warning-box, .filled-count-warning-box,
+   .filled-morning-warning-box, .filled-lunch-warning-box, .filled-space-warning-box {
+    font-size: small;
+  }
+  .time-warning-box, .empty-warning-box, .count-warning-box, .morning-warning-box, .lunch-warning-box, .space-warning-box {
+    font-size: small;
+  }
+}

@@ -5,25 +5,6 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
-import { AddSearchListHelp } from '../global/Information';
-
-const options = ['월요일', '화요일', '수요일', '목요일', '금요일'];
-
-function isRelatedName(abbrev: string, full: string): boolean {
-  abbrev = abbrev.replace(" ", "");
-  full = full.replace(" ", "");
-  let ret: boolean = true;
-  for (let i = 0; i < abbrev.length; i++) {
-    var sub = abbrev.substring(i, i + 1);
-    if (full.includes(sub)) {
-      full = full.substring(full.indexOf(sub));
-    } else {
-      ret = false;
-      break;
-    }
-  }
-  return ret;
-}
 
 type propType = {
   selectedLectures: lecture[];
@@ -52,8 +33,13 @@ function LectureSearchList(props: propType) {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <span className="large-title">찾은 강좌</span>
-      <div className="appTable__scrollContainer" style = {{ bottom: "100px" }}>
+      {
+        !data.isMobile &&
+        <span className="large-title">찾은 강좌</span>
+      }
+      <div className={!data.isMobile ? 
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}
+        style = {{ bottom: "100px" }}>
         {data.matchingLectures.map(subject => 
           <LectureBox boxType={"add"} subject={subject}
           displayPopup={data.displayPopup}
@@ -96,7 +82,7 @@ function LectureSearchList(props: propType) {
         }>
           <tbody>
             <tr>
-              <td style={{ paddingLeft: "10px" }}>
+              <td style={{ paddingLeft: data.isMobile ? "0" : "10px" }}>
                 <input style={{ cursor: "pointer", verticalAlign: "middle" }}
                 className='checkbox-1'
                 type="checkbox"
@@ -112,8 +98,9 @@ function LectureSearchList(props: propType) {
                 }
                 />
               </td>
-              <td style={{width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px"}}>
-                <button className="button-0 button-0-larger"
+              <td style={{ width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px" }}>
+                <button className={
+                  data.isMobile ? "button-0" : "button-0 button-0-larger"}
                   style={{ width: "100%", height: "100%" }}
                   disabled={props.selectedLectures.filter(item => !data.includesLecture(item)).length === 0}
                   onClick={() => {

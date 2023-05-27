@@ -162,6 +162,12 @@ export type customSchedule = {
   id: number;
   schedule: lecture;
   editable: boolean;
-  interval: timeToTime;
+  
+  name: string;
+  room: string;
   date: number;
+  startHour: number;
+  startMin: number;
+  endHour: number;
+  endMin: number;
 }

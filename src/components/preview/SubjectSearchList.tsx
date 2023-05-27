@@ -5,7 +5,6 @@ import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
 import { lecture } from "../../interfaces/Lecture";
-import { PreviewSearchListHelp } from '../global/Information';
 
 function SubjectSearchList() {
 
@@ -13,8 +12,11 @@ function SubjectSearchList() {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <p className="large-title">찾은 강좌</p>
-      <div className="appTable__scrollContainer">
+      { !data.isMobile &&
+        <p className="large-title">찾은 강좌</p>
+      }
+      <div className={!data.isMobile ?
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {
           data.shownLectures.map(
             (subject: lecture) => {

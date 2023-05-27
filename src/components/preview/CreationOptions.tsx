@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import "../../App.css"
+import "../../css/AppTable.css"
 import { PreviewContext } from "../../App";
 
 function CreationOptions() {
   const data = useContext(PreviewContext);
-
   return (
     <PreviewContext.Consumer>
       {
@@ -14,8 +14,11 @@ function CreationOptions() {
             <div style={{ marginBottom: "10px" }}>
               <p className="large-title">강좌 검색하기</p>
               <input type="text" 
-                style={{ width: "90%", marginBottom: "10px" }}
-                value={data.searchText} onChange={data.handleInputChange} className="input-1"></input>
+                style={{  width: data.isMobile ? "100%" : "90%",
+                          marginBottom: "10px" }}
+                value={data.searchText}
+                placeholder='과목명 / 교수님 성함 / 과목 약칭 등 입력'
+                onChange={data.handleInputChange} className="input-1"></input>
             </div>
             </div>
           )

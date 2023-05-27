@@ -2,28 +2,19 @@ import { useContext } from 'react';
 import "../../css/AppTable.css"
 import SubjectBox from './SubjectBox';
 import { CreationContext } from "../../App";
-import { isRelatedName } from '../global/CheckRelatedLecture';
-import { AddSubjectListHelp } from '../global/Information';
 
 
 function AddSubjectSearchList() {
-
   const data = useContext(CreationContext);
-  let subjectsAdded: string[] = [];
-
-  const accuracy = (abbrev: string, subj_name: string) => {
-    let prefix: number = 0;
-    if (!isRelatedName(abbrev, subj_name)) {
-      prefix -= 1000;
-    }
-    return prefix + (abbrev.replace(" ", "").length / subj_name.replace(" ", "").length);
-  };
-
   return (
-    <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
+    <div className="appTable__container"
+      style={{ whiteSpace: "pre-wrap" }}>
+      { !data.isMobile &&
       <h2 className="large-title">찾은 과목
       </h2>
-      <div className="appTable__scrollContainer">
+      }
+      <div className={!data.isMobile ?
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {
           data.matchingSubjects.map(subject => 
             <SubjectBox

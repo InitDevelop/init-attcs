@@ -7,6 +7,8 @@ import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
 import { getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
 import TimeTable from '../components/preview/TimeTable';
+import MobileAddMenu from "../components/add/MobileAddMenu";
+import MobileAddLectureMenu from "../components/add/MobileAddLectureMenu";
 
 function Add() {
 
@@ -16,7 +18,6 @@ function Add() {
   const [selectedOption, setSelectedOption] = useState('');
 
   const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
-  const [isRemoveMenuVisible, setRemoveMenuVisible] = useState<boolean>(false);
 
   const data = useContext(CreationContext);
 
@@ -59,10 +60,32 @@ function Add() {
       }
     </div>
     :
-    <div className='app-main-container'>
-      <br/>
-      <h1>모바일 버전은 준비중입니다!</h1>
+    <div className='app-main-container'>    
+      <div className='app-parent-container'>
+        <AddedSubjectList
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}/>
+        <MobileAddMenu
+          setAddMenuVisible={setAddMenuVisible}
+        />
+      </div>
+      {
+        isAddMenuVisible &&
+        <MobileAddLectureMenu
+          selectedLectures={selectedLectures}
+          setSelectedLectures={setSelectedLectures}
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}
+          setSelectedDates={setSelectedDates}
+          selectedDates={selectedDates}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          setAddMenuVisible={setAddMenuVisible}
+        />
+      }
     </div>
+
+
   )
 }
 

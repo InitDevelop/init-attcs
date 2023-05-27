@@ -2,33 +2,14 @@
   fill: #333;
 }
 
-@supports (-webkit-touch-callout: none) {
-  @media only screen and (max-width: 900px) {
-    .app {
-      height: calc(100vh - constant(safe-area-inset-bottom));
-    }
-  }
-}
-
-@supports not (-webkit-touch-callout: none) {
-  @media only screen and (max-width: 900px) {
-    .app {
-      height: calc(100vh - env(safe-area-inset-bottom));
-    }
-  }
-}
-
 @media only screen and (max-width: 900px) {
   /* 768px */
-  .app {
-    overflow: hidden;
-  }
 
   .app-main-container {
     display: flex;
     flex-direction: column;
   
-    margin-top: 0;
+    margin-top: 70px;
     height: calc(100vh - 80px);
   }
 
@@ -65,7 +46,8 @@
     box-shadow: none;
     border-radius: 0;
     margin-bottom: 0;
-    padding: 10px;
+    width: calc(100% - 0px);
+    padding: 0;
   }
 
   .link-current, .links {
@@ -75,10 +57,11 @@
     padding: calc(10vw / 4);
   }
 
-  .app-header-logo{
+  .app-header-logo {
+    position: absolute;
     margin-right: 10px;
-    height: 60%;
-    width: auto;
+    width: 20%;
+    height: auto;
   }
 
   .button-0 {
@@ -163,12 +146,26 @@
   }
 
   .checkbox-1 {
-    width: 5px;
-    height: 5px;
+    width: 20px;
+    height: 20px;
     margin-top: -2px;
   }
 
-
+  .item-square {
+    font-size: medium;
+    background-color: #eee;
+    margin: 3px 7px;
+    padding: 7px;
+    border-radius: 7px;
+  }
+  
+  .item-square-key {
+    font-size: medium;
+    background-color: #e0e0e0;
+    margin: 3px 7px;
+    padding: 7px;
+    border-radius: 7px;
+  }
 }
 
 @media only screen and (min-width: 900px) {

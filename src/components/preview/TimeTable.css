@@ -84,13 +84,30 @@
   .timetable-container {
     border-radius: 0px;
   
-    padding: 20px 10px;
+    padding: 20px 0px;
     height: 100%;
-    width: calc(100% - 20px);
+    width: calc(100% - 0px);
   
     flex-grow: 1;
     flex-shrink: 1;
     box-shadow: var(--shadow);
+  }
+
+  .timetable-host-box {
+    position: absolute;
+  
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+  
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+  }
+
+  .timetable-subject {
+    padding: 3px;
+    border-radius: 3px;
   }
 
   .timetable-subject span {
@@ -101,7 +118,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    font-size: small;
+    font-size: smaller;
   }
 
   .timetable-subject {

@@ -24,7 +24,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "firebase/app";
 import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 import Home from './pages/Home';
@@ -33,15 +33,15 @@ import Home from './pages/Home';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCk7TcB-NxrG7OSTs5NqwHJhLweAx6_tA8",
-  authDomain: "shaganpyo.firebaseapp.com",
-  projectId: "shaganpyo",
-  storageBucket: "shaganpyo.appspot.com",
-  messagingSenderId: "283150565834",
-  appId: "1:283150565834:web:c14e1df0d1858a430c8f33",
-  measurementId: "G-CH9KXLYSTD"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCk7TcB-NxrG7OSTs5NqwHJhLweAx6_tA8",
+//   authDomain: "shaganpyo.firebaseapp.com",
+//   projectId: "shaganpyo",
+//   storageBucket: "shaganpyo.appspot.com",
+//   messagingSenderId: "283150565834",
+//   appId: "1:283150565834:web:c14e1df0d1858a430c8f33",
+//   measurementId: "G-CH9KXLYSTD"
+// };
 
 // Initialize Firebase
 
@@ -150,7 +150,7 @@ function App() {
           return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
       ).sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
     );
-  }, [searchText]);
+  }, [searchText, lectureDatabase]);
 
   // Handles input change in the keyword box
   const handleKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -256,15 +256,15 @@ function App() {
       subject => addingSubjName.length > 1 && CheckRelatedLecture(addingSubjName, subject)
     );
 
-    filtered.sort((a, b) => accuracy(addingSubjName, b.subj_name, "") - accuracy(addingSubjName, a.subj_name, ""))
-    .map(subject => 
-      {
-        if (!subjectsAdded.includes(subject.subj_id)) {
-          subjectsAdded.push(subject.subj_id);
-          matches.push(subject);
-        }
+    let sorted = filtered.sort((a, b) => accuracy(addingSubjName, b.subj_name, "") - accuracy(addingSubjName, a.subj_name, ""));
+
+    for (const subject of sorted) {
+      if (!subjectsAdded.includes(subject.subj_id)) {
+        subjectsAdded.push(subject.subj_id);
+        matches.push(subject);
       }
-    );
+    }
+
     setMatchingSubjects(matches);
 
     setMatchingLectures(
@@ -273,7 +273,7 @@ function App() {
       )
     );
 
-  }, [addingSubjName, clickedSubject]);
+  }, [addingSubjName, clickedSubject, lectureDatabase]);
 
   useEffect(() => {
     setLectureDatabase(((lectureData as { subjects: lecture[] }).subjects).concat(
@@ -364,6 +364,48 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  const saveUserData = () => {
+    let version = 0;
+    const saveData = {
+      version,
+      selSubj,
+      lectureGroups,
+      priority,
+      customLectures
+    };
+    downloadObjectAsJson(saveData, 'save_data');
+  }
+
+  const openUserData = () => {
+    displayPopup("저장된 시간표 데이터 불러오기",
+    <input type="file" className='button-0' onChange={
+        (event) => {
+        let tempData = { version: 0, selSubj: [], lectureGroups: [], priority: {}, customLectures: [] };
+        
+        if (event.target.files) {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+      
+          reader.onload = (e) => {
+            if (e.target) {
+              const contents: any = e.target.result;
+              const parsedData = JSON.parse(contents);
+              tempData = parsedData;
+              console.log(tempData);
+              setSelSubj(tempData.selSubj);
+              setLectureGroups(tempData.lectureGroups);
+              setPriority(tempData.priority);
+              setCustomLectures(tempData.customLectures);
+            }
+          };
+          
+          reader.readAsText(file);
+        }
+      }
+    }
+    />)
+  };
+
   return (
     <BrowserRouter>
       {/* Main container for the entire app */}
@@ -386,6 +428,9 @@ function App() {
                   <img className="app-header-logo" src={logo} alt=""/>
                 </Link>
               }
+              { isMobile && 
+                <img className="app-header-logo" src={logo} alt=""/>
+              }
               <Link className={ currentPage === "/" ? "link-current" : "links" }
                 to="/" onClick = { () => {setCurrentPage("/")} }>홈</Link>
               <Link className={ currentPage === "/preview" ? "link-current" : "links" }
@@ -397,58 +442,18 @@ function App() {
               <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
                 to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
               <div className={"links"} 
-                onClick = { () => {
-                  let version = 0;
-                  const saveData = {
-                    version,
-                    selSubj,
-                    lectureGroups,
-                    priority,
-                    customLectures
-                  };
-                  downloadObjectAsJson(saveData, 'save_data');
-                } }>저장</div>
-              
+                onClick = {saveUserData}>저장</div>
               <div className={"links"} 
-                onClick = { () => {
-                  displayPopup("저장된 시간표 데이터 불러오기",
-                  <input type="file" className='button-0' onChange={
-                    (event) => {
-                      let tempData = { version: 0, selSubj: [], lectureGroups: [], priority: {}, customLectures: [] };
-                      
-                      if (event.target.files) {
-                        const file = event.target.files[0];
-                        const reader = new FileReader();
-                    
-                        reader.onload = (e) => {
-                          if (e.target) {
-                            const contents: any = e.target.result;
-                            const parsedData = JSON.parse(contents);
-                            tempData = parsedData;
-                            console.log(tempData);
-                            setSelSubj(tempData.selSubj);
-                            setLectureGroups(tempData.lectureGroups);
-                            setPriority(tempData.priority);
-                            setCustomLectures(tempData.customLectures);
-                          }
-                        };
-                        
-                        reader.readAsText(file);
-                      }
-                    }
-                  } />
-                  );
-                } }>열기</div>
+                onClick = {openUserData}>열기</div>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", "fontWeight": "400", fontSize: "larger",
                     marginLeft: "15px", marginRight: "15px" }
                 }><strong>샤간표 v{appVersion}</strong></span>
               </div>
-
               <MobileMenuButton
                 open={menuOpened}
-                onClick={ () => {
+                onClick={() => {
                   setMenuOpened(!menuOpened);
                 }}/>
             </div>
@@ -460,9 +465,12 @@ function App() {
         
 
         <Routes>
-
           <Route path="/" element={
-            <Home scrollPosition={scrollPosition}/>
+            <PreviewContext.Provider
+              value = {previewContextData}
+            >
+              <Home scrollPosition={scrollPosition}/>
+            </PreviewContext.Provider>
           }/>
 
           {/* The Preview (main) Page */}
@@ -519,11 +527,16 @@ function App() {
             />
           )
         }
-
-        <MobileMenu
-          toggleOpen={() => setMenuOpened(!menuOpened)}
-          isOpened={menuOpened}
-        />
+        {
+          menuOpened && (
+            <MobileMenu
+              toggleOpen={() => setMenuOpened(!menuOpened)}
+              isOpened={menuOpened}
+              saveData={saveUserData}
+              openData={openUserData}
+            />
+          )
+        }
       </div>
     </BrowserRouter>
   );

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CreationContext } from "../App";
 import "../App.css"
 import TimeTable from '../components/preview/TimeTable';
@@ -6,10 +6,16 @@ import { blankLecture, getHoveredTimeTableSlots, getTimeTableSlots, lecture } fr
 import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import Loading from '../components/global/Loading';
+import MobileCreateMenu from '../components/create/MobileCreateMenu';
+import MobileCreateOptionsMenu from '../components/create/MobileCreateOptionsMenu';
+import MobileAddedLecturesMenu from '../components/create/MobileAddedLecturesMenu';
 
 function Create() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  const [createMenuVisible, setCreateMenuVisible] = useState<boolean>(false);
+  const [addedLecturesMenuVisible, setAddedLecturesMenuVisible] = useState<boolean>(false);
 
   const [totalCombinations, setTotalCombinations] = useState<number>(1);
   const [currentCombination, setCurrentCombination] = useState<number>(0);
@@ -17,8 +23,6 @@ function Create() {
 
   const [updateCount, setUpdateCount] = useState<number>(0);
   const data = useContext(CreationContext);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
-  const prevPropsRef = useRef(data.scenarioNumber);
 
   useEffect(() => {
     if (data.scenarios.length > 0) {
@@ -28,19 +32,7 @@ function Create() {
       }
       data.setRelatedLectures(relatedLectures);
     }
-  }, [data.scenarioNumber]);
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < 768);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  }, [data.scenarioNumber, data]);
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {
@@ -59,6 +51,18 @@ function Create() {
       window.removeEventListener("keydown", handleKeyPress);
     };
   });
+
+  const toNextScenario = () => {
+    if (data.scenarioNumber < data.scenarios.length - 1) {
+      data.setScenarioNumber(data.scenarioNumber + 1);
+    }
+  }
+
+  const toBackScenario = () => {
+    if (data.scenarioNumber > 0) {
+      data.setScenarioNumber(data.scenarioNumber - 1);
+    }
+  }
 
   return (
     !data.isMobile ?
@@ -111,8 +115,67 @@ function Create() {
     </div>
     :
     <div className='app-main-container'>
-      <br/>
-      <h1>모바일 버전은 준비중입니다!</h1>
+      <div className='app-parent-container'>
+      {
+        (data.scenarios.length > 0) ? (
+          <TimeTable
+            isMobile={data.isMobile}
+            lectures={data.scenarios[data.scenarioNumber].lectures}
+            subjHover={false}
+            timeSlots={getTimeTableSlots(data.scenarios[data.scenarioNumber].lectures)}
+            hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, blankLecture)}
+            setShowTooltip={data.setShowTooltip}
+            setTooltipContent={data.setTooltipContent}  
+            displayPopup={data.displayPopup} 
+          />
+        ) : (
+          <div className="appTable__container">
+            <p className='large-title'>시간표가 아직 생성되지 않았습니다.</p>
+          </div>
+        )
+      }
+      <MobileCreateMenu
+        setCreateMenuVisible={setCreateMenuVisible}
+        setAddedLecturesMenuVisible={setAddedLecturesMenuVisible}
+        toNextScenario={toNextScenario}
+        toBackScenario={toBackScenario}
+      />
+      </div>
+      {
+        createMenuVisible && 
+        <MobileCreateOptionsMenu
+          setCreateMenuVisible={setCreateMenuVisible}
+          setIsLoading={setIsLoading}
+          setScenarios={data.setScenarios}
+          setCurrentCombination={setCurrentCombination}
+          setTotalCombinations={setTotalCombinations}
+          setValidCombinations={setValidCombinations}
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}
+        />
+      }
+      {
+        addedLecturesMenuVisible && 
+        <MobileAddedLecturesMenu
+          setCreateMenuVisible={setAddedLecturesMenuVisible}
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}
+        />
+      }
+      {
+        isLoading && (
+          <Loading
+            currentCombination={currentCombination}
+            totalCombinations={totalCombinations}
+            validCombinations={validCombinations}
+          />
+        )
+      }
+      
+
+      {/* 
+
+       */}
     </div>
   )
 }

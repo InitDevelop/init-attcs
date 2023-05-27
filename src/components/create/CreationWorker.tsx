@@ -55,7 +55,6 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
     result.push(combination);
   }
 
-  outerLoop:
   for (const r of result) {
     currentProcessNum++;
     
@@ -71,14 +70,14 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
     }
     
     if (scResult.exitCode === 1) {
-      continue outerLoop;
+      continue;
     }
 
     scResult.scenario.warnings = getWarnings(scResult.scenario);
 
     if (scResult.scenario.warnings.filter(w => w.warningType === "empty").length === 0) {
       if (priorityValues["empty"] < 0.5 && priorityValues["empty"] > 0) {
-        continue outerLoop;
+        continue;
       }
     }
 
@@ -88,11 +87,11 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
 
       if (warn.warningType === "empty") {
         if (priorityValues["empty"] < 0 && priorityValues["empty"] > -0.5) {
-          continue outerLoop;
+          continue;
         }
       } else {
         if (Math.abs(priorityValues[warn.warningType]) < 0.5) {
-          continue outerLoop;
+          continue;
         }
       }
       

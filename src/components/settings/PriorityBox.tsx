@@ -44,31 +44,29 @@ function PriorityBox(props: propType) {
     let copy = props.priorities;
     if (Math.abs(props.priorities[props.warningType]) > 0.5) {
       let cnt = 1;
-      Object.keys(props.priorities).sort((a, b) => Math.abs(props.priorities[a]) - Math.abs(props.priorities[b])).map(
-        key => {
-          if (key !== props.warningType && Math.abs(props.priorities[key]) > 0.5) {
-            if (props.priorities[key] > 0) {
-              copy[key] = cnt;
-            } else {
-              copy[key] = -cnt;
-            }
-            cnt++;
+      const keys = Object.keys(props.priorities).sort((a, b) => Math.abs(props.priorities[a]) - Math.abs(props.priorities[b]));
+      for (const key of keys) {
+        if (key !== props.warningType && Math.abs(props.priorities[key]) > 0.5) {
+          if (props.priorities[key] > 0) {
+            copy[key] = cnt;
+          } else {
+            copy[key] = -cnt;
           }
+          cnt++;
         }
-      );
+      }
       copy[props.warningType] = copy[props.warningType] > 0 ? 0.1 : -0.1;
     } else {
-      Object.keys(props.priorities).map( key =>
-        {
-          if (key !== props.warningType && Math.abs(props.priorities[key]) > 0.5) {
-            if (props.priorities[key] > 0) {
-              copy[key] = copy[key] + 1;
-            } else {
-              copy[key] = copy[key] - 1;
-            }
+      const keys = Object.keys(props.priorities);
+      for (const key of keys) {
+        if (key !== props.warningType && Math.abs(props.priorities[key]) > 0.5) {
+          if (props.priorities[key] > 0) {
+            copy[key] = copy[key] + 1;
+          } else {
+            copy[key] = copy[key] - 1;
           }
         }
-      );
+      }
       copy[props.warningType] = copy[props.warningType] > 0 ? 1 : -1;
     }
     props.setPriority(copy);
