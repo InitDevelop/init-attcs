@@ -55,6 +55,7 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
     result.push(combination);
   }
 
+  outerLoop:
   for (const r of result) {
     currentProcessNum++;
     
@@ -87,11 +88,11 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
 
       if (warn.warningType === "empty") {
         if (priorityValues["empty"] < 0 && priorityValues["empty"] > -0.5) {
-          continue;
+          continue outerLoop;
         }
       } else {
         if (Math.abs(priorityValues[warn.warningType]) < 0.5) {
-          continue;
+          continue outerLoop;
         }
       }
       

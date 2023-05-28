@@ -94,15 +94,12 @@ export function getWarnings(sc: scenario): warning[] {
     }
 
     for (let j = 0; j < daysTimeSlots[i].length - 1; j++) {
-
-
-      if (j === daysTimeSlots[i].length - 2) {
-        if (daysTimeSlots[i][j].endTime <= 1300) {
-          existsLunchTime = true;
-        }
-      }
-
-      if (daysTimeSlots[i][j].endTime >= 1100 && daysTimeSlots[i][j].endTime <= 1400) {
+      // if (j === daysTimeSlots[i].length - 2) {
+      //   if (daysTimeSlots[i][j + 1].endTime <= 1300) {
+      //     existsLunchTime = true;
+      //   }
+      // }
+      if (daysTimeSlots[i][j].endTime >= 1100 && daysTimeSlots[i][j].endTime <= 1300) {
         if (getMinuteDifference(daysTimeSlots[i][j].endTime, daysTimeSlots[i][j + 1].startTime) >= 60) {
           existsLunchTime = true;
         }
@@ -110,7 +107,7 @@ export function getWarnings(sc: scenario): warning[] {
 
       
       } else if (daysTimeSlots[i][j].endTime < 1100) {
-        if (daysTimeSlots[i][j + 1].startTime >= 1130) {
+        if (daysTimeSlots[i][j + 1].startTime >= 1200) {
           existsLunchTime = true;
         }
       } else {

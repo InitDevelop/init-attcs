@@ -230,7 +230,7 @@ function App() {
     const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
     if (IDs.includes(lect.subj_id)) {
       const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
-      return lectureGroups[index].lectures.includes(lect);
+      return lectureGroups[index].lectures.filter(l => l.lect_no === lect.lect_no).length > 0;
     } else {
       return false;
     }
