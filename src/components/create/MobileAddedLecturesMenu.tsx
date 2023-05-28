@@ -5,6 +5,7 @@ import AddedSubjectList from "../add/AddedSubjectList";
 
 type propType = {
   setCreateMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
 }
@@ -28,6 +29,7 @@ function MobileAddedLecturesMenu(props: propType) {
       >
         <MobileCloseButton
           setVisible={props.setCreateMenuVisible}
+          setHideHeader={props.setHideHeader}
         />
       </div>
     </div>

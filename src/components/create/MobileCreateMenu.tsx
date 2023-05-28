@@ -6,6 +6,7 @@ import rightIcon from "../../img/right.svg";
 
 type propType = {
   setCreateMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
   setAddedLecturesMenuVisible: (param: boolean) => void;
   toNextScenario: () => void;
   toBackScenario: () => void;
@@ -25,11 +26,11 @@ function MobileCreateMenu(props: propType) {
           <img className="option-icon" src={rightIcon} alt={"right"} width={"15px"} height={"15px"}/>
         </div>
       </div>
-      <div className="option-button" onClick={() => {props.setCreateMenuVisible(true)}}>
+      <div className="option-button" onClick={() => {props.setCreateMenuVisible(true); props.setHideHeader(true);}}>
         <img className="option-icon" src={plusIcon} alt={"add"} width={"15px"} height={"15px"}/>
         <span className="medium-title">{"자동 생성 및 시간표 정보"}</span>
       </div>
-      <div className="option-button" onClick={() => {props.setAddedLecturesMenuVisible(true)}}>
+      <div className="option-button" onClick={() => {props.setAddedLecturesMenuVisible(true); props.setHideHeader(true);}}>
         <img className="option-icon" src={plusIcon} alt={"add"} width={"15px"} height={"15px"}/>
         <span className="medium-title">{"담긴 강좌 정보"}</span>
       </div>

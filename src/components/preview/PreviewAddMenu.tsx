@@ -6,6 +6,7 @@ import MobileCloseButton from "../global/MobileCloseButton";
 
 type propType = {
   setAddMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
 }
 
 function PreviewAddMenu(props: propType) {
@@ -24,6 +25,7 @@ function PreviewAddMenu(props: propType) {
       >
         <MobileCloseButton
           setVisible={props.setAddMenuVisible}
+          setHideHeader={props.setHideHeader}
         />
       </div>
     </div>

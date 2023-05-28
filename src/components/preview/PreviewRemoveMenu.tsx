@@ -5,6 +5,7 @@ import SubjectSelectList from "./SubjectSelectList";
 
 type propType = {
   setRemoveMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
 }
 
 function PreviewRemoveMenu(props: propType) {
@@ -22,6 +23,7 @@ function PreviewRemoveMenu(props: propType) {
       >
         <MobileCloseButton
           setVisible={props.setRemoveMenuVisible}
+          setHideHeader={props.setHideHeader}
         />
       </div>
     </div>

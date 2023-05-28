@@ -60,6 +60,7 @@ function App() {
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 900);
+  const [hideHeader, setHideHeader] = useState<boolean>(false);
   const [lectureDatabase, setLectureDatabase] = useState<lecture[]>((lectureData as { subjects: lecture[] }).subjects);
 
   /****************************************************************************
@@ -289,6 +290,8 @@ function App() {
   const previewContextData: previewContextTypes = {
     lectureDatabase,
     isMobile,
+    hideHeader,
+    setHideHeader,
 
     selSubj, setSelSubj,
 
@@ -321,6 +324,8 @@ function App() {
   const creationContextData: creationContextTypes = {
     lectureDatabase,
     isMobile,
+    hideHeader,
+    setHideHeader,
 
     setSelSubj,
     addingSubjName, setAddingSubjName,
@@ -412,53 +417,7 @@ function App() {
 
       <div className='app' onMouseMove={ (event) => {
         setTooltipPosition({ x: event.clientX, y: event.clientY }); }}>
-        
-        {/* Header for the entire app */}
-        
-        <div className="app-header-container">
-          <div className="app-header">
-            
-
-            {/* Links for the pages */}
-
-            <div className='app-header-links'>
-              { !isMobile && 
-                <Link className="app-header-logo-link"
-                  to="/" onClick = { () => {setCurrentPage("/")} }>
-                  <img className="app-header-logo" src={logo} alt=""/>
-                </Link>
-              }
-              { isMobile && 
-                <img className="app-header-logo" src={logo} alt=""/>
-              }
-              <Link className={ currentPage === "/" ? "link-current" : "links" }
-                to="/" onClick = { () => {setCurrentPage("/")} }>홈</Link>
-              <Link className={ currentPage === "/preview" ? "link-current" : "links" }
-                to="/preview" onClick = { () => {setCurrentPage("/preview")} }>시간표</Link>
-              <Link className={ currentPage === "/add" ? "link-current" : "links" } 
-                to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
-              <Link className={ currentPage === "/create" ? "link-current" : "links" } 
-                to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
-              <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
-                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
-              <div className={"links"} 
-                onClick = {saveUserData}>저장</div>
-              <div className={"links"} 
-                onClick = {openUserData}>열기</div>
-              <div className='for_testing'>
-                <span style={
-                  { color: "gray", "fontWeight": "400", fontSize: "larger",
-                    marginLeft: "15px", marginRight: "15px" }
-                }><strong>샤간표 v{appVersion}</strong></span>
-              </div>
-              <MobileMenuButton
-                open={menuOpened}
-                onClick={() => {
-                  setMenuOpened(!menuOpened);
-                }}/>
-            </div>
-          </div>
-        </div>
+      
 
         {/* The pages of this app */}
 
@@ -516,6 +475,54 @@ function App() {
             scrollPosition = {scrollPosition}
           />
           )
+        }
+
+        {/* Header for the entire app */}
+        
+        { (!isMobile || (isMobile && !hideHeader)) &&
+        <div className="app-header-container">
+          <div className="app-header">
+
+            {/* Links for the pages */}
+
+            <div className='app-header-links'>
+              { !isMobile && 
+                <Link className="app-header-logo-link"
+                  to="/" onClick = { () => {setCurrentPage("/")} }>
+                  <img className="app-header-logo" src={logo} alt=""/>
+                </Link>
+              }
+              { isMobile && 
+                <img className="app-header-logo" src={logo} alt=""/>
+              }
+              <Link className={ currentPage === "/" ? "link-current" : "links" }
+                to="/" onClick = { () => {setCurrentPage("/")} }>홈</Link>
+              <Link className={ currentPage === "/preview" ? "link-current" : "links" }
+                to="/preview" onClick = { () => {setCurrentPage("/preview")} }>시간표</Link>
+              <Link className={ currentPage === "/add" ? "link-current" : "links" } 
+                to="/add" onClick = { () => {setCurrentPage("/add")} }>과목 담기</Link>
+              <Link className={ currentPage === "/create" ? "link-current" : "links" } 
+                to="/create" onClick = { () => {setCurrentPage("/create")} }>자동 생성</Link>
+              <Link className={ currentPage === "/settings" ? "link-current" : "links" } 
+                to="/settings" onClick = { () => {setCurrentPage("/settings")} }>설정</Link>
+              <div className={"links"} 
+                onClick = {saveUserData}>저장</div>
+              <div className={"links"} 
+                onClick = {openUserData}>열기</div>
+              <div className='for_testing'>
+                <span style={
+                  { color: "gray", "fontWeight": "400", fontSize: "larger",
+                    marginLeft: "15px", marginRight: "15px" }
+                }><strong>샤간표 v{appVersion}</strong></span>
+              </div>
+              <MobileMenuButton
+                open={menuOpened}
+                onClick={() => {
+                  setMenuOpened(!menuOpened);
+                }}/>
+            </div>
+          </div>
+        </div>
         }
 
         {

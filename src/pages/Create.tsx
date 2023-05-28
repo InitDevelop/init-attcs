@@ -136,6 +136,7 @@ function Create() {
       }
       <MobileCreateMenu
         setCreateMenuVisible={setCreateMenuVisible}
+        setHideHeader={data.setHideHeader}
         setAddedLecturesMenuVisible={setAddedLecturesMenuVisible}
         toNextScenario={toNextScenario}
         toBackScenario={toBackScenario}
@@ -145,6 +146,7 @@ function Create() {
         createMenuVisible && 
         <MobileCreateOptionsMenu
           setCreateMenuVisible={setCreateMenuVisible}
+          setHideHeader={data.setHideHeader}
           setIsLoading={setIsLoading}
           setScenarios={data.setScenarios}
           setCurrentCombination={setCurrentCombination}
@@ -158,6 +160,7 @@ function Create() {
         addedLecturesMenuVisible && 
         <MobileAddedLecturesMenu
           setCreateMenuVisible={setAddedLecturesMenuVisible}
+          setHideHeader={data.setHideHeader}
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}
         />

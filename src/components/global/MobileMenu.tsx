@@ -18,6 +18,7 @@ function MobileMenu(props: propType) {
         >
           <MobileCloseButton
             setVisible={(a) => {}}
+            setHideHeader={(a) => {}}
           />
         </div>
         

@@ -65,12 +65,14 @@ function Preview() {
         isAddMenuVisible &&
         <PreviewAddMenu
           setAddMenuVisible={setAddMenuVisible}
+          setHideHeader={data.setHideHeader}
         />
       }
       {
         isRemoveMenuVisible &&
         <PreviewRemoveMenu
           setRemoveMenuVisible={setRemoveMenuVisible}
+          setHideHeader={data.setHideHeader}
         />
       }
     </div>

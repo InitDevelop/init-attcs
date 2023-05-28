@@ -14,10 +14,10 @@ function CreationOptions() {
             <div style={{ marginBottom: "10px" }}>
               <p className="large-title">강좌 검색하기</p>
               <input type="text" 
-                style={{  width: data.isMobile ? "100%" : "90%",
+                style={{  width: "100%",
                           marginBottom: "10px" }}
                 value={data.searchText}
-                placeholder='과목명 / 교수님 성함 / 과목 약칭 등 입력'
+                placeholder='강좌 이름 입력 (교수님, 약어 검색 가능)'
                 onChange={data.handleInputChange} className="input-1"></input>
             </div>
             </div>

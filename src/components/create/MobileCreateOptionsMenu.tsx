@@ -6,6 +6,7 @@ import { scenario } from "../../interfaces/Scenario";
 
 type propType = {
   setCreateMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
   setIsLoading: (param: boolean) => void;
   setScenarios: (param: scenario[]) => void;
   setCurrentCombination: (param: number) => void;
@@ -38,6 +39,7 @@ function MobileCreateOptionsMenu(props: propType) {
       >
         <MobileCloseButton
           setVisible={props.setCreateMenuVisible}
+          setHideHeader={props.setHideHeader}
         />
       </div>
     </div>

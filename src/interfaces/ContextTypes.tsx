@@ -6,6 +6,8 @@ export type previewContextTypes = {
   lectureDatabase: lecture[];
 
   isMobile: boolean;
+  hideHeader: boolean;
+  setHideHeader: (param: boolean) => void;
 
   selSubj: lecture[];
   setSelSubj: (lect: lecture[]) => void;
@@ -53,6 +55,8 @@ export type previewContextTypes = {
 export type creationContextTypes = {
   lectureDatabase: lecture[];
   isMobile: boolean;
+  hideHeader: boolean;
+  setHideHeader: (param: boolean) => void;
 
   setSelSubj: (lect: lecture[]) => void;
 
@@ -115,6 +119,10 @@ export type creationContextTypes = {
 export const defaultPreviewContext = {
   lectureDatabase: [],
   isMobile: false,
+  hideHeader: false,
+  setHideHeader: function (param: boolean): void {
+    throw new Error('Function not implemented.');
+  },
   
   selSubj: [],
   setSelSubj: function (lect: lecture[]): void {
@@ -195,6 +203,10 @@ export const defaultPreviewContext = {
 export const defaultCreationContext = {
   lectureDatabase: [],
   isMobile: false,
+  hideHeader: false,
+  setHideHeader: function (param: boolean): void {
+    throw new Error('Function not implemented.');
+  },
 
   setSelSubj: function (lect: lecture[]): void {
     throw new Error('Function not implemented.');

@@ -67,12 +67,14 @@ function Add() {
           setUpdateCount={setUpdateCount}/>
         <MobileAddMenu
           setAddMenuVisible={setAddMenuVisible}
+          setHideHeader={data.setHideHeader}
         />
       </div>
       {
         isAddMenuVisible &&
         <MobileAddLectureMenu
           selectedLectures={selectedLectures}
+          setHideHeader={data.setHideHeader}
           setSelectedLectures={setSelectedLectures}
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}

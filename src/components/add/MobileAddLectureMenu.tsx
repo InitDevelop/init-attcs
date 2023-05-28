@@ -8,6 +8,7 @@ import { lecture } from "../../interfaces/Lecture";
 
 type propType = {
   setAddMenuVisible: (param: boolean) => void;
+  setHideHeader: (param: boolean) => void;
   selectedLectures: lecture[];
   setSelectedLectures: (param: lecture[]) => void;
   updateCount: number;
@@ -48,6 +49,7 @@ function MobileAddLectureMenu(props: propType) {
       >
         <MobileCloseButton
           setVisible={props.setAddMenuVisible}
+          setHideHeader={props.setHideHeader}
         />
       </div>
     </div>
