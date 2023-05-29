@@ -59,12 +59,13 @@ export type timeSlot = {
   endTime: number;
   date: number;
   id: number;
+  index: number;
   subjName: string;
   leftPos: string;
   topPos: string;
   height: string;
   room: string;
-  lectures: lecture[];
+  lecture: lecture;
 }
 
 export type pseudoTimeSlot = {
@@ -108,12 +109,13 @@ export const getTimeTableSlots = (lectures: lecture[]) => {
         endTime: endHour * 100 + endMin,
         date: date,
         id: j,
+        index: i,
         subjName: lectures[j].subj_name,
         leftPos: leftPos,
         topPos: topPos,
         height: height,
         room: rooms[i],
-        lectures: [lectures[j]]
+        lecture: lectures[j],
       });
     }
   }
@@ -150,8 +152,9 @@ export const getHoveredTimeTableSlots = (subjHover: boolean, hoveredSubj: lectur
         topPos: topPos,
         height: height,
         id: 0,
+        index: k,
         room: rooms[k],
-        lectures: [hoveredSubj]
+        lecture: hoveredSubj
       });
     }
   }

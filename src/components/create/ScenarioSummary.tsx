@@ -130,9 +130,10 @@ function ScenarioSummary() {
               (data.scenarios.length > 0) && (
                 data.scenarios[data.scenarioNumber].warnings.map(
                   warning =>
-                  <tr>
+                  <tr key={warning.warningType}>
                     <td colSpan={2}>
                       <Warning
+                        key={warning.warningType}
                         warningType={warning.warningType}
                         />
                     </td>

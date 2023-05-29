@@ -24,7 +24,6 @@ function CreationViewPanel(props: propType) {
     props.setTotalCombinations(1);
     props.setValidCombinations(0);
     props.setIsLoading(true);
-    
 
     worker.onmessage = (event) => {
       if (event.data.finished) {

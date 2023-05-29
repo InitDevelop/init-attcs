@@ -21,20 +21,22 @@ function SubjectSearchList() {
           data.shownLectures.map(
             (subject: lecture) => {
               return (
-                <LectureBox boxType={"search"} subject={subject}
-                displayPopup={data.displayPopup}
-                addLectureToList={data.addSubject}
-                removeLectureFromList={data.popSubject}
-                setHoveredSubj={data.setHoveredSubj}
-                setSubjHover={data.setSubjHover}
-                isExistingSubj={data.isExistingSubj}
-                selectedLectures={[]}
-                lectureGroups={[]}
-                includesLecture={function (param: lecture): boolean {
-                  throw new Error("Function not implemented.");
-                } }
-                isMobile={data.isMobile}
-                />
+                <LectureBox 
+                  key={subject.subj_id + " (" + subject.lect_no + ")"}
+                  boxType={"search"} subject={subject}
+                  displayPopup={data.displayPopup}
+                  addLectureToList={data.addSubject}
+                  removeLectureFromList={data.popSubject}
+                  setHoveredSubj={data.setHoveredSubj}
+                  setSubjHover={data.setSubjHover}
+                  isExistingSubj={data.isExistingSubj}
+                  selectedLectures={[]}
+                  lectureGroups={[]}
+                  includesLecture={function (param: lecture): boolean {
+                    throw new Error("Function not implemented.");
+                  } }
+                  isMobile={data.isMobile}
+                  />
               )
             }
           )

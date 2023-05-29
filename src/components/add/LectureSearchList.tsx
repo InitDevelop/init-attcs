@@ -41,26 +41,28 @@ function LectureSearchList(props: propType) {
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}
         style = {{ bottom: "100px" }}>
         {data.matchingLectures.map(subject => 
-          <LectureBox boxType={"add"} subject={subject}
-          displayPopup={data.displayPopup}
-          addLectureToList={
-            (lect: lecture) => {
-              props.setSelectedLectures(props.selectedLectures.concat(lect));
+          <LectureBox
+            key={subject.subj_id + " (" + subject.lect_no + ")"}
+            boxType={"add"} subject={subject}
+            displayPopup={data.displayPopup}
+            addLectureToList={
+              (lect: lecture) => {
+                props.setSelectedLectures(props.selectedLectures.concat(lect));
+              }
             }
-          }
-          removeLectureFromList={
-            (lect: lecture) => {
-              props.setSelectedLectures(props.selectedLectures.filter(l => l !== lect));
+            removeLectureFromList={
+              (lect: lecture) => {
+                props.setSelectedLectures(props.selectedLectures.filter(l => l !== lect));
+              }
             }
-          }
-          setHoveredSubj={data.setHoveredSubj}
-          setSubjHover={data.setSubjHover}
-          isExistingSubj={data.isExistingSubj}
-          selectedLectures={props.selectedLectures}
-          lectureGroups={data.lectureGroups}
-          includesLecture={data.includesLecture}    
-          isMobile={data.isMobile}        
-          />
+            setHoveredSubj={data.setHoveredSubj}
+            setSubjHover={data.setSubjHover}
+            isExistingSubj={data.isExistingSubj}
+            selectedLectures={props.selectedLectures}
+            lectureGroups={data.lectureGroups}
+            includesLecture={data.includesLecture}    
+            isMobile={data.isMobile}        
+            />
           )
         }
       </div>

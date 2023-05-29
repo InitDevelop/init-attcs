@@ -98,11 +98,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('resize', () => {setIsMobile(window.innerWidth <= 900)});
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', () => {setIsMobile(window.innerWidth <= 900)});
-    }
-  });
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // This function checks if some lecture exists in the timetable
   const isExistingSubj = (lecture: lecture) => {
@@ -149,7 +152,8 @@ function App() {
       lectureDatabase.filter(
         (lect: lecture) => {
           return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
-      ).sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
+      ).sort((a, b) => `${a.subj_id} ${a.lect_no}`.localeCompare(`${b.subj_id} ${b.lect_no}`))
+      .sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
     );
   }, [searchText, lectureDatabase]);
 
@@ -271,7 +275,7 @@ function App() {
     setMatchingLectures(
       filtered.filter(
         subject => subject.subj_id === clickedSubject
-      )
+      ).sort((a, b) => `${a.subj_id} ${a.lect_no}`.localeCompare(`${b.subj_id} ${b.lect_no}`))
     );
 
   }, [addingSubjName, clickedSubject, lectureDatabase]);
@@ -511,9 +515,19 @@ function App() {
                 onClick = {openUserData}>열기</div>
               <div className='for_testing'>
                 <span style={
-                  { color: "gray", "fontWeight": "400", fontSize: "larger",
-                    marginLeft: "15px", marginRight: "15px" }
+                  { color: "gray", fontSize: "larger",
+                    marginLeft: "15px" }
                 }><strong>샤간표 v{appVersion}</strong></span>
+                <span style={
+                  {
+                    color: "white",
+                    fontSize: "larger",
+                    marginLeft: "15px",
+                    backgroundColor: "#EC4E46",
+                    padding: "3px 8px",
+                    borderRadius: "3px"
+                  }
+                }><strong>2022년 2학기 수강편람 기준입니다!</strong></span>
               </div>
               <MobileMenuButton
                 open={menuOpened}

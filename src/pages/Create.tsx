@@ -32,7 +32,7 @@ function Create() {
       }
       data.setRelatedLectures(relatedLectures);
     }
-  }, [data.scenarioNumber, data]);
+  }, [data.scenarioNumber, isLoading]);
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {
@@ -71,6 +71,7 @@ function Create() {
       {
         (data.scenarios.length > 0) ? (
           <TimeTable
+            mode='create'
             isMobile={data.isMobile}
             lectures={data.scenarios[data.scenarioNumber].lectures}
             subjHover={false}
@@ -119,6 +120,7 @@ function Create() {
       {
         (data.scenarios.length > 0) ? (
           <TimeTable
+            mode='create'
             isMobile={data.isMobile}
             lectures={data.scenarios[data.scenarioNumber].lectures}
             subjHover={false}
@@ -174,11 +176,6 @@ function Create() {
           />
         )
       }
-      
-
-      {/* 
-
-       */}
     </div>
   )
 }

@@ -42,6 +42,7 @@ function SubjectGroup(props: propType) {
           subject => {
             return (
               <AddedSubject
+                key={subject.subj_id + " (" + subject.lect_no + ")"}
                 subject = {subject}
                 displayPopup = {props.displayPopup}
                 popAddedLecture = {props.popAddedLecture}

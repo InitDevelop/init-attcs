@@ -22,6 +22,7 @@ function Preview() {
     <div className="app-main-container">
       <div className='app-parent-container'>
         <TimeTable
+          mode='preview'
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}
@@ -47,6 +48,7 @@ function Preview() {
       <div className='app-parent-container'>
 
         <TimeTable
+          mode='preview'
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}

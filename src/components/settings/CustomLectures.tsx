@@ -88,8 +88,8 @@ function CustomLectures() {
 
     if (startHour * 100 + startMin < endHour * 100 + endMin || editable === true) {
       let fixedSchedule: lecture = {
-        lect_type: '',
-        lect_col: '',
+        lect_type: '기타',
+        lect_col: '나만의 일정',
         lect_dept: '',
         grad: '',
         grade: '',
@@ -161,6 +161,7 @@ function CustomLectures() {
           data.customLectures.map(
             customLecture =>
             <CustomLecture
+              key={customLecture.id}
               customLecture={customLecture}
               handleRemoveSchedule={handleRemoveSchedule}
               handleEditSchedule={handleEditSchedule}

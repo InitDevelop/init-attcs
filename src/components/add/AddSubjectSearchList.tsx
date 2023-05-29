@@ -18,6 +18,7 @@ function AddSubjectSearchList() {
         {
           data.matchingSubjects.map(subject => 
             <SubjectBox
+              key={subject.subj_id}
               subj_name           = {subject.subj_name}
               subj_id             = {subject.subj_id}
               clickedSubject      = {data.clickedSubject}

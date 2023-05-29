@@ -42,6 +42,7 @@ function Add() {
         data.subjHover ?
           <div className='app-parent-container'>
           <TimeTable
+            mode="add"
             isMobile={data.isMobile}
             lectures={[...selectedLectures]}
             subjHover={data.subjHover}

@@ -36,6 +36,7 @@ function AddedSubjectList(props: propType) {
               (lg: lectureGroup) => {
                 return (
                   <SubjectGroup
+                    key={lg.subj_id}
                     lectureGroup={lg}
                     displayPopup={data.displayPopup}
                     popAddedLecture={data.removeLectureFromGroup}

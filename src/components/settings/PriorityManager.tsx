@@ -60,6 +60,7 @@ function PriorityManager(props: propType) {
           Object.keys(data.priority).sort((a, b) => Math.abs(data.priority[a]) - Math.abs(data.priority[b])).map(
             key => (
               <PriorityBox
+                key={key}
                 updateCount={props.updateCount}
                 setUpdateCount={props.setUpdateCount}
                 message={data.priority[key] >= 0 ? messages[key] : messagesInv[key]}
