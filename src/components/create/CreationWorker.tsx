@@ -7,8 +7,18 @@ let totalProcessCount = 0;
 let currentProcessNum = 0;
 let validCount = 0;
 
-function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: Dictionary<number>) {
+type getType = {
+  originalLectureGroups: lectureGroup[],
+  priorityValues: Dictionary<number>,
+}
 
+onmessage = function(message) {
+  const params: getType = message.data;
+  CreationWorker(params.originalLectureGroups, params.priorityValues);
+}
+
+const CreationWorker = (originalLectureGroups: lectureGroup[], priorityValues: Dictionary<number>) => {
+  
   // Pre-process lectureGroups so that
   // lectures which share the same time slots be categorized to the same scenario
   
@@ -34,8 +44,6 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
       mustInclude: originalLectureGroups[i].mustInclude
     });
   }
-
-  // Creation of the scenarios
 
   const priorities: number[] = [];
   const result: number[][] = [];
@@ -91,15 +99,15 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
           continue outerLoop;
         }
       } else {
-        if (Math.abs(priorityValues[warn.warningType]) < 0.5) {
+        if (Math.abs(priorityValues[warn.warningType]) < 0.5 && (sign > 0 ? warn.isCritical : !warn.isCritical)) {
           continue outerLoop;
         }
       }
       
       if (warn.warningType === "empty") {
-        scResult.scenario.priority += sign * weight * (1 + 0.01 * warn.extraInfo.length);
+        scResult.scenario.priority += sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
       } else {
-        scResult.scenario.priority -= sign * weight * (1 + 0.01 * warn.extraInfo.length);
+        scResult.scenario.priority -= sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
       }
     }
 
@@ -130,29 +138,4 @@ function CreationWorker(originalLectureGroups: lectureGroup[], priorityValues: D
     total: totalProcessCount,
     valid: validCount
   });
-}
-
-type getType = {
-  originalLectureGroups: lectureGroup[],
-  priorityValues: Dictionary<number>,
-}
-
-// self.addEventListener('message', (event) => {
-//   // You can access the message data using `event.data`
-//   const params: getType = event.data;
-
-//   // Perform any necessary actions based on the received message
-  
-//   // Call the worker function
-//   CreationWorker(params.originalLectureGroups, params.priorityValues);
-// });
-
-onmessage = function(message) {
-  // You can access the message data using `event.data`
-  const params: getType = message.data;
-
-  // Perform any necessary actions based on the received message
-  
-  // Call the worker function
-  CreationWorker(params.originalLectureGroups, params.priorityValues);
 }

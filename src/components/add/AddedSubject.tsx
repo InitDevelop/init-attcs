@@ -14,11 +14,19 @@ type propType = {
 
 function AddedSubject(props: propType) {
   return (
-    <div className='list-addedsubject' style={{ backgroundColor: props.isInScenario ? "#ccc" : "#fff" }}>
+    <div className='list-addedsubject'>
       <h3>
-        <span className='credit' style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
+        <span className={props.isInScenario ? 'highlighted-credit' : 'credit'}
+          style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
+        {
+          props.isInScenario &&
+          (
+            <strong
+              style={{marginRight: "10px"}}> {"✅ 포함됨"} </strong>
+          )
+        }
         <span 
-          className='lecture_name'
+          className='medium-title-hoverable'
           style={{ cursor: "pointer", marginRight: "10px"}}
           onClick={() => {
             props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,

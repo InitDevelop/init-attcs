@@ -71,6 +71,11 @@
   box-shadow: var(--shadow);
 }
 
+.timetable-subject:hover {
+  scale: 1.1;
+  z-index: 10;
+}
+
 .timetable-subject span, .timetable-hover-subject span {
   width: 100%;
   text-align: left;

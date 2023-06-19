@@ -200,7 +200,7 @@ function App() {
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
   const [relatedLectures, setRelatedLectures] = useState<lecture[]>([]);
   const [priority, setPriority] = useState<Dictionary<number>>({
-    "empty": 1, "time": 2, "morning": 3, "count": 4, "lunch": 5, "space": 6
+    "empty": 1, "time": 5, "morning": 4, "count": 2, "lunch": 3, "space": 6
   });
 
   const addLectureToGroup = (lect: lecture) => {

@@ -476,6 +476,12 @@
   border-radius: 4px;
 }
 
+.highlighted-credit {
+  background-color: #80db8f;
+  padding: 3px;
+  border-radius: 4px;
+}
+
 .mobile-menu-link:hover {
   transition: 400ms;
   border-radius: 10px;

@@ -128,7 +128,7 @@ function ScenarioSummary() {
 
             {
               (data.scenarios.length > 0) && (
-                data.scenarios[data.scenarioNumber].warnings.map(
+                data.scenarios[data.scenarioNumber].warnings.filter(w => w.isCritical).map(
                   warning =>
                   <tr key={warning.warningType}>
                     <td colSpan={2}>
@@ -141,9 +141,7 @@ function ScenarioSummary() {
                 )
               )
             }
-            
-
-
+          
           </tbody>
         </table>
       </div>

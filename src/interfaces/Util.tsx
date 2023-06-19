@@ -14,7 +14,9 @@ export interface StringNumberPair {
 
 export interface warning {
   warningType: 'time' | 'lunch' | 'empty' | 'count' | 'morning' | 'space';
+  weight: number;
   extraInfo: string[];
+  isCritical: boolean;
 }
 
 export function range(start: number, end: number, step: number = 1): number[] {
