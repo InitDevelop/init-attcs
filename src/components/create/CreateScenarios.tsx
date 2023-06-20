@@ -1,9 +1,9 @@
-import { pseudoTimeSlot } from "../../interfaces/Lecture";
-import { getTimeSlots, scenario } from "../../interfaces/Scenario";
-import { getDistance, warning } from "../../interfaces/Util";
+import { Scenario } from "../../util/Scenario";
+import { TimeSlot } from "../../util/TimeSlot";
+import { getBuildingDistance } from "../../util/Util";
+import { Warning } from "../../util/Warning";
 
 const DISTANCE_LIMIT: number = 1.53;
-
 
 const getStandardDeviation = (list: number[]): number => {
   let mean = 0;
@@ -27,36 +27,36 @@ const getMinuteDifference = (from: number, to: number): number => {
   return (endMin - startMin);
 }
 
-const getLunchWarnings = (timeSlots: pseudoTimeSlot[][]): warning => {
-  let lunchWarning: warning = { warningType: "lunch", weight: 0, extraInfo: [], isCritical: false };
+const getLunchWarnings = (timeSlots: TimeSlot[][]): Warning => {
+  let lunchWarning: Warning = { warningType: "lunch", warningLevel: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
     let existsLunchTime = false;
     if (timeSlots[date].length === 0) {
       existsLunchTime = true;
     } else if (timeSlots[date].length === 1) {
-      if (timeSlots[date][0].endTime <= 1300 || timeSlots[date][0].startTime >= 1200) {
+      if (timeSlots[date][0].endTime.toNumber() <= 1300 || timeSlots[date][0].startTime.toNumber() >= 1200) {
         existsLunchTime = true;
       }
     } else {
-      if (timeSlots[date][0].startTime >= 1200 || timeSlots[date][timeSlots[date].length - 1].endTime <= 1300) {
+      if (timeSlots[date][0].startTime.toNumber() >= 1200 || timeSlots[date][timeSlots[date].length - 1].endTime.toNumber() <= 1300) {
         existsLunchTime = true;
       }
     }
 
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
-      if (timeSlots[date][slot].endTime >= 1100 && timeSlots[date][slot].endTime <= 1300) {
-        if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) >= 60) {
+      if (timeSlots[date][slot].endTime.toNumber() >= 1100 && timeSlots[date][slot].endTime.toNumber() <= 1300) {
+        if (getMinuteDifference(timeSlots[date][slot].endTime.toNumber(), timeSlots[date][slot + 1].startTime.toNumber()) >= 60) {
           existsLunchTime = true;
         }
-      } else if (timeSlots[date][slot].endTime < 1100) {
-        if (timeSlots[date][slot + 1].startTime >= 1200) {
+      } else if (timeSlots[date][slot].endTime.toNumber() < 1100) {
+        if (timeSlots[date][slot + 1].startTime.toNumber() >= 1200) {
           existsLunchTime = true;
         }
       }
     }
 
     if (!existsLunchTime) {
-      lunchWarning.weight++;
+      lunchWarning.warningLevel++;
       lunchWarning.isCritical = true;
     }
   }
@@ -64,34 +64,34 @@ const getLunchWarnings = (timeSlots: pseudoTimeSlot[][]): warning => {
   return lunchWarning;
 }
 
-const getDistanceWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
-  let distanceWarning: warning = { warningType: "time", weight: 0, extraInfo: [], isCritical: false };
+const getDistanceWarning = (timeSlots: TimeSlot[][]): Warning => {
+  let distanceWarning: Warning = { warningType: "time", warningLevel: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
-      if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) <= 20) {
-        let bdngFrom: number = parseInt(timeSlots[date][slot].room.split("-")[0]);
-        let bdngTo: number = parseInt(timeSlots[date][slot + 1].room.split("-")[0]);
+      if (getMinuteDifference(timeSlots[date][slot].endTime.toNumber(), timeSlots[date][slot + 1].startTime.toNumber()) <= 20) {
+        let bdngFrom: number = parseInt(timeSlots[date][slot].[0]);
+        let bdngTo: number = parseInt(timeSlots[date][slot + 1].room[0]);
 
-        if (getDistance(bdngFrom, bdngTo) / getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) > DISTANCE_LIMIT) {
+        if (getBuildingDistance(bdngFrom, bdngTo) / getMinuteDifference(timeSlots[date][slot].endTime.toNumber(), timeSlots[date][slot + 1].startTime.toNumber()) > DISTANCE_LIMIT) {
           if (!distanceWarning.extraInfo.includes(timeSlots[date][slot].lecture.subj_name)) {
             distanceWarning.extraInfo.push(timeSlots[date][slot].lecture.subj_name);
-            distanceWarning.weight++;
+            distanceWarning.warningLevel++;
           }
           if (!distanceWarning.extraInfo.includes(timeSlots[date][slot + 1].lecture.subj_name)) {
             distanceWarning.extraInfo.push(timeSlots[date][slot + 1].lecture.subj_name);
-            distanceWarning.weight++;
+            distanceWarning.warningLevel++;
           }
         } 
       }
     }
   }
-  if (distanceWarning.weight > 0) {
+  if (distanceWarning.warningLevel > 0) {
     distanceWarning.isCritical = true;
   }
   return distanceWarning;
 }
 
-const getLectureCountWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
+const getLectureCountWarning = (timeSlots: TimeSlot[][]): Warning => {
   let lectureCountWarning: warning = { warningType: "count", weight: 0, extraInfo: [], isCritical: false };
   const lectureMinutes: number[] = [];
   for (let date = 0; date < 5; date++) {
@@ -113,7 +113,7 @@ const getLectureCountWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
   return lectureCountWarning;
 }
 
-const getEmptyDateWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
+const getEmptyDateWarning = (timeSlots: TimeSlot[][]): Warning => {
   let emptyDateWarning: warning = { warningType: "empty", weight: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
     if (timeSlots[date].length === 0) {
@@ -126,7 +126,7 @@ const getEmptyDateWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
   return emptyDateWarning;
 }
 
-const getMorningWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
+const getMorningWarning = (timeSlots: TimeSlot[][]): Warning => {
   let morningWarning: warning = { warningType: "morning", weight: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
     if (timeSlots[date].length > 0) {
@@ -141,7 +141,7 @@ const getMorningWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
   return morningWarning;
 }
 
-const getSpaceWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
+const getSpaceWarning = (timeSlots: TimeSlot[][]): Warning => {
   let spaceWarning: warning = { warningType: "space", weight: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
@@ -156,7 +156,7 @@ const getSpaceWarning = (timeSlots: pseudoTimeSlot[][]): warning => {
   return spaceWarning;
 }
 
-export const getWarnings = (sc: scenario): warning[] => {
+export const getWarnings = (sc: Scenario): Warning[] => {
 
   let timeSlots: pseudoTimeSlot[] = [];
   let daysTimeSlots: pseudoTimeSlot[][] = [[], [], [], [], []];

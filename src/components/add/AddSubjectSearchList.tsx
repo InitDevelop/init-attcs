@@ -16,11 +16,11 @@ function AddSubjectSearchList() {
       <div className={!data.isMobile ?
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {
-          data.matchingSubjects.map(subject => 
+          data.matchingSubjects.map(lecture => 
             <SubjectBox
-              key={subject.subj_id}
-              subj_name           = {subject.subj_name}
-              subj_id             = {subject.subj_id}
+              key={lecture.lectureID}
+              subj_name           = {lecture.subjectTitle}
+              subj_id             = {lecture.subjectID}
               clickedSubject      = {data.clickedSubject}
               setClickedSubject   = {data.setClickedSubject}
             />

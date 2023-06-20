@@ -4,7 +4,7 @@ import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { PreviewContext } from "../../App";
-import { lecture } from "../../interfaces/Lecture";
+import { Lecture } from '../../util/Lecture';
 
 function SubjectSearchList() {
 
@@ -19,10 +19,10 @@ function SubjectSearchList() {
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {
           data.shownLectures.map(
-            (subject: lecture) => {
+            (subject: Lecture) => {
               return (
                 <LectureBox 
-                  key={subject.subj_id + " (" + subject.lect_no + ")"}
+                  key={subject.subjectID + " (" + subject.lectureID + ")"}
                   boxType={"search"} subject={subject}
                   displayPopup={data.displayPopup}
                   addLectureToList={data.addSubject}
@@ -32,7 +32,7 @@ function SubjectSearchList() {
                   isExistingSubj={data.isExistingSubj}
                   selectedLectures={[]}
                   lectureGroups={[]}
-                  includesLecture={function (param: lecture): boolean {
+                  includesLecture={function (param: Lecture): boolean {
                     throw new Error("Function not implemented.");
                   } }
                   isMobile={data.isMobile}

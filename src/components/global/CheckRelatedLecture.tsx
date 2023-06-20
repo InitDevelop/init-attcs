@@ -1,4 +1,4 @@
-import { lecture } from "../../interfaces/Lecture";
+import { Lecture } from "../../util/Lecture";
 
 export const accuracy = (abbrev: string, subj_name: string, prof: string) => {
   let prefix: number = 0;
@@ -8,16 +8,16 @@ export const accuracy = (abbrev: string, subj_name: string, prof: string) => {
   return prefix + (abbrev.replace(" ", "").length / subj_name.replace(" ", "").length);
 };
 
-export const CheckRelatedLecture = (input: string, lecture: lecture) => {
-  if (isRelatedName(input, lecture.subj_name)) {
+export const CheckRelatedLecture = (input: string, lecture: Lecture) => {
+  if (isRelatedName(input, lecture.subjectTitle)) {
     return true;
-  } else if (isRelatedName(input, lecture.prof + lecture.subj_name + lecture.prof)) {
+  } else if (isRelatedName(input, lecture.lecturer + lecture.subjectTitle + lecture.lecturer)) {
     return true;
   } else {
     let splitInput = input.split(" ");
     for (const str of splitInput) {
       if (str.includes("학년")) {
-        if (lecture.grade !== str) {
+        if (lecture.year.toString() + "학년" !== str) {
           return false;
         } else {
           input = input.replace(str, "");
@@ -27,7 +27,7 @@ export const CheckRelatedLecture = (input: string, lecture: lecture) => {
           str === "전필" || 
           str === "전선" ||
           str === "일선") {
-        if (lecture.lect_type !== str) {
+        if (lecture.classification !== str) {
           return false;
         } else {
           input = input.replace(str, "");
@@ -40,7 +40,7 @@ export const CheckRelatedLecture = (input: string, lecture: lecture) => {
           input = input.replace(str, "");
         }
       } else if (str === "한국어" || str === "영어") {
-        if (lecture.lang !== str) {
+        if (lecture.language !== str) {
           return false;
         } else {
           input = input.replace(str, "");
@@ -48,23 +48,23 @@ export const CheckRelatedLecture = (input: string, lecture: lecture) => {
       }
     }
 
-    if (isRelatedName(input, lecture.prof + lecture.subj_name + lecture.prof)) {
+    if (isRelatedName(input, lecture.lecturer + lecture.subjectTitle + lecture.lecturer)) {
       return true;
     } else {
       splitInput = input.split(" ").filter(s => s !== "");
       let str1 = splitInput[splitInput.length - 1];
       let str2 = splitInput[0];
   
-      if (lecture.extra_info.replace(" ", "").includes(str1) || isRelatedDepartment(str1, lecture.lect_col, lecture.lect_dept)) {
+      if (lecture.extraInfo.replace(" ", "").includes(str1) || isRelatedDepartment(str1, lecture.college, lecture.department)) {
         input = input.replace(str1, "");
-        if (isRelatedName(input, lecture.prof + lecture.subj_name + lecture.prof)) {
+        if (isRelatedName(input, lecture.lecturer + lecture.subjectTitle + lecture.lecturer)) {
           return true;
         }
       }
   
-      if (lecture.extra_info.replace(" ", "").includes(str2) || isRelatedDepartment(str2, lecture.lect_col, lecture.lect_dept)) {
+      if (lecture.extraInfo.replace(" ", "").includes(str2) || isRelatedDepartment(str2, lecture.college, lecture.department)) {
         input = input.replace(str2, "");
-        if (isRelatedName(input, lecture.prof + lecture.subj_name + lecture.prof)) {
+        if (isRelatedName(input, lecture.lecturer + lecture.subjectTitle + lecture.lecturer)) {
           return true;
         }
       }

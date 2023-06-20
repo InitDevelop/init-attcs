@@ -1,17 +1,17 @@
 import React from 'react';
-import { customSchedule } from '../../interfaces/Lecture';
+import CustomLecture from '../../util/CustomLecture';
 
 type propType = {
-  customLecture: customSchedule;
-  handleRemoveSchedule: (customLecture: customSchedule) => void;
-  handleSaveSchedule: (customLecture: customSchedule, name: string, date: number,
+  customLecture: CustomLecture;
+  handleRemoveSchedule: (customLecture: CustomLecture) => void;
+  handleSaveSchedule: (customLecture: CustomLecture, name: string, date: number,
     startHour: number, startMin: number, endHour: number, endMin: number,
     room: string, editable: boolean) => void;
-  handleEditSchedule: (customLecture: customSchedule) => void;
-  handleNameChange: (customLecture: customSchedule, name: string) => void;
-  handleRoomChange: (customLecture: customSchedule, room: string) => void;
-  handleDateChange: (customLecture: customSchedule, date: number) => void;
-  handleTimeChange: (customLecture: customSchedule, startHour: number, startMin: number, endHour: number, endMin: number) => void;
+  handleEditSchedule: (customLecture: CustomLecture) => void;
+  handleNameChange: (customLecture: CustomLecture, name: string) => void;
+  handleRoomChange: (customLecture: CustomLecture, room: string) => void;
+  handleDateChange: (customLecture: CustomLecture, date: number) => void;
+  handleTimeChange: (customLecture: CustomLecture, startHour: number, startMin: number, endHour: number, endMin: number) => void;
 };
 
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];

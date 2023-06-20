@@ -4,13 +4,13 @@ import MobileCloseButton from "../global/MobileCloseButton";
 import AddSubjectSearch from "./AddSubjectSearch";
 import AddSubjectSearchList from "./AddSubjectSearchList";
 import LectureSearchList from "./LectureSearchList";
-import { lecture } from "../../interfaces/Lecture";
+import { Lecture } from "../../util/Lecture";
 
 type propType = {
   setAddMenuVisible: (param: boolean) => void;
   setHideHeader: (param: boolean) => void;
-  selectedLectures: lecture[];
-  setSelectedLectures: (param: lecture[]) => void;
+  selectedLectures: Lecture[];
+  setSelectedLectures: (param: Lecture[]) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
   selectedDates: number[];

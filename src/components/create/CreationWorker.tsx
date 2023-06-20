@@ -1,6 +1,7 @@
-import { lecture, lectureGroup } from "../../interfaces/Lecture";
-import { getScenario, scenario } from "../../interfaces/Scenario";
-import { Dictionary } from "../../interfaces/Util";
+import { Lecture } from "../../util/Lecture";
+import { LectureGroup } from "../../util/LectureGroup";
+import { Scenario } from "../../util/Scenario";
+import { Dictionary } from "../../util/Util";
 import { getWarnings } from "./CreateScenarios";
 
 let totalProcessCount = 0;
@@ -8,7 +9,7 @@ let currentProcessNum = 0;
 let validCount = 0;
 
 type getType = {
-  originalLectureGroups: lectureGroup[],
+  originalLectureGroups: LectureGroup[],
   priorityValues: Dictionary<number>,
 }
 
@@ -17,37 +18,22 @@ onmessage = function(message) {
   CreationWorker(params.originalLectureGroups, params.priorityValues);
 }
 
-const CreationWorker = (originalLectureGroups: lectureGroup[], priorityValues: Dictionary<number>) => {
+const CreationWorker = (originalLectureGroups: LectureGroup[], priorityValues: Dictionary<number>) => {
   
   // Pre-process lectureGroups so that
   // lectures which share the same time slots be categorized to the same scenario
   
-  const lectureGroups: lectureGroup[] = [];
-  const scenarioResults: scenario[] = [];
-  
-  for (let i = 0; i < originalLectureGroups.length; i++) {
-    const timeShareLects: lecture[][] = Object.values(originalLectureGroups[i].lectures.reduce<{[key: string]: lecture[]}>(
-      (result, currentValue) => {
-        const propertyValue: string = currentValue.time;
-        if (!result[propertyValue]) {
-          result[propertyValue] = [];
-        }
-        result[propertyValue].push(currentValue);
-        return result;
-      }, {}));
+  const lectureGroups: LectureGroup[] = [];
+  const scenarioResults: Scenario[] = [];
 
-    const representiveLect: lecture[] = timeShareLects.map(larr => larr[0]);
-    lectureGroups.push({
-      subj_id: originalLectureGroups[i].subj_id,
-      lectures: representiveLect,
-      timeShareLectures: timeShareLects,
-      mustInclude: originalLectureGroups[i].mustInclude
-    });
+  for (let i = 0; i < originalLectureGroups.length; i++) {
+    originalLectureGroups[i].updateTimeSharingLectures();
+    lectureGroups.push(originalLectureGroups[i]);
   }
 
   const priorities: number[] = [];
   const result: number[][] = [];
-  const lengths: number[] = lectureGroups.map(lg => lg.timeShareLectures.length);
+  const lengths: number[] = lectureGroups.map(lg => lg.timeSharingLectures.size);
   const totalCombinations: number = lengths.reduce((a, b) => a * b, 1);
 
   totalProcessCount = totalCombinations;
@@ -66,8 +52,10 @@ const CreationWorker = (originalLectureGroups: lectureGroup[], priorityValues: D
   outerLoop:
   for (const r of result) {
     currentProcessNum++;
-    
-    let scResult = getScenario(lectureGroups, r);
+
+    let scenario: Scenario = new Scenario();
+    let pushResult: boolean = scenario.pushLectures()
+      = getScenario(lectureGroups, r);
 
     if (currentProcessNum % 123 === 0) {
       postMessage({scenarios: [],

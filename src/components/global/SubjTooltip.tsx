@@ -1,8 +1,8 @@
+import { NumberPair } from "../../util/Util";
 import "./Tooltip.css"
-import { xyTuple } from "../../interfaces/Util";
 
 type propType = {
-  tooltipPosition: xyTuple;
+  tooltipPosition: NumberPair;
   scrollPosition: number;
   tooltipContent: React.ReactNode;
   mode: string;

@@ -4,11 +4,11 @@ import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from "../global/LectureBox";
 import { CreationContext } from "../../App";
-import { lecture } from "../../interfaces/Lecture";
+import { Lecture } from '../../util/Lecture';
 
 type propType = {
-  selectedLectures: lecture[];
-  setSelectedLectures: (param: lecture[]) => void;
+  selectedLectures: Lecture[];
+  setSelectedLectures: (param: Lecture[]) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
   selectedDates: number[];
@@ -42,16 +42,16 @@ function LectureSearchList(props: propType) {
         style = {{ bottom: "100px" }}>
         {data.matchingLectures.map(subject => 
           <LectureBox
-            key={subject.subj_id + " (" + subject.lect_no + ")"}
+            key={subject.subjectID + " (" + subject.lectureID + ")"}
             boxType={"add"} subject={subject}
             displayPopup={data.displayPopup}
             addLectureToList={
-              (lect: lecture) => {
+              (lect: Lecture) => {
                 props.setSelectedLectures(props.selectedLectures.concat(lect));
               }
             }
             removeLectureFromList={
-              (lect: lecture) => {
+              (lect: Lecture) => {
                 props.setSelectedLectures(props.selectedLectures.filter(l => l !== lect));
               }
             }

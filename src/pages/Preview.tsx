@@ -9,7 +9,7 @@ import "../AppMobile.css";
 import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
 import PreviewAddMenu from '../components/preview/PreviewAddMenu';
 import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
-import { getHoveredTimeTableSlots, getTimeTableSlots } from '../interfaces/Lecture';
+import { getNumberedTimeSlots } from '../util/NumberedTimeSlot';
 
 function Preview() {
   const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
@@ -26,8 +26,8 @@ function Preview() {
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}
-          timeSlots={getTimeTableSlots(data.selSubj)}
-          hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
+          timeSlots={getNumberedTimeSlots(data.selSubj)}
+          hoveredTimeSlots={getNumberedTimeSlots([data.hoveredSubj])}
           setShowTooltip={data.setShowTooltip}
           setTooltipContent={data.setTooltipContent}     
           displayPopup={data.displayPopup}   
@@ -52,8 +52,8 @@ function Preview() {
           isMobile={data.isMobile}
           lectures={data.selSubj}
           subjHover={data.subjHover}
-          timeSlots={getTimeTableSlots(data.selSubj)}
-          hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
+          timeSlots={getNumberedTimeSlots(data.selSubj)}
+          hoveredTimeSlots={getNumberedTimeSlots([data.hoveredSubj])}
           setShowTooltip={data.setShowTooltip}
           setTooltipContent={data.setTooltipContent}     
           displayPopup={data.displayPopup}   

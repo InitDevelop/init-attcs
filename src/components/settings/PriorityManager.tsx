@@ -4,7 +4,7 @@ import '../../App.css';
 import '../../AppMobile.css';
 import { CreationContext } from "../../App";
 import PriorityBox from "./PriorityBox";
-import { Dictionary } from '../../interfaces/Util';
+import { Dictionary } from '../../util/Util';
 
 const messages: Dictionary<string> = {
   "time": "이동 동선 짧게",

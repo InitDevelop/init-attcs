@@ -4,7 +4,7 @@ import '../../css/AppTable.css';
 import '../../App.css';
 import SubjectGroup from './SubjectGroup'
 import { CreationContext } from "../../App";
-import { lectureGroup } from '../../interfaces/Lecture';
+import { LectureGroup } from '../../util/LectureGroup';
 
 type propType = {
   updateCount: number;
@@ -18,7 +18,7 @@ function AddedSubjectList(props: propType) {
   const getCreditSum = () => {
     let returnValue = 0;
     for (let i = 0; i < data.lectureGroups.length; i++) {
-      returnValue += parseInt(data.lectureGroups[i].lectures[0].credit);
+      returnValue += data.lectureGroups[i].lectures[0].credit;
     }
     return returnValue;
   }
@@ -33,10 +33,10 @@ function AddedSubjectList(props: propType) {
         <div className="appTable__scrollContainer">
           {
             data.lectureGroups.map(
-              (lg: lectureGroup) => {
+              (lg: LectureGroup) => {
                 return (
                   <SubjectGroup
-                    key={lg.subj_id}
+                    key={lg.subject.subjectID}
                     lectureGroup={lg}
                     displayPopup={data.displayPopup}
                     popAddedLecture={data.removeLectureFromGroup}

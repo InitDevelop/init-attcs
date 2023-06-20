@@ -2,14 +2,16 @@ import "./SubjectList.css"
 import '../../css/AppTable.css';
 import '../../App.css';
 import AddedSubject from './AddedSubject'
-import { lecture, lectureGroup } from "../../interfaces/Lecture";
 import { CreationContext } from "../../App";
 import { useContext } from "react";
+import { LectureGroup } from "../../util/LectureGroup";
+import { Lecture } from "../../util/Lecture";
+import { isSameLecture } from "../../util/LectureUtil";
 
 type propType = {
-  lectureGroup: lectureGroup;
+  lectureGroup: LectureGroup;
   displayPopup: (title: string, content: React.ReactNode) => void;
-  popAddedLecture: (param: lecture) => void;
+  popAddedLecture: (param: Lecture) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
 }
@@ -27,7 +29,7 @@ function SubjectGroup(props: propType) {
   return (
     <div className='list-subjectgroupbox'>
       <h2 style={{fontWeight: "500"}}>
-        <strong style={{ marginRight: "20px" }}>{props.lectureGroup.lectures[0].subj_name}</strong>
+        <strong style={{ marginRight: "20px" }}>{props.lectureGroup.lectures[0].subjectTitle}</strong>
         <label style={{ marginRight: "20px" }}>
         <input style = {{ cursor: "pointer", verticalAlign: "middle" }}
           className='checkbox-1'
@@ -38,19 +40,19 @@ function SubjectGroup(props: propType) {
         <button className="button-tiny" onClick={handleRemoveAll}>전체 제거</button>
       </h2>
       {
-        props.lectureGroup.lectures.sort((a, b) => parseInt(a.lect_no) - parseInt(b.lect_no)).map(
+        props.lectureGroup.lectures.sort((a, b) => parseInt(a.lectureID) - parseInt(b.lectureID)).map(
           subject => {
             return (
               <AddedSubject
-                key={subject.subj_id + " (" + subject.lect_no + ")"}
-                subject = {subject}
+                key={subject.subjectID + " (" + subject.lectureID + ")"}
+                lecture = {subject}
                 displayPopup = {props.displayPopup}
                 popAddedLecture = {props.popAddedLecture}
                 updateCount={props.updateCount}
                 setUpdateCount={props.setUpdateCount}
                 isInScenario={
                   (data.scenarios.length > 0) ?
-                  (data.relatedLectures.filter(l => l.subj_id === subject.subj_id && l.lect_no === subject.lect_no).length > 0)
+                  (data.relatedLectures.filter(l => isSameLecture(l, subject)).length > 0)
                   :
                   false
                   }
