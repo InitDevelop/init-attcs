@@ -77,7 +77,7 @@ function CustomLecture(props: propType) {
                 </button>
                 :
                 <button className='button-0'
-                onClick={() => {props.handleEditSchedule(props.customLecture)}}>
+                onClick={() => { props.handleEditSchedule(props.customLecture) }}>
                   편집
                 </button>
               }

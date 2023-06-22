@@ -50,7 +50,8 @@ function Add() {
             hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}
-            displayPopup={data.displayPopup}/>
+            displayPopup={data.displayPopup}
+            />
           </div>
           :
           <div className='app-parent-container'>

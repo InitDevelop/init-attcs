@@ -200,7 +200,7 @@ function App() {
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
   const [relatedLectures, setRelatedLectures] = useState<Lecture[]>([]);
   const [priority, setPriority] = useState<Dictionary<number>>({
-    "empty": 1, "time": 5, "morning": 4, "count": 2, "lunch": 3, "space": 6
+    "empty": 1, "time": 5, "morning": 2, "count": 4, "lunch": 6, "space": 3
   });
 
   const addLectureToGroup = (lect: Lecture) => {
@@ -214,7 +214,7 @@ function App() {
         subjectID: lect.subjectID,
         lectures: [lect],
         timeShareLectures: [],
-        mustInclude: true
+        //mustInclude: true
       });
     }
     setLectureGroups(copy);
@@ -252,6 +252,20 @@ function App() {
     setAddingSubjName(event.target.value);
     setClickedSubject("");
   };
+
+  useEffect(() => {
+    const handleKeyPress = (event: any) => {
+      if (event.key === 'Escape') {
+        if (showPopup === true) {
+          setShowPopup(false);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  });
 
   useEffect(() => {
     let subjectsAdded: string[] = [];

@@ -1,5 +1,5 @@
-import { PseudoTimeSlot, toPseudoTimeSlots } from "./Lecture";
-import { Lecture, LectureGroup } from "./Lecture";
+import { PseudoTimeSlot, TimeSlot, toPseudoTimeSlots } from "./Lecture";
+import { Lecture } from "./Lecture";
 import { Warning, getTimeNumber } from "./Util";
 
 export interface Scenario {
@@ -14,11 +14,20 @@ export const isTimeIntersectExpanded = (thisStartHour: number, thisStartMin: num
   thatStartHour: number, thatStartMin: number,
   thatEndHour: number, thatEndMin: number) => {
   return getTimeNumber(thisStartHour, thisStartMin) <= getTimeNumber(thatEndHour, thatEndMin) 
-  && getTimeNumber(thisEndHour, thisEndMin) >= getTimeNumber(thatStartHour, thatStartMin);
+    && getTimeNumber(thisEndHour, thisEndMin) >= getTimeNumber(thatStartHour, thatStartMin);
 }
 
 export const isTimeIntersect = (thisStart: number, thisEnd: number, thatStart: number, thatEnd: number) => {
   return thisStart <= thatEnd && thisEnd >= thatStart;
+}
+
+export const getTimeValueArray = (timeSlots: TimeSlot[]): number[][] => {
+  const timeValues: number[][] = [];
+  for (let i = 0; i < timeSlots.length; i++) {
+    timeValues.push([timeSlots[i].date,
+      timeSlots[i].startTime, timeSlots[i].endTime]);
+  }
+  return timeValues;
 }
 
 export const isValidCombination = (timeValues: number[][]): boolean => {
@@ -63,36 +72,18 @@ export const intersects = (sc: Scenario, lect: Lecture) => {
 }
 
 export const timeSlotsToScenario = (timeSlots: PseudoTimeSlot[][][]): Scenario => {
+  const timeSharingSlots: Lecture[][] = [];
+  for (let i = 0; i < timeSlots.length; i++) {
+    const shareSlots: Lecture[] = [];
+    for (let j = 0; j < timeSlots[i].length; j++) {
+      shareSlots.push(timeSlots[i][j][0]);
+    }
+    timeSharingSlots.push(shareSlots);
+  }
   return {
     lectures: timeSlots.map(tsarr => tsarr[0][0]),
     priority: 0,
     warnings: [],
-    shareTimeLectures: timeSlots.map(tsarr => tsarr[0])
+    shareTimeLectures: timeSharingSlots
   };
 }
-
-// export function getScenario(lectureGroups: LectureGroup[], indexes: number[]) {
-//   let allowLeftover: boolean[] = lectureGroups.map(lg => !lg.mustInclude);
-//   let returnScenario: Scenario = { lectures: [], shareTimeLectures: [], warnings: [], priority: 0 };
-//   let leftOverIDs: string[] = [];
-  
-//   // Meaning of exitCode
-//   // 0 : success
-//   // 1 : fail (includes intersecting timeslot)
-
-//   let exitCode = 0;
-
-//   for (let i = 0; i < lectureGroups.length; i++) {
-//     if (!intersects(returnScenario, lectureGroups[i].timeShareLectures[indexes[i]][0])) {
-//       returnScenario.lectures.push(lectureGroups[i].timeShareLectures[indexes[i]][0]);
-//       returnScenario.shareTimeLectures.push(lectureGroups[i].timeShareLectures[indexes[i]]);
-//     } else {
-//       if (allowLeftover[i]) {
-//         leftOverIDs.push(lectureGroups[i].subjectID);
-//       } else {
-//         return { scenario: returnScenario, leftovers: [], exitCode: 1 };
-//       }
-//     }
-//   }
-//   return { scenario: returnScenario, leftovers: leftOverIDs, exitCode: exitCode };
-// }

@@ -1,5 +1,5 @@
 import buildingData from "../db/building_data.json"
-import { PseudoTimeSlot } from "./Lecture";
+import { Lecture } from "./Lecture";
 
 export interface xyTuple {
   x: number,
@@ -52,6 +52,14 @@ export const getHourFromNumber = (time: number) => {
 
 export const getMinFromNumber = (time: number) => {
   return time % 100;
+}
+
+export const isSameSubject = (lecture1: Lecture, lecture2: Lecture) => {
+  return lecture1.subjectID === lecture2.subjectID;
+}
+
+export const isSameLecture = (lecture1: Lecture, lecture2: Lecture) => {
+  return lecture1.subjectID === lecture2.subjectID && lecture1.lectureNumber === lecture2.lectureNumber;
 }
 
 export const getRange = (start: number, end: number, step: number = 1): number[] => {

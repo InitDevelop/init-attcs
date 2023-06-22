@@ -48,15 +48,15 @@ function Preview() {
       <div className='app-parent-container'>
 
         <TimeTable
-          mode='preview'
-          isMobile={data.isMobile}
-          lectures={data.selSubj}
-          subjHover={data.subjHover}
-          timeSlots={getAllTimeSlots(data.selSubj)}
-          hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
-          setShowTooltip={data.setShowTooltip}
-          setTooltipContent={data.setTooltipContent}     
-          displayPopup={data.displayPopup}   
+            mode='preview'
+            isMobile={data.isMobile}
+            lectures={data.selSubj}
+            subjHover={data.subjHover}
+            timeSlots={getAllTimeSlots(data.selSubj)}
+            hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
+            setShowTooltip={data.setShowTooltip}
+            setTooltipContent={data.setTooltipContent}
+            displayPopup={data.displayPopup}        
         />
         <MobilePreviewMenu
           setAddMenuVisible={setAddMenuVisible}

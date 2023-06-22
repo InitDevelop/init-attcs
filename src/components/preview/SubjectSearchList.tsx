@@ -17,7 +17,7 @@ function SubjectSearchList() {
       }
       <div className={!data.isMobile ?
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
-        {
+        { (data.shownLectures.length <= 200) ?
           data.shownLectures.map(
             (subject: Lecture) => {
               return (
@@ -36,10 +36,17 @@ function SubjectSearchList() {
                     throw new Error("Function not implemented.");
                   } }
                   isMobile={data.isMobile}
+                  selSubj={data.selSubj}
                   />
               )
             }
           )
+          :
+          <>
+            <br/>
+            <p className='medium-title'>검색 결과가 200개가 넘습니다.</p>
+            <p className='medium-title'>더 구체적으로 검색해주세요!</p>
+          </>
         }
       </div>
 

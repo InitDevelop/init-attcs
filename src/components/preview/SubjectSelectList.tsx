@@ -49,6 +49,7 @@ function SubjectSelectList() {
                   throw new Error('Function not implemented.');
                 }}
                 isMobile={data.isMobile}
+                selSubj={data.selSubj}
                 />
             )
           }

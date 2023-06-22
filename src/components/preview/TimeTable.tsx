@@ -3,7 +3,7 @@ import '../../AppMobile.css';
 import "../../css/AppTable.css"
 import { CreationContext, PreviewContext } from "../../App";
 import { Lecture, TimeSlot } from '../../util/Lecture';
-import { isTimeIntersect, isTimeIntersectExpanded } from '../../util/Scenario';
+import { isTimeIntersectExpanded } from '../../util/Scenario';
 import React, { useContext } from "react";
 import { LectureInformationTable, MultLectureInformationTable } from "../global/LectureInformationTable";
 
@@ -39,7 +39,6 @@ type propType = {
 
 function TimeTable(props: propType) {
 
-  const dataPreview = useContext(PreviewContext);
   const dataCreate = useContext(CreationContext);
 
   return (

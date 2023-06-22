@@ -22,6 +22,7 @@ function Create() {
   const [validCombinations, setValidCombinations] = useState<number>(0);
 
   const [updateCount, setUpdateCount] = useState<number>(0);
+
   const data = useContext(CreationContext);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ function Create() {
             hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}  
-            displayPopup={data.displayPopup} 
+            displayPopup={data.displayPopup}
           />
         ) : (
           <div className="appTable__container">

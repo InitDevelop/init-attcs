@@ -54,7 +54,7 @@ export interface LectureGroup {
   subjectID: string;
   lectures: Lecture[];
   timeShareLectures: Lecture[][];
-  mustInclude: boolean;
+  //mustInclude: boolean;
 }
 
 export const blankLecture: Lecture = {

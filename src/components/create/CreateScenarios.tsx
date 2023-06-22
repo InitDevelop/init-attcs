@@ -27,13 +27,6 @@ const getMinuteDifference = (from: number, to: number): number => {
   return (endMin - startMin);
 }
 
-const getMinuteDifferenceExpanded = (fromHour: number, fromMin: number, toHour: number, toMin: number): number => {
-  let startMin: number = fromHour * 60 + fromMin;
-  let endMin: number   = toHour * 60 + toMin;
-
-  return (endMin - startMin);
-}
-
 const getLunchWarnings = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let lunchWarning: Warning = { warningType: "lunch", weight: 0, extraInfo: [], isCritical: false };
   for (let date = 0; date < 5; date++) {
@@ -145,7 +138,7 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   for (let date = 0; date < 5; date++) {
     if (timeSlots[date].length > 0) {
       if (getMinuteDifference(900, timeSlots[date][0].startTime) <= 180) {
-        morningWarning.weight += (180 - getMinuteDifference(900, timeSlots[date][0].startTime)) / 30;
+        morningWarning.weight += (180 - getMinuteDifference(900, timeSlots[date][0].startTime)) / 60;
         if (getMinuteDifference(900, timeSlots[date][0].startTime) <= 45) {
           morningWarning.isCritical = true;
         }
@@ -157,11 +150,21 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let spaceWarning: Warning = { warningType: "space", weight: 0, extraInfo: [], isCritical: false };
+  let consecutiveFlag: boolean = false;
+  let count = 0;
   for (let date = 0; date < 5; date++) {
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
-      if (getMinuteDifference(
-        timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) >= 180) {
-        spaceWarning.weight++;
+      if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) <= 30) {
+        if (!consecutiveFlag) {
+          consecutiveFlag = true;
+        }
+        count++;
+      } else {
+        consecutiveFlag = false;
+        if (count > 1) {
+          spaceWarning.weight += (count - 1);
+        }
+        count = 0;
       }
     }
   }
@@ -172,7 +175,6 @@ const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 }
 
 export const getWarnings = (sc: Scenario): Warning[] => {
-
   let timeSlots: PseudoTimeSlot[] = [];
   let daysTimeSlots: PseudoTimeSlot[][] = [[], [], [], [], []];
 

@@ -38,7 +38,7 @@ function getComponent(warningType: string) {
   } else if (warningType === "space") {
     return (
       <div className="space-warning-box">
-        🕒 3시간 이상 우주공강이 있어요!
+        🕒 연강이 많아요! 힘들지 않을까요?
       </div>
     )
   }

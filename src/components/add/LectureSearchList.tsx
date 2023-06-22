@@ -61,7 +61,8 @@ function LectureSearchList(props: propType) {
             selectedLectures={props.selectedLectures}
             lectureGroups={data.lectureGroups}
             includesLecture={data.includesLecture}    
-            isMobile={data.isMobile}        
+            isMobile={data.isMobile} 
+            selSubj={[]}       
             />
           )
         }

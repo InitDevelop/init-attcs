@@ -28,13 +28,13 @@ function SubjectGroup(props: propType) {
     <div className='list-subjectgroupbox'>
       <h2 style={{fontWeight: "500"}}>
         <strong style={{ marginRight: "20px" }}>{props.lectureGroup.lectures[0].subjectTitle}</strong>
-        <label style={{ marginRight: "20px" }}>
+        {/* <label style={{ marginRight: "20px" }}>
         <input style = {{ cursor: "pointer", verticalAlign: "middle" }}
           className='checkbox-1'
           type="checkbox"
           checked={props.lectureGroup.mustInclude}
           onChange={ () => { props.lectureGroup.mustInclude = !props.lectureGroup.mustInclude } }
-        />  필수 과목</label>
+        />  필수 과목</label> */}
         <button className="button-tiny" onClick={handleRemoveAll}>전체 제거</button>
       </h2>
       {

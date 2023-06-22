@@ -1,4 +1,4 @@
-import { Lecture, LectureGroup, PseudoTimeSlot, toPseudoTimeSlots } from "../../util/Lecture";
+import { LectureGroup, PseudoTimeSlot, toPseudoTimeSlots } from "../../util/Lecture";
 import { isValidCombination, Scenario, timeSlotsToScenario } from "../../util/Scenario";
 import { Dictionary } from "../../util/Util";
 import { getWarnings } from "./CreateScenarios";
