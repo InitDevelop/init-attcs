@@ -26,7 +26,7 @@ function AddedSubjectList(props: propType) {
   return (
     <div className='appTable__container'>
       <h2 className="large-title">담은 강좌
-        <span style={{ marginLeft: "10px" }} className='small-title'>
+        <span style={{ marginLeft: "10px", padding: "5px", fontSize: "large" }} className='credit'>
           총 {getCreditSum()}학점
         </span>
       </h2>

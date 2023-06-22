@@ -17,7 +17,11 @@ function AddedSubject(props: propType) {
     <div className='list-addedsubject'>
       <h3>
         <span className={props.isInScenario ? 'highlighted-credit' : 'credit'}
-          style={{marginRight: "10px"}}> {props.subject.lect_no} </span> {"\t"}
+          onClick={() => {
+            props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
+              LectureInformationTable(props.subject)
+            );}}
+          style={{ marginRight: "10px", cursor: "pointer" }}> {props.subject.lect_no} </span> {"\t"}
         {
           props.isInScenario &&
           (
@@ -31,8 +35,7 @@ function AddedSubject(props: propType) {
           onClick={() => {
             props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
               LectureInformationTable(props.subject)
-            ); }
-          }
+            );}}
           >
             {props.subject.prof}
         </span>

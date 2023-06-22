@@ -98,34 +98,29 @@ function LectureBox(props: propType) {
 
           {/* main lecture box body */}
 
-          <td style={{width: "80%", whiteSpace: "pre-wrap"}}>
+          <td style={{ width: "80%", whiteSpace: "pre-wrap", cursor: "pointer" }}
+            onClick={() => { if (props.boxType !== "remove") {
+              props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
+                LectureInformationTable(props.subject)
+              ); }
+            }}
+          >
             <table className='lecturebox-table-in-table'>
               <tbody>
                 <tr>
                   <td>
-                    <span 
-                      className='medium-title-hoverable'
-                      onClick={() => { if (props.boxType !== "remove") {
-                        props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
-                          LectureInformationTable(props.subject)
-                        ); }
-                      }
-                      }>
+                    <span className='medium-title-hoverable'>
                       {props.subject.subj_name + "  "}
                     </span>
                     { (props.subject.extra_info.includes("®")) && !props.isMobile && (
-                      <button className='button-tiny' onClick={
-                        () => {
-                          if (!props.isMobile) props.displayPopup("수강반 제한 정보", props.subject.extra_info);
-                        }
-                      }><p style={{fontSize: "medium", fontWeight: 700}}>수강반</p></button>
+                      <span className='tiny-notice' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium", fontWeight: 700}}>수강반 제한</p>
+                      </span>
                     )}
                     { (props.subject.lang !== "한국어") && !props.isMobile && (
-                      <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
-                        () => {
-                          if (!props.isMobile) props.displayPopup("강의 언어", props.subject.lang);
-                        }
-                      }><p style={{fontSize: "medium", fontWeight: 700}}>언어</p></button>
+                      <span className='tiny-notice-2' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium", fontWeight: 700}}>외국어</p>
+                      </span>
                     )}
                   </td>
                 </tr>
@@ -136,12 +131,12 @@ function LectureBox(props: propType) {
                       <span>{"  " + props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
                     }
                     { (props.subject.extra_info.includes("®")) && props.isMobile && (
-                      <button className='button-tiny'>
+                      <button className='tiny-notice'>
                         <p style={{fontSize: "medium", fontWeight: 700}}>수강반 제한</p>
                       </button>
                     )}
                     { (props.subject.lang !== "한국어") && props.isMobile && (
-                      <button className='button-tiny-2' style={{marginLeft: "5px"}}>
+                      <button className='tiny-notice-2' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium", fontWeight: 700}}>외국어</p>
                       </button>
                     )}

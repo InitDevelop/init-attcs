@@ -26,7 +26,7 @@ function SubjectSelectList() {
             () => {data.handleAllowMultChange();}
           }
         >{data.allowMult ? "중복 허용됨" : "중복 제외됨"}</button> */}
-        <span style={{ marginLeft: "10px" }} className='small-title'>
+        <span style={{ marginLeft: "10px", padding: "5px", fontSize: "large" }} className='credit'>
           총 {getCreditSum()}학점
         </span>
       </h2>

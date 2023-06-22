@@ -460,6 +460,29 @@
   border: solid 2px #0066cc;
 }
 
+.tiny-notice, .tiny-notice-2 {
+  padding: 0px 4px;
+  font-weight: 400;
+  font-size: 100%;
+  border-radius: 4px;
+  transition : 193ms;
+  display: inline-block;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tiny-notice {
+  color: #00a3cc;
+  background-color: #fff;
+  border: solid 2px #00a3cc;
+}
+
+.tiny-notice-2 {
+  color: #00cca3;
+  background-color: #fff;
+  border: solid 2px #00cca3;
+}
+
 .label-1 {
   font-size: 20px;
 }
