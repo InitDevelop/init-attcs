@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { CreationContext } from "../App";
 import "../App.css"
 import TimeTable from '../components/preview/TimeTable';
-import { blankLecture, getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
+import { blankLecture, getAllTimeSlots, Lecture, toTimeSlots } from '../util/Lecture';
 import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import Loading from '../components/global/Loading';
@@ -26,7 +26,7 @@ function Create() {
 
   useEffect(() => {
     if (data.scenarios.length > 0) {
-      let relatedLectures: lecture[] = [];
+      let relatedLectures: Lecture[] = [];
       for (let i = 0; i < data.scenarios[data.scenarioNumber].shareTimeLectures.length; i++) {
         relatedLectures.push(...data.scenarios[data.scenarioNumber].shareTimeLectures[i]);
       }
@@ -75,8 +75,8 @@ function Create() {
             isMobile={data.isMobile}
             lectures={data.scenarios[data.scenarioNumber].lectures}
             subjHover={false}
-            timeSlots={getTimeTableSlots(data.scenarios[data.scenarioNumber].lectures)}
-            hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, blankLecture)}
+            timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
+            hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}  
             displayPopup={data.displayPopup} 
@@ -124,8 +124,8 @@ function Create() {
             isMobile={data.isMobile}
             lectures={data.scenarios[data.scenarioNumber].lectures}
             subjHover={false}
-            timeSlots={getTimeTableSlots(data.scenarios[data.scenarioNumber].lectures)}
-            hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, blankLecture)}
+            timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
+            hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}  
             displayPopup={data.displayPopup} 

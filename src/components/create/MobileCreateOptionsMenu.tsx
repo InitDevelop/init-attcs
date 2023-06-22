@@ -2,13 +2,13 @@ import "./../preview/PreviewMenu.css";
 import "../../App.css";
 import MobileCloseButton from "../global/MobileCloseButton";
 import CreationViewPanel from "./CreationViewPanel";
-import { scenario } from "../../interfaces/Scenario";
+import { Scenario } from "../../util/Scenario";
 
 type propType = {
   setCreateMenuVisible: (param: boolean) => void;
   setHideHeader: (param: boolean) => void;
   setIsLoading: (param: boolean) => void;
-  setScenarios: (param: scenario[]) => void;
+  setScenarios: (param: Scenario[]) => void;
   setCurrentCombination: (param: number) => void;
   setTotalCombinations: (param: number) => void;
   setValidCombinations: (param: number) => void;

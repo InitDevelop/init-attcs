@@ -2,8 +2,8 @@ import "./TimeTable.css"
 import '../../AppMobile.css';
 import "../../css/AppTable.css"
 import { CreationContext, PreviewContext } from "../../App";
-import { lecture, timeSlot } from '../../interfaces/Lecture';
-import { isTimeIntersect } from '../../interfaces/Scenario';
+import { Lecture, TimeSlot } from '../../util/Lecture';
+import { isTimeIntersect, isTimeIntersectExpanded } from '../../util/Scenario';
 import React, { useContext } from "react";
 import { LectureInformationTable, MultLectureInformationTable } from "../global/LectureInformationTable";
 
@@ -24,13 +24,13 @@ export const colors = [
 
 type propType = {
   isMobile: boolean;
-  lectures: lecture[];
+  lectures: Lecture[];
   subjHover: boolean;
 
   mode: string;
 
-  timeSlots: timeSlot[];
-  hoveredTimeSlots: timeSlot[];
+  timeSlots: TimeSlot[];
+  hoveredTimeSlots: TimeSlot[];
 
   setShowTooltip: (param: boolean) => void;
   setTooltipContent: (param: React.ReactNode) => void;
@@ -49,7 +49,7 @@ function TimeTable(props: propType) {
           <div className='appTable__container'
           style = { {
             transform: props.isMobile ? (
-              props.subjHover ? `translateY(-${(Math.floor(props.hoveredTimeSlots[0].startTime / 100) - 9) * 100 / 13}%)` : "none"
+              props.subjHover ? `translateY(-${(props.hoveredTimeSlots[0].startHour - 9) * 100 / 13}%)` : "none"
               ) : "none",
             backgroundColor: props.subjHover ? "white" : "none"
           } }
@@ -83,14 +83,17 @@ function TimeTable(props: propType) {
                         if (props.mode === "preview") {
                           let intersectFlag: boolean = false;
                           props.setShowTooltip(true);
-                          let content = item.subjName;
+                          let content = item.subjectTitle;
                           for (let i = 0; i < props.timeSlots.length; i++) {
                             if (item.id === props.timeSlots[i].id) {
                               continue;
                             }
                             if (item.date === props.timeSlots[i].date) {
-                              if (isTimeIntersect(item.startTime, item.endTime, props.timeSlots[i].startTime, props.timeSlots[i].endTime)) {
-                                  content += ("\n" + props.timeSlots[i].subjName);
+                              if (isTimeIntersectExpanded(
+                                item.startHour, item.startMin, item.endHour, item.endMin,
+                                props.timeSlots[i].startHour, props.timeSlots[i].startMin,
+                                props.timeSlots[i].endHour, props.timeSlots[i].endMin)) {
+                                  content += ("\n" + props.timeSlots[i].subjectTitle);
                                   intersectFlag = true;
                               }
                             }
@@ -98,7 +101,7 @@ function TimeTable(props: propType) {
                           props.setTooltipContent(
                           <div>
                             {content + "\n"}
-                            {!intersectFlag && <span style={{fontWeight: "400"}}>{item.room}</span>}
+                            {!intersectFlag && <span style={{fontWeight: "400"}}>{item.slotRoom}</span>}
                             {intersectFlag && (
                               <span style={{color: "darkred", fontWeight: "800"}}>{"\n"}강좌의 시간이 겹칩니다!</span>
                             )}
@@ -108,8 +111,8 @@ function TimeTable(props: propType) {
                           let prof_rooms = [];
                           if (dataCreate.scenarios.length > 0) {
                             for (const l of 
-                              dataCreate.relatedLectures.filter(lect => lect.subj_id === item.lecture.subj_id)) {
-                                prof_rooms.push({ prof : l.prof, room : l.lect_room, lect_no: l.lect_no });
+                              dataCreate.relatedLectures.filter(lect => lect.subjectID === item.subjectID)) {
+                                prof_rooms.push({ prof : l.lecturer, room : l.lectureRoom, lect_no: l.lectureNumber });
                             }
                           }
                           props.setTooltipContent(
@@ -117,20 +120,20 @@ function TimeTable(props: propType) {
                               <span style={
                                 {
                                   fontWeight: "700",
-                                  backgroundColor: colors[item.id % colors.length],
+                                  backgroundColor: colors[item.displayOrder % colors.length],
                                   color: "#fff",
                                   padding: "3px",
                                   borderRadius: "3px",
                                   lineHeight: "2.0"
                                 }
-                                }>{item.subjName + "\n"}</span>
+                                }>{item.subjectTitle + "\n"}</span>
                               {
                                 prof_rooms.map(
                                   pr =>
                                   <>
                                     <span style={{fontWeight: "600"}}>{pr.prof.length > 0 ? pr.prof : "교수 미정"}
                                     {` (${pr.lect_no})`}</span>
-                                    <span style={{fontWeight: "400"}}>{" " + pr.room.split("/")[item.index] + "\n"}</span>
+                                    <span style={{fontWeight: "400"}}>{" " + pr.room.split("/")[item.slotOrder] + "\n"}</span>
                                   </>
                                 )
                               }
@@ -147,25 +150,25 @@ function TimeTable(props: propType) {
                           return;
                         }
                         if (props.mode === "preview") {
-                          props.displayPopup(`${item.lecture.subj_name} [${item.lecture.subj_id} (${item.lecture.lect_no})]`,
-                            LectureInformationTable(item.lecture)
+                          props.displayPopup(`${item.subjectTitle} [${item.subjectID} (${item.lectureNumber})]`,
+                            LectureInformationTable(item)
                           );
                         } else if (props.mode === "create") {
-                          props.displayPopup(`${item.lecture.subj_name} [${item.lecture.subj_id}]`,
-                            MultLectureInformationTable(dataCreate.relatedLectures.filter(lect => lect.subj_id === item.lecture.subj_id))
+                          props.displayPopup(`${item.subjectTitle} [${item.subjectID}]`,
+                            MultLectureInformationTable(dataCreate.relatedLectures.filter(lect => lect.subjectID === item.subjectID))
                           );
                         }
                       }}
                       style={
                         {
-                          left: item.leftPos,
-                          top: item.topPos,
+                          left: item.leftPosition,
+                          top: item.topPosition,
                           height: item.height,
-                          backgroundColor: colors[item.id % colors.length]
+                          backgroundColor: colors[item.displayOrder % colors.length]
                         }
                       }
                     >
-                      <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>
+                      <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>
                     </div>
                   )
                 }
@@ -177,13 +180,13 @@ function TimeTable(props: propType) {
                     <div className='timetable-subject'
                       style={
                         {
-                          left: item.leftPos,
-                          top: item.topPos,
+                          left: item.leftPosition,
+                          top: item.topPosition,
                           height: item.height,
                           backgroundColor: "rgba(0, 0, 0, 0.2)"
                         }
                       }>
-                      <span><strong>{item.subjName}</strong>{"\n"}{item.room}</span>
+                      <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>
                     </div>
                 )
               )}

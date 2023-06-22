@@ -2,13 +2,13 @@ import { useContext } from 'react';
 import "../../css/AppTable.css";
 import "../add/SubjectList.css";
 import { CreationContext } from "../../App";
-import { lecture } from '../../interfaces/Lecture';
+import { Lecture } from '../../util/Lecture';
 import ScenarioSummary from './ScenarioSummary';
-import { scenario } from '../../interfaces/Scenario';
+import { Scenario } from '../../util/Scenario';
 
 type propType = {
   setIsLoading: (param: boolean) => void;
-  setScenarios: (param: scenario[]) => void;
+  setScenarios: (param: Scenario[]) => void;
   setTotalCombinations: (param: number) => void;
   setCurrentCombination: (param: number) => void;
   setValidCombinations: (param: number) => void;
@@ -30,7 +30,7 @@ function CreationViewPanel(props: propType) {
         data.setScenarioNumber(0);
         props.setScenarios(event.data.scenarios);
         if (data.scenarios.length > 0) {
-          let relatedLectures: lecture[] = [];
+          let relatedLectures: Lecture[] = [];
           for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
             relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
           }

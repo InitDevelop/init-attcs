@@ -1,5 +1,5 @@
 import "./Tooltip.css"
-import { xyTuple } from "../../interfaces/Util";
+import { xyTuple } from "../../util/Util";
 
 type propType = {
   tooltipPosition: xyTuple;

@@ -1,7 +1,7 @@
 import '../../App.css'
 import '../../AppMobile.css';
 import './PriorityBox.css';
-import { Dictionary } from '../../interfaces/Util';
+import { Dictionary } from '../../util/Util';
 
 type propType = {
   updateCount: number;

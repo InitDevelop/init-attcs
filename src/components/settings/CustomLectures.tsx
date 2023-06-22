@@ -3,7 +3,7 @@ import "./PriorityBox.css";
 import "../../App.css";
 import { CreationContext } from '../../App';
 import CustomLecture from './CustomLecture';
-import { blankLecture, customSchedule, lecture } from '../../interfaces/Lecture';
+import { blankLecture, CustomSchedule, Lecture } from '../../util/Lecture';
 
 function CustomLectures() {
 
@@ -50,17 +50,19 @@ function CustomLectures() {
   const data = useContext(CreationContext);
 
   const handleAddSchedule = () => {
-    let addingObj: customSchedule = {
-      id: Math.random(),
+    let addingObj: CustomSchedule = {
+      ...blankLecture,
+      indicator: Math.random(),
       editable: true,
-      schedule: blankLecture,
       startHour: 9,
       startMin: 0,
       endHour: 10,
       endMin: 0,
+      startTime: 900,
+      endTime: 1000,
       date: 0,
-      room: "",
-      name: ""
+      slotRoom: "",
+      slotOrder: -1
     };
 
     data.setCustomLectures(
@@ -68,13 +70,13 @@ function CustomLectures() {
     );
   }
 
-  const handleRemoveSchedule = (customLecture: customSchedule) => {
+  const handleRemoveSchedule = (customLecture: CustomSchedule) => {
     data.setCustomLectures(
       data.customLectures.filter(cl => cl.id !== customLecture.id)
     );
   }
 
-  const handleEditSchedule = (customLecture: customSchedule) => {
+  const handleEditSchedule = (customLecture: CustomSchedule) => {
     let thisLecture = customLecture;
     thisLecture.editable = true;
     data.setCustomLectures(
@@ -82,36 +84,38 @@ function CustomLectures() {
     );
   }
 
-  const handleSaveSchedule = (customLecture: customSchedule, name: string, date: number,
+  const handleSaveSchedule = (customLecture: CustomSchedule, name: string, date: number,
       startHour: number, startMin: number, endHour: number, endMin: number,
       room: string, editable: boolean) => {
 
     if (startHour * 100 + startMin < endHour * 100 + endMin || editable === true) {
-      let fixedSchedule: lecture = {
-        lect_type: '기타',
-        lect_col: '나만의 일정',
-        lect_dept: '',
-        grad: '',
-        grade: '',
-        subj_id: "CUSTOM." + Math.floor(customLecture.id * 100000).toString(),
-        lect_no: "001",
-        subj_name: name,
-        subj_subname: '',
+      let fixedSchedule: Lecture = {
+        id: "CUSTOM." + Math.floor(customLecture.indicator * 100000).toString(),
+        classification: '기타',
+        college: '나만의 일정',
+        department: '',
+        program: '',
+        year: '',
+        subjectID: "CUSTOM." + Math.floor(customLecture.indicator * 100000).toString(),
+        lectureNumber: "001",
+        subjectTitle: name,
+        subjectSubtitle: '',
         credit: "0",
-        cred_lect: '',
-        cred_lab: '',
+        creditLecture: '',
+        creditLab: '',
         time: getDateString(customLecture.date) + "(" + formatTime(startHour, startMin, endHour, endMin) + ")",
-        lect_form: '',
-        lect_room: room,
-        prof: '',
-        student_count: '',
-        extra_info: '',
-        lang: "한국어"
+        lectureForm: '',
+        lectureRoom: room,
+        lecturer: '',
+        quota: '',
+        extraInfo: '',
+        language: "한국어"
       };
 
-      let thisLecture: customSchedule = {
-        id: customLecture.id,
-        schedule: fixedSchedule,
+      let thisLecture: CustomSchedule = {
+        ...fixedSchedule,
+
+        indicator: customLecture.indicator,
         editable: editable,
         
         startHour: startHour,
@@ -119,9 +123,12 @@ function CustomLectures() {
         endHour: endHour,
         endMin: endMin,
 
+        startTime: startHour * 100 + startMin,
+        endTime: endHour * 100 + endMin,
+
         date: date,
-        room: room,
-        name: name
+        slotRoom: room,
+        slotOrder: -1
       };
 
       data.setCustomLectures(
@@ -133,24 +140,24 @@ function CustomLectures() {
     }
   }
 
-  const handleNameChange = (customLecture: customSchedule, name: string) => {
+  const handleNameChange = (customLecture: CustomSchedule, name: string) => {
     handleSaveSchedule(customLecture, name, customLecture.date, customLecture.startHour,
-      customLecture.startMin, customLecture.endHour, customLecture.endMin, customLecture.room, true);
+      customLecture.startMin, customLecture.endHour, customLecture.endMin, customLecture.lectureRoom, true);
   }
 
-  const handleRoomChange = (customLecture: customSchedule, room: string) => {
-    handleSaveSchedule(customLecture, customLecture.name, customLecture.date, customLecture.startHour,
+  const handleRoomChange = (customLecture: CustomSchedule, room: string) => {
+    handleSaveSchedule(customLecture, customLecture.subjectTitle, customLecture.date, customLecture.startHour,
       customLecture.startMin, customLecture.endHour, customLecture.endMin, room, true);
   } 
 
-  const handleDateChange = (customLecture: customSchedule, date: number) => {
-    handleSaveSchedule(customLecture, customLecture.name, date, customLecture.startHour,
-      customLecture.startMin, customLecture.endHour, customLecture.endMin, customLecture.room, true);
+  const handleDateChange = (customLecture: CustomSchedule, date: number) => {
+    handleSaveSchedule(customLecture, customLecture.subjectTitle, date, customLecture.startHour,
+      customLecture.startMin, customLecture.endHour, customLecture.endMin, customLecture.lectureRoom, true);
   } 
 
-  const handleTimeChange = (customLecture: customSchedule, startHour: number, startMin: number, endHour: number, endMin: number) => {
-    handleSaveSchedule(customLecture, customLecture.name, customLecture.date, startHour,
-      startMin, endHour, endMin, customLecture.room, true);
+  const handleTimeChange = (customLecture: CustomSchedule, startHour: number, startMin: number, endHour: number, endMin: number) => {
+    handleSaveSchedule(customLecture, customLecture.subjectTitle, customLecture.date, startHour,
+      startMin, endHour, endMin, customLecture.lectureRoom, true);
   } 
 
   return (

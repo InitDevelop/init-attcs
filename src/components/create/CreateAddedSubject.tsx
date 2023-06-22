@@ -1,11 +1,11 @@
 import "../../css/SubjectList.css"
 import "../../App.css"
-import { lecture } from '../../interfaces/Lecture';
+import { Lecture } from '../../util/Lecture';
 
 type propType = {
-  subject: lecture;
+  subject: Lecture;
   displayPopup: (title: string, content: JSX.Element) => void;
-  timeShareLect: lecture[]; 
+  timeShareLect: Lecture[]; 
 };
 
 function CreateAddedSubject(props: propType) {
@@ -19,24 +19,24 @@ function CreateAddedSubject(props: propType) {
         }
       }
     >
-      <span style={{ marginRight: "10px", fontWeight: "700" }}>{props.subject.subj_name}</span>
+      <span style={{ marginRight: "10px", fontWeight: "700" }}>{props.subject.subjectTitle}</span>
 
       {
         props.timeShareLect.length === 1 ? (
         <span style={{ position: "absolute", left: "50%" }}>
-          <span className='credit' style={{marginRight: "10px"}}>{props.subject.lect_no}</span>
-          <span style={{marginRight: "10px"}}>{props.subject.prof}</span>
-          { (props.subject.extra_info.includes("®")) && (
+          <span className='credit' style={{marginRight: "10px"}}>{props.subject.lectureNumber}</span>
+          <span style={{marginRight: "10px"}}>{props.subject.lecturer}</span>
+          { (props.subject.extraInfo.includes("®")) && (
             <button className='button-tiny' onClick={
               () => {
-                props.displayPopup("수강반 제한 정보", <>{props.subject.extra_info}</>);
+                props.displayPopup("수강반 제한 정보", <>{props.subject.extraInfo}</>);
               }
             }>수강반</button>
           )}
-          { (props.subject.lang !== "한국어") && (
+          { (props.subject.language !== "한국어") && (
             <button className='button-tiny-2' style={{marginLeft: "5px"}} onClick={
               () => {
-                props.displayPopup("강의 언어", <>{props.subject.lang}</>);
+                props.displayPopup("강의 언어", <>{props.subject.language}</>);
               }
             }>언어</button>
           )}
@@ -47,7 +47,7 @@ function CreateAddedSubject(props: propType) {
               props.displayPopup("해당 시간대 분반 정보",
               <>
               {
-                props.timeShareLect.map((lect: lecture) => {
+                props.timeShareLect.map((lect: Lecture) => {
                   return (
                     <div className='list__addedsubject'
                     style={
@@ -58,12 +58,12 @@ function CreateAddedSubject(props: propType) {
                       }
                     }
                   >
-                    <span style={{ marginRight: "10px", fontWeight: "700" }}>{lect.subj_name}</span>
+                    <span style={{ marginRight: "10px", fontWeight: "700" }}>{lect.subjectTitle}</span>
                     <span style={{ position: "absolute", left: "50%" }}>
-                    <span className='credit' style={{marginRight: "10px"}}>{lect.lect_no}</span>
-                    <span style={{marginRight: "10px"}}>{lect.prof}</span>
-                    { (lect.lang !== "한국어") && (
-                      <span className='credit' style={{marginRight: "10px"}}>{lect.lang}</span>
+                    <span className='credit' style={{marginRight: "10px"}}>{lect.lectureNumber}</span>
+                    <span style={{marginRight: "10px"}}>{lect.lecturer}</span>
+                    { (lect.language !== "한국어") && (
+                      <span className='credit' style={{marginRight: "10px"}}>{lect.language}</span>
                     )}
                     </span>
                   </div>

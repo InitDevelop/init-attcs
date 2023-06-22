@@ -5,7 +5,7 @@ import AddedSubjectList from '../components/add/AddedSubjectList';
 import AddSubjectSearch from '../components/add/AddSubjectSearch';
 import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
-import { getHoveredTimeTableSlots, getTimeTableSlots, lecture } from '../interfaces/Lecture';
+import { Lecture, getAllTimeSlots, toTimeSlots } from '../util/Lecture';
 import TimeTable from '../components/preview/TimeTable';
 import MobileAddMenu from "../components/add/MobileAddMenu";
 import MobileAddLectureMenu from "../components/add/MobileAddLectureMenu";
@@ -13,7 +13,7 @@ import MobileAddLectureMenu from "../components/add/MobileAddLectureMenu";
 function Add() {
 
   const [updateCount, setUpdateCount] = useState<number>(0);
-  const [selectedLectures, setSelectedLectures] = useState<lecture[]>([]);
+  const [selectedLectures, setSelectedLectures] = useState<Lecture[]>([]);
   const [selectedDates, setSelectedDates] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -46,8 +46,8 @@ function Add() {
             isMobile={data.isMobile}
             lectures={[...selectedLectures]}
             subjHover={data.subjHover}
-            timeSlots={getTimeTableSlots([...selectedLectures])}
-            hoveredTimeSlots={getHoveredTimeTableSlots(data.subjHover, data.hoveredSubj)}
+            timeSlots={getAllTimeSlots([...selectedLectures])}
+            hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}
             displayPopup={data.displayPopup}/>

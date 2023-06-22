@@ -4,10 +4,10 @@ import '../../App.css'
 import { CreationContext } from '../../App';
 import Left from '../../img/left.svg';
 import Right from '../../img/right.svg';
-import { scenario } from '../../interfaces/Scenario';
+import { Scenario } from '../../util/Scenario';
 import Warning from './Warning';
 
-const creditSum = (sc: scenario) => {
+const creditSum = (sc: Scenario) => {
   let returnValue = 0;
   for (const lect of sc.lectures) {
     returnValue += parseInt(lect.credit);

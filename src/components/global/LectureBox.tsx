@@ -2,7 +2,7 @@ import React from 'react'
 import './LectureBox.css'
 import '../../App.css'
 import '../../AppMobile.css';
-import { lecture, lectureGroup } from '../../interfaces/Lecture';
+import { Lecture, LectureGroup } from '../../util/Lecture';
 import { LectureInformationTable } from './LectureInformationTable';
 
 type propType = {
@@ -11,23 +11,23 @@ type propType = {
   // "add" is for the add page
 
   // Common properties
-  subject: lecture;
+  subject: Lecture;
   displayPopup: (title: string, content: React.ReactNode) => void;
 
-  addLectureToList: (param: lecture) => void;
-  removeLectureFromList: (param: lecture) => void;
+  addLectureToList: (param: Lecture) => void;
+  removeLectureFromList: (param: Lecture) => void;
 
   // For preview page - both search and list
-  setHoveredSubj: (param: lecture) => void;
+  setHoveredSubj: (param: Lecture) => void;
   setSubjHover: (param: boolean) => void;
 
-  isExistingSubj: (param: lecture) => boolean;
+  isExistingSubj: (param: Lecture) => boolean;
 
   // For add page
-  selectedLectures: lecture[];
+  selectedLectures: Lecture[];
 
-  lectureGroups: lectureGroup[];
-  includesLecture: (param: lecture) => boolean;
+  lectureGroups: LectureGroup[];
+  includesLecture: (param: Lecture) => boolean;
   isMobile: boolean;
 }
 
@@ -96,11 +96,11 @@ function LectureBox(props: propType) {
             </td>
           }
 
-          {/* main lecture box body */}
+          {/* main Lecture box body */}
 
           <td style={{ width: "80%", whiteSpace: "pre-wrap", cursor: "pointer" }}
             onClick={() => { if (props.boxType !== "remove") {
-              props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
+              props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
                 LectureInformationTable(props.subject)
               ); }
             }}
@@ -110,14 +110,14 @@ function LectureBox(props: propType) {
                 <tr>
                   <td>
                     <span className='medium-title-hoverable'>
-                      {props.subject.subj_name + "  "}
+                      {props.subject.subjectTitle + "  "}
                     </span>
-                    { (props.subject.extra_info.includes("®")) && !props.isMobile && (
+                    { (props.subject.extraInfo.includes("®")) && !props.isMobile && (
                       <span className='tiny-notice' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium", fontWeight: 700}}>수강반 제한</p>
                       </span>
                     )}
-                    { (props.subject.lang !== "한국어") && !props.isMobile && (
+                    { (props.subject.language !== "한국어") && !props.isMobile && (
                       <span className='tiny-notice-2' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium", fontWeight: 700}}>외국어</p>
                       </span>
@@ -128,14 +128,14 @@ function LectureBox(props: propType) {
                   <td>
                     <span className='credit'>{props.subject.credit + "학점"}</span>{"  "}
                     { !props.isMobile &&
-                      <span>{"  " + props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
+                      <span>{"  " + props.subject.lecturer}{"  " + props.subject.subjectID} ({props.subject.lectureNumber})</span>
                     }
-                    { (props.subject.extra_info.includes("®")) && props.isMobile && (
+                    { (props.subject.extraInfo.includes("®")) && props.isMobile && (
                       <button className='tiny-notice'>
                         <p style={{fontSize: "medium", fontWeight: 700}}>수강반 제한</p>
                       </button>
                     )}
-                    { (props.subject.lang !== "한국어") && props.isMobile && (
+                    { (props.subject.language !== "한국어") && props.isMobile && (
                       <button className='tiny-notice-2' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium", fontWeight: 700}}>외국어</p>
                       </button>
@@ -145,7 +145,7 @@ function LectureBox(props: propType) {
                 { props.isMobile &&
                   <tr>
                     <td>
-                      <span>{props.subject.prof}{"  " + props.subject.subj_id} ({props.subject.lect_no})</span>
+                      <span>{props.subject.lecturer}{"  " + props.subject.subjectID} ({props.subject.lectureNumber})</span>
                     </td>
                   </tr>
                 }

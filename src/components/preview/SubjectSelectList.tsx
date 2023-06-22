@@ -3,7 +3,7 @@ import '../../App.css';
 import '../../AppMobile.css';
 import LectureBox from '../global/LectureBox';
 import { PreviewContext } from "../../App";
-import { lecture } from '../../interfaces/Lecture';
+import { Lecture } from '../../util/Lecture';
 
 function SubjectSelectList() {
 
@@ -32,10 +32,10 @@ function SubjectSelectList() {
       </h2>
       <div className="appTable__selectScrollContainer">
         {data.selSubj.map(
-          (subject: lecture) => {
+          (subject: Lecture) => {
             return (
               <LectureBox
-                key={subject.subj_id + " (" + subject.lect_no + ")"}
+                key={subject.subjectID + " (" + subject.lectureNumber + ")"}
                 boxType={"list"} subject={subject}
                 displayPopup={data.displayPopup}
                 addLectureToList={data.addSubject}
@@ -45,7 +45,7 @@ function SubjectSelectList() {
                 isExistingSubj={data.isExistingSubj}
                 selectedLectures={[]}
                 lectureGroups={[]}
-                includesLecture={function (param: lecture): boolean {
+                includesLecture={function (param: Lecture): boolean {
                   throw new Error('Function not implemented.');
                 }}
                 isMobile={data.isMobile}

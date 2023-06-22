@@ -10,12 +10,12 @@ import SubjTooltip from './components/global/SubjTooltip';
 import Popup from './components/global/Popup';
 
 import logo from './img/logo.png';
-import { blankLecture, customSchedule, lecture, lectureGroup } from './interfaces/Lecture';
-import { Dictionary, xyTuple } from './interfaces/Util';
-import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './interfaces/ContextTypes';
+import { blankLecture, CustomSchedule, Lecture, LectureGroup } from './util/Lecture';
+import { Dictionary, xyTuple } from './util/Util';
+import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './util/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
-import { scenario } from './interfaces/Scenario';
+import { Scenario } from './util/Scenario';
 import packageJson from '../package.json';
 import Settings from './pages/Settings';
 
@@ -61,20 +61,20 @@ function App() {
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 900);
   const [hideHeader, setHideHeader] = useState<boolean>(false);
-  const [lectureDatabase, setLectureDatabase] = useState<lecture[]>((lectureData as { subjects: lecture[] }).subjects);
+  const [lectureDatabase, setLectureDatabase] = useState<Lecture[]>((lectureData as { subjects: Lecture[] }).subjects);
 
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
   ****************************************************************************/
 
   // States related to data
-  const [selSubj, setSelSubj] = useState<Array<lecture>>([]);
+  const [selSubj, setSelSubj] = useState<Array<Lecture>>([]);
 
   // States related to search options
   const [allowMult, setAllowMult] = useState<boolean>(true);
   const [keyWord, setKeyWord] = useState<string>("");
   const [searchText, setSearchText] = useState<string>(""); // Originally subjName
-  const [shownLectures, setShownLectures] = useState<lecture[]>([]);
+  const [shownLectures, setShownLectures] = useState<Lecture[]>([]);
 
   // States related to the tooltip
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
@@ -84,7 +84,7 @@ function App() {
 
   // States related to hovered subjects
   const [subjHover, setSubjHover] = useState<boolean>(false);
-  const [hoveredSubj, setHoveredSubj] = useState<lecture>(blankLecture);
+  const [hoveredSubj, setHoveredSubj] = useState<Lecture>(blankLecture);
 
   // useEffect for following scroll
   useEffect(() => {
@@ -108,12 +108,12 @@ function App() {
   }, []);
 
   // This function checks if some lecture exists in the timetable
-  const isExistingSubj = (lecture: lecture) => {
+  const isExistingSubj = (lecture: Lecture) => {
     let ret: boolean = false;
     for (let i = 0; i < selSubj.length; i++) {
-      if (selSubj[i].subj_id === lecture.subj_id) {
+      if (selSubj[i].subjectID === lecture.subjectID) {
         if (allowMult) {
-          if (selSubj[i].lect_no === lecture.lect_no) {
+          if (selSubj[i].lectureNumber === lecture.lectureNumber) {
             ret = true;
             break;
           }
@@ -133,11 +133,11 @@ function App() {
     if (!allowMult) {
       let subj_id_list: Array<string> = [];
       for (let i = 0; i < selSubj.length; i++) {
-        if (selSubj.filter(item => item.subj_id === selSubj[i].subj_id).length > 1) {
-          subj_id_list.push(selSubj[i].subj_id);
+        if (selSubj.filter(item => item.subjectID === selSubj[i].subjectID).length > 1) {
+          subj_id_list.push(selSubj[i].subjectID);
         }
       }
-      setSelSubj(selSubj.filter(item => !subj_id_list.includes(item.subj_id)));
+      setSelSubj(selSubj.filter(item => !subj_id_list.includes(item.subjectID)));
       displayPopup("교과목명 중복 허용 해제", <>교과목명이 중복된 과목들은 제거되었습니다.</>);
     }
   };
@@ -150,10 +150,10 @@ function App() {
   useEffect(() => {
     setShownLectures(
       lectureDatabase.filter(
-        (lect: lecture) => {
+        (lect: Lecture) => {
           return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
-      ).sort((a, b) => `${a.subj_id} ${a.lect_no}`.localeCompare(`${b.subj_id} ${b.lect_no}`))
-      .sort((a, b) => (accuracy(searchText, b.subj_name, b.prof) - accuracy(searchText, a.subj_name, a.prof)))
+      ).sort((a, b) => `${a.subjectID} ${a.lectureNumber}`.localeCompare(`${b.subjectID} ${b.lectureNumber}`))
+      .sort((a, b) => (accuracy(searchText, b.subjectTitle, b.lecturer) - accuracy(searchText, a.subjectTitle, a.lecturer)))
     );
   }, [searchText, lectureDatabase]);
 
@@ -163,12 +163,12 @@ function App() {
   };
 
   // Handles adding and popping subject to selSubj
-  const addSubject = (subject: lecture) => {
+  const addSubject = (subject: Lecture) => {
     setSelSubj(selSubj.concat(subject));
   };
 
-  const popSubject = (subject: lecture) => {
-    setSelSubj(selSubj.filter((lect: lecture) => subject !== lect));
+  const popSubject = (subject: Lecture) => {
+    setSelSubj(selSubj.filter((lect: Lecture) => subject !== lect));
   };
 
   /****************************************************************************
@@ -181,11 +181,11 @@ function App() {
   const [addingSubjName, setAddingSubjName] = useState<string>("");
   const [clickedSubject, setClickedSubject] = useState<string>("");
   const [addedSubjKeyWord, setAddedSubjKeyWord] = useState<string>("");
-  const [matchingLectures, setMatchingLectures] = useState<lecture[]>([]);
-  const [matchingSubjects, setMatchingSubjects] = useState<lecture[]>([]);
+  const [matchingLectures, setMatchingLectures] = useState<Lecture[]>([]);
+  const [matchingSubjects, setMatchingSubjects] = useState<Lecture[]>([]);
 
   // States related to custom lectures
-  const [customLectures, setCustomLectures] = useState<customSchedule[]>([]);
+  const [customLectures, setCustomLectures] = useState<CustomSchedule[]>([]);
 
   // States related to popups
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -193,25 +193,25 @@ function App() {
   const [popupContent, setPopupContent] = useState<React.ReactNode>(<></>);
 
   // State, Functions related to lectureGroups
-  const [lectureGroups, setLectureGroups] = useState<lectureGroup[]>([]);
+  const [lectureGroups, setLectureGroups] = useState<LectureGroup[]>([]);
 
   // State related to the create page
-  const [scenarios, setScenarios] = useState<scenario[]>([]);
+  const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
-  const [relatedLectures, setRelatedLectures] = useState<lecture[]>([]);
+  const [relatedLectures, setRelatedLectures] = useState<Lecture[]>([]);
   const [priority, setPriority] = useState<Dictionary<number>>({
     "empty": 1, "time": 5, "morning": 4, "count": 2, "lunch": 3, "space": 6
   });
 
-  const addLectureToGroup = (lect: lecture) => {
-    const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
+  const addLectureToGroup = (lect: Lecture) => {
+    const IDs = lectureGroups.map((lg: LectureGroup) => lg.subjectID);
     let copy = lectureGroups;
-    if (IDs.includes(lect.subj_id)) {
-      const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
+    if (IDs.includes(lect.subjectID)) {
+      const index = lectureGroups.findIndex((lg: LectureGroup) => lg.subjectID === lect.subjectID);
       copy[index].lectures.push(lect);
     } else {
       copy.push({
-        subj_id: lect.subj_id,
+        subjectID: lect.subjectID,
         lectures: [lect],
         timeShareLectures: [],
         mustInclude: true
@@ -220,21 +220,21 @@ function App() {
     setLectureGroups(copy);
   }
 
-  const removeLectureFromGroup = (lect: lecture) => {
-    const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
+  const removeLectureFromGroup = (lect: Lecture) => {
+    const index = lectureGroups.findIndex((lg: LectureGroup) => lg.subjectID === lect.subjectID);
     let copy = lectureGroups;
     copy[index].lectures = lectureGroups[index].lectures.filter(l => l !== lect);
     if (copy[index].lectures.length === 0) {
-      copy = copy.filter(lg => lg.subj_id !== lect.subj_id);
+      copy = copy.filter(lg => lg.subjectID !== lect.subjectID);
     }
     setLectureGroups(copy);
   }
 
-  const includesLecture = (lect: lecture) => {
-    const IDs = lectureGroups.map((lg: lectureGroup) => lg.subj_id);
-    if (IDs.includes(lect.subj_id)) {
-      const index = lectureGroups.findIndex((lg: lectureGroup) => lg.subj_id === lect.subj_id);
-      return lectureGroups[index].lectures.filter(l => l.lect_no === lect.lect_no).length > 0;
+  const includesLecture = (lect: Lecture) => {
+    const IDs = lectureGroups.map((lg: LectureGroup) => lg.subjectID);
+    if (IDs.includes(lect.subjectID)) {
+      const index = lectureGroups.findIndex((lg: LectureGroup) => lg.subjectID === lect.subjectID);
+      return lectureGroups[index].lectures.filter(l => l.lectureNumber === lect.lectureNumber).length > 0;
     } else {
       return false;
     }
@@ -255,17 +255,17 @@ function App() {
 
   useEffect(() => {
     let subjectsAdded: string[] = [];
-    let matches: lecture[] = [];
+    let matches: Lecture[] = [];
 
     let filtered = lectureDatabase.filter(
       subject => addingSubjName.length > 1 && CheckRelatedLecture(addingSubjName, subject)
     );
 
-    let sorted = filtered.sort((a, b) => accuracy(addingSubjName, b.subj_name, "") - accuracy(addingSubjName, a.subj_name, ""));
+    let sorted = filtered.sort((a, b) => accuracy(addingSubjName, b.subjectTitle, "") - accuracy(addingSubjName, a.subjectTitle, ""));
 
     for (const subject of sorted) {
-      if (!subjectsAdded.includes(subject.subj_id)) {
-        subjectsAdded.push(subject.subj_id);
+      if (!subjectsAdded.includes(subject.subjectID)) {
+        subjectsAdded.push(subject.subjectID);
         matches.push(subject);
       }
     }
@@ -274,15 +274,15 @@ function App() {
 
     setMatchingLectures(
       filtered.filter(
-        subject => subject.subj_id === clickedSubject
-      ).sort((a, b) => `${a.subj_id} ${a.lect_no}`.localeCompare(`${b.subj_id} ${b.lect_no}`))
+        subject => subject.subjectID === clickedSubject
+      ).sort((a, b) => `${a.subjectID} ${a.lectureNumber}`.localeCompare(`${b.subjectID} ${b.lectureNumber}`))
     );
 
   }, [addingSubjName, clickedSubject, lectureDatabase]);
 
   useEffect(() => {
-    setLectureDatabase(((lectureData as { subjects: lecture[] }).subjects).concat(
-      customLectures.map(cl => cl.schedule)
+    setLectureDatabase(((lectureData as { subjects: Lecture[] }).subjects).concat(
+      ...customLectures
     ));
   }, [customLectures]);
 

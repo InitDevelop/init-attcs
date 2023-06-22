@@ -1,12 +1,12 @@
 import "./SubjectList.css"
 import "../../App.css"
-import { lecture } from '../../interfaces/Lecture';
+import { Lecture } from '../../util/Lecture';
 import { LectureInformationTable } from "../global/LectureInformationTable";
 
 type propType = {
-  subject: lecture;
+  subject: Lecture;
   displayPopup: (title: string, content: JSX.Element) => void;
-  popAddedLecture: (lecture: lecture) => void;
+  popAddedLecture: (Lecture: Lecture) => void;
   updateCount: number;
   setUpdateCount: (param: number) => void;
   isInScenario: boolean;
@@ -18,10 +18,10 @@ function AddedSubject(props: propType) {
       <h3>
         <span className={props.isInScenario ? 'highlighted-credit' : 'credit'}
           onClick={() => {
-            props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
+            props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
               LectureInformationTable(props.subject)
             );}}
-          style={{ marginRight: "10px", cursor: "pointer" }}> {props.subject.lect_no} </span> {"\t"}
+          style={{ marginRight: "10px", cursor: "pointer" }}> {props.subject.lectureNumber} </span> {"\t"}
         {
           props.isInScenario &&
           (
@@ -33,11 +33,11 @@ function AddedSubject(props: propType) {
           className='medium-title-hoverable'
           style={{ cursor: "pointer", marginRight: "10px"}}
           onClick={() => {
-            props.displayPopup(`${props.subject.subj_name} [${props.subject.subj_id} (${props.subject.lect_no})]`,
+            props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
               LectureInformationTable(props.subject)
             );}}
           >
-            {props.subject.prof}
+            {props.subject.lecturer}
         </span>
 
         <button className='button-tiny-3' style={

@@ -1,17 +1,17 @@
 import React from 'react';
-import { customSchedule } from '../../interfaces/Lecture';
+import { CustomSchedule } from '../../util/Lecture';
 
 type propType = {
-  customLecture: customSchedule;
-  handleRemoveSchedule: (customLecture: customSchedule) => void;
-  handleSaveSchedule: (customLecture: customSchedule, name: string, date: number,
+  customLecture: CustomSchedule;
+  handleRemoveSchedule: (customLecture: CustomSchedule) => void;
+  handleSaveSchedule: (customLecture: CustomSchedule, name: string, date: number,
     startHour: number, startMin: number, endHour: number, endMin: number,
     room: string, editable: boolean) => void;
-  handleEditSchedule: (customLecture: customSchedule) => void;
-  handleNameChange: (customLecture: customSchedule, name: string) => void;
-  handleRoomChange: (customLecture: customSchedule, room: string) => void;
-  handleDateChange: (customLecture: customSchedule, date: number) => void;
-  handleTimeChange: (customLecture: customSchedule, startHour: number, startMin: number, endHour: number, endMin: number) => void;
+  handleEditSchedule: (customLecture: CustomSchedule) => void;
+  handleNameChange: (customLecture: CustomSchedule, name: string) => void;
+  handleRoomChange: (customLecture: CustomSchedule, room: string) => void;
+  handleDateChange: (customLecture: CustomSchedule, date: number) => void;
+  handleTimeChange: (customLecture: CustomSchedule, startHour: number, startMin: number, endHour: number, endMin: number) => void;
 };
 
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
@@ -25,14 +25,6 @@ const inputStyle: React.CSSProperties | undefined = {
 }
 
 function CustomLecture(props: propType) {
-
-  // const [eventName, setEventName] = useState<string>(props.customLecture.schedule.subj_name);
-  // const [eventRoom, setEventRoom] = useState<string>(props.customLecture.schedule.lect_room);
-  // const [eventDate, setEventDate] = useState<number>(props.customLecture.date);
-  // const [startHour, setStartHour] = useState<number>(props.customLecture.interval.start.hour);
-  // const [startMin, setStartMin] = useState<number>(props.customLecture.interval.start.minute);
-  // const [endHour, setEndHour] = useState<number>(props.customLecture.interval.end.hour);
-  // const [endMin, setEndMin] = useState<number>(props.customLecture.interval.end.minute);
 
   const getDateString = (dateNumber: number) => {
     switch (dateNumber) {
@@ -64,9 +56,9 @@ function CustomLecture(props: propType) {
                 props.customLecture.editable ?
                 <input type='text' onChange={(e) => {
                   props.handleNameChange(props.customLecture, e.target.value)
-                }} value={props.customLecture.name} style={inputStyle} className='input-1'></input>
+                }} value={props.customLecture.subjectTitle} style={inputStyle} className='input-1'></input>
                 :
-                <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.schedule.subj_name}</h4>
+                <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.subjectTitle}</h4>
               }
             </td>
             <td style={{ width: "20%" }}>
@@ -76,9 +68,9 @@ function CustomLecture(props: propType) {
                 <button className='button-0'
                 onClick={() => {
                   props.handleSaveSchedule(
-                    props.customLecture, props.customLecture.name, props.customLecture.date, props.customLecture.startHour,
+                    props.customLecture, props.customLecture.subjectTitle, props.customLecture.date, props.customLecture.startHour,
                     props.customLecture.startMin, props.customLecture.endHour, props.customLecture.endMin,
-                    props.customLecture.room, false
+                    props.customLecture.lectureRoom, false
                   )
                   }}>
                   저장
@@ -102,11 +94,11 @@ function CustomLecture(props: propType) {
                 <>
                   <input type='text' onChange={(e) => {
                     props.handleRoomChange(props.customLecture, e.target.value)
-                  }} value={props.customLecture.room} style={inputStyle} className='input-1'></input>
+                  }} value={props.customLecture.lectureRoom} style={inputStyle} className='input-1'></input>
                   {"  (예) 301-118"}
                 </>
                 :
-                <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.schedule.lect_room}</h4>
+                <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.lectureRoom}</h4>
               }
 
             </td>

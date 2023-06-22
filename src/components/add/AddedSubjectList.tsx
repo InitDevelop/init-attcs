@@ -4,7 +4,7 @@ import '../../css/AppTable.css';
 import '../../App.css';
 import SubjectGroup from './SubjectGroup'
 import { CreationContext } from "../../App";
-import { lectureGroup } from '../../interfaces/Lecture';
+import { LectureGroup } from '../../util/Lecture';
 
 type propType = {
   updateCount: number;
@@ -33,10 +33,10 @@ function AddedSubjectList(props: propType) {
         <div className="appTable__scrollContainer">
           {
             data.lectureGroups.map(
-              (lg: lectureGroup) => {
+              (lg: LectureGroup) => {
                 return (
                   <SubjectGroup
-                    key={lg.subj_id}
+                    key={lg.subjectID}
                     lectureGroup={lg}
                     displayPopup={data.displayPopup}
                     popAddedLecture={data.removeLectureFromGroup}
