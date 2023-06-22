@@ -1,5 +1,5 @@
-import { Lecture, LectureGroup } from "../../util/Lecture";
-import { getScenario, Scenario } from "../../util/Scenario";
+import { Lecture, LectureGroup, PseudoTimeSlot, toPseudoTimeSlots } from "../../util/Lecture";
+import { isValidCombination, Scenario, timeSlotsToScenario } from "../../util/Scenario";
 import { Dictionary } from "../../util/Util";
 import { getWarnings } from "./CreateScenarios";
 
@@ -17,41 +17,49 @@ onmessage = function(message) {
   CreationWorker(params.originalLectureGroups, params.priorityValues);
 }
 
-const CreationWorker = (originalLectureGroups: LectureGroup[], priorityValues: Dictionary<number>) => {
+const CreationWorker = (lectureGroups: LectureGroup[], priorityValues: Dictionary<number>) => {
   
   // Pre-process lectureGroups so that
   // lectures which share the same time slots be categorized to the same scenario
-  
-  const lectureGroups: LectureGroup[] = [];
   const scenarioResults: Scenario[] = [];
-  
-  for (let i = 0; i < originalLectureGroups.length; i++) {
-    const timeShareLects: Lecture[][] = Object.values(originalLectureGroups[i].lectures.reduce<{[key: string]: Lecture[]}>(
-      (result, currentValue) => {
-        const propertyValue: string = currentValue.time;
-        if (!result[propertyValue]) {
-          result[propertyValue] = [];
-        }
-        result[propertyValue].push(currentValue);
-        return result;
-      }, {}));
 
-    const representiveLect: Lecture[] = timeShareLects.map(larr => larr[0]);
-    lectureGroups.push({
-      subjectID: originalLectureGroups[i].subjectID,
-      lectures: representiveLect,
-      timeShareLectures: timeShareLects,
-      mustInclude: originalLectureGroups[i].mustInclude
-    });
-  }
+  // This timeSlotMap is a data structure that groups timeslots
+  // 1st dimension: arranged by subject
+  // 2nd dimension: arranged by time
+  // 3rd dimension: arranged by lecture
+  // 4th dimension: arranged by time slot order
+  const timeSlotArr: PseudoTimeSlot[][][][] = [];
 
   const priorities: number[] = [];
-  const result: number[][] = [];
-  const lengths: number[] = lectureGroups.map(lg => lg.timeShareLectures.length);
+
+  for (const lg of lectureGroups) {
+    timeSlotArr.push([]);
+  }
+
+  for (let i = 0; i < lectureGroups.length; i++) {
+    for (let j = 0; j < lectureGroups[i].lectures.length; j++) {
+      const timeMatchIndex = timeSlotArr[i].findIndex(
+        (slot2dArray) => {
+          if (slot2dArray.length > 0) {
+            return slot2dArray[0][0].time === lectureGroups[i].lectures[j].time;
+          } else {
+            return false;
+          }
+        }
+      );
+      if (timeMatchIndex === -1) {
+        timeSlotArr[i].push([toPseudoTimeSlots(lectureGroups[i].lectures[j])]);
+      } else {
+        timeSlotArr[i][timeMatchIndex].push(toPseudoTimeSlots(lectureGroups[i].lectures[j]));
+      }
+    }
+  }
+
+  const indexes: number[][] = [];
+  const lengths: number[] = timeSlotArr.map(tsarr => tsarr.length);
   const totalCombinations: number = lengths.reduce((a, b) => a * b, 1);
 
   totalProcessCount = totalCombinations;
-
   for (let i = 0; i < totalCombinations; i++) {
     const combination = [];
     let divisor = 1;
@@ -60,37 +68,39 @@ const CreationWorker = (originalLectureGroups: LectureGroup[], priorityValues: D
       combination.push(index);
       divisor *= lengths[j];
     }
-    result.push(combination);
+    indexes.push(combination);
   }
 
   outerLoop:
-  for (const r of result) {
+  for (const index of indexes) {
     currentProcessNum++;
-    
-    let scResult = getScenario(lectureGroups, r);
-
-    if (currentProcessNum % 123 === 0) {
-      postMessage({scenarios: [],
-        finished: false,
-        current: currentProcessNum,
-        total: totalProcessCount,
-        valid: validCount
-      });
+    const timeValues: number[][] = [];
+    for (let i = 0; i < timeSlotArr.length; i++) {
+      for (let j = 0; j < timeSlotArr[i][index[i]][0].length; j++) {
+        timeValues.push([timeSlotArr[i][index[i]][0][j].date,
+          timeSlotArr[i][index[i]][0][j].startTime, timeSlotArr[i][index[i]][0][j].endTime]);
+      }
     }
-    
-    if (scResult.exitCode === 1) {
+    if (!isValidCombination(timeValues)) {
       continue;
     }
 
-    scResult.scenario.warnings = getWarnings(scResult.scenario);
+    // If there are no intersection found (valid combination)
 
-    if (scResult.scenario.warnings.filter(w => w.warningType === "empty").length === 0) {
+    const timeSlotsToPass: PseudoTimeSlot[][][] = [];
+    for (let i = 0; i < timeSlotArr.length; i++) {
+      timeSlotsToPass.push(timeSlotArr[i][index[i]]);
+    }
+    let tempScenario: Scenario = timeSlotsToScenario(timeSlotsToPass);
+    tempScenario.warnings = getWarnings(tempScenario);
+
+    if (tempScenario.warnings.filter(w => w.warningType === "empty").length === 0) {
       if (priorityValues["empty"] < 0.5 && priorityValues["empty"] > 0) {
         continue;
       }
     }
 
-    for (const warn of scResult.scenario.warnings) {
+    for (const warn of tempScenario.warnings) {
       let weight: number = Math.pow(10, Object.keys(priorityValues).length - Math.abs(priorityValues[warn.warningType]) - 1);
       let sign: number = priorityValues[warn.warningType] > 0 ? 1 : -1;
 
@@ -105,15 +115,15 @@ const CreationWorker = (originalLectureGroups: LectureGroup[], priorityValues: D
       }
       
       if (warn.warningType === "empty") {
-        scResult.scenario.priority += sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
+        tempScenario.priority += sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
       } else {
-        scResult.scenario.priority -= sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
+        tempScenario.priority -= sign * weight * (1 + 0.1 ^ Object.keys(priorityValues).length * warn.weight);
       }
     }
 
-    scenarioResults.push(scResult.scenario);
-    if (!priorities.includes(scResult.scenario.priority)) {
-      priorities.push(scResult.scenario.priority);
+    scenarioResults.push(tempScenario);
+    if (!priorities.includes(tempScenario.priority)) {
+      priorities.push(tempScenario.priority);
     }
 
     validCount++;
