@@ -26,7 +26,10 @@ export const CheckRelatedLecture = (input: string, lecture: Lecture) => {
           str === "교양" || 
           str === "전필" || 
           str === "전선" ||
-          str === "일선") {
+          str === "일선" ||
+          str === "논문" ||
+          str === "교직" ||
+          str === "공통") {
         if (lecture.classification !== str) {
           return false;
         } else {
@@ -41,6 +44,12 @@ export const CheckRelatedLecture = (input: string, lecture: Lecture) => {
         }
       } else if (str === "한국어" || str === "영어") {
         if (lecture.language !== str) {
+          return false;
+        } else {
+          input = input.replace(str, "");
+        }
+      } else if (str.startsWith("/r")) {
+        if (!lecture.extraInfo.replaceAll(" ", "").includes(str.substring(2))) {
           return false;
         } else {
           input = input.replace(str, "");

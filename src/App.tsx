@@ -429,6 +429,19 @@ function App() {
     />)
   };
 
+  const reportBug = () => {
+    displayPopup("오류 신고 / 건의하기",
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc4z-f6_loBHHgqC5loLazQMvBrEAhV4uR7UZ6R5cGB58t2aQ/viewform?embedded=true"
+        style={
+          {
+            width: "100%",
+            height: "600px"
+          }
+        }
+        frameBorder="0">로드 중…</iframe>
+    );
+  }
+
   return (
     <BrowserRouter>
       {/* Main container for the entire app */}
@@ -527,6 +540,8 @@ function App() {
                 onClick = {saveUserData}>저장</div>
               <div className={"links"} 
                 onClick = {openUserData}>열기</div>
+              <div className={"links"} 
+                onClick = {reportBug}>오류 신고</div>
               <div className='for_testing'>
                 <span style={
                   { color: "gray", fontSize: "larger",
@@ -541,7 +556,7 @@ function App() {
                     padding: "3px 8px",
                     borderRadius: "3px"
                   }
-                }><strong>2022년 2학기 수강편람 기준입니다!</strong></span>
+                }><strong>2022년 2학기 기준!</strong></span>
               </div>
               <MobileMenuButton
                 open={menuOpened}

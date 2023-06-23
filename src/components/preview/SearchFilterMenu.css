@@ -1,0 +1,16 @@
+.filter-table {
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.filter-table td {
+  padding: 10px;
+}
+
+.filter-table tr {
+  border-bottom: 1px solid black;
+}
+
+.filter-table select {
+  width: 80%;
+}
