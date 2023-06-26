@@ -83,15 +83,6 @@ const TimeTable = (props: propType) => {
     }
   };
 
-  const onMouseOverSlot = (item: TimeSlot) => {
-    if (props.isMobile) {
-      return;
-    } else {
-      props.setTooltipContent(tooltipContents.get(item));
-      props.setShowTooltip(true);
-    }
-  }
-
   const getTooltipContent = (item: TimeSlot): React.ReactNode => {
     if (props.isMobile) {
       return <></>;
@@ -143,6 +134,15 @@ const TimeTable = (props: propType) => {
     }
   }
 
+  const onMouseOverSlot = (item: TimeSlot) => {
+    if (props.isMobile) {
+      return;
+    } else {
+      props.setTooltipContent(tooltipContents.get(item));
+      props.setShowTooltip(true);
+    }
+  }
+
   useEffect(() => {
     let newMap: Map<TimeSlot, React.ReactNode> = new Map;
     for (const ts of props.timeSlots) {
@@ -175,6 +175,7 @@ const TimeTable = (props: propType) => {
                 <div className='timetable-subject'
                   onMouseOver={() => onMouseOverSlot(item)}
                   onMouseOut={() => props.setShowTooltip(false)}
+                  onMouseEnter={() => props.setShowTooltip(true)}
                   onClick={() => onClickSlot(item)}
                   style={getTimeSlotStyle(item)}>
                     <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>

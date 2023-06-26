@@ -13,9 +13,11 @@ function Home(props: propType) {
   const data = useContext(PreviewContext);
   return (
     !data.isMobile ?
-    <div className='app-main-container'> 
+    <div className='app-main-container' style={{ flexDirection: "column" }}> 
+      <div className='app-parent-container' style={{ width: "100%" }}>
+        <img src={title} alt="img" width={"100%"}/>
+      </div>
       <div className='app-parent-container' style={{ width: "65%" }}>
-        <img src={title} alt="img" height={"100%"}/>
         <img id='first-image' alt="img" src={help1} width={"100%"}/>
         <img src={help2} alt="img" width={"100%"}/>
         <img src={help3} alt="img" width={"100%"}/>

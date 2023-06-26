@@ -23,27 +23,9 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
 
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
 import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 import Home from './pages/Home';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCk7TcB-NxrG7OSTs5NqwHJhLweAx6_tA8",
-//   authDomain: "shaganpyo.firebaseapp.com",
-//   projectId: "shaganpyo",
-//   storageBucket: "shaganpyo.appspot.com",
-//   messagingSenderId: "283150565834",
-//   appId: "1:283150565834:web:c14e1df0d1858a430c8f33",
-//   measurementId: "G-CH9KXLYSTD"
-// };
-
-// Initialize Firebase
 
 const appVersion: string = packageJson.version;
 
