@@ -84,7 +84,9 @@ function Create() {
           />
         ) : (
           <div className="appTable__container">
-            <p className='large-title'>시간표가 아직 생성되지 않았습니다.</p>
+            <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
+            <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
+            <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
           </div>
         )
       }
@@ -133,7 +135,9 @@ function Create() {
           />
         ) : (
           <div className="appTable__container">
-            <p className='large-title'>시간표가 아직 생성되지 않았습니다.</p>
+            <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
+            <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
+            <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
           </div>
         )
       }

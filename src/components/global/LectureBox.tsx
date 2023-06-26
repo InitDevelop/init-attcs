@@ -2,9 +2,8 @@ import React from 'react'
 import './LectureBox.css'
 import '../../App.css'
 import '../../AppMobile.css';
-import { Lecture, LectureGroup, getAllTimeSlots, toTimeSlots } from '../../util/Lecture';
+import { Lecture, LectureGroup } from '../../util/Lecture';
 import { LectureInformationTable } from './LectureInformationTable';
-import { getTimeValueArray, isValidCombination } from '../../util/Scenario';
 
 type propType = {
   boxType: string;
@@ -18,6 +17,10 @@ type propType = {
 
   addLectureToList: (param: Lecture) => void;
   removeLectureFromList: (param: Lecture) => void;
+
+  intersects: boolean | undefined;
+  isNotKorean: boolean;
+  hasRestriction: boolean;
 
   // For preview page - both search and list
   setHoveredSubj: (param: Lecture) => void;
@@ -54,9 +57,6 @@ function LectureBox(props: propType) {
       }
       }
     }
-    onClick={ () => {
-      // TODO To be added...
-    }}
     >
 
       <tbody>
@@ -114,24 +114,24 @@ function LectureBox(props: propType) {
                     <span className='medium-title-hoverable'>
                       {props.subject.subjectTitle + "  "}
                     </span>
-                    { (props.boxType === "search"
-                      && !isValidCombination(
-                        getTimeValueArray(getAllTimeSlots(props.selSubj)).concat(getTimeValueArray(toTimeSlots(props.subject, 0)))
-                        )) &&
+                    {
+                      props.intersects && !props.isMobile &&
                       <span className='tiny-notice-3' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>시간 겹침</p>
                       </span>
                     }
-                    { (props.subject.extraInfo.includes("®")) && !props.isMobile && (
+                    {
+                      props.hasRestriction && !props.isMobile &&
                       <span className='tiny-notice' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>수강반 제한</p>
                       </span>
-                    )}
-                    { (props.subject.language !== "한국어") && !props.isMobile && (
+                    }
+                    {
+                      props.isNotKorean && !props.isMobile &&
                       <span className='tiny-notice-2' style={{marginLeft: "5px"}}>
-                        <p style={{fontSize: "medium" }}>외국어</p>
+                      <p style={{fontSize: "medium" }}>외국어</p>
                       </span>
-                    )}
+                    }
                   </td>
                 </tr>
                 <tr>
@@ -140,12 +140,12 @@ function LectureBox(props: propType) {
                     { !props.isMobile &&
                       <span>{"  " + props.subject.lecturer}{"  " + props.subject.subjectID} ({props.subject.lectureNumber})</span>
                     }
-                    { (props.subject.extraInfo.includes("®")) && props.isMobile && (
+                    { props.hasRestriction && props.isMobile && (
                       <button className='tiny-notice'>
                         <p style={{fontSize: "medium" }}>수강반 제한</p>
                       </button>
                     )}
-                    { (props.subject.language !== "한국어") && props.isMobile && (
+                    { props.isNotKorean && props.isMobile && (
                       <button className='tiny-notice-2' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>외국어</p>
                       </button>

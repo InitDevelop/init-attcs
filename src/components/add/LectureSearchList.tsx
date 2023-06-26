@@ -40,10 +40,10 @@ function LectureSearchList(props: propType) {
       <div className={!data.isMobile ? 
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}
         style = {{ bottom: "100px" }}>
-        {data.matchingLectures.map(subject => 
+        {data.matchingLectures.map(lecture => 
           <LectureBox
-            key={subject.subjectID + " (" + subject.lectureNumber + ")"}
-            boxType={"add"} subject={subject}
+            key={lecture.subjectID + " (" + lecture.lectureNumber + ")"}
+            boxType={"add"} subject={lecture}
             displayPopup={data.displayPopup}
             addLectureToList={
               (lect: Lecture) => {
@@ -62,7 +62,10 @@ function LectureSearchList(props: propType) {
             lectureGroups={data.lectureGroups}
             includesLecture={data.includesLecture}    
             isMobile={data.isMobile} 
-            selSubj={[]}       
+            selSubj={[]}
+            isNotKorean={lecture.language !== "한국어"}
+            hasRestriction={lecture.extraInfo.includes("®")}
+            intersects={false}
             />
           )
         }
