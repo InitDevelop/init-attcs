@@ -66,8 +66,14 @@
 
 @media only screen and (max-width: 900px) {
   .popup {
-    font-size: small;
+    font-size: medium;
   }
+
+  .popup-inner {
+    max-width: 85%;
+    max-height: 80vh;
+  }
+
 
   .value {
     word-break: break-all;

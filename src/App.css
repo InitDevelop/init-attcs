@@ -155,6 +155,7 @@
 }
 
 .links {
+  white-space: nowrap;
   border-radius: 10px;
   cursor: pointer;
   box-sizing: border-box;
@@ -178,6 +179,7 @@
 }
 
 .link-current {
+  white-space: nowrap;
   transition: 400ms;
   box-sizing: border-box;
   text-decoration: none;
@@ -225,6 +227,7 @@
 /* OTHER STYLES */
 
 .input-1 {
+  white-space: nowrap;
   text-align: left;
   font-weight: var(--regular-weight-font);
   font-size: large;
@@ -234,8 +237,8 @@
   padding-bottom: 6px;
   box-sizing: border-box;
   border: var(--lightgray-border);
-  border-radius: 0;
   flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .input-1::placeholder {
@@ -279,6 +282,7 @@
 }
 
 .button-0 {
+  white-space: nowrap;
   font-weight: 400;
   font-size: 100%;
   color: #fff;
@@ -292,10 +296,6 @@
   align-items: center;
   cursor: pointer;
   display: inline-block;
-}
-
-.button-0-larger {
-  font-size: 130%;
 }
   
 .button-0:hover{
@@ -364,31 +364,28 @@
   color: #000000;
 }
 
-.help-button {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-
+.filter-button {
+  margin-left: 10px;
   font-weight: 400;
   font-size: 100%;
-  color: #fff;
-  background-color: #00a3cc;
-  border: solid #00a3cc 2px;
+  color: gray;
+  background-color: white;
+  border: solid gray 2px;
   box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
   border-radius: 5px;
   transition : 193ms;
-  transform: translateY(0);
   display: inline-block;
   flex-direction: row;
-  align-items: center;
+  text-align: center;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.help-button:hover {
+.filter-button:hover {
   transition : 50ms;
-  background-color: #fff;
-  color: #00a3cc;
-  border: solid 2px #00a3cc;
+  background-color: gray;
+  color: white;
+  border: solid 2px gray;
 }
 
 .button-tiny {
@@ -551,4 +548,31 @@
 .select {
   font-size: medium;
   padding: 4px;
+}
+
+.flat-button, .flat-button-selected {
+  white-space: nowrap;
+  padding: 7px 14px;
+  font-size: 100%;
+  text-align: center;
+  transition : 193ms;
+  cursor: pointer;
+  border: none;
+}
+
+.flat-button {
+  font-weight: 400;
+  background-color: #f0f0f0;
+  color: #999;
+}
+
+.flat-button:hover {
+  background-color: #e0e0e0;
+  color: #444;
+}
+
+.flat-button-selected {
+  font-weight: 600;
+  background-color: #e0e0e0;
+  color: #292929;
 }

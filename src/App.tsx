@@ -27,6 +27,10 @@ import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 import Home from './pages/Home';
 
+export const YEAR = 2022;
+export const SEMESTER = 2;
+export const SEASON = 1; // 정규학기는 1, 계절학기는 2
+
 const appVersion: string = packageJson.version;
 
 export const PreviewContext = React.createContext<previewContextTypes>(defaultPreviewContext);
@@ -527,7 +531,7 @@ function App() {
               <div className='for_testing'>
                 <span style={
                   { color: "gray", fontSize: "larger",
-                    marginLeft: "15px" }
+                    marginLeft: "15px", whiteSpace: "nowrap" }
                 }><strong>샤간표 v{appVersion}</strong></span>
                 <span style={
                   {
@@ -536,7 +540,8 @@ function App() {
                     marginLeft: "15px",
                     backgroundColor: "#EC4E46",
                     padding: "3px 8px",
-                    borderRadius: "3px"
+                    borderRadius: "3px",
+                    whiteSpace: "nowrap"
                   }
                 }><strong>2022년 2학기 기준!</strong></span>
               </div>

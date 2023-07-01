@@ -105,9 +105,8 @@ function LectureSearchList(props: propType) {
                 />
               </td>
               <td style={{ width: "80%", whiteSpace: "pre-wrap", paddingLeft: "20px" }}>
-                <button className={
-                  data.isMobile ? "button-0" : "button-0 button-0-larger"}
-                  style={{ width: "100%", height: "100%" }}
+                <button className="button-0"
+                  style={{ width: "100%", height: "100%", fontSize: data.isMobile ? "120%" : "100%" }}
                   disabled={props.selectedLectures.filter(item => !data.includesLecture(item)).length === 0}
                   onClick={() => {
                     for (let i = 0; i < props.selectedLectures.length; i++) {

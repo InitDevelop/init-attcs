@@ -7,7 +7,7 @@ import { CreationContext } from "../../App";
 function AddSubjectSearchList() {
   const data = useContext(CreationContext);
   return (
-    <div className="appTable__container"
+    <div className={ data.isMobile ? "appTable__container-smallest" : "appTable__container" }
       style={{ whiteSpace: "pre-wrap" }}>
       { !data.isMobile &&
       <h2 className="large-title">찾은 과목

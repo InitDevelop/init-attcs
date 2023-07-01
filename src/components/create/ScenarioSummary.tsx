@@ -44,58 +44,61 @@ function ScenarioSummary() {
 
   return (
     <div className='scenario-summary-container'>
+      { !data.isMobile &&
+      <>
+        <hr style={
+          {
+            border: "none",
+            borderTop: "1px solid #ccc",
+            height: "1px",
+            margin: "10px 0"
+          }
+        }/>
 
-      <hr style={
-        {
-          border: "none",
-          borderTop: "1px solid #ccc",
-          height: "1px",
-          margin: "10px 0"
-        }
-      }/>
-
-      <div className='scenario-summary-row-container'>
-        <div style={{ width: "15%", verticalAlign: "middle" }}>
-          <img className='arrow-button' src={Left} alt="left-button"
-            onClick={
-              () => {
-                if (data.scenarioNumber > 0) {
-                  data.setScenarioNumber(data.scenarioNumber - 1);
+        <div className='scenario-summary-row-container'>
+          <div style={{ width: "15%", verticalAlign: "middle" }}>
+            <img className='arrow-button' src={Left} alt="left-button"
+              onClick={
+                () => {
+                  if (data.scenarioNumber > 0) {
+                    data.setScenarioNumber(data.scenarioNumber - 1);
+                  }
                 }
               }
-            }
-          />
-        </div>
+            />
+          </div>
 
-        <div style={{ width: "70%" }}>
-          <p className="large-text" style={{ marginBottom: "5px" }}>생성된 <strong>{data.scenarios.length}</strong>개의 시간표 중</p>
-          <p className="x-large-text">
-            <strong>{data.scenarioNumber + 1}</strong>번째 시간표
-          </p>
+          <div style={{ width: "70%" }}>
+            <p className="large-text" style={{ marginBottom: "5px" }}>생성된 <strong>{data.scenarios.length}</strong>개의 시간표 중</p>
+            <p className="x-large-text">
+              <strong>{data.scenarioNumber + 1}</strong>번째 시간표
+            </p>
 
-        </div>
+          </div>
 
-        <div style={{ width: "15%", verticalAlign: "middle" }}>
-          <img className='arrow-button' src={Right} alt="right-button"
-            onClick={
-              () => {
-                if (data.scenarioNumber < data.scenarios.length - 1) {
-                  data.setScenarioNumber(data.scenarioNumber + 1);
+          <div style={{ width: "15%", verticalAlign: "middle" }}>
+            <img className='arrow-button' src={Right} alt="right-button"
+              onClick={
+                () => {
+                  if (data.scenarioNumber < data.scenarios.length - 1) {
+                    data.setScenarioNumber(data.scenarioNumber + 1);
+                  }
                 }
               }
-            }
-          />
+            />
+          </div>
         </div>
-      </div>
-      
-      <hr style={
-        {
-          border: "none",
-          borderTop: "1px solid #ccc",
-          height: "1px",
-          margin: "10px 0"
-        }
-      }/>
+        
+        <hr style={
+          {
+            border: "none",
+            borderTop: "1px solid #ccc",
+            height: "1px",
+            margin: "10px 0"
+          }
+        }/>
+      </>
+      }
 
       <div className='scenario-summary-row-container' style={{ overflow: "auto", bottom: "0px" }}>
         <table className='summary-table'>

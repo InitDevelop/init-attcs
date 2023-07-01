@@ -7,8 +7,6 @@ import AddSubjectSearchList from '../components/add/AddSubjectSearchList';
 import LectureSearchList from '../components/add/LectureSearchList';
 import { Lecture, getAllTimeSlots, toTimeSlots } from '../util/Lecture';
 import TimeTable from '../components/preview/TimeTable';
-import MobileAddMenu from "../components/add/MobileAddMenu";
-import MobileAddLectureMenu from "../components/add/MobileAddLectureMenu";
 
 function Add() {
 
@@ -17,7 +15,7 @@ function Add() {
   const [selectedDates, setSelectedDates] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState('');
 
-  const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
+  const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(true);
 
   const data = useContext(CreationContext);
 
@@ -62,34 +60,36 @@ function Add() {
       }
     </div>
     :
-    <div className='app-main-container'>    
-      <div className='app-parent-container'>
-        <AddedSubjectList
-          updateCount={updateCount}
-          setUpdateCount={setUpdateCount}/>
-        <MobileAddMenu
-          setAddMenuVisible={setAddMenuVisible}
-          setHideHeader={data.setHideHeader}
-        />
+    <div className='app-main-container' style={{ height: "100vh" }}>    
+      <div style={{ margin: "10px" }}>
+        <AddSubjectSearch/>
+      </div>
+      <AddSubjectSearchList/>
+      <br/>
+      <div style={{ margin: "0px 10px", textAlign: "left" }}>
+        <button className={isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setAddMenuVisible(true)}>강좌 추가하기</button>
+        <button className={!isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setAddMenuVisible(false)}>담은 강좌</button>
       </div>
       {
-        isAddMenuVisible &&
-        <MobileAddLectureMenu
+        isAddMenuVisible ?
+        <LectureSearchList
           selectedLectures={selectedLectures}
-          setHideHeader={data.setHideHeader}
           setSelectedLectures={setSelectedLectures}
           updateCount={updateCount}
           setUpdateCount={setUpdateCount}
           setSelectedDates={setSelectedDates}
-          selectedDates={selectedDates}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-          setAddMenuVisible={setAddMenuVisible}
-        />
+          selectedDates={selectedDates} selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}/>
+        :
+        <AddedSubjectList
+          updateCount={updateCount}
+          setUpdateCount={setUpdateCount}/>
       }
+      <br/>
+
     </div>
-
-
   )
 }
 

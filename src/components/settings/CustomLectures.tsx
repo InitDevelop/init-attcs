@@ -163,7 +163,8 @@ function CustomLectures() {
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
       <p className="large-title">나만의 일정</p>
-      <div className="appTable__scrollContainer">
+      <div className={!data.isMobile ?
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {
           data.customLectures.map(
             customLecture =>
@@ -181,7 +182,8 @@ function CustomLectures() {
           )
         }
         <div className="prioritybox" style={{ padding: "12px 10px" }}>
-          <button className='button-0' onClick={handleAddSchedule}>나만의 일정 추가하기</button>
+          <button className='button-0' style={{ fontSize: data.isMobile ? "120%" : "100%" }}
+            onClick={handleAddSchedule}>나만의 일정 추가하기</button>
         </div>
       </div>
     </div>

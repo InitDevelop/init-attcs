@@ -52,8 +52,9 @@ function PriorityManager(props: propType) {
 
   return (
     <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
-      <p className="large-title">자동생성 우선순위 규칙</p>
-      <div className="appTable__scrollContainer">
+      {!data.isMobile && <p className="large-title">자동생성 우선순위 규칙</p>}
+      <div className={!data.isMobile ?
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         <div className="prioritybox"><p style={{ color: "darkred", fontWeight: "800" }}>
           "시간표 자동 생성하기" 버튼을 다시 클릭해야 변경사항이 반영됩니다.</p></div>
         {

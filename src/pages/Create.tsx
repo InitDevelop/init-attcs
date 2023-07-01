@@ -7,21 +7,19 @@ import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import Loading from '../components/global/Loading';
 import MobileCreateMenu from '../components/create/MobileCreateMenu';
-import MobileCreateOptionsMenu from '../components/create/MobileCreateOptionsMenu';
-import MobileAddedLecturesMenu from '../components/create/MobileAddedLecturesMenu';
+import ScenarioSummary from '../components/create/ScenarioSummary';
+import Warning from '../components/create/Warning';
 
 function Create() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
-  const [createMenuVisible, setCreateMenuVisible] = useState<boolean>(false);
-  const [addedLecturesMenuVisible, setAddedLecturesMenuVisible] = useState<boolean>(false);
 
   const [totalCombinations, setTotalCombinations] = useState<number>(1);
   const [currentCombination, setCurrentCombination] = useState<number>(0);
   const [validCombinations, setValidCombinations] = useState<number>(0);
 
   const [updateCount, setUpdateCount] = useState<number>(0);
+  const [viewMode, setViewMode] = useState<number>(0);
 
   const data = useContext(CreationContext);
 
@@ -118,60 +116,72 @@ function Create() {
       }
     </div>
     :
-    <div className='app-main-container'>
-      <div className='app-parent-container'>
-      {
-        (data.scenarios.length > 0) ? (
-          <TimeTable
-            mode='create'
-            isMobile={data.isMobile}
-            lectures={data.scenarios[data.scenarioNumber].lectures}
-            subjHover={false}
-            timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
-            hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
-            setShowTooltip={data.setShowTooltip}
-            setTooltipContent={data.setTooltipContent}  
-            displayPopup={data.displayPopup} 
-          />
-        ) : (
-          <div className="appTable__container">
-            <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
-            <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
-            <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
-          </div>
-        )
-      }
+    <div className='app-main-container' style={{ height: "120vh" }}>
       <MobileCreateMenu
-        setCreateMenuVisible={setCreateMenuVisible}
-        setHideHeader={data.setHideHeader}
-        setAddedLecturesMenuVisible={setAddedLecturesMenuVisible}
         toNextScenario={toNextScenario}
         toBackScenario={toBackScenario}
       />
+      {
+        (data.scenarios.length > 0) &&
+        <div style={{ marginBottom: "7px" }}>
+          <p className="x-large-text" style={{ marginBottom: "5px" }}>
+            <strong>{data.scenarioNumber + 1}</strong> / <strong>{data.scenarios.length}</strong>
+          </p>
+        </div>
+      }
+      <div style={{ margin: "0px 10px", textAlign: "left" }}>
+        <button className={viewMode === 0 ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setViewMode(0)}>시간표</button>
+        <button className={viewMode === 1 ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setViewMode(1)}>시간표 상세 정보</button>
+        <button className={viewMode === 2 ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setViewMode(2)}>담은 강좌</button>
       </div>
       {
-        createMenuVisible && 
-        <MobileCreateOptionsMenu
-          setCreateMenuVisible={setCreateMenuVisible}
-          setHideHeader={data.setHideHeader}
-          setIsLoading={setIsLoading}
-          setScenarios={data.setScenarios}
-          setCurrentCombination={setCurrentCombination}
-          setTotalCombinations={setTotalCombinations}
-          setValidCombinations={setValidCombinations}
+        viewMode === 0 ?
+        <>
+          {
+            (data.scenarios.length > 0) ? (
+              <TimeTable
+                mode='create'
+                isMobile={data.isMobile}
+                lectures={data.scenarios[data.scenarioNumber].lectures}
+                subjHover={false}
+                timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
+                hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
+                setShowTooltip={data.setShowTooltip}
+                setTooltipContent={data.setTooltipContent}  
+                displayPopup={data.displayPopup} 
+              />
+            ) : (
+              <div className="appTable__container">
+                <br/>
+                <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
+                <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
+                {
+                  data.isMobile &&
+                  <p className='large-text'>"시간표 상세 정보"에서</p>
+                }
+                <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
+              </div>
+            )
+          }
+        </>
+        :
+        viewMode === 1 ?
+          <CreationViewPanel
+            setIsLoading={setIsLoading}
+            setScenarios={data.setScenarios}
+            setCurrentCombination={setCurrentCombination}
+            setTotalCombinations={setTotalCombinations}
+            setValidCombinations={setValidCombinations}
+          />
+        :
+        <AddedSubjectList
           updateCount={updateCount}
-          setUpdateCount={setUpdateCount}
-        />
+          setUpdateCount={setUpdateCount}/>
       }
-      {
-        addedLecturesMenuVisible && 
-        <MobileAddedLecturesMenu
-          setCreateMenuVisible={setAddedLecturesMenuVisible}
-          setHideHeader={data.setHideHeader}
-          updateCount={updateCount}
-          setUpdateCount={setUpdateCount}
-        />
-      }
+      <br/>
       {
         isLoading && (
           <Loading

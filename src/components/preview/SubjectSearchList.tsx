@@ -32,7 +32,8 @@ function SubjectSearchList() {
   }, [data.selSubj, data.shownLectures]);
 
   return (
-    <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
+    <div className={ data.isMobile ? "appTable__container-smaller" : "appTable__container" }
+          style={{ whiteSpace: "pre-wrap" }}>
       { !data.isMobile &&
         <p className="large-title">찾은 강좌</p>
       }

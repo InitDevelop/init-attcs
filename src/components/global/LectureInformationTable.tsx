@@ -1,5 +1,13 @@
 import "./Popup.css";
 import { Lecture } from "../../util/Lecture";
+import { SEASON, SEMESTER, YEAR } from "../../App";
+
+const openInNewTab = (lect: Lecture) => {
+  let url: string = "https://sugang.snu.ac.kr/sugang/cc/cc103.action?openSchyy=";
+  url += YEAR + "&openShtmFg=U00020000" + SEMESTER + "&openDetaShtmFg=U00030000" + SEASON;
+  url += "&sbjtCd=" + lect.subjectID + "&ltNo=" + lect.lectureNumber + "&sbjtSubhCd=000";
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
 
 export function LectureInformationTable(lect: Lecture) {
   return (
@@ -65,6 +73,15 @@ export function LectureInformationTable(lect: Lecture) {
           <td colSpan={4}>
             <h4 className='key'>추가 정보</h4>
             <h4 className='value'>{lect.extraInfo}</h4>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={4}>
+            <button
+              onClick={() => openInNewTab(lect)}
+              className="button-tiny-3">
+              강의 계획서 확인하기
+            </button>
           </td>
         </tr>
       </tbody>
@@ -140,6 +157,15 @@ export function MultLectureInformationTable(lectures: Lecture[]) {
           <td colSpan={4}>
             <h4 className='key'>추가 정보</h4>
             <h4 className='value'>{lect.extraInfo}</h4>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={4}>
+            <button
+              onClick={() => openInNewTab(lect)}
+              className="button-tiny-3">
+              강의 계획서 확인하기
+            </button>
           </td>
         </tr>
       </tbody>

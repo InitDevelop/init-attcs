@@ -45,17 +45,16 @@ function CreationOptions() {
             <div style={{ alignItems: "center", position: "relative" }} className='app-creation-options'>
             <div style={{ marginBottom: "10px" }}>
               <p className="large-title">강좌 검색하기</p>
-              <input type="text" 
-                style={{  width: "100%",
-                          marginBottom: "10px" }}
+              <div style={{ position: "relative", display: "flex", flexDirection: "row", flexGrow: "1", flexShrink: "1" }}>
+                <input type="text" 
                 value={data.searchText}
                 onMouseOver={onInputHover}
                 onMouseLeave={onInputExit}
                 placeholder='강좌 이름 입력 (교수님, 약어 검색 가능)'
                 onChange={data.handleInputChange} className="input-1"></input>
+                <button className='filter-button' onClick={onClickFilter}>필터 적용</button>
+              </div>
             </div>
-
-            <button className='help-button' onClick={onClickFilter}>필터 적용</button>
             </div>
           )
         }

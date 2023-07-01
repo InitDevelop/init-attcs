@@ -136,7 +136,7 @@ const TimeTable = (props: propType) => {
 
   const onMouseOverSlot = (item: TimeSlot) => {
     if (props.isMobile) {
-      return;
+      props.setShowTooltip(false);
     } else {
       props.setTooltipContent(tooltipContents.get(item));
       props.setShowTooltip(true);
@@ -155,7 +155,7 @@ const TimeTable = (props: propType) => {
     <PreviewContext.Consumer>
       { () => {
         return (
-          <div className='appTable__container' style={{ backgroundColor: props.subjHover ? "white" : "none" }}>
+          <div className='appTable__container'>
             <div className="timetable-host-box">
             <table className='timetable-table'>
               <tbody>
@@ -175,7 +175,7 @@ const TimeTable = (props: propType) => {
                 <div className='timetable-subject'
                   onMouseOver={() => onMouseOverSlot(item)}
                   onMouseOut={() => props.setShowTooltip(false)}
-                  onMouseEnter={() => props.setShowTooltip(true)}
+                  onMouseEnter={() => props.setShowTooltip(!data.isMobile && true)}
                   onClick={() => onClickSlot(item)}
                   style={getTimeSlotStyle(item)}>
                     <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>

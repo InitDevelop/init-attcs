@@ -140,16 +140,24 @@ function LectureBox(props: propType) {
                     { !props.isMobile &&
                       <span>{"  " + props.subject.lecturer}{"  " + props.subject.subjectID} ({props.subject.lectureNumber})</span>
                     }
-                    { props.hasRestriction && props.isMobile && (
-                      <button className='tiny-notice'>
+                    {
+                      props.intersects && props.isMobile &&
+                      <span className='tiny-notice-3' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium" }}>시간 겹침</p>
+                      </span>
+                    }
+                    {
+                      props.hasRestriction && props.isMobile &&
+                      <span className='tiny-notice' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>수강반 제한</p>
-                      </button>
-                    )}
-                    { props.isNotKorean && props.isMobile && (
-                      <button className='tiny-notice-2' style={{marginLeft: "5px"}}>
-                        <p style={{fontSize: "medium" }}>외국어</p>
-                      </button>
-                    )}
+                      </span>
+                    }
+                    {
+                      props.isNotKorean && props.isMobile &&
+                      <span className='tiny-notice-2' style={{marginLeft: "5px"}}>
+                      <p style={{fontSize: "medium" }}>외국어</p>
+                      </span>
+                    }
                   </td>
                 </tr>
                 { props.isMobile &&

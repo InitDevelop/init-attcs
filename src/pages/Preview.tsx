@@ -6,16 +6,20 @@ import TimeTable from '../components/preview/TimeTable';
 import { PreviewContext } from "../App";
 
 import "../AppMobile.css";
-import MobilePreviewMenu from '../components/preview/MobilePreviewMenu';
-import PreviewAddMenu from '../components/preview/PreviewAddMenu';
-import PreviewRemoveMenu from '../components/preview/PreviewRemoveMenu';
 import { getAllTimeSlots, toTimeSlots } from '../util/Lecture';
 
 function Preview() {
-  const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(false);
-  const [isRemoveMenuVisible, setRemoveMenuVisible] = useState<boolean>(false);
+  const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(true);
 
   const data = useContext(PreviewContext);
+
+  const getCreditSum = () => {
+    let sum = 0;
+    for (let i = 0; i < data.selSubj.length; i++) {
+      sum += parseInt(data.selSubj[i].credit);
+    }
+    return sum;
+  }
 
   return (
     !data.isMobile ?
@@ -45,38 +49,35 @@ function Preview() {
     </div>
     :
     <div className="app-main-container">
-      <div className='app-parent-container'>
-
-        <TimeTable
-            mode='preview'
-            isMobile={data.isMobile}
-            lectures={data.selSubj}
-            subjHover={data.subjHover}
-            timeSlots={getAllTimeSlots(data.selSubj)}
-            hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
-            setShowTooltip={data.setShowTooltip}
-            setTooltipContent={data.setTooltipContent}
-            displayPopup={data.displayPopup}        
-        />
-        <MobilePreviewMenu
-          setAddMenuVisible={setAddMenuVisible}
-          setRemoveMenuVisible={setRemoveMenuVisible}
-        />
+      <div style={{ margin: "10px" }}>
+        <CreationOptions/>
+      </div>
+      <br/>
+      <div style={{ margin: "0px 10px", textAlign: "left" }}>
+        <button className={isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setAddMenuVisible(true)}>강좌 추가하기</button>
+        <button className={!isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}
+          onClick={() => setAddMenuVisible(false)}>담은 강좌</button>
       </div>
       {
-        isAddMenuVisible &&
-        <PreviewAddMenu
-          setAddMenuVisible={setAddMenuVisible}
-          setHideHeader={data.setHideHeader}
-        />
+        isAddMenuVisible ?
+        <SubjectSearchList/>
+        :
+        <SubjectSelectList/>
       }
-      {
-        isRemoveMenuVisible &&
-        <PreviewRemoveMenu
-          setRemoveMenuVisible={setRemoveMenuVisible}
-          setHideHeader={data.setHideHeader}
-        />
-      }
+      <br/>
+      <TimeTable
+        mode='preview'
+        isMobile={data.isMobile}
+        lectures={data.selSubj}
+        subjHover={data.subjHover}
+        timeSlots={getAllTimeSlots(data.selSubj)}
+        hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
+        setShowTooltip={data.setShowTooltip}
+        setTooltipContent={data.setTooltipContent}
+        displayPopup={data.displayPopup}        
+      />
+      <br/>
     </div>
   );
 }

@@ -1,16 +1,16 @@
 .preview-menu-container {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .option-button {
   background-color: #e7e7e7;
   color: #333;
   text-align: left;
-  width: 95%;
-  padding: 15px 0px;
-  margin-top: 10px;
+  width: 100%;
+  padding: 15px 7px;
+  margin: 10px 0px;
 }
 
 .option-button:hover {

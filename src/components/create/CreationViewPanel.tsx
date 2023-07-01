@@ -61,7 +61,7 @@ function CreationViewPanel(props: propType) {
           top: "20px",
           transform: "translate(-50%, 0)",
           width: "65%",
-          fontSize: data.isMobile ? "medium" : "x-large",
+          fontSize: data.isMobile ? "120%" : "x-large",
           fontWeight: "700"
         }
       }
@@ -77,7 +77,7 @@ function CreationViewPanel(props: propType) {
               top: data.isMobile ? "70px" : "80px",
               transform: "translate(-50%, 0)",
               width: "65%",
-              fontSize: data.isMobile ? "medium" : "x-large",
+              fontSize: data.isMobile ? "120%" : "x-large",
               fontWeight: "700"
             }
           }

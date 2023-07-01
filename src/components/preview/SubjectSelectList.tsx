@@ -39,14 +39,17 @@ function SubjectSelectList() {
   }, [data.selSubj]);
 
   return (
-    <div className="appTable__container">
+    <div className={ data.isMobile ? "appTable__container-smaller" : "appTable__container" }>
+      { !data.isMobile &&
       <h2 className='large-title' style={{ width: "100%" }}>
         담은 강좌
         <span style={{ marginLeft: "10px", padding: "5px", fontSize: "large" }} className='credit'>
           총 {getCreditSum()}학점
         </span>
       </h2>
-      <div className="appTable__selectScrollContainer">
+      }
+      <div className={!data.isMobile ?
+        "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {data.selSubj.map(
           (lecture: Lecture) => {
             return (

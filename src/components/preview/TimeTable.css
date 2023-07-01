@@ -89,9 +89,9 @@
   .timetable-container {
     border-radius: 0px;
   
-    padding: 20px 0px;
+    padding: 20px 10px;
     height: 100%;
-    width: calc(100% - 0px);
+    width: calc(100% - 20px);
   
     flex-grow: 1;
     flex-shrink: 1;
@@ -101,13 +101,13 @@
   .timetable-host-box {
     position: absolute;
   
-    left: 0px;
-    right: 0px;
+    left: 10px;
+    right: 10px;
     top: 0px;
     bottom: 0px;
   
-    width: calc(100% - 0px);
-    height: calc(100% - 0px);
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
   }
 
   .timetable-subject {

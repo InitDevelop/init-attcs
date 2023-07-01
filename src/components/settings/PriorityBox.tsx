@@ -2,6 +2,8 @@ import '../../App.css'
 import '../../AppMobile.css';
 import './PriorityBox.css';
 import { Dictionary } from '../../util/Util';
+import { CreationContext } from '../../App';
+import React from 'react';
 
 type propType = {
   updateCount: number;
@@ -17,6 +19,8 @@ type propType = {
 }
 
 function PriorityBox(props: propType) {
+
+  const isMobile = React.useContext(CreationContext).isMobile;
 
   const handleLowerPriority = () => {
     if (Math.abs(props.priorities[props.warningType]) < Object.keys(props.priorities).length) {
@@ -81,6 +85,7 @@ function PriorityBox(props: propType) {
   }
 
   return (
+    !isMobile ?
     <div className='prioritybox'>
       <table className='prioritybox-table'>
         <tbody>
@@ -113,6 +118,43 @@ function PriorityBox(props: propType) {
             Math.abs(props.priorities[props.warningType]) < 0.5 && (
               <tr>
                 <td></td>
+                <td style={{ padding: "7px", textAlign: "justify" }}>
+                  <p style={{ color: "darkred", fontWeight: "800", border: "2px solid darkred" }}>이 규칙을 만족하지 않는 시간표는 표시되지 않습니다.</p>
+                </td>
+              </tr>
+            )
+          }
+        </tbody>
+      </table>
+    </div>
+    :
+    <div className='prioritybox'>
+      <table className='prioritybox-table'>
+        <tbody>
+          <tr>
+            <td style={{ width: "85%" }}>
+              <p className={ 'filled-' + props.warningType + '-warning-box'}>
+                {Math.floor(Math.abs(props.priorities[props.warningType]))}순위 - <strong style={{ color: props.priorities[props.warningType] < 0 ? "red" : "white" }}>{props.message}</strong></p>
+              
+            </td>
+          </tr>
+          <tr>
+            <td style={{ padding: "7px", textAlign: "justify" }}>
+              {props.moreInfo}
+            </td>
+          </tr>
+          <tr>
+            <td style={{ padding: "7px", display: "flex", flexDirection: "row" }}>
+              <button className='button-0' style={{ fontSize: "120%" }} onClick={handleRaisePriority} disabled={Math.abs(props.priorities[props.warningType]) < 0.5}>순위 ↑</button>
+              <button className='button-0' style={{ fontSize: "120%" }} onClick={handleLowerPriority} disabled={Math.abs(props.priorities[props.warningType]) < 0.5}>순위 ↓</button>
+              <button className='button-0' style={{ fontSize: "120%" }} onClick={handleToZero}>
+                {Math.abs(props.priorities[props.warningType]) > 0.5 ? "0순위로" : "원래대로"}</button>
+              <button className='button-0' style={{ fontSize: "120%" }} onClick={handleInvertEvent}>반전</button>
+            </td>
+          </tr>
+          {
+            Math.abs(props.priorities[props.warningType]) < 0.5 && (
+              <tr>
                 <td style={{ padding: "7px", textAlign: "justify" }}>
                   <p style={{ color: "darkred", fontWeight: "800", border: "2px solid darkred" }}>이 규칙을 만족하지 않는 시간표는 표시되지 않습니다.</p>
                 </td>
