@@ -69,9 +69,6 @@ const TimeTable = (props: propType) => {
   const [tooltipContents, setTooltipContents] = useState<Map<TimeSlot, React.ReactNode>>(new Map);
 
   const onClickSlot = (item: TimeSlot) => {
-    if (props.isMobile) {
-      return;
-    }
     if (props.mode === "preview") {
       props.displayPopup(`${item.subjectTitle} [${item.subjectID} (${item.lectureNumber})]`,
         LectureInformationTable(item)

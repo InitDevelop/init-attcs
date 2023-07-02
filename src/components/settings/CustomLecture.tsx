@@ -19,8 +19,8 @@ const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 const dates = ["월요일", "화요일", "수요일", "목요일", "금요일"];
 
 const inputStyle: React.CSSProperties | undefined = {
-  width: "60%",
-  textAlign: "center",
+  width: "100%",
+  textAlign: "left",
   marginRight: "10px"
 }
 
@@ -49,7 +49,7 @@ function CustomLecture(props: propType) {
         <tbody>
           <tr>
             <td style={{ width: "20%" }}>
-              <h4 className='item-square-key'>일정 이름</h4>
+              <h4 className='item-square-key' style={{ whiteSpace: "nowrap" }}>일정 이름</h4>
             </td>
             <td style={{ width: "60%", textAlign: 'left' }}>
               {
@@ -91,12 +91,11 @@ function CustomLecture(props: propType) {
             <td style={{ width: "60%", textAlign: 'left' }}>
               {
                 props.customLecture.editable ?
-                <>
-                  <input type='text' onChange={(e) => {
-                    props.handleRoomChange(props.customLecture, e.target.value)
-                  }} value={props.customLecture.lectureRoom} style={inputStyle} className='input-1'></input>
-                  {"  (예) 301-118"}
-                </>
+                <input type='text' onChange={(e) => {
+                  props.handleRoomChange(props.customLecture, e.target.value)
+                }}  value={props.customLecture.lectureRoom}
+                    style={inputStyle} placeholder='예) 301-118'
+                    className='input-1'></input>
                 :
                 <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.lectureRoom}</h4>
               }
@@ -158,7 +157,8 @@ function CustomLecture(props: propType) {
                       </option>
                     )
                   }
-                </select>{" 분부터  "}
+                </select>{" 분부터"}
+                <div style={{ height: "10px" }}/>
                 <select className='select'
                   onChange={(e) => {
                     props.handleTimeChange(props.customLecture,

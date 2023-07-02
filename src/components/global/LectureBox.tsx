@@ -101,17 +101,26 @@ function LectureBox(props: propType) {
           {/* main Lecture box body */}
 
           <td style={{ width: "80%", whiteSpace: "pre-wrap", cursor: "pointer" }}
-            onClick={() => { if (props.boxType !== "remove") {
-              props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
-                LectureInformationTable(props.subject)
-              ); }
+            onClick={() => {
+              if (!props.isMobile) {
+                props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
+                  LectureInformationTable(props.subject)
+                );
+              }
             }}
           >
             <table className='lecturebox-table-in-table'>
               <tbody>
                 <tr>
                   <td>
-                    <span className='medium-title-hoverable'>
+                    <span className='medium-title-hoverable'
+                      onClick={() => {
+                        if (props.isMobile) {
+                          props.displayPopup(`${props.subject.subjectTitle} [${props.subject.subjectID} (${props.subject.lectureNumber})]`,
+                            LectureInformationTable(props.subject)
+                          );
+                        }
+                      }}>
                       {props.subject.subjectTitle + "  "}
                     </span>
                     {

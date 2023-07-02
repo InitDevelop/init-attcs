@@ -223,11 +223,12 @@
   white-space: pre-wrap;
 }
 
-
 /* OTHER STYLES */
 
 .input-1 {
   white-space: nowrap;
+
+  width: 100%;
   text-align: left;
   font-weight: var(--regular-weight-font);
   font-size: large;
@@ -237,6 +238,7 @@
   padding-bottom: 6px;
   box-sizing: border-box;
   border: var(--lightgray-border);
+
   flex-grow: 1;
   flex-shrink: 1;
 }
@@ -282,7 +284,6 @@
 }
 
 .button-0 {
-  white-space: nowrap;
   font-weight: 400;
   font-size: 100%;
   color: #fff;
@@ -296,6 +297,7 @@
   align-items: center;
   cursor: pointer;
   display: inline-block;
+  word-wrap: break-word;
 }
   
 .button-0:hover{
@@ -365,6 +367,9 @@
 }
 
 .filter-button {
+  white-space: nowrap;
+  flex-shrink: 0;
+
   margin-left: 10px;
   font-weight: 400;
   font-size: 100%;
@@ -377,7 +382,6 @@
   display: inline-block;
   flex-direction: row;
   text-align: center;
-  white-space: nowrap;
   cursor: pointer;
 }
 

@@ -45,7 +45,7 @@ function App() {
 
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 900);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 1000);
   const [hideHeader, setHideHeader] = useState<boolean>(false);
   const [lectureDatabase, setLectureDatabase] = useState<Lecture[]>((lectureData as { subjects: Lecture[] }).subjects);
 
@@ -85,7 +85,7 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 900);
+      setIsMobile(window.innerWidth <= 1000);
     };
     window.addEventListener('resize', handleResize);
     return () => {

@@ -66,7 +66,7 @@ function Add() {
       </div>
       <AddSubjectSearchList/>
       <br/>
-      <div style={{ margin: "0px 10px", textAlign: "left" }}>
+      <div style={{ margin: "0px 10px", textAlign: "right" }}>
         <button className={isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}
           onClick={() => setAddMenuVisible(true)}>강좌 추가하기</button>
         <button className={!isAddMenuVisible ? 'flat-button-selected' : 'flat-button'}

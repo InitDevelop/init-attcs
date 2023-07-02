@@ -7,8 +7,10 @@ import CreationViewPanel from '../components/create/CreationViewPanel';
 import AddedSubjectList from '../components/add/AddedSubjectList';
 import Loading from '../components/global/Loading';
 import MobileCreateMenu from '../components/create/MobileCreateMenu';
-import ScenarioSummary from '../components/create/ScenarioSummary';
-import Warning from '../components/create/Warning';
+import plusIcon from "../img/plus.png";
+import "../components/preview/MobilePreviewMenu.css"
+import "../css/AppTable.css"
+
 
 function Create() {
 
@@ -61,6 +63,39 @@ function Create() {
     if (data.scenarioNumber > 0) {
       data.setScenarioNumber(data.scenarioNumber - 1);
     }
+  }
+
+  const runWorker = () => {
+    const worker = new Worker(new URL("../components/create/CreationWorker.tsx", import.meta.url));
+    setCurrentCombination(0);
+    setTotalCombinations(1);
+    setValidCombinations(0);
+    setIsLoading(true);
+
+    worker.onmessage = (event) => {
+      if (event.data.finished) {
+        data.setScenarioNumber(0);
+        data.setScenarios(event.data.scenarios);
+        if (data.scenarios.length > 0) {
+          let relatedLectures: Lecture[] = [];
+          for (let i = 0; i < data.scenarios[0].shareTimeLectures.length; i++) {
+            relatedLectures.push(...data.scenarios[0].shareTimeLectures[i]);
+          }
+          data.setRelatedLectures(relatedLectures);
+        }
+        worker.terminate();
+        setIsLoading(false);
+      } else {
+        setCurrentCombination(event.data.current);
+        setTotalCombinations(event.data.total);
+        setValidCombinations(event.data.valid);
+      }
+    }
+
+    worker.postMessage({
+      originalLectureGroups: data.lectureGroups,
+      priorityValues: data.priority
+    });
   }
 
   return (
@@ -117,6 +152,14 @@ function Create() {
     </div>
     :
     <div className='app-main-container' style={{ height: "120vh" }}>
+      <div className='preview-menu-container'>
+        <div style={{ display: "flex", flexDirection: "row", width: "100%", margin: "5px 10px" }}>
+          <div className="option-button" onClick={runWorker}>
+            <img className="option-icon" src={plusIcon} alt={"left"} width={"15px"} height={"15px"}/>
+            <span className="medium-title">{" 시간표 자동 생성하기"}</span>
+          </div>
+        </div>
+      </div>
       <MobileCreateMenu
         toNextScenario={toNextScenario}
         toBackScenario={toBackScenario}
@@ -129,7 +172,7 @@ function Create() {
           </p>
         </div>
       }
-      <div style={{ margin: "0px 10px", textAlign: "left" }}>
+      <div style={{ margin: "0px 10px", textAlign: "right" }}>
         <button className={viewMode === 0 ? 'flat-button-selected' : 'flat-button'}
           onClick={() => setViewMode(0)}>시간표</button>
         <button className={viewMode === 1 ? 'flat-button-selected' : 'flat-button'}
@@ -155,27 +198,27 @@ function Create() {
               />
             ) : (
               <div className="appTable__container">
-                <br/>
-                <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
-                <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
-                {
-                  data.isMobile &&
-                  <p className='large-text'>"시간표 상세 정보"에서</p>
-                }
-                <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
+                <div className="appTable__scrollContainer-no-title">
+                  <br/>
+                  <p className='large-title'>시간표가 아직 생성되지 않았거나,</p>
+                  <p className='large-title'>시간표 중 가능한 경우가 없습니다.</p>
+                  <p className='large-text'>"시간표 자동 생성하기"를 누르세요.</p>
+                </div>
               </div>
             )
           }
         </>
         :
         viewMode === 1 ?
-          <CreationViewPanel
-            setIsLoading={setIsLoading}
-            setScenarios={data.setScenarios}
-            setCurrentCombination={setCurrentCombination}
-            setTotalCombinations={setTotalCombinations}
-            setValidCombinations={setValidCombinations}
-          />
+          <div className='appTable__container' style={{ margin: "0px 10px", width: "calc(100% - 20px)" }}>
+            <CreationViewPanel
+              setIsLoading={setIsLoading}
+              setScenarios={data.setScenarios}
+              setCurrentCombination={setCurrentCombination}
+              setTotalCombinations={setTotalCombinations}
+              setValidCombinations={setValidCombinations}
+            />
+          </div>
         :
         <AddedSubjectList
           updateCount={updateCount}

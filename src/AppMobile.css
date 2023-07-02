@@ -2,7 +2,7 @@
   fill: #333;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1000px) {
   /* 768px */
   .app {
     overflow: auto;
@@ -172,7 +172,7 @@
   }
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1000px) {
   .hamburger-menu {
     display: none;
   }

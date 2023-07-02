@@ -52,7 +52,7 @@ function CreationViewPanel(props: propType) {
   }
 
   return (
-    <div className="appTable__container" style={{ whiteSpace: "pre-wrap" }}>
+    <div className="appTable__container" style={{ whiteSpace: "pre-wrap", border: data.isMobile ? "1px solid lightgray" : "none" }}>
       <button className='button-0'
       style={
         {

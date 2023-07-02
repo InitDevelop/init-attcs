@@ -1,6 +1,6 @@
 {
   "name": "init-attcs",
-  "version": "1.0.0_RC14",
+  "version": "1.0.0_RC15",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

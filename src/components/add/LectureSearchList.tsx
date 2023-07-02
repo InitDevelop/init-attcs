@@ -40,6 +40,11 @@ function LectureSearchList(props: propType) {
       <div className={!data.isMobile ? 
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}
         style = {{ bottom: "100px" }}>
+        {
+          data.matchingLectures.length > 0 && data.isMobile &&
+          <div className="prioritybox"><p style={{ fontWeight: "700", fontSize: "medium", color: "#1987E1" }}>
+          강좌명을 클릭하면 상세정보를 볼 수 있습니다.</p></div>
+        }
         {data.matchingLectures.map(lecture => 
           <LectureBox
             key={lecture.subjectID + " (" + lecture.lectureNumber + ")"}

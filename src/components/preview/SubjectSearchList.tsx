@@ -39,6 +39,11 @@ function SubjectSearchList() {
       }
       <div className={!data.isMobile ?
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
+        {
+          data.shownLectures.length > 0 && data.isMobile &&
+          <div className="prioritybox"><p style={{ fontWeight: "700", fontSize: "medium", color: "#1987E1" }}>
+          강좌명을 클릭하면 상세정보를 볼 수 있습니다.</p></div>
+        }
         { (data.shownLectures.length <= 500) ?
           data.shownLectures.map(
             (lecture: Lecture) => {
