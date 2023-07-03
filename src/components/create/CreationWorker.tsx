@@ -36,8 +36,14 @@ const CreationWorker = (lectureGroups: LectureGroup[], priorityValues: Dictionar
     timeSlotArr.push([]);
   }
 
+  const byPass: number[][] = [];
+
   for (let i = 0; i < lectureGroups.length; i++) {
     for (let j = 0; j < lectureGroups[i].lectures.length; j++) {
+      if (lectureGroups[i].lectures[j].time === "") {
+        byPass.push([i, j]);
+        continue;
+      }
       const timeMatchIndex = timeSlotArr[i].findIndex(
         (slot2dArray) => {
           if (slot2dArray.length > 0) {
@@ -73,6 +79,11 @@ const CreationWorker = (lectureGroups: LectureGroup[], priorityValues: Dictionar
 
   outerLoop:
   for (const index of indexes) {
+    for (const t of byPass) {
+      if (index[t[0]] === t[1]) {
+        continue outerLoop;
+      }
+    }
     currentProcessNum++;
     const timeValues: number[][] = [];
     for (let i = 0; i < timeSlotArr.length; i++) {

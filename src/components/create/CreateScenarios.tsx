@@ -151,8 +151,8 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let spaceWarning: Warning = { warningType: "space", weight: 0, extraInfo: [], isCritical: false };
   let consecutiveFlag: boolean = false;
-  let count = 0;
   for (let date = 0; date < 5; date++) {
+    let count = 0;
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
       if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) <= 30) {
         if (!consecutiveFlag) {

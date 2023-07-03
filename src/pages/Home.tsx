@@ -15,7 +15,7 @@ import mhelp7 from "../img/mobilehelp7.png";
 import packageJson from '../../package.json';
 import "../App.css";
 import "../AppMobile.css"
-import { PreviewContext, SEMESTER, YEAR } from '../App';
+import { PreviewContext, SEMESTER, UPDATE, YEAR } from '../App';
 
 type propType = { scrollPosition: number; };
 
@@ -44,7 +44,7 @@ function Home(props: propType) {
       <p className='medium-title'>
         샤간표 버전 v{appVersion},
         <br/>
-        교과목 정보는 {YEAR}년도 {SEMESTER}학기 기준입니다.
+        교과목 정보는 {YEAR}년도 {SEMESTER}학기, {UPDATE} 기준입니다.
         <br/>
         개발 및 디자인: 서울대학교 전기·정보공학부 22학번 riverMoonStone
       </p>
@@ -62,7 +62,7 @@ function Home(props: propType) {
       <p className='medium-title'>
         샤간표 버전 v{appVersion},
         <br/>
-        교과목 정보는 {YEAR}년도 {SEMESTER}학기 기준입니다.
+        교과목 정보는 {YEAR}년도 {SEMESTER}학기, {UPDATE} 기준입니다.
         <br/>
         개발 및 디자인: 서울대학교 전기·정보공학부 22학번 riverMoonStone
       </p>

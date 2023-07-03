@@ -27,9 +27,10 @@ import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 import Home from './pages/Home';
 
-export const YEAR = 2022;
+export const YEAR = 2023;
 export const SEMESTER = 2;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
+export const UPDATE = "2023. 07. 03.";
 
 const appVersion: string = packageJson.version;
 
@@ -186,7 +187,7 @@ function App() {
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
   const [relatedLectures, setRelatedLectures] = useState<Lecture[]>([]);
   const [priority, setPriority] = useState<Dictionary<number>>({
-    "empty": 1, "time": 5, "morning": 2, "count": 4, "lunch": 6, "space": 3
+    "empty": 1, "time": 6, "morning": 3, "count": 4, "lunch": 5, "space": 2
   });
 
   const addLectureToGroup = (lect: Lecture) => {
@@ -533,7 +534,7 @@ function App() {
                   { color: "gray", fontSize: "larger",
                     marginLeft: "15px", whiteSpace: "nowrap" }
                 }><strong>샤간표 v{appVersion}</strong></span>
-                <span style={
+                {/* <span style={
                   {
                     color: "white",
                     fontSize: "larger",
@@ -543,7 +544,7 @@ function App() {
                     borderRadius: "3px",
                     whiteSpace: "nowrap"
                   }
-                }><strong>2022년 2학기 기준!</strong></span>
+                }><strong>2023년 2학기 기준!</strong></span> */}
               </div>
               <MobileMenuButton
                 open={menuOpened}
