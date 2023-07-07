@@ -5,6 +5,8 @@ import LectureBox from '../global/LectureBox';
 import { PreviewContext } from "../../App";
 import { Lecture, getAllTimeSlots, toTimeSlots } from '../../util/Lecture';
 import { isTimeIntersect } from '../../util/Scenario';
+import { getWarnings } from '../create/CreateScenarios';
+import Warning from '../create/Warning';
 
 function SubjectSelectList() {
   const data = useContext(PreviewContext);
@@ -40,6 +42,7 @@ function SubjectSelectList() {
 
   return (
     <div className={ data.isMobile ? "appTable__container-smaller" : "appTable__container" }>
+      
       { !data.isMobile &&
       <h2 className='large-title' style={{ width: "100%" }}>
         담은 강좌
@@ -48,6 +51,7 @@ function SubjectSelectList() {
         </span>
       </h2>
       }
+
       <div className={!data.isMobile ?
         "appTable__scrollContainer" : "appTable__scrollContainer-no-title"}>
         {data.selSubj.map(
@@ -76,7 +80,26 @@ function SubjectSelectList() {
             )
           }
         )}
-      </div>
+
+        {
+          data.selSubj.length > 0 &&
+          <div style={{ padding: "5px 10px 10px 10px", borderBottom: "1px solid lightgray" }}>
+            {
+              getWarnings({
+                lectures: data.selSubj,
+                shareTimeLectures: [],
+                warnings: [],
+                priority: 0
+              }).map(warning =>
+                <Warning
+                  key={warning.warningType}
+                  warningType={warning.warningType}
+                  />
+              )
+            }
+          </div>
+        }
+        </div>
       </div>
     )
 }

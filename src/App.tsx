@@ -1,5 +1,6 @@
 import './App.css';
 import './AppMobile.css';
+
 import lectureData from "./db/data.json"
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
