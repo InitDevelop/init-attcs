@@ -31,7 +31,7 @@ import Home from './pages/Home';
 export const YEAR = 2023;
 export const SEMESTER = 2;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
-export const UPDATE = "2023. 07. 03.";
+export const UPDATE = "2023. 07. 09.";
 
 const appVersion: string = packageJson.version;
 
@@ -511,8 +511,11 @@ function App() {
                   <img className="app-header-logo" src={logo} alt=""/>
                 </Link>
               }
-              { isMobile && 
-                <img className="app-header-logo" src={logo} alt=""/>
+              { isMobile &&
+                <Link className="app-header-logo"
+                  to="/" onClick = { () => {setCurrentPage("/")} }>
+                  <img height={"100%"} src={logo} alt=""/>
+                </Link>
               }
               <Link className={ currentPage === "/" ? "link-current" : "links" }
                 to="/" onClick = { () => {setCurrentPage("/")} }>홈</Link>
@@ -534,7 +537,7 @@ function App() {
                 <span style={
                   { color: "gray", fontSize: "larger",
                     marginLeft: "15px", whiteSpace: "nowrap" }
-                }><strong>샤간표 v{appVersion}</strong></span>
+                }><strong>샤간표 v{appVersion}</strong> 출시🥳 / 교과목 정보는 {UPDATE} 기준입니다.</span>
                 {/* <span style={
                   {
                     color: "white",

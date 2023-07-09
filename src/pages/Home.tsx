@@ -46,7 +46,12 @@ function Home(props: propType) {
         <br/>
         교과목 정보는 {YEAR}년도 {SEMESTER}학기, {UPDATE} 기준입니다.
         <br/>
-        개발 및 디자인: 서울대학교 전기·정보공학부 22학번 riverMoonStone
+        샤간표 개발 및 디자인: 서울대학교 전기·정보공학부 22학번 riverMoonStone
+      </p>
+      <p className='medium-text'>
+        이 프로그램은 프런트엔드만으로 작동하며, 온라인 저장, 로그인 등의 기능은 없습니다.
+        <br/>
+        향후 기능이 더 추가될 수 있습니다.
       </p>
       <br/>
     </div>
@@ -65,6 +70,11 @@ function Home(props: propType) {
         교과목 정보는 {YEAR}년도 {SEMESTER}학기, {UPDATE} 기준입니다.
         <br/>
         개발 및 디자인: 서울대학교 전기·정보공학부 22학번 riverMoonStone
+      </p>
+      <p className='medium-text'>
+        이 프로그램은 프런트엔드만으로 작동하며, 온라인 저장, 로그인 등의 기능은 없습니다.
+        <br/>
+        향후 기능이 더 추가될 수 있습니다.
       </p>
       <br/>
     </div>
