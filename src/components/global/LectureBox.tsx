@@ -124,6 +124,12 @@ function LectureBox(props: propType) {
                       {props.subject.subjectTitle + "  "}
                     </span>
                     {
+                      !props.isMobile && props.selSubj.includes(props.subject) &&
+                      <span className='tiny-notice-4' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium" }}>담은 강좌</p>
+                      </span>
+                    }
+                    {
                       props.intersects && !props.isMobile &&
                       <span className='tiny-notice-3' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>시간 겹침</p>
@@ -150,7 +156,13 @@ function LectureBox(props: propType) {
                       <span>{"  " + props.subject.lecturer}{"  " + props.subject.subjectID} ({props.subject.lectureNumber})</span>
                     }
                     {
-                      props.intersects && props.isMobile &&
+                      props.isMobile && props.selSubj.includes(props.subject) &&
+                      <span className='tiny-notice-4' style={{marginLeft: "5px"}}>
+                        <p style={{fontSize: "medium" }}>담은 강좌</p>
+                      </span>
+                    }
+                    {
+                      props.isMobile && props.intersects &&
                       <span className='tiny-notice-3' style={{marginLeft: "5px"}}>
                         <p style={{fontSize: "medium" }}>시간 겹침</p>
                       </span>

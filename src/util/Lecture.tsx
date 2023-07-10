@@ -115,7 +115,7 @@ export const toPseudoTimeSlots = (lecture: Lecture) => {
   return returningSlots;
 }
 
-export const toTimeSlots = (lecture: Lecture, displayOrder: number) => {
+export const toTimeSlots = (lecture: Lecture, displayOrder: number, containsSaturday: boolean) => {
   let returningSlots: TimeSlot[] = [];
 
   let times = lecture.time.split("/");
@@ -134,7 +134,13 @@ export const toTimeSlots = (lecture: Lecture, displayOrder: number) => {
 
       let topPositon = `calc((100%)*${((startHour - 9) + startMin / 60)}/13)`;
       let height = `calc((100%)*${((endHour - startHour) + (endMin - startMin) / 60)}/13)`;
-      let leftPosition = `${7.5 + date * 18.5}%`;
+
+      let leftPosition = ``;
+      if (containsSaturday) {
+        leftPosition = `${4 + date * 16}%`;
+      } else {
+        leftPosition = `${7.5 + date * 18.5}%`;
+      }
   
       returningSlots.push({
         ...lecture,
@@ -160,10 +166,11 @@ export const toTimeSlots = (lecture: Lecture, displayOrder: number) => {
   return returningSlots;
 }
 
-export const getAllTimeSlots = (lectures: Lecture[]): TimeSlot[] => {
+export const getAllTimeSlots = (lectures: Lecture[],
+    containsSaturday = lectures.filter(lect => lect.time.includes("토")).length > 0): TimeSlot[] => {
   let returningSlots: TimeSlot[] = [];
   for (let i = 0; i < lectures.length; i++) {
-    returningSlots.push(...toTimeSlots(lectures[i], i));
+    returningSlots.push(...toTimeSlots(lectures[i], i, containsSaturday));
   }
   return returningSlots;
 }

@@ -16,7 +16,7 @@ type propType = {
 
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
-const dates = ["월요일", "화요일", "수요일", "목요일", "금요일"];
+const dates = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
 const inputStyle: React.CSSProperties | undefined = {
   width: "100%",

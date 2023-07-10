@@ -16,9 +16,12 @@ function SubjectSearchList() {
     const timeSlots = getAllTimeSlots(data.selSubj);
     for (const lect of data.shownLectures) {
       let intersectFlag: boolean = false;
+      if (data.selSubj.includes(lect)) {
+        continue;
+      }
       loop:
       for (const ts of timeSlots) {
-        for (const tsLect of toTimeSlots(lect, 0)) {
+        for (const tsLect of toTimeSlots(lect, 0, true)) {
           if (ts.date !== tsLect.date) continue;
           if (isTimeIntersect(ts.startTime, ts.endTime, tsLect.startTime, tsLect.endTime)) {
             intersectFlag = true;

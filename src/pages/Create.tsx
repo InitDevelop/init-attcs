@@ -13,6 +13,7 @@ import "../css/AppTable.css"
 
 
 function Create() {
+  const data = useContext(CreationContext);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,7 +24,17 @@ function Create() {
   const [updateCount, setUpdateCount] = useState<number>(0);
   const [viewMode, setViewMode] = useState<number>(0);
 
-  const data = useContext(CreationContext);
+  const [containsSaturday, setContainsSaturday] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data.scenarios.length > 0) {
+      if (data.scenarios[data.scenarioNumber].lectures.filter(lect => lect.time.includes("토")).length > 0) {
+        setContainsSaturday(true);
+      } else {
+        setContainsSaturday(false);
+      }
+    }
+  }, [data]);
 
   useEffect(() => {
     if (data.scenarios.length > 0) {
@@ -111,10 +122,11 @@ function Create() {
             lectures={data.scenarios[data.scenarioNumber].lectures}
             subjHover={false}
             timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
-            hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
+            hoveredTimeSlots={toTimeSlots(blankLecture, 0, containsSaturday)}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}  
             displayPopup={data.displayPopup}
+            containsSaturday={containsSaturday}
           />
         ) : (
           <div className="appTable__container">
@@ -192,10 +204,11 @@ function Create() {
                 lectures={data.scenarios[data.scenarioNumber].lectures}
                 subjHover={false}
                 timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
-                hoveredTimeSlots={toTimeSlots(blankLecture, 0)}
+                hoveredTimeSlots={toTimeSlots(blankLecture, 0, containsSaturday)}
                 setShowTooltip={data.setShowTooltip}
                 setTooltipContent={data.setTooltipContent}  
                 displayPopup={data.displayPopup} 
+                containsSaturday={containsSaturday}
               />
             ) : (
               <div className="appTable__container">

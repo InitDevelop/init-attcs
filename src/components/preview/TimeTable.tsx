@@ -29,6 +29,7 @@ type propType = {
   mode: string;
   timeSlots: TimeSlot[];
   hoveredTimeSlots: TimeSlot[];
+  containsSaturday: boolean;
 
   setShowTooltip: (param: boolean) => void;
   setTooltipContent: (param: React.ReactNode) => void;
@@ -149,18 +150,22 @@ const TimeTable = (props: propType) => {
               <tbody>
                 { times.map(time => 
                     <tr key={time} className='timetable-row'>
-                      <td key={"time"} className='timetable-timeslot'>{time}</td>
-                      <td key={"mon"} className='timetable-item'></td>
-                      <td key={"tue"} className='timetable-item'></td>
-                      <td key={"wed"} className='timetable-item'></td>
-                      <td key={"thu"} className='timetable-item'></td>
-                      <td key={"fri"} className='timetable-item'></td>
+                      <td key={"time"} className={ props.containsSaturday ? 'timetable-timeslot-sat' : 'timetable-timeslot' }>{time}</td>
+                      <td key={"mon"} className={ props.containsSaturday ? 'timetable-item-sat' : 'timetable-item' }></td>
+                      <td key={"tue"} className={ props.containsSaturday ? 'timetable-item-sat' : 'timetable-item' }></td>
+                      <td key={"wed"} className={ props.containsSaturday ? 'timetable-item-sat' : 'timetable-item' }></td>
+                      <td key={"thu"} className={ props.containsSaturday ? 'timetable-item-sat' : 'timetable-item' }></td>
+                      <td key={"fri"} className={ props.containsSaturday ? 'timetable-item-sat' : 'timetable-item' }></td>
+                      {
+                        props.containsSaturday &&
+                        <td key={"sat"} className='timetable-item-sat'></td>
+                      }
                     </tr>
                 ) }
               </tbody>         
             </table>
-              { props.timeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4]).map(item => 
-                <div className='timetable-subject'
+              { props.timeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4, 5]).map(item => 
+                <div className={ props.containsSaturday ? 'timetable-subject-sat' : 'timetable-subject' }
                   onMouseOver={() => onMouseOverSlot(item)}
                   onMouseOut={() => props.setShowTooltip(false)}
                   onMouseEnter={() => props.setShowTooltip(!data.isMobile && true)}
@@ -171,8 +176,8 @@ const TimeTable = (props: propType) => {
               ) }
 
               { props.subjHover && (
-                props.hoveredTimeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4]).map(item => 
-                  <div className='timetable-subject'
+                props.hoveredTimeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4, 5]).map(item => 
+                  <div className={ props.containsSaturday ? 'timetable-subject-sat' : 'timetable-subject' }
                     style={getHoveredTimeSlotStyle(item)}>
                     <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>
                   </div>

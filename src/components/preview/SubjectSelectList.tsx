@@ -27,7 +27,7 @@ function SubjectSelectList() {
       const timeSlots = getAllTimeSlots(data.selSubj.filter(l => l.id !== lect.id));
       loop:
       for (const ts of timeSlots) {
-        for (const tsLect of toTimeSlots(lect, 0)) {
+        for (const tsLect of toTimeSlots(lect, 0, true)) { // containsSaturday does not matter in this situation
           if (ts.date !== tsLect.date) continue;
           if (isTimeIntersect(ts.startTime, ts.endTime, tsLect.startTime, tsLect.endTime)) {
             intersectFlag = true;

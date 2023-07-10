@@ -19,6 +19,8 @@ function CustomLectures() {
         return "목";
       case 4:
         return "금";
+      case 5:
+        return "토";
       default:
         return "";
     }

@@ -29,7 +29,7 @@ const getMinuteDifference = (from: number, to: number): number => {
 
 const getLunchWarnings = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let lunchWarning: Warning = { warningType: "lunch", weight: 0, extraInfo: [], isCritical: false };
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
 
     let existsLunchTime = false;
     if (timeSlots[date].length === 0) {
@@ -70,7 +70,7 @@ const getLunchWarnings = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getDistanceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let distanceWarning: Warning = { warningType: "time", weight: 0, extraInfo: [], isCritical: false };
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
 
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
       if (getMinuteDifference(
@@ -101,7 +101,7 @@ const getDistanceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 const getLectureCountWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let lectureCountWarning: Warning = { warningType: "count", weight: 0, extraInfo: [], isCritical: false };
   const lectureMinutes: number[] = [];
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
     let minutes = 0;
     for (const ts of timeSlots[date]) {
       minutes += getMinuteDifference(ts.startTime, ts.endTime);
@@ -122,7 +122,7 @@ const getLectureCountWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getEmptyDateWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let emptyDateWarning: Warning = { warningType: "empty", weight: 0, extraInfo: [], isCritical: false };
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
     if (timeSlots[date].length === 0) {
       emptyDateWarning.weight++;
     }
@@ -135,7 +135,7 @@ const getEmptyDateWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let morningWarning: Warning = { warningType: "morning", weight: 0, extraInfo: [], isCritical: false };
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
     if (timeSlots[date].length > 0) {
       if (getMinuteDifference(900, timeSlots[date][0].startTime) <= 180) {
         morningWarning.weight += (180 - getMinuteDifference(900, timeSlots[date][0].startTime)) / 60;
@@ -151,7 +151,7 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let spaceWarning: Warning = { warningType: "space", weight: 0, extraInfo: [], isCritical: false };
   let consecutiveFlag: boolean = false;
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
     let count = 0;
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
       if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) <= 30) {
@@ -176,7 +176,7 @@ const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 export const getWarnings = (sc: Scenario): Warning[] => {
   let timeSlots: PseudoTimeSlot[] = [];
-  let daysTimeSlots: PseudoTimeSlot[][] = [[], [], [], [], []];
+  let daysTimeSlots: PseudoTimeSlot[][] = [[], [], [], [], [], []];
 
   for (const lect of sc.lectures) {
     timeSlots.push(...toPseudoTimeSlots(lect));
@@ -186,7 +186,7 @@ export const getWarnings = (sc: Scenario): Warning[] => {
     daysTimeSlots[ts.date].push(ts);
   }
 
-  for (let date = 0; date < 5; date++) {
+  for (let date = 0; date <= 5; date++) {
     daysTimeSlots[date].sort((a, b) => a.startTime - b.startTime);
   }
 

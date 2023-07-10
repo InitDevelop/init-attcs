@@ -16,7 +16,7 @@ function Add() {
   const [selectedOption, setSelectedOption] = useState('');
 
   const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(true);
-
+  
   const data = useContext(CreationContext);
 
   return (
@@ -44,11 +44,12 @@ function Add() {
             isMobile={data.isMobile}
             lectures={[...selectedLectures]}
             subjHover={data.subjHover}
-            timeSlots={getAllTimeSlots([...selectedLectures])}
-            hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0) : []}
+            timeSlots={getAllTimeSlots([...selectedLectures], true)}
+            hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0, true) : []}
             setShowTooltip={data.setShowTooltip}
             setTooltipContent={data.setTooltipContent}
             displayPopup={data.displayPopup}
+            containsSaturday={true}
             />
           </div>
           :
