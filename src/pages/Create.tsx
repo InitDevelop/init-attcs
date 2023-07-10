@@ -33,7 +33,8 @@ function Create() {
       }
       data.setRelatedLectures(relatedLectures);
     }
-  }, [data.scenarioNumber, isLoading]);
+  }, [data, isLoading]);
+  // Changed dependency from data.scenarioNumber to data
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {

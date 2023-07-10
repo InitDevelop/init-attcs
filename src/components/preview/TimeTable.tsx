@@ -66,7 +66,7 @@ const getSubjectLabelStyle = (order: number): React.CSSProperties => {
 
 const TimeTable = (props: propType) => {
   const data = useContext(CreationContext);
-  const [tooltipContents, setTooltipContents] = useState<Map<TimeSlot, React.ReactNode>>(new Map);
+  const [tooltipContents, setTooltipContents] = useState<Map<TimeSlot, React.ReactNode>>(new Map());
 
   const onClickSlot = (item: TimeSlot) => {
     if (props.mode === "preview") {
@@ -80,57 +80,6 @@ const TimeTable = (props: propType) => {
     }
   };
 
-  const getTooltipContent = (item: TimeSlot): React.ReactNode => {
-    if (props.isMobile) {
-      return <></>;
-    }
-    if (props.mode === "preview") {
-      let intersectFlag: boolean = false;
-      let content = item.subjectTitle;
-      for (let i = 0; i < props.timeSlots.length; i++) {
-        if (item.id === props.timeSlots[i].id) {
-          continue;
-        }
-        if (item.date === props.timeSlots[i].date) {
-          if (isTimeIntersect(
-            item.startTime, item.endTime, props.timeSlots[i].startTime, props.timeSlots[i].endTime)) {
-              content += ("\n" + props.timeSlots[i].subjectTitle);
-              intersectFlag = true;
-          }
-        }
-      }
-      return (
-        <div>
-          {content + "\n"}
-          {!intersectFlag && <span style={{ fontWeight: "400" }}>{item.slotRoom}</span>}
-          {intersectFlag && (
-            <span style={{ color: "darkred", fontWeight: "800" }}>{"\n"}강좌의 시간이 겹칩니다!</span>
-          )}
-        </div>
-      );
-    } else if (props.mode === "create") {
-      let prof_rooms = [];
-      if (data.scenarios.length > 0) {
-        for (const l of 
-          data.relatedLectures.filter(lect => lect.subjectID === item.subjectID)) {
-            prof_rooms.push({ prof : l.lecturer, room : l.lectureRoom, lect_no: l.lectureNumber });
-        }
-      }
-      return (
-        <div>
-          <span style={getSubjectLabelStyle(item.displayOrder)}>{item.subjectTitle + "\n"}</span>
-          { prof_rooms.map( pr =>
-              <>
-                <span style={{fontWeight: "600"}}>{pr.prof.length > 0 ? pr.prof : "교수 미정"}
-                {` (${pr.lect_no})`}</span>
-                <span style={{fontWeight: "400"}}>{" " + pr.room.split("/")[item.slotOrder] + "\n"}</span>
-              </>
-          ) }
-        </div>
-      );
-    }
-  }
-
   const onMouseOverSlot = (item: TimeSlot) => {
     if (props.isMobile) {
       props.setShowTooltip(false);
@@ -141,12 +90,64 @@ const TimeTable = (props: propType) => {
   }
 
   useEffect(() => {
-    let newMap: Map<TimeSlot, React.ReactNode> = new Map;
+    const getTooltipContent = (item: TimeSlot): React.ReactNode => {
+      if (props.isMobile) {
+        return <></>;
+      }
+      if (props.mode === "preview") {
+        let intersectFlag: boolean = false;
+        let content = item.subjectTitle;
+        for (let i = 0; i < props.timeSlots.length; i++) {
+          if (item.id === props.timeSlots[i].id) {
+            continue;
+          }
+          if (item.date === props.timeSlots[i].date) {
+            if (isTimeIntersect(
+              item.startTime, item.endTime, props.timeSlots[i].startTime, props.timeSlots[i].endTime)) {
+                content += ("\n" + props.timeSlots[i].subjectTitle);
+                intersectFlag = true;
+            }
+          }
+        }
+        return (
+          <div>
+            {content + "\n"}
+            {!intersectFlag && <span style={{ fontWeight: "400" }}>{item.slotRoom}</span>}
+            {intersectFlag && (
+              <span style={{ color: "darkred", fontWeight: "800" }}>{"\n"}강좌의 시간이 겹칩니다!</span>
+            )}
+          </div>
+        );
+      } else if (props.mode === "create") {
+        let prof_rooms = [];
+        if (data.scenarios.length > 0) {
+          for (const l of 
+            data.relatedLectures.filter(lect => lect.subjectID === item.subjectID)) {
+              prof_rooms.push({ prof : l.lecturer, room : l.lectureRoom, lect_no: l.lectureNumber });
+          }
+        }
+        return (
+          <div>
+            <span style={getSubjectLabelStyle(item.displayOrder)}>{item.subjectTitle + "\n"}</span>
+            { prof_rooms.map( pr =>
+                <>
+                  <span style={{fontWeight: "600"}}>{pr.prof.length > 0 ? pr.prof : "교수 미정"}
+                  {` (${pr.lect_no})`}</span>
+                  <span style={{fontWeight: "400"}}>{" " + pr.room.split("/")[item.slotOrder] + "\n"}</span>
+                </>
+            ) }
+          </div>
+        );
+      }
+    }
+
+    let newMap: Map<TimeSlot, React.ReactNode> = new Map();
     for (const ts of props.timeSlots) {
-      newMap.set(ts, getTooltipContent(ts));
+      let content = getTooltipContent(ts);
+      newMap.set(ts, content);
     }
     setTooltipContents(newMap);
-  }, [props.timeSlots]);
+  }, [props.timeSlots, props.mode, props.isMobile, data.scenarios.length, data.relatedLectures]);
 
   return (
     <PreviewContext.Consumer>

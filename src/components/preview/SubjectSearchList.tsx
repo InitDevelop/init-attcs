@@ -9,10 +9,10 @@ import { isTimeIntersect } from '../../util/Scenario';
 
 function SubjectSearchList() {
   const data = useContext(PreviewContext);
-  const [intersects, setIntersects] = useState<Map<Lecture, boolean>>(new Map);
+  const [intersects, setIntersects] = useState<Map<Lecture, boolean>>(new Map());
 
   useEffect(() => {
-    let newMap: Map<Lecture, boolean> = new Map;
+    let newMap: Map<Lecture, boolean> = new Map();
     const timeSlots = getAllTimeSlots(data.selSubj);
     for (const lect of data.shownLectures) {
       let intersectFlag: boolean = false;

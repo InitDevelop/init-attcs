@@ -32,10 +32,10 @@ const CreationWorker = (lectureGroups: LectureGroup[], priorityValues: Dictionar
 
   const priorities: number[] = [];
 
-  for (const lg of lectureGroups) {
+  for (let i = 0; i < lectureGroups.length; i++) {
     timeSlotArr.push([]);
   }
-
+  
   const byPass: number[][] = [];
 
   for (let i = 0; i < lectureGroups.length; i++) {

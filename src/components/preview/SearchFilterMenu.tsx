@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import data from "../../db/departments.json"
 import "./SearchFilterMenu.css"
-import { getDateValue } from '../../util/Util';
 
 type propType = {
   searchText: string;

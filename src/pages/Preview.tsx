@@ -10,16 +10,7 @@ import { getAllTimeSlots, toTimeSlots } from '../util/Lecture';
 
 function Preview() {
   const [isAddMenuVisible, setAddMenuVisible] = useState<boolean>(true);
-
   const data = useContext(PreviewContext);
-
-  const getCreditSum = () => {
-    let sum = 0;
-    for (let i = 0; i < data.selSubj.length; i++) {
-      sum += parseInt(data.selSubj[i].credit);
-    }
-    return sum;
-  }
 
   return (
     !data.isMobile ?

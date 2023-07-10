@@ -420,6 +420,7 @@ function App() {
   const reportBug = () => {
     displayPopup("오류 신고 / 건의하기",
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc4z-f6_loBHHgqC5loLazQMvBrEAhV4uR7UZ6R5cGB58t2aQ/viewform?embedded=true"
+        title='report'
         style={
           {
             width: "100%",

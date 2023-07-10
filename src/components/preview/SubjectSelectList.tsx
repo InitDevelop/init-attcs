@@ -10,7 +10,7 @@ import Warning from '../create/Warning';
 
 function SubjectSelectList() {
   const data = useContext(PreviewContext);
-  const [isIntersect, setIsIntersect] = useState<Map<Lecture, boolean>>(new Map);
+  const [isIntersect, setIsIntersect] = useState<Map<Lecture, boolean>>(new Map());
 
   const getCreditSum = () => {
     let sum = 0;
@@ -21,7 +21,7 @@ function SubjectSelectList() {
   }
 
   useEffect(() => {
-    let newMap: Map<Lecture, boolean> = new Map;
+    let newMap: Map<Lecture, boolean> = new Map();
     for (const lect of data.selSubj) {
       let intersectFlag: boolean = false;
       const timeSlots = getAllTimeSlots(data.selSubj.filter(l => l.id !== lect.id));

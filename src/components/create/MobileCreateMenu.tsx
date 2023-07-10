@@ -1,7 +1,6 @@
 import "../../App.css";
 import "./../preview/MobilePreviewMenu.css"
 import leftIcon from "../../img/left.svg";
-import plusIcon from "../../img/plus.png";
 import rightIcon from "../../img/right.svg";
 
 type propType = {
