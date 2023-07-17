@@ -35,7 +35,12 @@ function Home(props: propType) {
       </div>
       {
         props.scrollPosition < 500 &&
-        <div className='look-down'>
+        <div className='look-down' style={{ cursor: "pointer" }} onClick={() => {
+          window.scrollTo({
+            top: window.innerWidth * 9 / 16,
+            behavior: "smooth"
+          });
+        }}>
           <p style={{ fontSize: "20px", fontWeight: "bold", whiteSpace: "pre-wrap", lineHeight: "1.5" }}>
             {"사용법\n↓"}
           </p>

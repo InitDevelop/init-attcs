@@ -31,7 +31,7 @@ import Home from './pages/Home';
 export const YEAR = 2023;
 export const SEMESTER = 2;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
-export const UPDATE = "2023. 07. 09.";
+export const UPDATE = "2023. 07. 17.";
 
 const appVersion: string = packageJson.version;
 
@@ -538,7 +538,7 @@ function App() {
                 <span style={
                   { color: "gray", fontSize: "larger",
                     marginLeft: "15px", whiteSpace: "nowrap" }
-                }><strong>샤간표 v{appVersion}</strong> 출시🥳 / 교과목 정보는 {UPDATE} 기준입니다.</span>
+                }><strong>샤간표 v{appVersion}</strong> / 교과목 정보는 {UPDATE} 기준입니다.</span>
                 {/* <span style={
                   {
                     color: "white",
