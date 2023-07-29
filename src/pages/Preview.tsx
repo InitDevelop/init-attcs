@@ -36,8 +36,12 @@ function Preview() {
           subjHover={data.subjHover}
           timeSlots={getAllTimeSlots(data.selSubj, containsSaturday)}
           hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0, containsSaturday) : []}
+          showTooltip={data.showTooltip}
+          tooltipContent={data.tooltipContent}
+          tooltipStyle={data.tooltipStyle}
           setShowTooltip={data.setShowTooltip}
-          setTooltipContent={data.setTooltipContent}     
+          setTooltipContent={data.setTooltipContent}    
+          setTooltipStyle={data.setTooltipStyle} 
           displayPopup={data.displayPopup}
           containsSaturday={containsSaturday}
         />
@@ -78,7 +82,11 @@ function Preview() {
         subjHover={data.subjHover}
         timeSlots={getAllTimeSlots(data.selSubj, containsSaturday)}
         hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0, containsSaturday) : []}
+        showTooltip={data.showTooltip}
+        tooltipContent={data.tooltipContent}
+        tooltipStyle={data.tooltipStyle}
         setShowTooltip={data.setShowTooltip}
+        setTooltipStyle={data.setTooltipStyle}
         setTooltipContent={data.setTooltipContent}
         displayPopup={data.displayPopup}        
         containsSaturday={containsSaturday}

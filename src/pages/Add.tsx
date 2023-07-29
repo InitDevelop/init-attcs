@@ -46,7 +46,11 @@ function Add() {
             subjHover={data.subjHover}
             timeSlots={getAllTimeSlots([...selectedLectures], true)}
             hoveredTimeSlots={data.subjHover ? toTimeSlots(data.hoveredSubj, 0, true) : []}
+            showTooltip={data.showTooltip}
+            tooltipContent={data.tooltipContent}
+            tooltipStyle={data.tooltipStyle}
             setShowTooltip={data.setShowTooltip}
+            setTooltipStyle={data.setTooltipStyle}
             setTooltipContent={data.setTooltipContent}
             displayPopup={data.displayPopup}
             containsSaturday={true}

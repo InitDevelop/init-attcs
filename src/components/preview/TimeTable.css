@@ -95,8 +95,7 @@
   width: 16%;
 } 
 
-.timetable-subject:hover {
-  scale: 1.1;
+.timetable-subject:hover, .timetable-subject-sat:hover {
   z-index: 10;
 }
 

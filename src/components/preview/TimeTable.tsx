@@ -1,10 +1,11 @@
 import "./TimeTable.css"
 import '../../AppMobile.css';
 import "../../css/AppTable.css"
+import "../global/Tooltip.css"
 import { CreationContext, PreviewContext } from "../../App";
 import { Lecture, TimeSlot } from '../../util/Lecture';
 import { isTimeIntersect } from '../../util/Scenario';
-import React, { useContext } from "react";
+import React, { CSSProperties, useContext, useState } from "react";
 import { LectureInformationTable, MultLectureInformationTable } from "../global/LectureInformationTable";
 
 let times = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
@@ -31,42 +32,50 @@ type propType = {
   hoveredTimeSlots: TimeSlot[];
   containsSaturday: boolean;
 
+  showTooltip: boolean;
+  tooltipStyle: CSSProperties;
+  tooltipContent: React.ReactNode;
+
   setShowTooltip: (param: boolean) => void;
+  setTooltipStyle: (param: CSSProperties) => void;
   setTooltipContent: (param: React.ReactNode) => void;
   displayPopup: (title: string, content: React.ReactNode) => void;
 }
 
-const getTimeSlotStyle = (item: TimeSlot): React.CSSProperties => {
-  return {
-    left: item.leftPosition,
-    top: item.topPosition,
-    height: item.height,
-    backgroundColor: colors[item.displayOrder % colors.length]
-  };
-}
-
-const getHoveredTimeSlotStyle = (item: TimeSlot): React.CSSProperties => {
-  return {
-    left: item.leftPosition,
-    top: item.topPosition,
-    height: item.height,
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
-  };
-}
-
-const getSubjectLabelStyle = (order: number): React.CSSProperties => {
-  return {
-    fontWeight: "700",
-    backgroundColor: colors[order % colors.length],
-    color: "#fff",
-    padding: "3px",
-    borderRadius: "3px",
-    lineHeight: "2.0"
-  };
-}
-
 const TimeTable = (props: propType) => {
   const data = useContext(CreationContext);
+  const [currentTooltipSlot, setCurrentTooltipSlot] = useState<string>("");
+
+  const getTimeSlotStyle = (item: TimeSlot): React.CSSProperties => {
+    return {
+      left: item.leftPosition,
+      top: item.topPosition,
+      height: item.height,
+      backgroundColor: colors[item.displayOrder % colors.length],
+      opacity: !props.showTooltip ? '100%' : (currentTooltipSlot === item.id) ? '100%' : '30%'
+    };
+  }
+  
+  const getHoveredTimeSlotStyle = (item: TimeSlot): React.CSSProperties => {
+    return {
+      left: item.leftPosition,
+      top: item.topPosition,
+      height: item.height,
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      backdropFilter: 'blur(5px)'
+    };
+  }
+  
+  const getSubjectLabelStyle = (order: number): React.CSSProperties => {
+    return {
+      fontWeight: "700",
+      backgroundColor: colors[order % colors.length],
+      color: "#fff",
+      padding: "3px",
+      borderRadius: "3px",
+      lineHeight: "2.0"
+    };
+  }
 
   const onClickSlot = (item: TimeSlot) => {
     if (props.mode === "preview") {
@@ -85,7 +94,51 @@ const TimeTable = (props: propType) => {
       props.setShowTooltip(false);
     } else {
       props.setTooltipContent(getTooltipContent(item));
+      props.setTooltipStyle(getTooltipStyle(item));
+      setCurrentTooltipSlot(item.id);
       props.setShowTooltip(true);
+    }
+  }
+
+  const getTooltipStyle = (item: TimeSlot): React.CSSProperties => {
+    if (item.startHour >= 16) {
+      if (item.date >= 3) {
+        return (
+          {
+            position: "absolute",
+            bottom: `calc(100% - ${item.topPosition})`,
+            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 7.5%)`
+                              : `calc(100% - ${item.leftPosition} - 18.5%)`,
+          }
+        )
+      } else {
+        return (
+          {
+            position: "absolute",
+            bottom: `calc(100% - ${item.topPosition})`,
+            left: item.leftPosition,
+          }
+        )
+      }
+    } else {
+      if (item.date >= 3) {
+        return (
+          {
+            position: "absolute",
+            top: `calc(${item.topPosition} + ${item.height})`,
+            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 7.5%)`
+                              : `calc(100% - ${item.leftPosition} - 18.5%)`,
+          }
+        )
+      } else {
+        return (
+          {
+            position: "absolute",
+            top: `calc(${item.topPosition} + ${item.height})`,
+            left: item.leftPosition,
+          }
+        )
+      }
     }
   }
 
@@ -109,7 +162,7 @@ const TimeTable = (props: propType) => {
         }
       }
       return (
-        <div>
+        <div style={{textAlign: item.date >= 3 ? "right" : "left"}}>
           {content + "\n"}
           {!intersectFlag && <span style={{ fontWeight: "400" }}>{item.slotRoom}</span>}
           {intersectFlag && (
@@ -126,7 +179,7 @@ const TimeTable = (props: propType) => {
         }
       }
       return (
-        <div>
+        <div style={{textAlign: item.date >= 3 ? "right" : "left"}}>
           <span style={getSubjectLabelStyle(item.displayOrder)}>{item.subjectTitle + "\n"}</span>
           { prof_rooms.map( pr =>
               <>
@@ -145,7 +198,7 @@ const TimeTable = (props: propType) => {
       { () => {
         return (
           <div className='appTable__container'>
-            <div className="timetable-host-box">
+            <div className="timetable-host-box" id="timetable">
             <table className='timetable-table'>
               <tbody>
                 { times.map(time => 
@@ -166,6 +219,7 @@ const TimeTable = (props: propType) => {
             </table>
               { props.timeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4, 5]).map(item => 
                 <div className={ props.containsSaturday ? 'timetable-subject-sat' : 'timetable-subject' }
+                  id={item.id}
                   onMouseOver={() => onMouseOverSlot(item)}
                   onMouseOut={() => props.setShowTooltip(false)}
                   onMouseEnter={() => props.setShowTooltip(!data.isMobile && true)}
@@ -178,10 +232,17 @@ const TimeTable = (props: propType) => {
               { props.subjHover && (
                 props.hoveredTimeSlots.filter(ts => ts.date in [0, 1, 2, 3, 4, 5]).map(item => 
                   <div className={ props.containsSaturday ? 'timetable-subject-sat' : 'timetable-subject' }
+                    id={item.id + "_1"}
                     style={getHoveredTimeSlotStyle(item)}>
                     <span><strong>{item.subjectTitle}</strong>{"\n"}{item.slotRoom}</span>
                   </div>
                 )) }
+
+              { props.showTooltip && (
+                  <div className='tooltip' style={props.tooltipStyle}>
+                    {props.tooltipContent}
+                  </div>
+                )}
             </div>
           </div>
         )

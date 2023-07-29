@@ -50,6 +50,7 @@ function SubjectSearchList() {
         { (data.shownLectures.length <= 500) ?
           data.shownLectures.map(
             (lecture: Lecture) => {
+              console.log("render")
               return (
                 <LectureBox 
                   key={lecture.subjectID + " (" + lecture.lectureNumber + ")"}

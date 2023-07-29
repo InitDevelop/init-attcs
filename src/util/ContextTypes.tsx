@@ -1,6 +1,7 @@
+import { CSSProperties } from "react";
 import { blankLecture, CustomSchedule, Lecture, LectureGroup } from "./Lecture";
 import { Scenario } from "./Scenario";
-import { Dictionary, xyTuple } from "./Util";
+import { Dictionary } from "./Util";
 
 export type previewContextTypes = {
   lectureDatabase: Lecture[];
@@ -29,8 +30,8 @@ export type previewContextTypes = {
 
   showTooltip: boolean;
   setShowTooltip: (param: boolean) => void;
-  tooltipPosition: xyTuple;
-  setTooltipPosition: (param: xyTuple) => void;
+  tooltipStyle: CSSProperties;
+  setTooltipStyle: (param: CSSProperties) => void;
   tooltipContent: React.ReactNode;
   setTooltipContent: (param: React.ReactNode) => void;
   scrollPosition: number;
@@ -107,8 +108,8 @@ export type creationContextTypes = {
 
   showTooltip: boolean;
   setShowTooltip: (param: boolean) => void;
-  tooltipPosition: xyTuple;
-  setTooltipPosition: (param: xyTuple) => void;
+  tooltipStyle: CSSProperties;
+  setTooltipStyle: (param: CSSProperties) => void;
   tooltipContent: React.ReactNode;
   setTooltipContent: (param: React.ReactNode) => void;
 
@@ -157,8 +158,8 @@ export const defaultPreviewContext = {
   setShowTooltip: function (param: boolean): void {
     throw new Error('Function not implemented.');
   },
-  tooltipPosition: {x: 0, y: 0},
-  setTooltipPosition: function (param: xyTuple): void {
+  tooltipStyle: {},
+  setTooltipStyle: function (param: CSSProperties): void {
     throw new Error('Function not implemented.');
   },
   tooltipContent: <></>,
@@ -288,8 +289,8 @@ export const defaultCreationContext = {
   setShowTooltip: function (param: boolean): void {
       throw new Error('Function not implemented.');
   },
-  tooltipPosition: { x: 0, y: 0 },
-  setTooltipPosition: function (param: xyTuple): void {
+  tooltipStyle: {},
+  setTooltipStyle: function (param: CSSProperties): void {
       throw new Error('Function not implemented.');
   },
   tooltipContent: <></>,

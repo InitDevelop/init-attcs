@@ -58,10 +58,8 @@ function LectureBox(props: propType) {
       }
     }
     >
-
       <tbody>
         <tr>
-
           {/* A checkbox that conditionally appears in the add page */}
           {/* The functions removeLectureFromList and addLectureToList is used in the context of the add page! */}
 

@@ -34,7 +34,7 @@ function Create() {
         setContainsSaturday(false);
       }
     }
-  }, [data]);
+  }, [data.scenarioNumber]);
 
   useEffect(() => {
     if (data.scenarios.length > 0) {
@@ -44,7 +44,7 @@ function Create() {
       }
       data.setRelatedLectures(relatedLectures);
     }
-  }, [data, isLoading]);
+  }, [data.scenarioNumber, isLoading]);
   // Changed dependency from data.scenarioNumber to data
 
   useEffect(() => {
@@ -123,7 +123,11 @@ function Create() {
             subjHover={false}
             timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
             hoveredTimeSlots={toTimeSlots(blankLecture, 0, containsSaturday)}
+            showTooltip={data.showTooltip}
+            tooltipContent={data.tooltipContent}
+            tooltipStyle={data.tooltipStyle}
             setShowTooltip={data.setShowTooltip}
+            setTooltipStyle={data.setTooltipStyle}
             setTooltipContent={data.setTooltipContent}  
             displayPopup={data.displayPopup}
             containsSaturday={containsSaturday}
@@ -205,7 +209,11 @@ function Create() {
                 subjHover={false}
                 timeSlots={getAllTimeSlots(data.scenarios[data.scenarioNumber].lectures)}
                 hoveredTimeSlots={toTimeSlots(blankLecture, 0, containsSaturday)}
+                showTooltip={data.showTooltip}
+                tooltipContent={data.tooltipContent}
+                tooltipStyle={data.tooltipStyle}
                 setShowTooltip={data.setShowTooltip}
+                setTooltipStyle={data.setTooltipStyle}
                 setTooltipContent={data.setTooltipContent}  
                 displayPopup={data.displayPopup} 
                 containsSaturday={containsSaturday}

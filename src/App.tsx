@@ -1,18 +1,18 @@
 import './App.css';
 import './AppMobile.css';
 
-import lectureData from "./db/data.json"
-import React, { useState, useEffect } from "react";
+import lectureDataThis from "./db/data232.json";
+import lectureDataThen from "./db/data231.json";
+import React, { useState, useEffect, CSSProperties } from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Add from './pages/Add';
 import Preview from './pages/Preview';
 import Create from './pages/Create';
-import SubjTooltip from './components/global/SubjTooltip';
 import Popup from './components/global/Popup';
 
 import logo from './img/logo.png';
 import { blankLecture, CustomSchedule, Lecture, LectureGroup } from './util/Lecture';
-import { Dictionary, xyTuple } from './util/Util';
+import { Dictionary } from './util/Util';
 import { previewContextTypes, creationContextTypes, defaultPreviewContext, defaultCreationContext } from './util/ContextTypes';
 import MobileMenuButton from './components/global/MobileMenuButton';
 import MobileMenu from './components/global/MobileMenu';
@@ -31,7 +31,10 @@ import Home from './pages/Home';
 export const YEAR = 2023;
 export const SEMESTER = 2;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
-export const UPDATE = "2023. 07. 17.";
+export const UPDATE = "2023. 07. 26.";
+
+const currentSemester = "23-2";
+const pastSemester = "23-1";
 
 const appVersion: string = packageJson.version;
 
@@ -49,7 +52,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 1000);
   const [hideHeader, setHideHeader] = useState<boolean>(false);
-  const [lectureDatabase, setLectureDatabase] = useState<Lecture[]>((lectureData as { subjects: Lecture[] }).subjects);
+  const [lectureDatabase, setLectureDatabase] = useState<Lecture[]>((lectureDataThis as { subjects: Lecture[] }).subjects);
+  const [isCurrentSemester, setIsCurrentSemester] = useState<boolean>(true);
 
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
@@ -66,7 +70,7 @@ function App() {
 
   // States related to the tooltip
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const [tooltipPosition, setTooltipPosition] = useState<xyTuple>({ x: 0, y: 0 });
+  const [tooltipStyle, setTooltipStyle] = useState<CSSProperties>({});
   const [tooltipContent, setTooltipContent] = useState<React.ReactNode>("");
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
@@ -139,7 +143,7 @@ function App() {
     setShownLectures(
       lectureDatabase.filter(
         (lect: Lecture) => {
-          return ((searchText.length > 1) && CheckRelatedLecture(searchText, lect)); }
+          return ((searchText.replaceAll(" ", "").length > 1) && CheckRelatedLecture(searchText, lect)); }
       ).sort((a, b) => `${a.subjectID} ${a.lectureNumber}`.localeCompare(`${b.subjectID} ${b.lectureNumber}`))
       .sort((a, b) => (accuracy(searchText, b.subjectTitle, b.lecturer) - accuracy(searchText, a.subjectTitle, a.lecturer)))
     );
@@ -283,10 +287,17 @@ function App() {
   }, [addingSubjName, clickedSubject, lectureDatabase]);
 
   useEffect(() => {
-    setLectureDatabase(((lectureData as { subjects: Lecture[] }).subjects).concat(
-      ...customLectures
-    ));
-  }, [customLectures]);
+    if (isCurrentSemester) {
+      setLectureDatabase(((lectureDataThis as { subjects: Lecture[] }).subjects).concat(
+        ...customLectures
+      ));
+    } else {
+      setLectureDatabase(((lectureDataThen as { subjects: Lecture[] }).subjects).concat(
+        ...customLectures
+      ));
+    }
+
+  }, [customLectures, isCurrentSemester]);
 
   // Function that handles input in keyword box
   const handleAddKeywordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -311,7 +322,7 @@ function App() {
     popupContent, setPopupContent,
 
     showTooltip, setShowTooltip,
-    tooltipPosition, setTooltipPosition,
+    tooltipStyle, setTooltipStyle,
     tooltipContent, setTooltipContent,
     scrollPosition, setScrollPosition,
 
@@ -365,13 +376,13 @@ function App() {
     setLectureGroups,
     includesLecture,
     showTooltip, setShowTooltip,
-    tooltipPosition, setTooltipPosition,
+    tooltipStyle, setTooltipStyle,
     tooltipContent, setTooltipContent,
 
     priority, setPriority
   };
 
-  if (!lectureData) {
+  if (!lectureDataThis || !lectureDataThen) {
     return <div>Loading...</div>;
   }
 
@@ -435,14 +446,8 @@ function App() {
     <BrowserRouter>
       {/* Main container for the entire app */}
 
-      <div className='app' onMouseMove={ (event) => {
-        setTooltipPosition({ x: event.clientX, y: event.clientY }); }}>
-      
-
+      <div className='app'>
         {/* The pages of this app */}
-
-        
-
         <Routes>
           <Route path="/" element={
             <PreviewContext.Provider
@@ -486,17 +491,6 @@ function App() {
 
         </Routes>
 
-        {
-          showTooltip && (
-          <SubjTooltip
-            mode = "preview"
-            tooltipContent = {tooltipContent}
-            tooltipPosition = {tooltipPosition}
-            scrollPosition = {scrollPosition}
-          />
-          )
-        }
-
         {/* Header for the entire app */}
         
         { (!isMobile || (isMobile && !hideHeader)) &&
@@ -534,11 +528,26 @@ function App() {
                 onClick = {openUserData}>열기</div>
               <div className={"links"} 
                 onClick = {reportBug}>오류 신고</div>
+              {
+                !isMobile && 
+                <select className='select' 
+                onChange={(e) => { if (e.target.value === currentSemester) setIsCurrentSemester(true);
+                                    else setIsCurrentSemester(false); }}
+                value={ isCurrentSemester ? currentSemester : pastSemester }>
+                  <option value={ currentSemester }>
+                    {currentSemester}
+                  </option>
+                  <option value={ pastSemester }>
+                    {pastSemester}
+                  </option>
+                </select>
+              }
+
               <div className='for_testing'>
                 <span style={
                   { color: "gray", fontSize: "larger",
                     marginLeft: "15px", whiteSpace: "nowrap" }
-                }><strong>샤간표 v{appVersion}</strong> / 교과목 정보는 {UPDATE} 기준입니다.</span>
+                }><strong>샤간표 v{appVersion}</strong></span>
                 {/* <span style={
                   {
                     color: "white",
