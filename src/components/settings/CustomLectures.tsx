@@ -90,7 +90,7 @@ function CustomLectures() {
       startHour: number, startMin: number, endHour: number, endMin: number,
       room: string, editable: boolean) => {
 
-    if (startHour * 100 + startMin < endHour * 100 + endMin || editable === true) {
+    if (startHour * 100 + startMin < endHour * 100 + endMin) {
       let fixedSchedule: Lecture = {
         id: "CUSTOM." + Math.floor(customLecture.indicator * 100000).toString(),
         classification: '기타',
@@ -136,9 +136,9 @@ function CustomLectures() {
       data.setCustomLectures(
         data.customLectures.filter(cl => cl.id !== customLecture.id).concat(thisLecture)
       );
-
+      
     } else {
-      data.displayPopup("\"나만의 일정\" 추가 오류", <>"나만의 일정"에서 끝 시간은 시작 시간보다 빠를 수 없습니다.</>)
+      data.displayPopup("\"나만의 일정\" 추가 오류", <>"나만의 일정"이 끝나는 시각은 시작하는 시각보다 빠를 수 없습니다.</>)
     }
   }
 

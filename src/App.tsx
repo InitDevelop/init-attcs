@@ -55,6 +55,21 @@ function App() {
   const [lectureDatabase, setLectureDatabase] = useState<Lecture[]>((lectureDataThis as { subjects: Lecture[] }).subjects);
   const [isCurrentSemester, setIsCurrentSemester] = useState<boolean>(true);
 
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    const confirmationMessage = '새로고침을 하면 저장되지 않은 정보는 삭제됩니다. 계속하시겠습니까?';
+    event.returnValue = confirmationMessage;
+    return confirmationMessage;
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+
   /****************************************************************************
     THESE VARIABLES, STATES, FUNCTIONS ARE FOR THE PREVIEW PAGE
   ****************************************************************************/

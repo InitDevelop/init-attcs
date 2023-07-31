@@ -107,7 +107,7 @@ const TimeTable = (props: propType) => {
           {
             position: "absolute",
             bottom: `calc(100% - ${item.topPosition})`,
-            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 7.5%)`
+            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 16%)`
                               : `calc(100% - ${item.leftPosition} - 18.5%)`,
           }
         )
@@ -126,7 +126,7 @@ const TimeTable = (props: propType) => {
           {
             position: "absolute",
             top: `calc(${item.topPosition} + ${item.height})`,
-            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 7.5%)`
+            right: props.containsSaturday ? `calc(100% - ${item.leftPosition} - 16%)`
                               : `calc(100% - ${item.leftPosition} - 18.5%)`,
           }
         )

@@ -34,7 +34,7 @@ function Create() {
         setContainsSaturday(false);
       }
     }
-  }, [data.scenarioNumber]);
+  }, [data.scenarioNumber, data.scenarios]);
 
   useEffect(() => {
     if (data.scenarios.length > 0) {

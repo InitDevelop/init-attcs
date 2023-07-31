@@ -38,6 +38,8 @@ function CustomLecture(props: propType) {
         return "목";
       case 4:
         return "금";
+      case 5:
+        return "토";
       default:
         return "";
     }
@@ -91,19 +93,19 @@ function CustomLecture(props: propType) {
             <td style={{ width: "60%", textAlign: 'left' }}>
               {
                 props.customLecture.editable ?
-                <input type='text' onChange={(e) => {
-                  props.handleRoomChange(props.customLecture, e.target.value)
-                }}  value={props.customLecture.lectureRoom}
-                    style={inputStyle} placeholder='예) 301-118'
-                    className='input-1'></input>
-                :
+                  <input type='text' onChange={(e) => {
+                      props.handleRoomChange(props.customLecture, e.target.value)}} 
+                    value={props.customLecture.lectureRoom}
+                    style={inputStyle}
+                    placeholder='예) 301-118'
+                    className='input-1'
+                  /> :
                 <h4 style={{textAlign: "left", marginLeft: "10px"}}>{props.customLecture.lectureRoom}</h4>
               }
-
             </td>
             <td style={{ width: "20%" }}>
               <button className='button-0'
-                onClick={() => {props.handleRemoveSchedule(props.customLecture)}}>
+                onClick={() => { props.handleRemoveSchedule(props.customLecture) }}>
                   제거
               </button>
             </td>
@@ -200,13 +202,8 @@ function CustomLecture(props: propType) {
                 }
               </h4>
             }
-
-            
             </td>
           </tr>
-
-
-
         </tbody>
       </table>
     </div>

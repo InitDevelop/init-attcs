@@ -3,7 +3,6 @@
 /* This CSS file defines the universal styles that are used for all components of this app */
 
 * {
-  user-select: none;
   margin: 0 auto;
   font-family: 'Pretendard Variable';
 }
