@@ -20,13 +20,16 @@ import { Scenario } from './util/Scenario';
 import packageJson from '../package.json';
 import Settings from './pages/Settings';
 
-import 'firebase/firestore';
-import 'firebase/auth';
-import 'firebase/storage';
-
 import { downloadObjectAsJson } from './components/global/FileIO';
 import { CheckRelatedLecture, accuracy } from './components/global/CheckRelatedLecture';
 import Home from './pages/Home';
+
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+import { firebaseConfig } from './config/firebase';
+
+export const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
 
 export const YEAR = 2023;
 export const SEMESTER = 2;
@@ -40,7 +43,6 @@ const appVersion: string = packageJson.version;
 
 export const PreviewContext = React.createContext<previewContextTypes>(defaultPreviewContext);
 export const CreationContext = React.createContext<creationContextTypes>(defaultCreationContext);
-
 
 function App() {
   

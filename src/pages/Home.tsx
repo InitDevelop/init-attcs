@@ -56,11 +56,11 @@ function Home(props: propType) {
             <tr>
               <td colSpan={2}>
                 <h4 className='key'>안녕하세요.</h4>
-                <h4 className='value'>샤간표를 이용해주셔서 감사합니다.</h4>
-                <h4 className='value'>샤간표는 React를 처음 공부하는 과정에서 진행한 프로젝트입니다.</h4>
-                <h4 className='value'>현재 샤간표는 프런트엔드로만 작동하며, 아직 로그인 등의 기능은 없습니다.</h4>
-                <h4 className='value'>처음 배우면서 만든 앱이다 보니, 부족한 부분들이 있을 수 있습니다.</h4>
-                <h4 className='value'>여러분의 이번 학기 수강 신청에 도움이 되는 유용한 도구로 활용되기를 바랍니다.</h4>
+                <h4 className='value'>샤간표를 이용해주셔서 감사합니다.
+                샤간표는 React를 처음 공부하는 과정에서 진행한 프로젝트입니다.
+                현재 샤간표는 프런트엔드와 기본적인 Firebase로만 작동하며, 아직 로그인 등의 기능은 없습니다.
+                처음 배우면서 만든 앱이다 보니, 부족한 부분들이 있을 수 있습니다.
+                여러분의 이번 학기 수강 신청에 도움이 되는 유용한 도구로 활용되기를 바랍니다.</h4>
                 <h4 className='value'>감사합니다.</h4>
               </td>
             </tr>

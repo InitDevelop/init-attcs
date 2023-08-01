@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import "../../css/AppTable.css";
 import "../add/SubjectList.css";
-import { CreationContext } from "../../App";
+import { CreationContext, analytics } from "../../App";
 import { Lecture } from '../../util/Lecture';
 import ScenarioSummary from './ScenarioSummary';
 import { Scenario } from '../../util/Scenario';
+import { logEvent } from 'firebase/analytics';
 
 type propType = {
   setIsLoading: (param: boolean) => void;
@@ -20,6 +21,10 @@ function CreationViewPanel(props: propType) {
 
   const runWorker = () => {
     const worker = new Worker(new URL("./CreationWorker.tsx", import.meta.url));
+
+    // Gets auto creation analytics
+    logEvent(analytics, 'timetable_auto_creation');
+
     props.setCurrentCombination(0);
     props.setTotalCombinations(1);
     props.setValidCombinations(0);
