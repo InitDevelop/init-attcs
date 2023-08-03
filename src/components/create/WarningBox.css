@@ -3,12 +3,14 @@
   padding: 4px;
   border: 3px solid #ffa20b;
   color: #ffa20b;
-  border-radius: 10px;
+  border-radius: 5px;
   font-weight: 600;
   font-size: medium;
   margin-top: 5px;
   margin-left: 7px;
   margin-right: 7px;
+  cursor: pointer;
+  transition: 190ms;
 }
 
 .empty-warning-box {
@@ -50,23 +52,33 @@
   margin-right: 7px;
 }
 
-.filled-empty-warning-box {
+.time-warning-box:hover {
+  color: #fff;
+  background-color: #ffa20b;
+}
+
+.filled-empty-warning-box, .empty-warning-box:hover {
+  color: #fff;
   background-color: #3a8176;
 }
 
-.filled-count-warning-box {
+.filled-count-warning-box, .count-warning-box:hover {
+  color: #fff;
   background-color: #ff810b;
 }
 
-.filled-lunch-warning-box {
+.filled-lunch-warning-box, .lunch-warning-box:hover {
+  color: #fff;
   background-color: #d66767;
 }
 
-.filled-morning-warning-box {
+.filled-morning-warning-box, .morning-warning-box:hover {
+  color: #fff;
   background-color: #53af62;
 }
 
-.filled-space-warning-box {
+.filled-space-warning-box, .space-warning-box:hover {
+  color: #fff;
   background-color: #af538c;
 }
 

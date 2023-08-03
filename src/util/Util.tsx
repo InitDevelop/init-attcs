@@ -1,5 +1,5 @@
 import buildingData from "../db/building_data.json"
-import { Lecture } from "./Lecture";
+import { Lecture, PseudoTimeSlot } from "./Lecture";
 
 export interface xyTuple {
   x: number,
@@ -16,8 +16,27 @@ export interface StringNumberPair {
 export interface Warning {
   warningType: 'time' | 'lunch' | 'empty' | 'count' | 'morning' | 'space';
   weight: number;
-  extraInfo: string[];
+  extraInfo: PseudoTimeSlot[][];
   isCritical: boolean;
+}
+
+export const dateValueToDate = (value: number): string => {
+  switch (value) {
+    case 0:
+      return "월요일";
+    case 1:
+      return "화요일";
+    case 2:
+      return "수요일";
+    case 3:
+      return "목요일";
+    case 4:
+      return "금요일";
+    case 5:
+      return "토요일";
+    default:
+      return "";
+  }
 }
 
 export const getDateValue = (dateChar: string): number => {

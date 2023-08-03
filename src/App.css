@@ -542,7 +542,7 @@
   background-color: #eee;
   margin: 3px 7px;
   padding: 7px;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .item-square-key {
@@ -550,7 +550,7 @@
   background-color: #e0e0e0;
   margin: 3px 7px;
   padding: 7px;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .select {

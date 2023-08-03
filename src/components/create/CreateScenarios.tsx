@@ -1,9 +1,8 @@
-import { PseudoTimeSlot, toPseudoTimeSlots } from "../../util/Lecture";
+import { PseudoTimeSlot, blankPseudoTimeSlot, toPseudoTimeSlots } from "../../util/Lecture";
 import { Scenario } from "../../util/Scenario";
 import { getDistance, Warning } from "../../util/Util";
 
 const DISTANCE_LIMIT: number = 1.53;
-
 
 const getStandardDeviation = (list: number[]): number => {
   let mean = 0;
@@ -35,25 +34,25 @@ const getLunchWarnings = (timeSlots: PseudoTimeSlot[][]): Warning => {
     if (timeSlots[date].length === 0) {
       existsLunchTime = true;
     } else if (timeSlots[date].length === 1) {
-      if (timeSlots[date][0].endTime <= 1300 || 
-          timeSlots[date][0].startTime >= 1200) {
+      if (timeSlots[date][0].endTime <= 1330 || 
+          timeSlots[date][0].startTime >= 1130) {
         existsLunchTime = true;
       }
     } else {
-      if (timeSlots[date][0].startTime >= 1200 || 
-          timeSlots[date][timeSlots[date].length - 1].endTime <= 1300) {
+      if (timeSlots[date][0].startTime >= 1130 || 
+          timeSlots[date][timeSlots[date].length - 1].endTime <= 1330) {
         existsLunchTime = true;
       }
     }
 
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
       if (timeSlots[date][slot].endTime >= 1100 &&
-          timeSlots[date][slot].endTime <= 1300) {
-        if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) >= 60) {
+          timeSlots[date][slot].endTime <= 1330) {
+        if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) >= 30) {
           existsLunchTime = true;
         }
       } else if (timeSlots[date][slot].endTime < 1100) {
-        if (timeSlots[date][slot + 1].startTime >= 1200) {
+        if (timeSlots[date][slot + 1].startTime >= 1130) {
           existsLunchTime = true;
         }
       }
@@ -61,7 +60,10 @@ const getLunchWarnings = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
     if (!existsLunchTime) {
       lunchWarning.weight++;
+      lunchWarning.extraInfo.push([blankPseudoTimeSlot]);
       lunchWarning.isCritical = true;
+    } else {
+      lunchWarning.extraInfo.push([]);
     }
   }
 
@@ -80,14 +82,14 @@ const getDistanceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
         if (getDistance(bdngFrom, bdngTo) / getMinuteDifference(
           timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) > DISTANCE_LIMIT) {
-          if (!distanceWarning.extraInfo.includes(timeSlots[date][slot].subjectTitle)) {
-            distanceWarning.extraInfo.push(timeSlots[date][slot].subjectTitle);
-            distanceWarning.weight++;
+          if (!distanceWarning.extraInfo.includes([timeSlots[date][slot], timeSlots[date][slot + 1]])) {
+            distanceWarning.extraInfo.push([timeSlots[date][slot], timeSlots[date][slot + 1]]);
+            distanceWarning.weight += 2;
           }
-          if (!distanceWarning.extraInfo.includes(timeSlots[date][slot + 1].subjectTitle)) {
-            distanceWarning.extraInfo.push(timeSlots[date][slot + 1].subjectTitle);
-            distanceWarning.weight++;
-          }
+          // if (!distanceWarning.extraInfo.includes(timeSlots[date][slot + 1])) {
+          //   distanceWarning.extraInfo.push(timeSlots[date][slot + 1]);
+          //   distanceWarning.weight++;
+          // }
         } 
       }
     }
@@ -122,9 +124,12 @@ const getLectureCountWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getEmptyDateWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let emptyDateWarning: Warning = { warningType: "empty", weight: 0, extraInfo: [], isCritical: false };
-  for (let date = 0; date <= 5; date++) {
+  for (let date = 0; date < 5; date++) {
     if (timeSlots[date].length === 0) {
       emptyDateWarning.weight++;
+      emptyDateWarning.extraInfo.push([blankPseudoTimeSlot]);
+    } else {
+      emptyDateWarning.extraInfo.push([]);
     }
   }
   if (emptyDateWarning.weight > 0) {
@@ -141,8 +146,15 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
         morningWarning.weight += (180 - getMinuteDifference(900, timeSlots[date][0].startTime)) / 60;
         if (getMinuteDifference(900, timeSlots[date][0].startTime) <= 45) {
           morningWarning.isCritical = true;
+          morningWarning.extraInfo.push([blankPseudoTimeSlot]);
+        } else {
+          morningWarning.extraInfo.push([]);
         }
+      } else {
+        morningWarning.extraInfo.push([]);
       }
+    } else {
+      morningWarning.extraInfo.push([]);
     }
   }
   return morningWarning;
@@ -150,11 +162,12 @@ const getMorningWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
 
 const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
   let spaceWarning: Warning = { warningType: "space", weight: 0, extraInfo: [], isCritical: false };
-  let consecutiveFlag: boolean = false;
   for (let date = 0; date <= 5; date++) {
+    let consecutiveFlag: boolean = false;
     let count = 0;
     for (let slot = 0; slot < timeSlots[date].length - 1; slot++) {
       if (getMinuteDifference(timeSlots[date][slot].endTime, timeSlots[date][slot + 1].startTime) <= 30) {
+        spaceWarning.extraInfo.push([timeSlots[date][slot], timeSlots[date][slot + 1]]);
         if (!consecutiveFlag) {
           consecutiveFlag = true;
         }
@@ -162,13 +175,18 @@ const getSpaceWarning = (timeSlots: PseudoTimeSlot[][]): Warning => {
       } else {
         consecutiveFlag = false;
         if (count > 1) {
-          spaceWarning.weight += (count - 1);
+          spaceWarning.weight += count;
         }
         count = 0;
       }
     }
+    if (consecutiveFlag) {
+      if (count > 1) {
+        spaceWarning.weight += count;
+      }
+    }
   }
-  if (spaceWarning.weight > 1) {
+  if (spaceWarning.weight > 0) {
     spaceWarning.isCritical = true;
   }
   return spaceWarning;

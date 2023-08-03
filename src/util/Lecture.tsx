@@ -80,6 +80,19 @@ export const blankLecture: Lecture = {
   language: ""
 }
 
+export const blankPseudoTimeSlot: PseudoTimeSlot = {
+  ...blankLecture,
+  slotOrder: 0,
+  date: 0,
+  slotRoom: "",
+  startHour: 0,
+  startMin: 0,
+  endHour: 0,
+  endMin: 0,
+  startTime: 0,
+  endTime: 0
+}
+
 export const toPseudoTimeSlots = (lecture: Lecture) => {
   let returningSlots: PseudoTimeSlot[] = [];
 

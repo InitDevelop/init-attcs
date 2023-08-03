@@ -6,7 +6,7 @@ import { PreviewContext } from "../../App";
 import { Lecture, getAllTimeSlots, toTimeSlots } from '../../util/Lecture';
 import { isTimeIntersect } from '../../util/Scenario';
 import { getWarnings } from '../create/CreateScenarios';
-import Warning from '../create/Warning';
+import Warning from '../create/WarningBox';
 
 function SubjectSelectList() {
   const data = useContext(PreviewContext);
@@ -90,10 +90,11 @@ function SubjectSelectList() {
                 shareTimeLectures: [],
                 warnings: [],
                 priority: 0
-              }).map(warning =>
+              }).filter(w => w.isCritical).map(warning =>
                 <Warning
-                  key={warning.warningType}
-                  warningType={warning.warningType}
+                  warning={warning}
+                  displayPopup={data.displayPopup}
+                  subjectIDs={data.selSubj.map(lect => lect.subjectID)}
                   />
               )
             }

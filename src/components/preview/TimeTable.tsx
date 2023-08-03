@@ -42,6 +42,17 @@ type propType = {
   displayPopup: (title: string, content: React.ReactNode) => void;
 }
 
+export const getSubjectLabelStyle = (order: number): React.CSSProperties => {
+  return {
+    fontWeight: "700",
+    backgroundColor: colors[order % colors.length],
+    color: "#fff",
+    padding: "3px",
+    borderRadius: "3px",
+    lineHeight: "2.0"
+  };
+}
+
 const TimeTable = (props: propType) => {
   const data = useContext(CreationContext);
   const [currentTooltipSlot, setCurrentTooltipSlot] = useState<string>("");
@@ -63,17 +74,6 @@ const TimeTable = (props: propType) => {
       height: item.height,
       backgroundColor: "rgba(0, 0, 0, 0.2)",
       backdropFilter: 'blur(5px)'
-    };
-  }
-  
-  const getSubjectLabelStyle = (order: number): React.CSSProperties => {
-    return {
-      fontWeight: "700",
-      backgroundColor: colors[order % colors.length],
-      color: "#fff",
-      padding: "3px",
-      borderRadius: "3px",
-      lineHeight: "2.0"
     };
   }
 

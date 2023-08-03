@@ -5,7 +5,7 @@ import { CreationContext } from '../../App';
 import Left from '../../img/left.svg';
 import Right from '../../img/right.svg';
 import { Scenario } from '../../util/Scenario';
-import Warning from './Warning';
+import Warning from './WarningBox';
 
 const creditSum = (sc: Scenario) => {
   let returnValue = 0;
@@ -134,8 +134,9 @@ function ScenarioSummary() {
                   <tr key={warning.warningType}>
                     <td colSpan={2}>
                       <Warning
-                        key={warning.warningType}
-                        warningType={warning.warningType}
+                        warning={warning}
+                        displayPopup={data.displayPopup}
+                        subjectIDs={data.lectureGroups.map(lectGroup => lectGroup.subjectID)}
                         />
                     </td>
                   </tr>
