@@ -96,7 +96,7 @@ export const blankPseudoTimeSlot: PseudoTimeSlot = {
 export const toPseudoTimeSlots = (lecture: Lecture) => {
   let returningSlots: PseudoTimeSlot[] = [];
 
-  let times = lecture.time.split("/");
+  let times = Array.from(new Set(lecture.time.split("/")));
   let count = times.length;
   let rooms = lecture.lectureRoom.split("/");
 
@@ -131,7 +131,7 @@ export const toPseudoTimeSlots = (lecture: Lecture) => {
 export const toTimeSlots = (lecture: Lecture, displayOrder: number, containsSaturday: boolean) => {
   let returningSlots: TimeSlot[] = [];
 
-  let times = lecture.time.split("/");
+  let times = Array.from(new Set(lecture.time.split("/")));
   let count = times.length;
   let rooms = lecture.lectureRoom.split("/");
 

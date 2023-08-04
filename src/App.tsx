@@ -34,7 +34,7 @@ export const analytics = getAnalytics(app);
 export const YEAR = 2023;
 export const SEMESTER = 2;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
-export const UPDATE = "2023. 07. 26.";
+export const UPDATE = "2023. 08. 04.";
 
 const currentSemester = "23-2";
 const pastSemester = "23-1";
