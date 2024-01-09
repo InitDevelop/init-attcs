@@ -1,8 +1,8 @@
 import './App.css';
 import './AppMobile.css';
 
-import lectureDataThis from "./db/data232.json";
-import lectureDataThen from "./db/data231.json";
+import lectureDataThis from "./db/data241.json";
+import lectureDataThen from "./db/data232.json";
 import React, { useState, useEffect, CSSProperties } from "react";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Add from './pages/Add';
@@ -31,13 +31,13 @@ import { firebaseConfig } from './config/firebase';
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 
-export const YEAR = 2023;
-export const SEMESTER = 2;
+export const YEAR = 2024;
+export const SEMESTER = 1;
 export const SEASON = 1; // 정규학기는 1, 계절학기는 2
-export const UPDATE = "2023. 08. 04.";
+export const UPDATE = "2024. 01. 09.";
 
-const currentSemester = "23-2";
-const pastSemester = "23-1";
+const currentSemester = "24-1";
+const pastSemester = "23-2";
 
 const appVersion: string = packageJson.version;
 
