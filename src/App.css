@@ -1,10 +1,14 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+/* @import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.css"); */
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap'); */
 
 /* This CSS file defines the universal styles that are used for all components of this app */
 
 * {
   margin: 0;
   font-family: 'Pretendard Variable';
+  /* font-family: 'SUIT Variable'; */
+  /* font-family: 'Noto Sans KR'; */
 }
 
 :root {
@@ -28,7 +32,6 @@
   --short-margin: 5px;
   --default-margin: 10px;
   --long-margin: 15px;
-
 }
 
 ::-webkit-scrollbar {
@@ -37,5 +40,195 @@
  
 ::-webkit-scrollbar-thumb {
   background-color: #bcbcbc;
-  border-radius: 10px;
+  //border-radius: 10px;
+}
+
+.default-box {
+  border-radius: 7px;
+  box-shadow: var(--shadow);
+  margin: 30px;
+  padding: 15px;
+}
+
+
+.container-title {
+  font-weight: var(--extrabold-weight-font);
+  font-size: var(--middle-size-font);
+  text-align: center;
+}
+
+
+.light {
+  font-weight: var(--light-weight-font);
+}
+
+.regular {
+  font-weight: var(--regular-weight-font);
+}
+
+.bold {
+  font-weight: var(--bold-weight-font);
+}
+
+.extrabold {
+  font-weight: var(--extrabold-weight-font);
+}
+
+.heavy {
+  font-weight: var(--heavy-weight-font);
+}
+
+.large {
+  font-size: large;
+}
+
+.right-margin-10 {
+  margin-right: 10px;
+}
+
+.right-margin-15 {
+  margin-right: 15px;
+}
+
+.left-margin-15 {
+  margin-left: 15px;
+}
+
+.top-margin-20 {
+  margin-top: 20px;
+}
+
+.outline {
+  padding: 4px 7px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.gray {
+  padding: 4px 7px;
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+
+.blue {
+  padding: 4px 7px;
+  background: #0066cc;
+  color: white;
+  border-radius: 4px;
+}
+
+.lightblue {
+  padding: 4px 7px;
+  background: #00a3cc;
+  color: white;
+  border-radius: 4px;
+}
+
+.orange {
+  padding: 4px 7px;
+  background: #EC7946;
+  color: white;
+  border-radius: 4px;
+}
+
+.red {
+  padding: 4px 7px;
+  background: #EC4E46;
+  color: white;
+  border-radius: 4px;
+}
+
+.mint {
+  padding: 4px 7px;
+  background: #00cca3;
+  color: white;
+  border-radius: 4px;
+}
+
+.hover {
+  cursor: pointer;
+}
+
+.hover:hover {
+  color: #00a3cc;
+  transition: 160ms;
+}
+
+.input-1 {
+  white-space: nowrap;
+
+  text-align: left;
+  font-weight: var(--regular-weight-font);
+  font-size: large;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-sizing: border-box;
+  border: var(--lightgray-border);
+}
+
+.input-1::placeholder {
+  color: #bcbcbc;
+}
+
+.button-blue, .button-red, .button-gray {
+  border-radius: 5px;
+
+  font-weight: 400;
+  font-size: 100%;
+  padding: 7px 19px;
+  transition : 193ms;
+  transform: translateY(0);
+  align-items: center;
+  cursor: pointer;
+  display: inline-block;
+  word-wrap: break-word;
+}
+
+.button-blue:hover, .button-red:hover, .button-gray:hover {
+  transition : 193ms;
+  transform : translateY(-0px);
+}
+
+.button-blue:disabled, .button-red:disabled {
+  background-color: #fff;
+  color: #747474;
+  border: solid 2px #747474;
+}
+
+.button-blue {
+  color: #fff;
+  background-color: #0066CC;
+  border: solid #0066cc 2px;
+}
+
+.button-blue:hover{
+  color: #0066CC;
+  background-color: #fff;
+  border: solid #0066CC 2px;
+}
+
+.button-red {
+  color: #fff;
+  background-color: #EC4E46;
+  border: solid #EC4E46 2px;
+}
+
+.button-red:hover{
+  background-color: #fff;
+  color: #EC4E46;
+  border: solid 2px #EC4E46;
+}
+
+.button-gray {
+  color: #fff;
+  background-color: #777;
+  border: solid #777 2px;
+}
+
+.button-gray:hover{
+  background-color: #fff;
+  color: #777;
+  border: solid 2px #777;
 }

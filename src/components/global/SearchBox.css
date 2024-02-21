@@ -1,0 +1,10 @@
+.search-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar-container {
+  margin-top: 1.5%;
+  display: flex;
+  flex-direction: column;
+}

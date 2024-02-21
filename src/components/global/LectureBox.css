@@ -1,0 +1,44 @@
+.lecturebox-outer {
+  border-bottom: var(--lightgray-border);
+  padding: 10px;
+}
+
+.lecturebox-outer:hover {
+  background: #f7f7f7
+}
+
+.lecturebox-inner {
+  display: flex;
+  flex-direction: row;
+}
+
+.lecturebox-inner-left {
+  display: flex;
+  flex-direction: column;
+
+  cursor: pointer;
+
+  flex: 11;
+}
+
+.lecturebox-inner-right {
+  display: flex;
+  flex-direction: row-reverse;
+
+  align-items: center;
+
+  flex: 2;
+}
+
+.lecturebox-row {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: baseline;
+}
+
+.lecturebox-row + .lecturebox-row {
+  margin-top: 10px;
+}

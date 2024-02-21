@@ -20,3 +20,26 @@ export type Lecture = {
   extraInfo: string;
   language: string;
 }
+
+export const blankLecture: Lecture = {
+  id: "",
+  classification: "",
+  college: "",
+  department: "",
+  program: "",
+  year: "",
+  subjectID: "",
+  lectureNumber: "",
+  subjectTitle: "",
+  subjectSubtitle: "",
+  credit: "",
+  creditLecture: "",
+  creditLab: "",
+  time: "",
+  lectureForm: "",
+  lectureRoom: "",
+  lecturer: "",
+  quota: "",
+  extraInfo: "",
+  language: ""
+}
