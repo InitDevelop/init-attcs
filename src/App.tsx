@@ -8,6 +8,7 @@ import Popup from "./components/popup/Popup";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Add } from "./pages/Add";
+import { Create } from "./pages/Create";
 
 export const YEAR = 2024;
 export const SEMESTER = 1;
@@ -59,7 +60,7 @@ const App = () => {
         />
         <Route path="/create"
           element={
-            <Display text='create'></Display>
+            <Create/>
           }
         />
       </Routes>

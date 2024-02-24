@@ -1,0 +1,17 @@
+.create-container {
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.create-container-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.with-left-padding {
+  padding-left: 30px;
+}

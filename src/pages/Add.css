@@ -7,13 +7,13 @@
 }
 
 .add-container-left {
-  flex: 7;
+  flex: 2;
   display: flex;
   flex-direction: column;
 }
 
 .add-container-right {
-  flex: 3;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

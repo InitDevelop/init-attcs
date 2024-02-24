@@ -12,14 +12,6 @@
   flex-direction: row;
 }
 
-.addlecturebox-inner-right {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-
-  flex: 11;
-}
-
 .addlecturebox-inner-left {
   display: flex;
   flex-direction: row;
@@ -28,6 +20,14 @@
   align-items: center;
 
   flex: 1;
+}
+
+.addlecturebox-inner-right {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  flex: 11;
 }
 
 .addlecturebox-row {

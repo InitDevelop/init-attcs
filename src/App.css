@@ -57,6 +57,10 @@
   text-align: center;
 }
 
+.disable-select {
+  user-select: none;
+}
+
 
 .light {
   font-weight: var(--light-weight-font);
@@ -173,11 +177,13 @@
 
 .hover:hover {
   color: #00a3cc;
-  transition: 160ms;
+  transition: 200ms;
 }
 
 .input-1 {
   white-space: nowrap;
+
+  border-radius: 7px;
 
   text-align: left;
   font-weight: var(--regular-weight-font);
@@ -217,6 +223,10 @@
   background-color: #fff;
   color: #747474;
   border: solid 2px #747474;
+}
+
+.tiny-button {
+  padding: 5px 10px;
 }
 
 .button-blue {

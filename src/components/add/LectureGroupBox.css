@@ -1,0 +1,61 @@
+.lecturegroup-header {
+  padding: 12px;
+  background: #ddd;
+}
+
+.lecturegroup-box {
+  display: flex;
+  flex-direction: column;
+
+  border-bottom: var(--lightgray-border);
+  padding: 12px;
+}
+
+.minibox-outer + .minibox-outer {
+  border-top: var(--lightgray-border);
+}
+
+.minibox-outer {
+  padding: 3px 7px;
+}
+
+.minibox-outer:hover {
+  background: #f7f7f7
+}
+
+.minibox-inner {
+  display: flex;
+  flex-direction: row;
+}
+
+.minibox-inner-left {
+  display: flex;
+  flex-direction: row;
+
+  cursor: pointer;
+
+  justify-content: center;
+  align-items: center;
+
+  flex: 4;
+}
+
+.minibox-inner-right {
+  display: flex;
+  flex-direction: row-reverse;
+  
+  flex: 1;
+}
+
+.minibox-row {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: baseline;
+}
+
+.minibox-row + .minibox-row {
+  margin-top: 10px;
+}

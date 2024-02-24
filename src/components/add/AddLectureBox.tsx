@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Lecture } from "../../types/Lecture";
 import './AddLectureBox.css';
-import { combinedStateType } from "../../reducers";
 
 export const AddLectureBox = (
   props: {

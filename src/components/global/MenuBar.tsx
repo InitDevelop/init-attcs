@@ -45,7 +45,7 @@ export const MenuBar = () => {
           'menubar-item-current'
           : 'menubar-item'
         } to='/timetable'>
-          시간표 짜기
+          강좌 담기
         </Link>
         <Link className={
           location.pathname === '/create' ?

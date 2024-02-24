@@ -6,6 +6,7 @@ type addedLecturesState = {
   selectedSubjectID: string;
   displayedLectures: Lecture[];
   addedLectureGroups: LectureGroup[];
+  lectureListShownList: string[];
 }
 
 const INITIAL_AUTO_GENERATE_SETTINGS: addedLecturesState = {
@@ -13,6 +14,7 @@ const INITIAL_AUTO_GENERATE_SETTINGS: addedLecturesState = {
   selectedSubjectID: "",
   displayedLectures: [],
   addedLectureGroups: [],
+  lectureListShownList: [],
 };
 
 type autoGeneratorAction = {
@@ -22,6 +24,7 @@ type autoGeneratorAction = {
     selectedSubjectID: string,
     lecture: Lecture,
     lectures: Lecture[],
+    subjectID: string,
   };
 };
 
@@ -36,7 +39,8 @@ const autoGeneratorReducer = (state = INITIAL_AUTO_GENERATE_SETTINGS, action: au
 
     if (IDs.includes(action.payload.lecture.subjectID)) {
       const index = state.addedLectureGroups.findIndex((lg: LectureGroup) => lg.subjectID === action.payload.lecture.subjectID);
-      copy[index].lectures.push(action.payload.lecture);
+      if (copy[index].lectures.filter(l => l.lectureNumber === action.payload.lecture.lectureNumber).length === 0)
+        copy[index].lectures.push(action.payload.lecture);
     } else {
       copy.push({
         subjectID: action.payload.lecture.subjectID,
@@ -57,6 +61,12 @@ const autoGeneratorReducer = (state = INITIAL_AUTO_GENERATE_SETTINGS, action: au
     }
 
     return { ...state, addedLectureGroups: copy };
+  } else if (action.type === "TOGGLE_SHOW") {
+    if (state.lectureListShownList.includes(action.payload.subjectID)) {
+      return { ...state, lectureListShownList: state.lectureListShownList.filter(s => s !== action.payload.subjectID) };
+    } else {
+      return { ...state, lectureListShownList: state.lectureListShownList.concat(action.payload.subjectID) };
+    }
   } else {
     return state;
   }
