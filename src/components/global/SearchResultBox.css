@@ -9,10 +9,12 @@
 .search-result-container {
   position: relative;
 
+  border-radius: 7px;
+
   display: flex;
   flex-direction: column;
 
-  margin-top: 1.5%;
+  margin-top: 12px;
 
   flex: 1;
   border: var(--lightgray-border);
@@ -20,6 +22,9 @@
 
 .search-result-scrollable {
   position: absolute;
+
+  border-radius: 7px;
+
 
   overflow: auto;
   max-height: 100%;

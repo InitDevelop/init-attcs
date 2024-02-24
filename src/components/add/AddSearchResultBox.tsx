@@ -1,41 +1,8 @@
-import { useSelector } from 'react-redux';
 import './AddSearchResultBox.css';
-import { combinedStateType } from '../../reducers';
 import { Lecture } from '../../types/Lecture';
-import { useEffect, useState } from 'react';
-import { accuracy, checkRelatedLecture } from '../../util/checkRelatedLecture';
 import { SubjectBox } from './SubjectBox';
 
-export const AddSearchResultBox = () => {
-  const subjectSearchText = useSelector((state: combinedStateType) => state.autoGeneratorReducers.subjectSearchText);
-  const selectedSubjectID = useSelector((state: combinedStateType) => state.autoGeneratorReducers.selectedSubjectID);
-  const lectureDatabase = useSelector((state: combinedStateType) => state.lectureDatabaseReducer.lectures);
-
-  const [subjectList, setSubjectList] = useState<Lecture[]>([]);
-
-  useEffect(() => {
-    let subjectsAdded: string[] = [];
-    let matches: Lecture[] = [];
-    let filtered = lectureDatabase.filter(
-      subject => subjectSearchText.length > 1 && checkRelatedLecture(subjectSearchText, subject)
-    );
-    let sorted = filtered.sort((a, b) => accuracy(subjectSearchText, b.subjectTitle) - accuracy(subjectSearchText, a.subjectTitle));
-
-    for (const subject of sorted) {
-      if (!subjectsAdded.includes(subject.subjectID)) {
-        subjectsAdded.push(subject.subjectID);
-        matches.push(subject);
-      }
-    }
-
-    setSubjectList(matches);
-    setSubjectList(
-      filtered.filter(
-        subject => subject.subjectID === selectedSubjectID
-      ).sort((a, b) => `${a.subjectID} ${a.lectureNumber}`.localeCompare(`${b.subjectID} ${b.lectureNumber}`))
-    );
-  }, [subjectSearchText, selectedSubjectID, lectureDatabase]);
-
+export const AddSearchResultBox = ( props: { subjectList: Lecture[], selectedSubjectID: string } ) => {
 
   return (
     <div className='default-box search-result-box'>
@@ -43,8 +10,8 @@ export const AddSearchResultBox = () => {
       <div className="search-result-container">
         <div className="search-result-scrollable">
           {
-            subjectList.map(subject => 
-              <SubjectBox/>
+            props.subjectList.map(subject => 
+              <SubjectBox subject={subject} isSelected={props.selectedSubjectID === subject.subjectID} />
             )
           }
         </div>

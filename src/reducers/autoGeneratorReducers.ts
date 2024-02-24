@@ -4,12 +4,14 @@ import { LectureGroup } from "../types/LectureGroup";
 type addedLecturesState = {
   subjectSearchText: string;
   selectedSubjectID: string;
+  displayedLectures: Lecture[];
   addedLectureGroups: LectureGroup[];
 }
 
 const INITIAL_AUTO_GENERATE_SETTINGS: addedLecturesState = {
   subjectSearchText: "",
   selectedSubjectID: "",
+  displayedLectures: [],
   addedLectureGroups: [],
 };
 
@@ -19,6 +21,7 @@ type autoGeneratorAction = {
     subjectSearchText: string,
     selectedSubjectID: string,
     lecture: Lecture,
+    lectures: Lecture[],
   };
 };
 

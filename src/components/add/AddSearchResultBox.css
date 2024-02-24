@@ -1,0 +1,21 @@
+.select-lectures-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.select-lectures-box-left {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+.select-lectures-box-right {
+  display: flex;
+  padding-left: 10px;
+  flex-direction: column;
+  flex: 5;
+}
+
+.left-margin-0 {
+  margin-left: 0;
+}

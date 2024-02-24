@@ -1,0 +1,26 @@
+.subjectbox {
+  padding: 12px;
+  border-bottom: var(--lightgray-border);
+  cursor: pointer;
+  transition: 150ms;
+}
+
+.subjectbox:hover {
+  background: #ddd;
+  transition: 150ms;
+}
+
+.selected {
+  padding: 12px;
+  border-bottom: var(--lightgray-border);
+  cursor: pointer;
+  transition: 150ms;
+  background: #76d1e8;
+}
+
+.subjectbox-display {
+  text-align: center;
+  border: var(--lightgray-border);
+  padding: 12px;
+  margin-top: 1.5%;
+}

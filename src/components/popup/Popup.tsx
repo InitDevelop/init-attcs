@@ -29,7 +29,7 @@ const Popup = (props: { title: string, content: React.ReactNode, displayCloseBut
       <div className='popup-inner'>
         <div className='container-title'>{props.title}</div>
         {
-          (props.type === 'lectures add' || props.type === 'lectures remove') &&
+          (props.type === 'lectures add' || props.type === 'lectures remove' || props.type === 'lectures') &&
           props.lectures.map(
             lecture =>
             <div className='top-margin-20' style={{ width: "100%" }}>
