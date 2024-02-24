@@ -35,6 +35,11 @@
   text-align: center;
 }
 
+.popup-content {
+  display: flex;
+  width: 100%;
+}
+
 .lectureinfo-table {
   line-height: 1.3;
 

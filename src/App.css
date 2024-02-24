@@ -86,8 +86,12 @@
   font-size: large;
 }
 
-.extralarge {
+.extralarge, .xlarge {
   font-size: x-large;
+}
+
+.xxlarge {
+  font-size: xx-large;
 }
 
 .right-margin-10 {
@@ -108,6 +112,14 @@
 
 .top-margin-10 {
   margin-top: 10px;
+}
+
+.bottom-margin-20 {
+  margin-bottom: 20px;
+}
+
+.bottom-margin-10 {
+  margin-bottom: 10px;
 }
 
 .outline {

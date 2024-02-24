@@ -37,7 +37,7 @@ const Popup = (props: { title: string, content: React.ReactNode, displayCloseBut
             </div>
           )
         }
-        <div className='top-margin-20'>{props.content}</div>
+        <div className='popup-content top-margin-20'>{props.content}</div>
         {
           props.displayCloseButton &&
           <button className='button-blue top-margin-20' onClick={handleButtonClick}>닫기</button>

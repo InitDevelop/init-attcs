@@ -41,7 +41,7 @@ const popupReducer = (state = INITIAL_POPOP_SETTINGS, action: popupAction) => {
     case "SET_USE_CLOSE_BUTTON":
       return { ...state, useCloseButton: action.payload.useCloseButton };
     case "SHOW_POPUP":
-      return { ...state, displayPopup: true, popupTitle: action.payload.popupTitle,
+      return { ...state, displayPopup: true, popupTitle: action.payload.popupTitle, popupType: action.payload.popupType,
                 popupContent: action.payload.popupContent, useCloseButton: action.payload.useCloseButton };
     case "SHOW_POPUP_LECTURES":
       return { ...state, displayPopup: true, popupTitle: action.payload.popupTitle, popupType: action.payload.popupType,
