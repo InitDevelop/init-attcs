@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Add } from "./pages/Add";
 import { Create } from "./pages/Create";
+import { Settings } from "./pages/Settings";
 
 export const YEAR = 2024;
 export const SEMESTER = 1;
@@ -61,6 +62,11 @@ const App = () => {
         <Route path="/create"
           element={
             <Create/>
+          }
+        />
+        <Route path="/settings"
+          element={
+            <Settings/>
           }
         />
       </Routes>

@@ -54,6 +54,13 @@ export const MenuBar = () => {
         } to='/create'>
           시간표 생성하기
         </Link>
+        <Link className={
+          location.pathname === '/settings' ?
+          'menubar-item-current'
+          : 'menubar-item'
+        } to='/settings'>
+          설정
+        </Link>
       </div>
       <div className="menubar-right">
         {

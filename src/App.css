@@ -183,6 +183,13 @@
   border-radius: 4px;
 }
 
+.lightgreen {
+  padding: 4px 7px;
+  background: #80db8f;
+  color: black;
+  border-radius: 4px;
+}
+
 .hover {
   cursor: pointer;
 }

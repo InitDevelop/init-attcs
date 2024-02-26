@@ -80,8 +80,6 @@ export const AutoCreatePanel = (
     );
   }
 
-  console.log(scenarios);
-
   const runWorker = () => {
     const worker = new Worker(new URL("./CreationWorker.tsx", import.meta.url));
     props.setCurrentCombination(0);

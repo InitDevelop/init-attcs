@@ -1,10 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Lecture } from '../../types/Lecture';
 import './AddLectureBox.css';
+import { combinedStateType } from '../../reducers';
 
 export const LectureGroupMinibox = ( props: { lecture: Lecture, removeLectureFromGroup: (param: Lecture) => void } ) => {
 
+  const relatedLectures = useSelector((state: combinedStateType) => state.scenarioReducer.relatedLectures);
   const dispatch = useDispatch();
+
+  const isRelated = (relatedLectures.filter(l => l.id === props.lecture.id).length > 0);
 
   const isNotKorean = props.lecture.language !== "한국어";
   const hasRestriction = props.lecture.extraInfo.includes("®");
@@ -26,7 +30,7 @@ export const LectureGroupMinibox = ( props: { lecture: Lecture, removeLectureFro
       <div className='minibox-inner'>
         <div className="minibox-inner-left" onClick={() => handleClick(props.lecture)}>
           <div className="minibox-row">
-            <div className="gray bold large right-margin-10">{props.lecture.lectureNumber}</div>
+            <div className={ (isRelated ? 'lightgreen' : 'gray') + " bold large right-margin-10" }>{props.lecture.lectureNumber}</div>
             <div className="regular large right-margin-10">{props.lecture.lecturer}</div>
             {
               isNotKorean && <div className="blue bold small right-margin-10">외국어</div>
