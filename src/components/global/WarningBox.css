@@ -40,16 +40,17 @@
 
 .filled-time-warning-box, .filled-empty-warning-box, .filled-count-warning-box,
    .filled-morning-warning-box, .filled-lunch-warning-box, .filled-space-warning-box {
-  text-align: center;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
   padding: 7px;
   background-color: #ffa20b;
   color: #fff;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: medium;
-  margin-top: 5px;
-  margin-left: 7px;
-  margin-right: 7px;
+  border-radius: 5px;
+  vertical-align: baseline;
+  
 }
 
 .time-warning-box:hover {
