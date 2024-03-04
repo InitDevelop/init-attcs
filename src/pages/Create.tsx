@@ -8,6 +8,7 @@ import { Scenario } from '../types/Scenario';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { combinedStateType } from '../reducers';
+import LoadingPopup from '../components/create/LoadingPopup';
 
 export const Create = () => {
 
@@ -61,7 +62,8 @@ export const Create = () => {
       }
       setRelatedLectures(relatedLectures);
     }
-  }, [scenarioNumber, isLoading]);
+    // eslint-disable-next-line
+  }, [scenarioNumber, isLoading, scenarios]);
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {
@@ -101,6 +103,13 @@ export const Create = () => {
           <Timetable lectures={[]} hoveredLecture={blankLecture} isHovered={false}/>
         }
       </div>
+      {
+        isLoading &&
+        <LoadingPopup
+          currentCombination={currentCombination}
+          totalCombinations={totalCombinations}
+          validCombinations={validCombinations}/>
+      }
     </div>
   )
 }

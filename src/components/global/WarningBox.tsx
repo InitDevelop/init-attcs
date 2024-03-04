@@ -50,17 +50,17 @@ function getComponent(warning: Warning) {
 const getWarningText = (warningType: string) => {
   switch (warningType) {
     case "time":
-      return "🏃‍♂️ 강의실 사이 동선이 걱정돼요!";
+      return "🏃‍♂️ 동선 주의";
     case "empty":
-      return "😀 공강이 있어요!";
+      return "😀 공강 존재함";
     case "count":
-      return "⌛ 요일별 총 수업 시간의 편차가 커요!";
+      return "⌛ 수업 시간 편차 큼";
     case "morning":
-      return "🥱 이른 아침수업이 있어요!";
+      return "🥱 아침 수업 존재";
     case "lunch":
-      return "🍚 점심 먹을 시간이 부족해요!";
+      return "🍚 점심 시간 부족";
     case "space":
-      return "🕒 연강이 많아요! 힘들지 않을까요?";
+      return "🕒 연강 과다";
     default:
       return "";
   }

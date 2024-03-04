@@ -6,6 +6,7 @@ import popupReducer from "./popupReducers";
 import autoGeneratorReducer from "./autoGeneratorReducers";
 import scenarioReducer from "./scenarioReducers";
 import priorityReducer from "./priorityReducers";
+import customLectureReducer from "./customLectureReducers";
 
 export type combinedStateType = ReturnType<typeof rootReducer>;
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   autoGeneratorReducers: autoGeneratorReducer,
   scenarioReducer: scenarioReducer,
   priorityReducer: priorityReducer,
+  customLectureReducer: customLectureReducer,
 });
 
 export default rootReducer;

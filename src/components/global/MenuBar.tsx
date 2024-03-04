@@ -1,14 +1,23 @@
 import './MenuBar.css';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../img/logo.png';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../../config/firebase';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const MenuBar = () => {
   const location = useLocation();
 
   const [renderToggle, setRenderToggle] = useState<boolean>(false);
+  const [userEmail, setUserEmail] = useState<string>("");
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setRenderToggle(!renderToggle);
+    });
+    return unsubscribe;
+  }, [auth]);
+
 
   const signInWithGoogle = async () => {
     if (auth?.currentUser?.email !== undefined) {  // Currently logged in
@@ -26,6 +35,8 @@ export const MenuBar = () => {
     }
     setRenderToggle(!renderToggle);
   }
+
+  console.log(auth?.currentUser?.email);
 
   return (
     <div className='menubar'>

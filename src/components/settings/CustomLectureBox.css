@@ -1,0 +1,41 @@
+.customlecturebox-outer {
+  border-bottom: var(--lightgray-border);
+  padding: 10px;
+
+  text-align: center;
+}
+
+.customlecturebox-outer:hover {
+  background: #f7f7f7
+}
+
+.customlecturebox-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.customlecturebox-inner-column {
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+.customlecturebox-left {
+  display: flex;
+  flex-direction: row;
+
+  flex: 1;
+
+  align-items: baseline;
+}
+
+.customlecturebox-right {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+

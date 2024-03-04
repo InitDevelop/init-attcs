@@ -1,0 +1,41 @@
+.loading-table {
+  border-collapse: collapse;
+  border: 1px solid gray;
+  width: 100%;
+}
+
+.loading-table tr {
+  border: 1px solid gray;
+}
+
+.loading-table td {
+  border: 1px solid gray;
+  padding: 7px 0px;
+}
+
+.key {
+  font-weight: bolder;
+}
+
+.value {
+  font-weight: normal;
+}
+
+.loading-table-left {
+  width: 30%;
+}
+
+.loading-table-right-half {
+  width: 35%;
+  border-radius: 0;
+}
+
+.loading-table-right {
+  width: 70%;
+}
+
+.progress-bar-text {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}

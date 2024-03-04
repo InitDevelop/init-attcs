@@ -64,6 +64,54 @@ export const getDateValue = (dateChar: string): number => {
   return date;
 }
 
+export const getDateString = (dateNumber: number) => {
+  switch (dateNumber) {
+    case 0:
+      return "월";
+    case 1:
+      return "화";
+    case 2:
+      return "수";
+    case 3:
+      return "목";
+    case 4:
+      return "금";
+    case 5:
+      return "토";
+    default:
+      return "";
+  }
+}
+
+export const toTimeText = (startHour: number, startMin: number, endHour: number, endMin: number) => {
+  let returnText: string = "";
+  if (startHour < 10) {
+    returnText += `0${startHour}:`;
+  } else {
+    returnText += `${startHour}:`;
+  }
+
+  if (startMin < 10) {
+    returnText += `0${startMin}~`;
+  } else {
+    returnText += `${startMin}~`;
+  }
+
+  if (endHour < 10) {
+    returnText += `0${endHour}:`;
+  } else {
+    returnText += `${endHour}:`;
+  }
+
+  if (endMin < 10) {
+    returnText += `0${endMin}`;
+  } else {
+    returnText += `${endMin}`;
+  }
+
+  return returnText;
+}
+
 export const getTimeNumber = (hour: number, min: number) => {
   return 100 * hour + min;
 }

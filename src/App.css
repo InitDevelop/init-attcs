@@ -132,6 +132,10 @@
   padding: 4px 7px;
   background: #e0e0e0;
   border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .darkergray {
@@ -202,7 +206,7 @@
 .input-1 {
   white-space: nowrap;
 
-  border-radius: 7px;
+  border-radius: 4px;
 
   text-align: left;
   font-weight: var(--regular-weight-font);
@@ -316,4 +320,17 @@
 
 .flex-1 {
   flex: 1;
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+.select {
+  font-size: medium;
+  padding: 4px;
+}
+
+.baseline {
+  align-items: baseline;
 }

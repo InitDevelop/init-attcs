@@ -47,4 +47,4 @@ const Popup = (props: { title: string, content: React.ReactNode, displayCloseBut
   );
 }
 
-export default Popup
+export default Popup;
