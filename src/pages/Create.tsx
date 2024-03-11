@@ -99,8 +99,18 @@ export const Create = () => {
       <div className='create-container-inner'>
         {
           scenarios.length > 0 ?
-          <Timetable lectures={scenarios[scenarioNumber].lectures} hoveredLecture={blankLecture} isHovered={false}/> :
-          <Timetable lectures={[]} hoveredLecture={blankLecture} isHovered={false}/>
+          <Timetable
+            lectures={scenarios[scenarioNumber].lectures}
+            hoveredLecture={blankLecture}
+            isHovered={false}
+            includesSaturday={scenarios[scenarioNumber].lectures.filter(l => l.time.includes("토")).length > 0}
+            mode='create'/> :
+          <Timetable
+            lectures={[]}
+            hoveredLecture={blankLecture}
+            isHovered={false}
+            includesSaturday={false}
+            mode='create'/>
         }
       </div>
       {

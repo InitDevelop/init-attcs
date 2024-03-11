@@ -37,7 +37,17 @@ export const Home = () => {
         </div>
       </div>
       <div className='home-container-right'>
-        <Timetable lectures={addedLectures} hoveredLecture={hoveredLecture} isHovered={hovered}/>
+        <Timetable
+          lectures={addedLectures}
+          hoveredLecture={hoveredLecture}
+          isHovered={hovered}
+          includesSaturday={
+            hovered ?
+            addedLectures.concat(hoveredLecture).filter(l => l.time.includes("토")).length > 0
+            :
+            addedLectures.filter(l => l.time.includes("토")).length > 0
+          }
+          mode='preview'/>
       </div>
     </div>
   )

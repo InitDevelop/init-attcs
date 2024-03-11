@@ -89,7 +89,6 @@ export const LectureBox = (props: { lecture: Lecture, intersects: boolean | unde
             {
               props.alreadyExists && <div className="orange bold small right-margin-10">담은 강좌</div>
             }
-            <div className="bold regular small right-margin-10">{props.lecture.college} {props.lecture.department} 개설</div>
             <div className="regular small right-margin-10">{props.lecture.subjectID} ({props.lecture.lectureNumber})</div>
           </div>
         </div>

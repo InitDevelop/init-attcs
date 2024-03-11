@@ -3,8 +3,6 @@ import { SEASON, SEMESTER, YEAR } from "../../App";
 import { Lecture } from "../../types/Lecture";
 import "./Popup.css";
 
-
-
 export const LectureInformationTable = (props: { lecture: Lecture, useRemove: boolean, useAdd: boolean }) => {
 
   const dispatch = useDispatch();
@@ -57,7 +55,7 @@ export const LectureInformationTable = (props: { lecture: Lecture, useRemove: bo
             <h4 className='value'>{props.lecture.lecturer}</h4>
           </td>
           <td>
-            <h4 className='key'>과목명</h4>
+            <h4 className='key'>과목 번호</h4>
             <h4 className='value'>{props.lecture.subjectID} ({props.lecture.lectureNumber})</h4>
           </td>
         </tr>

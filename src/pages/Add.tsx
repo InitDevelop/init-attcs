@@ -88,7 +88,12 @@ export const Add = () => {
       <div className='add-container-right'>
         {
           hovered ?
-          <Timetable lectures={[hoveredLecture]} hoveredLecture={blankLecture} isHovered={false}/>
+          <Timetable
+            lectures={[hoveredLecture]}
+            hoveredLecture={blankLecture}
+            isHovered={false}
+            includesSaturday={true}
+            mode='add'/>
           :
           <AddedLectureGroupList/>
         }
